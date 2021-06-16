@@ -25,7 +25,12 @@ export const GlobalStyles = styled.createGlobalStyle`
     --primary: #f7f3f2;
     --accent: #625cff;
     --white: #fff;
-    --gray: #d3d3d3;
+    --gray-50: #f2f2f2;
+    --light-gray: #d3d3d3;
+    --medium-gray: #8b8b8b;
+    --dark-gray: #515151;
     --outline: #2f3336;
+    --error: #e57373;
+    /* --error: #ef5350; */
   }
 `;
