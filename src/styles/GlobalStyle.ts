@@ -20,6 +20,7 @@ export const GlobalStyles = styled.createGlobalStyle`
       rgba(255, 255, 255, 1) 100%
     );
     background-attachment: fixed;
+    overflow: hidden;
   }
   :root {
     --primary: #f7f3f2;
