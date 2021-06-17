@@ -8,6 +8,8 @@ import Label from '../../../components/Form/Label/Label';
 import { FormTitle } from './styled';
 import { v4 as uuid } from 'uuid';
 import agent from '../../../app/api/agent';
+import Wrapper from '../../../app/layouts/Layout/Wrapper';
+import Container from '../../../app/layouts/Layout/Container';
 
 type FormValues = {
   id: string;
@@ -43,17 +45,32 @@ export default function ModelForm() {
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
 
   return (
-    <Card>
-      <FormTitle>Cadastrar modelo</FormTitle>
-      <form onSubmit={onSubmit}>
-        <Label>Nome</Label>
-        <Input {...register('name')} placeholder="nome do modelo" type="text" />
-        <Label>Ano</Label>
-        <Input {...register('year')} placeholder="ano do modelo" type="date" />
-        <Label>Descrição</Label>
-        <Input {...register('description')} placeholder="descrição do modelo" />
-        <Button type="submit">Salvar</Button>
-      </form>
-    </Card>
+    <Container>
+      <Wrapper>
+        <Card>
+          <FormTitle>Cadastrar modelo</FormTitle>
+          <form onSubmit={onSubmit}>
+            <Label>Nome</Label>
+            <Input
+              {...register('name')}
+              placeholder="nome do modelo"
+              type="text"
+            />
+            <Label>Ano</Label>
+            <Input
+              {...register('year')}
+              placeholder="ano do modelo"
+              type="date"
+            />
+            <Label>Descrição</Label>
+            <Input
+              {...register('description')}
+              placeholder="descrição do modelo"
+            />
+            <Button type="submit">Salvar</Button>
+          </form>
+        </Card>
+      </Wrapper>
+    </Container>
   );
 }

@@ -1,12 +1,21 @@
-import React from 'react';
-import { Header, HeaderTitle, Wrapper } from './styled';
+import { useState } from 'react';
+import { Header, HeaderTitle, MenuIcon, Wrapper } from './styled';
+import Sidebar from '../SideBar/Sidebar';
 
 export default function NavBar() {
+  const [sideBar, setSideBar] = useState(false);
+
+  const showSideBar = () => setSideBar(!sideBar);
+
   return (
-    <Header>
-      <Wrapper>
-        <HeaderTitle>SoftRank</HeaderTitle>
-      </Wrapper>
-    </Header>
+    <>
+      <Header>
+        <Wrapper>
+          <MenuIcon onClick={showSideBar} />
+          <HeaderTitle>SoftRank</HeaderTitle>
+        </Wrapper>
+      </Header>
+      {sideBar && <Sidebar />}
+    </>
   );
 }
