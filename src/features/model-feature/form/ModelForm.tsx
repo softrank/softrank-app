@@ -10,6 +10,7 @@ import { v4 as uuid } from 'uuid';
 import agent from '../../../app/api/agent';
 import Wrapper from '../../../app/layouts/Layout/Wrapper';
 import Container from '../../../app/layouts/Layout/Container';
+import { Redirect } from 'react-router-dom';
 
 type FormValues = {
   id: string;
@@ -40,6 +41,7 @@ export default function ModelForm() {
         setModels([...models, model]);
       });
     }
+    return <Redirect to="/listarModelos" />;
   };
 
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));

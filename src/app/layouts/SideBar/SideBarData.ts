@@ -5,6 +5,10 @@ export const SideBarData = [
   },
   {
     title: 'Cadastrar modelo',
-    path: '/createModel',
+    path: '/cadastrarModelo',
+  },
+  {
+    title: 'Listar modelos',
+    path: '/listarModelos',
   },
 ];
