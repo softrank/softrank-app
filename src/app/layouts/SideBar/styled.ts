@@ -18,7 +18,7 @@ export const SideBarItem = styled.li`
   font-weight: bold;
   color: var(--accent);
   padding: 0.7em;
-  margin: 0.2em;
+  margin: 0.2em 0.4em;
   text-decoration: none;
   border-bottom: 1px solid var(--light-gray);
 
