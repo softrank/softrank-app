@@ -13,10 +13,10 @@ export const Header = styled.header`
 
 export const Wrapper = styled.div`
   height: 100%;
-  width: 1200px;
+  min-width: 90%;
 `;
 
 export const HeaderTitle = styled.h1`
   color: var(--accent);
-  font-size: 1.2em;
+  font-size: 1.6rem;
 `;

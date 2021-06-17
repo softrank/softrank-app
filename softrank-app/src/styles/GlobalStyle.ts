@@ -24,6 +24,7 @@ export const GlobalStyles = styled.createGlobalStyle`
   :root {
     --primary: #f7f3f2;
     --accent: #625cff;
+    --light-purple: #ccccff;
     --white: #fff;
     --gray-50: #f2f2f2;
     --light-gray: #d3d3d3;
@@ -31,6 +32,5 @@ export const GlobalStyles = styled.createGlobalStyle`
     --dark-gray: #515151;
     --outline: #2f3336;
     --error: #e57373;
-    /* --error: #ef5350; */
   }
 `;
