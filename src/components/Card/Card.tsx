@@ -5,6 +5,6 @@ export default styled.div`
   width: 100%;
   margin: 1em 0;
   padding: 1.4em;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;

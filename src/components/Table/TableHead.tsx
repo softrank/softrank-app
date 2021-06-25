@@ -6,6 +6,6 @@ export default styled.thead`
   font-weight: 500;
   padding: 1em;
   border-bottom: 2px solid red;
-  color: var(--accent);
+  color: var(--dark-purple);
   border-radius: 4px;
 `;

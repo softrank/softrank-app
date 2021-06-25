@@ -5,35 +5,39 @@ interface Props {
 }
 
 export default styled.input<Props>`
+  --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
   width: 100%;
   padding: 0.6em;
   margin: 0.2em 0 0.8em 0;
-  border-radius: 6px;
+  border-radius: var(--radius);
+
   font-size: 1.2rem;
-  transition: box-shadow 0.3s, border 0.8s;
+
+  transition: 0.4s;
   outline: none;
-  color: ${(props) => (props.error ? 'var(--error)' : 'var(--dark-gray)')};
+  color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
   border: 2px solid
-    ${(props) => (props.error ? 'var(--error)' : 'var(--light-gray)')};
+    ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border: 2px solid var(--accent);
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--dark-purple);
     color: black;
   }
 
   &:focus {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border: 2px solid var(--accent);
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--dark-purple);
     color: black;
   }
 
   &::placeholder {
-    color: ${(props) => (props.error ? 'var(--error)' : 'var(--medium-gray)')};
+    color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-500)')};
   }
 
   &:disabled {
-    color: var(--light-gray);
+    color: var(--gray-500);
     background: var(--gray-50);
     border: 2px solid var(--gray-50);
     pointer-events: none;

@@ -1,34 +1,45 @@
 import styled from 'styled-components';
 
 export const StyledSidebar = styled.aside`
-  background-color: var(--white);
+  float: left;
   width: 16vw;
   height: 100vh;
+
   display: flex;
-  justify-content: start;
   flex-direction: column;
+  justify-content: start;
+  flex-shrink: 0;
+
   text-align: center;
-  float: left;
-  border-right: 1px solid var(--light-gray);
+
+  background-color: var(--white);
+  border-right: 1px solid var(--gray-100);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
 export const SideBarItem = styled.li`
-  list-style-type: none;
-  font-weight: bold;
-  color: var(--accent);
+  display: block;
   padding: 0.7em;
-  margin: 0.2em 0.4em;
+  margin: 0.2em;
+
+  font-weight: bold;
   text-decoration: none;
-  border-bottom: 1px solid var(--light-gray);
+
+  color: var(--dark-purple);
+  list-style-type: none;
 
   &:hover {
-    color: var(--white);
-    background-color: var(--accent);
-    border-radius: 4px;
+    color: var(--dark-purple);
+    background-color: var(--light-purple);
+    border-radius: var(--radius);
   }
+`;
 
-  &:last-child {
-    border: none;
-  }
+export const SideBarDivided = styled.hr`
+  height: 0.5px;
+  width: 90%;
+  margin: auto;
+
+  border-style: none;
+  background-color: var(--gray-100);
 `;

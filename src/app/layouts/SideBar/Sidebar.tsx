@@ -1,5 +1,4 @@
-import React from 'react';
-import { SideBarItem, StyledSidebar } from './styled';
+import { SideBarDivided, SideBarItem, StyledSidebar } from './styled';
 import { SideBarData } from './SideBarData';
 import { Link } from 'react-router-dom';
 
@@ -9,9 +8,12 @@ export default function Sidebar() {
       <StyledSidebar>
         {SideBarData.map((item, index) => {
           return (
-            <SideBarItem key={index} as={Link} to={item.path}>
-              <span>{item.title}</span>
-            </SideBarItem>
+            <div key={index}>
+              <SideBarItem as={Link} to={item.path}>
+                <span>{item.title}</span>
+              </SideBarItem>
+              {index !== SideBarData.length - 1 && <SideBarDivided />}
+            </div>
           );
         })}
       </StyledSidebar>

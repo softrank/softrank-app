@@ -9,7 +9,6 @@ import { FormTitle } from './styled';
 import { v4 as uuid } from 'uuid';
 import agent from '../../../app/api/agent';
 import Wrapper from '../../../app/layouts/Layout/Wrapper';
-import Container from '../../../app/layouts/Layout/Container';
 import { Redirect } from 'react-router-dom';
 
 type FormValues = {
@@ -47,7 +46,7 @@ export default function ModelForm() {
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
 
   return (
-    <Container>
+    <>
       <Wrapper>
         <Card>
           <FormTitle>Cadastrar modelo</FormTitle>
@@ -69,10 +68,12 @@ export default function ModelForm() {
               {...register('description')}
               placeholder="descrição do modelo"
             />
-            <Button type="submit">Salvar</Button>
+            <Button type="submit" className="margin-left: 100%">
+              Salvar
+            </Button>
           </form>
         </Card>
       </Wrapper>
-    </Container>
+    </>
   );
 }
