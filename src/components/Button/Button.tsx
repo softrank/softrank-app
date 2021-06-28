@@ -14,7 +14,7 @@ export default styled.button<Props>`
   --button-content-color: ${(props) =>
     props.secondary ? 'var(--dark-purple)' : 'var(--white)'};
 
-  /* #endregion Teste */
+  /* #endregion Variables */
 
   box-sizing: border-box;
   width: 9.2em;
@@ -28,7 +28,7 @@ export default styled.button<Props>`
   border-radius: 10px;
 
   background: var(--button-main-color);
-  color: var(--button-secondary-color);
+  color: var(--button-content-color);
   cursor: pointer;
   outline: none;
 

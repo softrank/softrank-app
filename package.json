@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@hookform/devtools": "^3.0.0-rc.2",
     "@types/react-icons": "^3.0.0",
     "@types/react-router": "^5.1.15",
     "@types/react-router-dom": "^5.1.7",

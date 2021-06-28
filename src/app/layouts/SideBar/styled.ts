@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledSidebar = styled.aside`
-  float: left;
+  height: 100%;
   width: 16vw;
-  height: 100vh;
+  min-width: 200px;
+  float: left;
+  /* position: fixed; */
 
   display: flex;
   flex-direction: column;
