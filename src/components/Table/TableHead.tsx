@@ -4,8 +4,10 @@ export default styled.thead`
   text-align: left;
   font-size: 1.3rem;
   font-weight: 500;
-  padding: 1em;
-  border-bottom: 2px solid red;
+
   color: var(--dark-purple);
-  border-radius: 4px;
+
+  > tr > td {
+    padding: 0.6em;
+  }
 `;

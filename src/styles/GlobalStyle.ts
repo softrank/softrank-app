@@ -1,6 +1,29 @@
 import * as styled from 'styled-components';
 
 export const GlobalStyles = styled.createGlobalStyle`
+  :root {
+    --radius: 12px;
+
+    /*#region Colors*/
+
+    --white: #fff;
+    --error: #e57373;
+
+    /* Grays */
+
+    --gray-50: #f4f6fa;
+    --gray-100: #e6e8eb;
+    --gray-500: #babcc6;
+    --gray-700: #4f505c;
+    --gray-900: #1b1a25;
+
+    /* Purples */
+
+    --light-purple: #ccccff;
+    --dark-purple: #625cff;
+
+    /*#endregion Colors*/
+  }
   * {
     margin: 0;
     padding: 0;
@@ -22,23 +45,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     /* );  */
     background: var(--gray-50);
     background-attachment: fixed;
-    overflow: hidden;
-  }
-  :root {
-    --radius: 12px;
-
-    /*#region Colors*/
-    --white: #fff;
-    --error: #e57373;
-    /* Grays */
-    --gray-50: #f4f6fa;
-    --gray-100: #e6e8eb;
-    --gray-500: #babcc6;
-    --gray-700: #4f505c;
-    --gray-900: #1b1a25;
-    /* Purples */
-    --light-purple: #ccccff;
-    --dark-purple: #625cff;
-    /*#endregion Colors*/
+    overflow-x: hidden;
   }
 `;
