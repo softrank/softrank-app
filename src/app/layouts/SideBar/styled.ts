@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
-export const StyledSidebar = styled.aside`
-  float: left;
-  width: 16vw;
-  height: 100vh;
+export const StyledSidebar = styled.div`
+  width: 12em;
+  /* min-width: 200px; */
+  position: absolute;
+  top: 6vh;
+  left: 1vw;
 
   display: flex;
   flex-direction: column;
@@ -13,7 +15,8 @@ export const StyledSidebar = styled.aside`
   text-align: center;
 
   background-color: var(--white);
-  border-right: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  /* border-right: 1px solid var(--gray-100); */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 

@@ -39,6 +39,7 @@ export default styled.button<Props>`
     background-color: white;
     border: 2px solid var(--dark-purple);
     color: var(--dark-purple);
+    transform: translateY(-3px);
   }
 
   &:active {

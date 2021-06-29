@@ -10,10 +10,13 @@ export default function NavBar() {
   return (
     <>
       <Header>
-        <Wrapper>
-          <MenuIcon onClick={showSideBar} />
-          <HeaderTitle>SoftRank</HeaderTitle>
-        </Wrapper>
+        <MenuIcon
+          onClick={showSideBar}
+          onMouseEnter={() => setSideBar(true)}
+          // onMouseLeave={() => setSideBar(false)}
+          onBlur={() => setSideBar(false)}
+        />
+        <HeaderTitle>SoftRank</HeaderTitle>
       </Header>
       {sideBar && <Sidebar />}
     </>

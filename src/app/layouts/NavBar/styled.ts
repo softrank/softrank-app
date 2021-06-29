@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
 export const Header = styled.header`
+  height: 5vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 
   padding: 0.4em;
 
@@ -33,7 +34,7 @@ export const HeaderTitle = styled.h1`
 const iconCss = css`
   width: 1.6em;
   height: 1.6em;
-  margin-right: 3em;
+  margin: 2em;
 
   color: var(--dark-purple);
 
@@ -42,4 +43,5 @@ const iconCss = css`
 
 export const MenuIcon = styled(FaBars)`
   ${iconCss}
+  float: left;
 `;
