@@ -46,6 +46,6 @@ export default styled.select<Props>`
 
   > option {
     background: var(--gray-50);
-    color: var(--gray-900);
+    color: var(--dark-purple);
   }
 `;

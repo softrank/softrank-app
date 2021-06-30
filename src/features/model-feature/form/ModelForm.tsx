@@ -12,6 +12,7 @@ import Button from '../../../components/Button/Button';
 import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
+import Select from '../../../components/Form/Select/Select';
 
 type FormValues = {
   id: string;
@@ -78,12 +79,27 @@ export default function ModelForm() {
               control={control}
             />
           </Row>
-          <Button type="button" secondary style={{ float: 'left' }}>
-            Cancelar
-          </Button>
-          <Button type="submit" style={{ float: 'right' }}>
-            Salvar
-          </Button>
+          <Row>
+            <Select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </Select>
+            <Select placeholder="select a value" value="">
+              <option value="" disabled>
+                Select a value
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option>3</option>
+            </Select>
+          </Row>
+          <Row>
+            <Button type="button" secondary>
+              Cancelar
+            </Button>
+            <Button type="submit">Salvar</Button>
+          </Row>
         </Form>
       </Card>
     </Wrapper>

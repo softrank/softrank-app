@@ -37,12 +37,12 @@ export const GlobalStyles = styled.createGlobalStyle`
       'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* background: rgb(98, 92, 255);
+    background: rgb(98, 92, 255);
     background: linear-gradient(
       17deg,
       rgba(98, 92, 255, 1) 29%,
       rgba(255, 255, 255, 1) 100%
-    /* );  */
+    );
     background: var(--gray-50);
     background-attachment: fixed;
     overflow-x: hidden;

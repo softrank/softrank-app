@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
 export const Header = styled.header`
-  display: flex;
+  display: grid;
+  grid-template-columns: [column1] 29% [column2] 40% [column3] 29%;
   align-items: center;
   justify-content: center;
 
@@ -12,19 +13,24 @@ export const Header = styled.header`
   border-bottom: 1.4px solid var(--gray-100);
 `;
 
-export const Wrapper = styled.div`
-  height: 100%;
-  min-width: 80vw;
-
+export const HeaderColumn1 = styled.div`
+  grid-column: column1;
+`;
+export const HeaderColumn2 = styled.div`
+  grid-column: column2;
   display: flex;
-  align-items: center;
+  justify-content: center;
+`;
+export const HeaderColumn3 = styled.div`
+  grid-column: column3;
+  display: flex;
+  justify-content: flex-end;
 `;
 
-export const HeaderTitle = styled.h1`
-  display: inline-block;
-  vertical-align: middle;
-
+export const HeaderTitle = styled.a`
+  text-decoration: none;
   font-size: 1.6rem;
+  font-weight: 700;
   line-height: normal;
 
   color: var(--dark-purple);

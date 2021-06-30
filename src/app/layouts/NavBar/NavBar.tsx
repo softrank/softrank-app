@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, HeaderTitle, MenuIcon, Wrapper } from './styled';
+
+import {
+  Header,
+  HeaderColumn1,
+  HeaderColumn2,
+  HeaderColumn3,
+  HeaderTitle,
+  MenuIcon,
+} from './styled';
 import { SideBarData } from '../SideBar/SideBarData';
 import Dropdown from '../../../components/Dropdown/Dropdown';
 import DropdownItem from '../../../components/Dropdown/DropdownItem';
@@ -28,9 +36,12 @@ export default function NavBar() {
 
   return (
     <Header>
-      <Wrapper>
+      <HeaderColumn1>
         <div ref={ref}>
-          <MenuIcon onClick={toggleDropdown} />
+          <MenuIcon
+            onClick={toggleDropdown}
+            onMouseEnter={() => setDropdown(true)}
+          />
           {dropdown && (
             <Dropdown>
               {SideBarData.map((item, index) => {
@@ -50,8 +61,13 @@ export default function NavBar() {
             </Dropdown>
           )}
         </div>
-        <HeaderTitle>SoftRank</HeaderTitle>
-      </Wrapper>
+      </HeaderColumn1>
+      <HeaderColumn2>
+        <HeaderTitle as={Link} to={'/'}>
+          SoftRank
+        </HeaderTitle>
+      </HeaderColumn2>
+      <HeaderColumn3>other content</HeaderColumn3>
     </Header>
   );
 }
