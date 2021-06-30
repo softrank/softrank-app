@@ -1,21 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header, HeaderTitle, MenuIcon, Wrapper } from './styled';
-import Sidebar from '../SideBar/Sidebar';
+import { SideBarData } from '../SideBar/SideBarData';
+import Dropdown from '../../../components/Dropdown/Dropdown';
+import DropdownItem from '../../../components/Dropdown/DropdownItem';
+import DropdownDivider from '../../../components/Dropdown/DropdownDivider';
 
 export default function NavBar() {
-  const [sideBar, setSideBar] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
-  const showSideBar = () => setSideBar(!sideBar);
+  const toggleDropdown = () => setDropdown(!dropdown);
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: any) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  });
 
   return (
-    <>
-      <Header>
-        <Wrapper>
-          <MenuIcon onClick={showSideBar} />
-          <HeaderTitle>SoftRank</HeaderTitle>
-        </Wrapper>
-      </Header>
-      {sideBar && <Sidebar />}
-    </>
+    <Header>
+      <Wrapper>
+        <div ref={ref}>
+          <MenuIcon onClick={toggleDropdown} />
+          {dropdown && (
+            <Dropdown>
+              {SideBarData.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <DropdownItem
+                      as={Link}
+                      to={item.path}
+                      onClick={() => setDropdown(false)}
+                    >
+                      <span>{item.title}</span>
+                    </DropdownItem>
+                    {index !== SideBarData.length - 1 && <DropdownDivider />}
+                  </div>
+                );
+              })}
+            </Dropdown>
+          )}
+        </div>
+        <HeaderTitle>SoftRank</HeaderTitle>
+      </Wrapper>
+    </Header>
   );
 }
