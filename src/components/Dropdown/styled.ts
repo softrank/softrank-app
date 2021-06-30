@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
-export const StyledDropdown = styled.div`
+interface Props {
+  positionTop?: string;
+  positionLeft?: string;
+}
+
+export const StyledDropdown = styled.div<Props>`
   position: absolute;
-  top: 1em;
+  top: ${(props) => (props.positionTop ? props.positionTop : '0')};
+  left: ${(props) => (props.positionLeft ? props.positionLeft : '0')};
   min-width: 200px;
 
   display: flex;
   flex-direction: column;
   justify-content: start;
-  flex-shrink: 0;
 
   text-align: center;
 

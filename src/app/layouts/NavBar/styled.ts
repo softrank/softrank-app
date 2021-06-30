@@ -37,13 +37,27 @@ export const HeaderTitle = styled.a`
 `;
 
 const iconCss = css`
-  width: 1.6em;
-  height: 1.6em;
-  margin-right: 3em;
+  width: 1.4em;
+  height: 1.4em;
 
   color: var(--dark-purple);
 
   cursor: pointer;
+`;
+
+export const IconBackground = styled.div`
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: 0.3s;
+
+  &:active {
+    background: var(--light-purple);
+    border-radius: 100%;
+  }
 `;
 
 export const MenuIcon = styled(FaBars)`
