@@ -1,32 +1,33 @@
-import { InputDiv, StyledInput } from './styled';
 import { Controller } from 'react-hook-form';
+
 import Label from '../Label/Label';
+import { StyledTextArea } from './styled';
 
 interface Props {
-  name: string;
   label: string;
+  name: string;
   placeholder: string;
-  type: string;
   control: any;
+  error?: boolean;
 }
 
 export default function Input(props: Props) {
-  const { label, name, control, placeholder, type } = props;
+  const { label, name, control, placeholder, error } = props;
 
   return (
-    <InputDiv>
+    <div style={{ width: '100%' }}>
       <Label>{label}</Label>
       <Controller
         name={name}
         control={control}
         render={({ field: { onChange } }) => (
-          <StyledInput
+          <StyledTextArea
             placeholder={placeholder}
             onChange={onChange}
-            type={type}
+            error={error}
           />
         )}
       />
-    </InputDiv>
+    </div>
   );
 }

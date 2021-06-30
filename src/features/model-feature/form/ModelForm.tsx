@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { ModelEntity } from '../../../app/models/modelEntity';
-import Button from '../../../components/Button/Button';
-import Card from '../../../components/Card/Card';
-import Input from '../../../components/Form/Input/Input';
-import Label from '../../../components/Form/Label/Label';
-import { FormTitle } from './styled';
-import { v4 as uuid } from 'uuid';
-import agent from '../../../app/api/agent';
-import Wrapper from '../../../app/layouts/Layout/Wrapper';
 import { Redirect } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { v4 as uuid } from 'uuid';
+
+import { ModelEntity } from '../../../app/models/modelEntity';
+import { FormTitle, Row } from './styled';
+import agent from '../../../app/api/agent';
+import Card from '../../../components/Card/Card';
+import Wrapper from '../../../app/layouts/Layout/Wrapper';
+import Button from '../../../components/Button/Button';
+import Form from '../../../components/Form/Form';
+import Input from '../../../components/Form/Input/Input';
+import TextArea from '../../../components/Form/TextArea/TextArea';
+import Select from '../../../components/Form/Select/Select';
 
 type FormValues = {
   id: string;
@@ -19,7 +22,7 @@ type FormValues = {
 };
 
 export default function ModelForm() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { handleSubmit, control } = useForm<FormValues>();
 
   const [models, setModels] = useState<ModelEntity[]>([]);
 
@@ -46,34 +49,59 @@ export default function ModelForm() {
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
 
   return (
-    <>
-      <Wrapper>
-        <Card>
-          <FormTitle>Cadastrar modelo</FormTitle>
-          <form onSubmit={onSubmit}>
-            <Label>Nome</Label>
+    <Wrapper>
+      <div style={{ width: '100%' }}>
+        <FormTitle>Cadastrar modelo</FormTitle>
+      </div>
+      <Card>
+        <Form onSubmit={onSubmit}>
+          <Row>
             <Input
-              {...register('name')}
-              placeholder="nome do modelo"
+              name="name"
+              label="Nome"
               type="text"
+              placeholder="nome do modelo"
+              control={control}
             />
-            <Label>Ano</Label>
             <Input
-              {...register('year')}
-              placeholder="ano do modelo"
+              name="year"
+              label="Ano"
               type="date"
+              placeholder="ano do modelo"
+              control={control}
             />
-            <Label>Descrição</Label>
-            <Input
-              {...register('description')}
+          </Row>
+          <Row>
+            <TextArea
+              name="description"
+              label="Descrição"
               placeholder="descrição do modelo"
+              control={control}
             />
-            <Button type="submit" className="margin-left: 100%">
-              Salvar
+          </Row>
+          <Row>
+            <Select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </Select>
+            <Select placeholder="select a value" value="">
+              <option value="" disabled>
+                Select a value
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option>3</option>
+            </Select>
+          </Row>
+          <Row>
+            <Button type="button" secondary>
+              Cancelar
             </Button>
-          </form>
-        </Card>
-      </Wrapper>
-    </>
+            <Button type="submit">Salvar</Button>
+          </Row>
+        </Form>
+      </Card>
+    </Wrapper>
   );
 }

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export default styled.li`
+  display: block;
   padding: 0.7em;
   margin: 0.2em;
 
