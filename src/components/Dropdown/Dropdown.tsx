@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DropdownContainer, StyledDropdown } from './styled';
+import { DropdownContainer, DropdownBody } from './styled';
 interface Props {
   children: JSX.Element[];
   positionTop?: string;
@@ -8,7 +8,7 @@ interface Props {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Dropdown = React.forwardRef((props: Props, ref: any) => {
+export const Dropdown = React.forwardRef((props: Props, ref: any) => {
   const { children, positionTop, positionLeft, visible, setVisible } = props;
 
   const handleClickOutside = (event: any) => {
@@ -28,7 +28,7 @@ const Dropdown = React.forwardRef((props: Props, ref: any) => {
     <>
       {visible && (
         <DropdownContainer>
-          <StyledDropdown positionTop={positionTop} positionLeft={positionLeft}>
+          <DropdownBody positionTop={positionTop} positionLeft={positionLeft}>
             {React.Children.map(children, (child, index) => {
               return child.props.name
                 ? React.createElement(child.type, {
@@ -39,11 +39,9 @@ const Dropdown = React.forwardRef((props: Props, ref: any) => {
                   })
                 : child;
             })}
-          </StyledDropdown>
+          </DropdownBody>
         </DropdownContainer>
       )}
     </>
   );
 });
-
-export default Dropdown;
