@@ -12,7 +12,7 @@ import Button from '../../../components/Button/Button';
 import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
-import Select from '../../../components/Form/Select/Select';
+import { SelectCustom } from '../../../components/Form/SelectCustom/SelectCustom';
 
 type FormValues = {
   id: string;
@@ -21,7 +21,7 @@ type FormValues = {
   description: string;
 };
 
-export default function ModelForm() {
+export const ModelForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
 
   const [models, setModels] = useState<ModelEntity[]>([]);
@@ -80,19 +80,22 @@ export default function ModelForm() {
             />
           </Row>
           <Row>
-            <Select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </Select>
-            <Select placeholder="select a value" value="">
-              <option value="" disabled>
-                Select a value
-              </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option>3</option>
-            </Select>
+            <SelectCustom
+              label="Select normal"
+              placeholder="Selecione um valor"
+            ></SelectCustom>
+          </Row>
+          <Row>
+            <SelectCustom
+              label="Select disabled"
+              placeholder="Selecione um valor"
+              disabled
+            ></SelectCustom>
+            <SelectCustom
+              label="Select com erro"
+              placeholder="Selecione um valor"
+              error
+            ></SelectCustom>
           </Row>
           <Row>
             <Button type="button" secondary>
@@ -104,4 +107,4 @@ export default function ModelForm() {
       </Card>
     </Wrapper>
   );
-}
+};
