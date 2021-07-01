@@ -2126,6 +2126,13 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
+"@types/react-tabs@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/react-tabs/-/react-tabs-2.3.2.tgz#99fb6866bbc6912d44f7bbc99eca03fbbd217960"
+  integrity sha512-QfMelaJSdMcp+CenKhATp12XFFqqUcLXILgwpX3dgWfVYNZPtsLXZDDCRsVn+kwmBOWB+DFPKpQorxbUhnXINw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@*":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.1.tgz#e1a3cb278df7f47f17b5082b1b3da17170bd44b1"
@@ -2133,10 +2140,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.0":
+"@types/react@*":
   version "17.0.11"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.11.tgz#67fcd0ddbf5a0b083a0f94e926c7d63f3b836451"
   integrity sha512-yFRQbD+whVonItSk7ZzP/L+gPTJVBkL/7shLEF+i9GC/1cV3JmUxEQz6+9ylhUpWSDuqo1N9qEvqS6vTj4USUA==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.13":
+  version "17.0.13"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.13.tgz#6b7c9a8f2868586ad87d941c02337c6888fb874f"
+  integrity sha512-D/G3PiuqTfE3IMNjLn/DCp6umjVCSvtZTPdtAFy5+Ved6CsdRvivfKeCzw79W4AatShtU4nGqgvOv5Gro534vQ==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3666,6 +3682,11 @@ cliui@^6.0.0:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
+
+clsx@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
+  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
 co@^4.6.0:
   version "4.6.0"
@@ -9260,7 +9281,7 @@ prompts@2.4.0, prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.0, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9624,6 +9645,14 @@ react-simple-animate@^3.3.8:
   version "3.3.12"
   resolved "https://registry.yarnpkg.com/react-simple-animate/-/react-simple-animate-3.3.12.tgz#ddea0f230feb3c1f069fbdb0a26e735e0b233265"
   integrity sha512-lFXjxD6ficcpOMsHfcDs1jqdkCve6jNlJnubOCzVOLswFDRANsaLN4KwpezDuliEFz8Q1zyj4J7Tmj3KMRnPcg==
+
+react-tabs@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-3.2.2.tgz#07bdc3cdb17bdffedd02627f32a93cd4b3d6e4d0"
+  integrity sha512-/o52eGKxFHRa+ssuTEgSM8qORnV4+k7ibW+aNQzKe+5gifeVz8nLxCrsI9xdRhfb0wCLdgIambIpb1qCxaMN+A==
+  dependencies:
+    clsx "^1.1.0"
+    prop-types "^15.5.0"
 
 react-transition-group@^4.3.0:
   version "4.4.2"
