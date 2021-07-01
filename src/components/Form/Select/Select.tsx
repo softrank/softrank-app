@@ -1,51 +1,73 @@
-import styled from 'styled-components';
+import React from 'react';
+import { Controller } from 'react-hook-form';
+
+import Label from '../Label/Label';
+import { CustomSelect } from './styled';
+
+interface OptionValue {
+  value: string;
+  label: string;
+}
 
 interface Props {
+  name: string;
+  label: string;
+  placeholder: string;
+  control: any;
+  optionValues: any[];
+  optionLabel: string;
+  disabled?: boolean;
+  multi?: boolean;
+  search?: boolean;
   error?: boolean;
 }
 
-export default styled.select<Props>`
-  --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+export const Select = (props: Props) => {
+  const {
+    name,
+    label,
+    placeholder,
+    control,
+    optionValues,
+    optionLabel,
+    disabled,
+    multi,
+    search,
+    error,
+  } = props;
 
-  width: 50%;
-  padding: 0.6em;
-  margin: 0.2em 0 0.8em 0;
-  border-radius: var(--radius);
+  const options: OptionValue[] = [];
 
-  font-size: 1.2rem;
+  optionValues.map((element) => {
+    const option: OptionValue = {
+      value: element['id'],
+      label: element[optionLabel],
+    };
+    options.push(option);
+    return options;
+  });
 
-  appearance: none;
-  transition: 0.4s;
-  outline: none;
-  color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
-  border: 2px solid
-    ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
-
-  &:hover {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
-    color: black;
-  }
-
-  &:focus {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
-    color: black;
-  }
-
-  &::placeholder {
-    color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-500)')};
-  }
-
-  &:disabled {
-    color: var(--gray-500);
-    background: var(--gray-50);
-    border: 2px solid var(--gray-50);
-    pointer-events: none;
-  }
-
-  > option {
-    background: var(--gray-50);
-    color: var(--dark-purple);
-  }
-`;
+  return (
+    <div style={{ width: '100%' }}>
+      <Label>React select</Label>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <CustomSelect
+            classNamePrefix={'select'}
+            label={label}
+            placeholder={placeholder}
+            onChange={onChange}
+            value={value}
+            options={options}
+            isDisabled={disabled}
+            isMulti={multi}
+            isSearchable={search}
+            error={error}
+          />
+        )}
+      />
+    </div>
+  );
+};

@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
 export const Header = styled.header`
-  height: 7vh;
   display: grid;
   grid-template-columns: [column1] 29% [column2] 42% [column3] 29%;
   align-items: center;

@@ -12,13 +12,13 @@ import Button from '../../../components/Button/Button';
 import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
-import { SelectCustom } from '../../../components/Form/SelectCustom/SelectCustom';
 
 type FormValues = {
   id: string;
   name: string;
   year: Date;
   description: string;
+  model: string;
 };
 
 export const ModelForm = () => {
@@ -78,24 +78,6 @@ export const ModelForm = () => {
               placeholder="descrição do modelo"
               control={control}
             />
-          </Row>
-          <Row>
-            <SelectCustom
-              label="Select normal"
-              placeholder="Selecione um valor"
-            ></SelectCustom>
-          </Row>
-          <Row>
-            <SelectCustom
-              label="Select disabled"
-              placeholder="Selecione um valor"
-              disabled
-            ></SelectCustom>
-            <SelectCustom
-              label="Select com erro"
-              placeholder="Selecione um valor"
-              error
-            ></SelectCustom>
           </Row>
           <Row>
             <Button type="button" secondary>
