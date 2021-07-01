@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import Card from '../../../components/Card/Card';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
 import Wrapper from '../Layout/Wrapper';
