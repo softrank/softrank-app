@@ -45,6 +45,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     );
     background: var(--gray-50);
     background-attachment: fixed;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 `;

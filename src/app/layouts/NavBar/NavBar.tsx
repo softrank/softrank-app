@@ -27,11 +27,7 @@ export default function NavBar() {
   return (
     <Header>
       <HeaderColumn1>
-        <IconBackground
-          ref={ref}
-          onClick={toggleDropdown}
-          onMouseEnter={() => setNavMenu(true)}
-        >
+        <IconBackground ref={ref} onClick={toggleDropdown}>
           <MenuIcon />
           <Dropdown
             visible={navMenu}
