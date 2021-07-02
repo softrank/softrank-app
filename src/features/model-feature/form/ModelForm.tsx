@@ -13,7 +13,6 @@ import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
 import { Row, RowResponsive } from './styled';
-import { Select } from '../../../components/Form/Select/Select';
 
 type FormValues = {
   id: string;
@@ -85,16 +84,6 @@ export const ModelForm = () => {
                   name="description"
                   label="Descrição"
                   placeholder="descrição do modelo"
-                  control={control}
-                />
-              </RowResponsive>
-              <RowResponsive>
-                <Select
-                  name="models"
-                  label="Selecione um modelo"
-                  placeholder="selecione..."
-                  optionValues={models}
-                  optionLabel="name"
                   control={control}
                 />
               </RowResponsive>
