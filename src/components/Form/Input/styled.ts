@@ -14,7 +14,7 @@ export const StyledInput = styled.input<Props>`
   border-radius: var(--radius);
   box-sizing: border-box;
 
-  font-size: 1.2rem;
+  font-size: 16px;
 
   transition: 0.4s;
   outline: none;

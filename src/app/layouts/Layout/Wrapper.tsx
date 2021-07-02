@@ -8,4 +8,9 @@ export default styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  @media (max-width: 640px) {
+    max-width: 100%;
+    /* margin: 1em; */
+  }
 `;

@@ -4,15 +4,16 @@ import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
 import { ModelEntity } from '../../../app/models/modelEntity';
-import { FormTitle, Row } from './styled';
 import agent from '../../../app/api/agent';
-import Card from '../../../components/Card/Card';
+import Card, { CardTitle } from '../../../components/Card/Card';
 import Wrapper from '../../../app/layouts/Layout/Wrapper';
 import Button from '../../../components/Button/Button';
 import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
+import { Row, RowResponsive } from './styled';
+import { Select } from '../../../components/Form/Select/Select';
 
 type FormValues = {
   id: string;
@@ -51,10 +52,10 @@ export const ModelForm = () => {
 
   return (
     <Wrapper>
-      <div style={{ width: '100%' }}>
-        <FormTitle>Cadastrar modelo</FormTitle>
-      </div>
+      <div style={{ width: '100%' }}></div>
+      {/* <h2>Cadastrar modelo</h2> */}
       <Card>
+        <CardTitle>Cadastrar modelo</CardTitle>
         <STabs>
           <STabList>
             <STab>Modelo</STab>
@@ -63,7 +64,7 @@ export const ModelForm = () => {
           </STabList>
           <STabPanel>
             <Form onSubmit={onSubmit}>
-              <Row>
+              <RowResponsive>
                 <Input
                   name="name"
                   label="Nome"
@@ -78,15 +79,25 @@ export const ModelForm = () => {
                   placeholder="ano do modelo"
                   control={control}
                 />
-              </Row>
-              <Row>
+              </RowResponsive>
+              <RowResponsive>
                 <TextArea
                   name="description"
                   label="Descrição"
                   placeholder="descrição do modelo"
                   control={control}
                 />
-              </Row>
+              </RowResponsive>
+              <RowResponsive>
+                <Select
+                  name="models"
+                  label="Selecione um modelo"
+                  placeholder="selecione..."
+                  optionValues={models}
+                  optionLabel="name"
+                  control={control}
+                />
+              </RowResponsive>
               <Row>
                 <Button type="button" secondary>
                   Cancelar

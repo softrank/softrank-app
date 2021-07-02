@@ -3,6 +3,17 @@ import * as styled from 'styled-components';
 export const GlobalStyles = styled.createGlobalStyle`
   :root {
     --radius: 12px;
+    --break: 640px;
+
+    /* Font sizes */
+
+    --font-size-title-big: 32px;
+    --font-size-title: 24px;
+    --font-size-text-title: 24px;
+    --font-size-text-big: 18px;
+    --font-size-text: 16px;
+    --font-size-text-small: 14px;
+    --font-size-test-smaller: 12px;
 
     /*#region Colors*/
 
@@ -32,11 +43,16 @@ export const GlobalStyles = styled.createGlobalStyle`
     background: var(---white);
   }
   body {
+    min-width: 320px;
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    font-size: 16px;
+
     background: rgb(98, 92, 255);
     background: linear-gradient(
       17deg,
@@ -45,6 +61,9 @@ export const GlobalStyles = styled.createGlobalStyle`
     );
     background: var(--gray-50);
     background-attachment: fixed;
-    overflow: hidden;
+
+    @media (max-width: 640px) {
+      background: var(--white);
+    }
   }
 `;

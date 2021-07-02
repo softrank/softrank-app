@@ -15,7 +15,7 @@ export const CustomSelect = styled(Select)<Props>`
     box-sizing: border-box;
     border-radius: var(--radius);
 
-    font-size: 1.2rem;
+    font-size: 16px;
 
     transition: 0.4s;
     outline: none;
@@ -58,7 +58,7 @@ export const CustomSelect = styled(Select)<Props>`
   }
 
   .select__option {
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 500;
     text-decoration: none;
 

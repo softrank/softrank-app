@@ -13,7 +13,8 @@ export const StyledTextArea = styled.textarea<Props>`
   margin: 0.2em 0 0.8em 0;
   resize: none;
 
-  font-size: 1.2rem;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
 
   transition: 0.4s;
 
