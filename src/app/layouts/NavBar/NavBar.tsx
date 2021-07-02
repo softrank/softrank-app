@@ -33,7 +33,7 @@ export default function NavBar() {
             visible={navMenu}
             setVisible={setNavMenu}
             ref={ref}
-            positionTop="1em"
+            positionTop="1.1em"
             positionLeft="-1em"
           >
             {SideBarData.map((item, index) => {

@@ -3,11 +3,11 @@ import { FaBars } from 'react-icons/fa';
 
 export const Header = styled.header`
   display: grid;
-  grid-template-columns: [column1] 29% [column2] 42% [column3] 29%;
+  grid-template-columns: [column1] 28% [column2] 42% [column3] 28%;
   align-items: center;
   justify-content: center;
 
-  padding: 0.4em;
+  /* padding: 0.4em; */
 
   background: var(--white);
   border-bottom: 1.4px solid var(--gray-100);
@@ -29,10 +29,15 @@ export const HeaderColumn3 = styled.div`
 
 export const HeaderTitle = styled.a`
   text-decoration: none;
-  font-size: 1.6rem;
+  font-size: 24px;
   font-weight: 700;
+  padding: 0.4em;
 
   color: var(--dark-purple);
+
+  @media (max-width: 640px) {
+    font-size: 25px;
+  }
 `;
 
 export const IconBackground = styled.div`

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-export const FormTitle = styled.h1`
-  margin: 0.6em 0 0 0.2em;
-  display: flex;
-  justify-content: start;
+// export const FormTitle = styled.h1`
+//   margin: 1em 0;
+//   display: flex;
+//   justify-content: start;
 
-  font-weight: 400;
-  font-size: 2rem;
-`;
+//   font-weight: 400;
+//   font-size: 24px;
+// `;
 
-export const Row = styled.div`
+export const RowResponsive = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2em;
@@ -20,4 +20,10 @@ export const Row = styled.div`
     align-items: center;
     gap: 0;
   }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 0.2em;
 `;

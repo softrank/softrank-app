@@ -20,7 +20,8 @@ export const STab = styled(Tab)<TabProps>`
   padding: 0.2em 0.6em;
   cursor: pointer;
 
-  font-size: 1.4rem;
+  font-size: var(--font-size-title);
+  font-size: 20px;
   font-weight: 500;
   border-bottom: 2px solid var(--gray-50);
 
@@ -38,6 +39,10 @@ export const STab = styled(Tab)<TabProps>`
       color: var(--gray-500);
       pointer-events: none;
     `}
+
+  @media(max-width: 640px) {
+    font-size: 18px;
+  }
 `;
 
 export const STabPanel = styled(TabPanel)`
