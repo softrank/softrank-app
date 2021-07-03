@@ -13,6 +13,7 @@ import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
 import { Row, RowResponsive } from './styled';
+import { DateInput } from '../../../components/Form/DateInput/DateInput';
 
 type FormValues = {
   id: string;
@@ -71,12 +72,13 @@ export const ModelForm = () => {
                   placeholder="nome do modelo"
                   control={control}
                 />
-                <Input
-                  name="year"
+                <DateInput
                   label="Ano"
-                  type="date"
-                  placeholder="ano do modelo"
+                  name="year"
+                  placeholder="selecione um ano"
                   control={control}
+                  yearPicker
+                  dateFormat="yyyy"
                 />
               </RowResponsive>
               <RowResponsive>
