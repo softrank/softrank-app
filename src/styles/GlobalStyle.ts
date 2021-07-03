@@ -65,5 +65,48 @@ export const GlobalStyles = styled.createGlobalStyle`
     @media (max-width: 640px) {
       background: var(--white);
     }
+
+    /*#region DatePicker*/
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+    .react-datepicker {
+      top: -18px;
+      border-radius: var(--radius);
+      box-sizing: border-box;
+      outline: none;
+      border: 2px solid var(--gray-100);
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+    .react-datepicker__triangle {
+      display: none;
+    }
+    .react-datepicker__header {
+      color: black;
+      border-radius: 10px 10px 0 0 !important;
+      background: var(--gray-50);
+      border-bottom: 2px solid var(--gray-100);
+    }
+    .react-datepicker__navigation-icon::before {
+      border-color: var(--gray-500) !important;
+    }
+    .react-datepicker__day--selected {
+      background: var(--dark-purple);
+      &:hover {
+        background: var(--light-purple);
+        color: var(--dark-purple);
+        font-weight: 700;
+      }
+    }
+    /*#endregion DatePicker*/
+    .react-datepicker__year-text--selected {
+      background: var(--dark-purple);
+      &:hover {
+        background: var(--light-purple);
+        color: var(--dark-purple);
+        font-weight: 700;
+      }
+    }
+    /*#endregion DatePicker*/
   }
 `;
