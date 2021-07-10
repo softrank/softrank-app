@@ -5,17 +5,6 @@ interface Props {
 }
 
 export default styled.button<Props>`
-  /* #region Variables */
-
-  --button-main-color: ${(props) =>
-    props.secondary ? 'var(--light-purple)' : 'var(--dark-purple)'};
-  --button-secondary-color: ${(props) =>
-    props.secondary ? 'var(--dark-purple)' : 'var(--light-purple)'};
-  --button-content-color: ${(props) =>
-    props.secondary ? 'var(--dark-purple)' : 'var(--white)'};
-
-  /* #endregion Variables */
-
   box-sizing: border-box;
   width: 9.2em;
   height: 2.4em;
@@ -24,11 +13,11 @@ export default styled.button<Props>`
   font-size: 1.2rem;
   font-weight: 600;
 
-  border: 2px solid var(--button-main-color);
+  border: 2px solid var(--dark-purple);
   border-radius: 10px;
 
-  background: var(--button-main-color);
-  color: var(--button-content-color);
+  background: var(--dark-purple);
+  color: var(--white);
   cursor: pointer;
   outline: none;
 

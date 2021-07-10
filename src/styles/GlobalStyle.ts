@@ -13,7 +13,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     --font-size-text-big: 18px;
     --font-size-text: 16px;
     --font-size-text-small: 14px;
-    --font-size-test-smaller: 12px;
+    --font-size-text-smaller: 12px;
 
     /*#region Colors*/
 
@@ -45,25 +45,85 @@ export const GlobalStyles = styled.createGlobalStyle`
   body {
     min-width: 320px;
 
+    font-size: 16px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    font-size: 16px;
+    background: var(--gray-50);
 
-    background: rgb(98, 92, 255);
-    background: linear-gradient(
+    /* background: linear-gradient(
       17deg,
       rgba(98, 92, 255, 1) 29%,
       rgba(255, 255, 255, 1) 100%
     );
-    background: var(--gray-50);
-    background-attachment: fixed;
+    background-attachment: fixed; */
 
     @media (max-width: 640px) {
       background: var(--white);
     }
+
+    /*#region DatePicker*/
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+    .react-datepicker__input-container {
+      > input {
+        &::placeholder {
+          color: var(--gray-500);
+        }
+      }
+    }
+    .react-datepicker {
+      top: -18px;
+      border-radius: var(--radius);
+      box-sizing: border-box;
+      outline: none;
+      border: 2px solid var(--gray-100);
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+    .react-datepicker__triangle {
+      display: none;
+    }
+    .react-datepicker__header {
+      color: black;
+      border-radius: 10px 10px 0 0 !important;
+      background: var(--gray-50);
+      border-bottom: 2px solid var(--gray-100);
+    }
+    .react-datepicker__navigation-icon::before {
+      border-color: var(--gray-500) !important;
+    }
+
+    /*#region DatePickerSelected*/
+    .react-datepicker__day--selected {
+      background: var(--dark-purple);
+      &:hover {
+        background: var(--light-purple);
+        color: var(--dark-purple);
+        font-weight: 700;
+      }
+    }
+    .react-datepicker__year-text--selected {
+      background: var(--dark-purple);
+      &:hover {
+        background: var(--light-purple);
+        color: var(--dark-purple);
+        font-weight: 700;
+      }
+    }
+    .react-datepicker__year-text--keyboard-selected {
+      background: var(--dark-purple);
+      &:hover {
+        background: var(--light-purple);
+        color: var(--dark-purple);
+        font-weight: 700;
+      }
+    }
+    /*#endregion DatePickerSelected*/
+
+    /*#endregion DatePicker*/
   }
 `;
