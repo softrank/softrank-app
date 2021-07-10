@@ -7,13 +7,14 @@ import { ModelEntity } from '../../../app/models/modelEntity';
 import agent from '../../../app/api/agent';
 import Card, { CardTitle } from '../../../components/Card/Card';
 import Wrapper from '../../../app/layouts/Layout/Wrapper';
-import Button from '../../../components/Button/Button';
+import Button from '../../../components/Buttons/Button';
 import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
 import { Row, RowResponsive } from './styled';
 import { DateInput } from '../../../components/Form/DateInput/DateInput';
+import { ButtonSeconday } from '../../../components/Buttons/ButtonSecondary';
 
 type FormValues = {
   id: string;
@@ -53,7 +54,6 @@ export const ModelForm = () => {
   return (
     <Wrapper>
       <div style={{ width: '100%' }}></div>
-      {/* <h2>Cadastrar modelo</h2> */}
       <Card>
         <CardTitle>Cadastrar modelo</CardTitle>
         <STabs>
@@ -90,9 +90,7 @@ export const ModelForm = () => {
                 />
               </RowResponsive>
               <Row>
-                <Button type="button" secondary>
-                  Cancelar
-                </Button>
+                <ButtonSeconday type="button">Cancelar</ButtonSeconday>
                 <Button type="submit">Salvar</Button>
               </Row>
             </Form>
