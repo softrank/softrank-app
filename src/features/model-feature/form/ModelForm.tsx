@@ -22,6 +22,7 @@ type FormValues = {
   year: Date;
   description: string;
   model: string;
+  check: boolean;
 };
 
 export const ModelForm = () => {
