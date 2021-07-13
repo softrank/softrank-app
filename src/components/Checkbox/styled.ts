@@ -45,7 +45,6 @@ export const StyledCheckbox = styled.div<Props>`
   width: 1.2em;
   height: 1.2em;
 
-  background: ${(props) => (props.checked ? 'var(--dark-purple)' : '')};
   border: 2px solid var(--dark-purple);
   border-radius: 3px;
   transition: all 150ms;
@@ -55,6 +54,19 @@ export const StyledCheckbox = styled.div<Props>`
     css`
       background: var(--gray-100);
       border: 2px solid var(--gray-500);
+    `}
+
+  ${(props) =>
+    props.error &&
+    css`
+      border: 2px solid var(--error);
+    `}
+
+  ${(props) =>
+    props.checked &&
+    css`
+      background: var(--dark-purple);
+      border: 2px solid var(--dark-purple);
     `}
 
   ${HiddenCheckbox}:focus + & {

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Controller } from 'react-hook-form';
 
 import {
   CheckboxContainer,
@@ -10,14 +9,14 @@ import {
 
 interface Props {
   label: string;
+  onChange: (e: any) => void;
   checked?: boolean;
   disabled?: boolean;
   error?: boolean;
-  onChange: () => void;
 }
 
 export const Checkbox = (props: Props) => {
-  const { label, checked, disabled, error, onChange } = props;
+  const { label, onChange, checked, disabled, error } = props;
 
   const [check, setCheck] = useState(checked ?? false);
 
