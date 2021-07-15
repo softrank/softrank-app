@@ -7,8 +7,6 @@ export const Header = styled.header`
   align-items: center;
   justify-content: center;
 
-  /* padding: 0.4em; */
-
   background: var(--white);
   border-bottom: 1.4px solid var(--gray-100);
 `;

@@ -42,6 +42,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     background: var(---white);
   }
+
   body {
     min-width: 320px;
 
@@ -53,13 +54,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
     background: var(--gray-50);
-
-    /* background: linear-gradient(
-      17deg,
-      rgba(98, 92, 255, 1) 29%,
-      rgba(255, 255, 255, 1) 100%
-    );
-    background-attachment: fixed; */
 
     @media (max-width: 640px) {
       background: var(--white);
