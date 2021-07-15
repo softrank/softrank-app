@@ -23,7 +23,7 @@ export const ModalBackground = styled.div`
 
 export const ModalWrapper = styled.div<Props>`
   position: relative;
-  width: ${(props) => (props.width ? props.width : '800px')};
+  max-width: ${(props) => (props.width ? props.width : '800px')};
   height: 500px;
   padding: 1em;
   margin: 1em;
@@ -82,5 +82,13 @@ export const ModalTitle = styled.div`
     text-align: left;
     align-items: start;
     padding-left: 0;
+  }
+`;
+
+export const ErrorImage = styled.img`
+  width: 70%;
+
+  @media (max-width: 420px) {
+    width: 100%;
   }
 `;

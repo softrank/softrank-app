@@ -17,6 +17,8 @@ import { DateInput } from '../../../components/Form/DateInput/DateInput';
 import { ButtonSeconday } from '../../../components/Buttons/ButtonSecondary';
 import { Modal } from '../../../components/Modal/Modal';
 import approve from '../../../assets/images/approve.svg';
+import { ErrorMessage } from '../../../components/Messages/ErrorMessage/ErrorMessage';
+import { SucessMessage } from '../../../components/Messages/SucessMessage/SucessMessage';
 
 type FormValues = {
   id: string;
@@ -31,6 +33,10 @@ export const ModelForm = () => {
 
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState();
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState('');
+  const [showSucessMessage, setShowSucessMessage] = useState(false);
 
   useEffect(() => {
     agent.Models.list().then((response) => {
@@ -40,16 +46,38 @@ export const ModelForm = () => {
 
   const handleCreateOrEditModel = (model: ModelEntity) => {
     if (model.id) {
-      agent.Models.update(model).then(() => {
-        setModels([...models.filter((x) => x.id !== model.id), model]);
-      });
+      agent.Models.update(model)
+        .then(() => {
+          setModels([...models.filter((x) => x.id !== model.id), model]);
+          handleSucessMessage('Modelo atulizado!');
+        })
+        .catch((error) => {
+          handleErrorMessage(error);
+        });
     } else {
       model.id = uuid();
-      agent.Models.create(model).then(() => {
-        setModels([...models, model]);
-      });
+      agent.Models.create(model)
+        .then(() => {
+          setModels([...models, model]);
+          handleSucessMessage('Modelo criado!');
+        })
+        .catch((error) => {
+          handleErrorMessage(error);
+        });
     }
     return <Redirect to="/listarModelos" />;
+  };
+
+  const handleErrorMessage = (error: any) => {
+    setShowModal(false);
+    setError(error);
+    setShowErrorMessage(true);
+  };
+
+  const handleSucessMessage = (title: string) => {
+    setShowModal(false);
+    setSucessMessage(title);
+    setShowSucessMessage(true);
   };
 
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
@@ -94,18 +122,23 @@ export const ModelForm = () => {
               </RowResponsive>
               <Row>
                 <ButtonSeconday type="button">Cancelar</ButtonSeconday>
-                <Button onClick={() => setShowModal(true)}>Salvar</Button>
+                <Button type="button" onClick={() => setShowModal(true)}>
+                  Salvar
+                </Button>
               </Row>
               <Modal
                 showModal={showModal}
                 setShowModal={setShowModal}
                 title="Confirmar modelo"
-                width="40vw"
+                width="500px"
               >
                 <>
                   <ModalImage src={approve} alt="Sucess" />
                   <Row>
-                    <ButtonSeconday onClick={() => setShowModal(false)}>
+                    <ButtonSeconday
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                    >
                       Cancelar
                     </ButtonSeconday>
                     <Button type="submit">Confirmar</Button>
@@ -118,6 +151,21 @@ export const ModelForm = () => {
           <STabPanel>Panel 3</STabPanel>
         </STabs>
       </Card>
+      {showErrorMessage && (
+        <ErrorMessage
+          showMessage={showErrorMessage}
+          setShowMessage={setShowErrorMessage}
+          error={error}
+        />
+      )}
+      {showSucessMessage && (
+        <SucessMessage
+          showMessage={showSucessMessage}
+          setShowMessage={setShowSucessMessage}
+          title={sucessMessage}
+          path="/listarModelos"
+        />
+      )}
     </Wrapper>
   );
 };

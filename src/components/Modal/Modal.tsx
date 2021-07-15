@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { ModalImage } from '../../features/model-feature/form/styled';
 import {
   CloseModalButton,
   ModalBackground,
@@ -13,10 +14,11 @@ interface Props {
   title: string;
   children?: JSX.Element;
   width?: string;
+  src?: string;
 }
 
 export const Modal = (props: Props) => {
-  const { showModal, setShowModal, title, children, width } = props;
+  const { showModal, setShowModal, title, children, width, src } = props;
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +32,6 @@ export const Modal = (props: Props) => {
     (e) => {
       if (e.key === 'Escape' && showModal) {
         setShowModal(false);
-        console.log('I pressed');
       }
     },
     [setShowModal, showModal]
@@ -48,6 +49,7 @@ export const Modal = (props: Props) => {
           <ModalWrapper width={width ?? ''}>
             <ModalBody>
               <ModalTitle>{title}</ModalTitle>
+              {src && <ModalImage src={src} alt="teste" />}
               {children}
             </ModalBody>
             <CloseModalButton

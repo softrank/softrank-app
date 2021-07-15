@@ -5,6 +5,7 @@ interface Props {
 }
 
 export default styled.button<Props>`
+  text-decoration: none;
   box-sizing: border-box;
   width: 9.2em;
   height: 2.4em;
