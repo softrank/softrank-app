@@ -12,9 +12,11 @@ import Form from '../../../components/Form/Form';
 import Input from '../../../components/Form/Input/Input';
 import TextArea from '../../../components/Form/TextArea/TextArea';
 import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
-import { Row, RowResponsive } from './styled';
+import { ModalImage, Row, RowResponsive } from './styled';
 import { DateInput } from '../../../components/Form/DateInput/DateInput';
 import { ButtonSeconday } from '../../../components/Buttons/ButtonSecondary';
+import { Modal } from '../../../components/Modal/Modal';
+import approve from '../../../assets/images/approve.svg';
 
 type FormValues = {
   id: string;
@@ -28,6 +30,7 @@ export const ModelForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
 
   const [models, setModels] = useState<ModelEntity[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     agent.Models.list().then((response) => {
@@ -91,8 +94,24 @@ export const ModelForm = () => {
               </RowResponsive>
               <Row>
                 <ButtonSeconday type="button">Cancelar</ButtonSeconday>
-                <Button type="submit">Salvar</Button>
+                <Button onClick={() => setShowModal(true)}>Salvar</Button>
               </Row>
+              <Modal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                title="Confirmar modelo"
+                width="40vw"
+              >
+                <>
+                  <ModalImage src={approve} alt="Sucess" />
+                  <Row>
+                    <ButtonSeconday onClick={() => setShowModal(false)}>
+                      Cancelar
+                    </ButtonSeconday>
+                    <Button type="submit">Confirmar</Button>
+                  </Row>
+                </>
+              </Modal>
             </Form>
           </STabPanel>
           <STabPanel>Panel 2</STabPanel>

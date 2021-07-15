@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-// export const FormTitle = styled.h1`
-//   margin: 1em 0;
-//   display: flex;
-//   justify-content: start;
-
-//   font-weight: 400;
-//   font-size: 24px;
-// `;
-
 export const RowResponsive = styled.div`
   display: flex;
   justify-content: space-between;
@@ -23,7 +14,18 @@ export const RowResponsive = styled.div`
 `;
 
 export const Row = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 0.2em;
+`;
+
+export const ModalImage = styled.img`
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 420px) {
+    width: 100%;
+  }
 `;

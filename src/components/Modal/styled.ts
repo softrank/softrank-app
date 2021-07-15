@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
 
+interface Props {
+  width: string;
+}
+
 export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -12,16 +16,17 @@ export const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
 
-  background: rgba(60, 56, 158, 0.05);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 `;
 
-export const ModalWrapper = styled.div`
-  width: 800px;
+export const ModalWrapper = styled.div<Props>`
+  position: relative;
+  width: ${(props) => (props.width ? props.width : '800px')};
   height: 500px;
-  padding: 1.4em;
-  margin: 2em;
+  padding: 1em;
+  margin: 1em;
 
   position: relative;
   z-index: 10;
@@ -30,6 +35,10 @@ export const ModalWrapper = styled.div`
   color: #000;
   border-radius: var(--radius);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  @media (max-width: 420px) {
+    width: 90%;
+  }
 `;
 
 export const CloseModalButton = styled(IoIosClose)`
@@ -44,4 +53,34 @@ export const CloseModalButton = styled(IoIosClose)`
 
   cursor: pointer;
   color: var(--dark-purple);
+`;
+
+export const ModalBody = styled.div`
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ModalTitle = styled.div`
+  width: 100%;
+  font-weight: 600;
+  font-size: 34px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0 1em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--gray-700);
+
+  @media (max-width: 460px) {
+    font-size: 28px;
+    text-align: left;
+    align-items: start;
+    padding-left: 0;
+  }
 `;

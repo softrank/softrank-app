@@ -1,14 +1,22 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { CloseModalButton, ModalBackground, ModalWrapper } from './styled';
+import { useCallback, useEffect, useRef } from 'react';
+import {
+  CloseModalButton,
+  ModalBackground,
+  ModalBody,
+  ModalTitle,
+  ModalWrapper,
+} from './styled';
 
 interface Props {
   showModal: boolean;
   setShowModal: (state: boolean) => void;
-  children: JSX.Element;
+  title: string;
+  children?: JSX.Element;
+  width?: string;
 }
 
 export const Modal = (props: Props) => {
-  const { showModal, setShowModal, children } = props;
+  const { showModal, setShowModal, title, children, width } = props;
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -37,8 +45,11 @@ export const Modal = (props: Props) => {
     <>
       {showModal && (
         <ModalBackground onClick={handleCloseModal} ref={modalRef}>
-          <ModalWrapper>
-            {children}
+          <ModalWrapper width={width ?? ''}>
+            <ModalBody>
+              <ModalTitle>{title}</ModalTitle>
+              {children}
+            </ModalBody>
             <CloseModalButton
               aria-label="Close modal"
               onClick={() => setShowModal(false)}

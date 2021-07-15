@@ -8,7 +8,7 @@ export default styled.button<Props>`
   box-sizing: border-box;
   width: 9.2em;
   height: 2.4em;
-  margin: 0.8em 0;
+  margin-top: 0.8em;
 
   font-size: 1.2rem;
   font-weight: 600;
@@ -21,10 +21,11 @@ export default styled.button<Props>`
   cursor: pointer;
   outline: none;
 
-  transition: all 0.3s ease;
+  transition: all 600ms ease;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
     background-color: white;
     border: 2px solid var(--dark-purple);
     color: var(--dark-purple);
