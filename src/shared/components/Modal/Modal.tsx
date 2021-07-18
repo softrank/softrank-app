@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { ModalImage } from '../../features/model-feature/form/styled';
+import { ModalImage } from '../../../views/ModelForm/styled';
 import {
   CloseModalButton,
   ModalBackground,

@@ -3,22 +3,27 @@ import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
-import { ModelEntity } from '../../../app/models/modelEntity';
-import agent from '../../../app/api/agent';
-import Card, { CardTitle } from '../../../components/Card/Card';
-import Wrapper from '../../../app/layouts/Layout/Wrapper';
-import Button from '../../../components/Buttons/Button';
-import Form from '../../../components/Form/Form';
-import Input from '../../../components/Form/Input/Input';
-import TextArea from '../../../components/Form/TextArea/TextArea';
-import { STab, STabList, STabPanel, STabs } from '../../../components/Tab/Tab';
+import agent from '../../shared/api/agent';
+import { ModelEntity } from '../../shared/models/modelEntity';
+import Card, { CardTitle } from '../../shared/components/Card/Card';
+import Wrapper from '../../shared/components/Layouts/Wrapper';
+import Button from '../../shared/components/Buttons/Button';
+import Form from '../../shared/components/Form/Form';
+import Input from '../../shared/components/Form/Input/Input';
+import TextArea from '../../shared/components/Form/TextArea/TextArea';
+import {
+  STab,
+  STabList,
+  STabPanel,
+  STabs,
+} from '../../shared/components/Tab/Tab';
 import { ModalImage, Row, RowResponsive } from './styled';
-import { DateInput } from '../../../components/Form/DateInput/DateInput';
-import { ButtonSeconday } from '../../../components/Buttons/ButtonSecondary';
-import { Modal } from '../../../components/Modal/Modal';
-import approve from '../../../assets/images/approve.svg';
-import { ErrorMessage } from '../../../components/Messages/ErrorMessage/ErrorMessage';
-import { SucessMessage } from '../../../components/Messages/SucessMessage/SucessMessage';
+import { DateInput } from '../../shared/components/Form/DateInput/DateInput';
+import { ButtonSeconday } from '../../shared/components/Buttons/ButtonSecondary';
+import { Modal } from '../../shared/components/Modal/Modal';
+import approve from '../../shared/assets/images/approve.svg';
+import { ErrorMessage } from '../../shared/components/Messages/ErrorMessage/ErrorMessage';
+import { SuccessMessage } from '../../shared/components/Messages/SuccessMessage/SuccessMessage';
 
 type FormValues = {
   id: string;
@@ -35,8 +40,8 @@ export const ModelForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState();
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [sucessMessage, setSucessMessage] = useState('');
-  const [showSucessMessage, setShowSucessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     agent.Models.list().then((response) => {
@@ -49,7 +54,7 @@ export const ModelForm = () => {
       agent.Models.update(model)
         .then(() => {
           setModels([...models.filter((x) => x.id !== model.id), model]);
-          handleSucessMessage('Modelo atulizado!');
+          handleSuccessMessage('Modelo atulizado!');
         })
         .catch((error) => {
           handleErrorMessage(error);
@@ -59,7 +64,7 @@ export const ModelForm = () => {
       agent.Models.create(model)
         .then(() => {
           setModels([...models, model]);
-          handleSucessMessage('Modelo criado!');
+          handleSuccessMessage('Modelo criado!');
         })
         .catch((error) => {
           handleErrorMessage(error);
@@ -74,10 +79,10 @@ export const ModelForm = () => {
     setShowErrorMessage(true);
   };
 
-  const handleSucessMessage = (title: string) => {
+  const handleSuccessMessage = (title: string) => {
     setShowModal(false);
-    setSucessMessage(title);
-    setShowSucessMessage(true);
+    setSuccessMessage(title);
+    setShowSuccessMessage(true);
   };
 
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
@@ -133,7 +138,7 @@ export const ModelForm = () => {
                 width="500px"
               >
                 <>
-                  <ModalImage src={approve} alt="Sucess" />
+                  <ModalImage src={approve} alt="succes" />
                   <Row>
                     <ButtonSeconday
                       type="button"
@@ -158,11 +163,11 @@ export const ModelForm = () => {
           error={error}
         />
       )}
-      {showSucessMessage && (
-        <SucessMessage
-          showMessage={showSucessMessage}
-          setShowMessage={setShowSucessMessage}
-          title={sucessMessage}
+      {showSuccessMessage && (
+        <SuccessMessage
+          showMessage={showSuccessMessage}
+          setShowMessage={setShowSuccessMessage}
+          title={successMessage}
           path="/listarModelos"
         />
       )}

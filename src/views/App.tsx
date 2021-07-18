@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
-import { ModelForm } from '../../features/model-feature/form/ModelForm';
-import ModelsList from '../../features/model-feature/list/ModelsList';
-import { GlobalStyles } from '../../styles/GlobalStyle';
+import { GlobalStyles } from '../shared/styles/GlobalStyle';
+import { ModelForm } from './ModelForm/ModelForm';
+import ModelsList from './ModelList/ModelsList';
 import HomePage from './HomePage/HomePage';
 import { NotFound } from './NotFound/NotFound';
 

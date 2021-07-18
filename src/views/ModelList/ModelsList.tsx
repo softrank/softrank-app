@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import agent from '../../../app/api/agent';
-import Wrapper from '../../../app/layouts/Layout/Wrapper';
-import { ModelEntity } from '../../../app/models/modelEntity';
-import Card from '../../../components/Card/Card';
-import Table from '../../../components/Table/Table';
-import TableBody from '../../../components/Table/TableBody';
-import TableHead from '../../../components/Table/TableHead';
+import agent from '../../shared/api/agent';
+import Wrapper from '../../shared/components/Layouts/Wrapper';
+import { ModelEntity } from '../../shared/models/modelEntity';
+import Card from '../../shared/components/Card/Card';
+import Table from '../../shared/components/Table/Table';
+import TableBody from '../../shared/components/Table/TableBody';
+import TableHead from '../../shared/components/Table/TableHead';
 
 export default function ModelsList() {
   const [models, setModels] = useState<ModelEntity[]>([]);

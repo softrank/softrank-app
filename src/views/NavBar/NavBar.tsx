@@ -10,12 +10,12 @@ import {
   IconBackground,
   MenuIcon,
 } from './styled';
-import { SideBarData } from '../../api/SideBarData';
-import { Dropdown } from '../../../components/Dropdown/Dropdown';
+import { SideBarData } from '../../shared/api/SideBarData';
+import { Dropdown } from '../../shared/components/Dropdown/Dropdown';
 import {
   DropdownDivider,
   DropdownItem,
-} from '../../../components/Dropdown/styled';
+} from '../../shared/components/Dropdown/styled';
 
 export default function NavBar() {
   const [navMenu, setNavMenu] = useState(false);

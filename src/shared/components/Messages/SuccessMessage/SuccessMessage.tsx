@@ -1,5 +1,5 @@
 import { Message } from '../Message';
-import sucess from '../../../assets/images/success.svg';
+import success from '../../../assets/images/success.svg';
 import Button from '../../Buttons/Button';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   path: string;
 }
 
-export const SucessMessage = (props: Props) => {
+export const SuccessMessage = (props: Props) => {
   const { showMessage, setShowMessage, title, path } = props;
 
   return (
@@ -17,7 +17,7 @@ export const SucessMessage = (props: Props) => {
       showMessage={showMessage}
       setShowMessage={setShowMessage}
       title={title}
-      src={sucess}
+      src={success}
     >
       <a href={path}>
         <Button>Okay</Button>
