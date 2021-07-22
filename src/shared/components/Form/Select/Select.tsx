@@ -15,6 +15,7 @@ interface Props {
   placeholder: string;
   control: any;
   optionValues: any[];
+  optionValue?: string;
   optionLabel: string;
   disabled?: boolean;
   multi?: boolean;
@@ -29,6 +30,7 @@ export const Select = (props: Props) => {
     placeholder,
     control,
     optionValues,
+    optionValue = 'id',
     optionLabel,
     disabled,
     multi,
@@ -40,7 +42,7 @@ export const Select = (props: Props) => {
 
   optionValues.map((element) => {
     const option: OptionValue = {
-      value: element['id'],
+      value: element[optionValue],
       label: element[optionLabel],
     };
     options.push(option);
@@ -49,10 +51,11 @@ export const Select = (props: Props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Label>React select</Label>
+      <Label>{label}</Label>
       <Controller
         name={name}
         control={control}
+        rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <CustomSelect
             classNamePrefix={'select'}

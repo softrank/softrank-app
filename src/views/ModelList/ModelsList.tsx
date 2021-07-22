@@ -1,20 +1,37 @@
 import { useEffect, useState } from 'react';
-import agent from '../../shared/api/agent';
 import Wrapper from '../../shared/components/Layouts/Wrapper';
 import { ModelEntity } from '../../shared/models/modelEntity';
 import Card from '../../shared/components/Card/Card';
 import Table from '../../shared/components/Table/Table';
 import TableBody from '../../shared/components/Table/TableBody';
 import TableHead from '../../shared/components/Table/TableHead';
+import { modelsService } from '../../shared/services/modelsService';
+import { LoadingSpinner } from '../../shared/components/Loading/LoadingSpinner';
 
 export default function ModelsList() {
   const [models, setModels] = useState<ModelEntity[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    agent.Models.list().then((response) => {
-      setModels(response);
-    });
+    modelsService
+      .list()
+      .then((response) => {
+        setModels(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
   }, []);
+
+  if (loading)
+    return (
+      <LoadingSpinner
+        loading={loading}
+        size={80}
+        content="Carregando modelos..."
+      />
+    );
 
   return (
     <Wrapper>

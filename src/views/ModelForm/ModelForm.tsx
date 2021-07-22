@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { v4 as uuid } from 'uuid';
 
-import agent from '../../shared/api/agent';
 import { ModelEntity } from '../../shared/models/modelEntity';
 import Card, { CardTitle } from '../../shared/components/Card/Card';
 import Wrapper from '../../shared/components/Layouts/Wrapper';
 import Button from '../../shared/components/Buttons/Button';
 import Form from '../../shared/components/Form/Form';
-import Input from '../../shared/components/Form/Input/Input';
 import TextArea from '../../shared/components/Form/TextArea/TextArea';
 import {
   STab,
@@ -24,6 +21,9 @@ import { Modal } from '../../shared/components/Modal/Modal';
 import approve from '../../shared/assets/images/approve.svg';
 import { ErrorMessage } from '../../shared/components/Messages/ErrorMessage/ErrorMessage';
 import { SuccessMessage } from '../../shared/components/Messages/SuccessMessage/SuccessMessage';
+import { Select } from '../../shared/components/Form/Select/Select';
+import { modelsService } from '../../shared/services/modelsService';
+import { LoadingSpinner } from '../../shared/components/Loading/LoadingSpinner';
 
 type FormValues = {
   id: string;
@@ -32,6 +32,17 @@ type FormValues = {
   description: string;
   model: string;
 };
+
+const ModelOptions = [
+  {
+    id: 1,
+    title: 'MPS.BR Software',
+  },
+  {
+    id: 2,
+    title: 'MPS.BR Serviços',
+  },
+];
 
 export const ModelForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
@@ -42,31 +53,43 @@ export const ModelForm = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    agent.Models.list().then((response) => {
+    modelsService.list().then((response) => {
       setModels(response);
     });
   }, []);
 
   const handleCreateOrEditModel = (model: ModelEntity) => {
+    console.log('meu ovo');
     if (model.id) {
-      agent.Models.update(model)
+      setLoading(true);
+      modelsService
+        .update(model)
         .then(() => {
           setModels([...models.filter((x) => x.id !== model.id), model]);
+          setLoading(false);
           handleSuccessMessage('Modelo atulizado!');
         })
         .catch((error) => {
+          setLoading(false);
           handleErrorMessage(error);
         });
     } else {
-      model.id = uuid();
-      agent.Models.create(model)
+      // model.id = uuid();
+      setLoading(true);
+      console.log('meu ovo');
+
+      modelsService
+        .create(model)
         .then(() => {
           setModels([...models, model]);
+          setLoading(false);
           handleSuccessMessage('Modelo criado!');
         })
         .catch((error) => {
+          setLoading(false);
           handleErrorMessage(error);
         });
     }
@@ -85,7 +108,12 @@ export const ModelForm = () => {
     setShowSuccessMessage(true);
   };
 
-  const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
+  const logData = (data: any) => {
+    console.log(data);
+  };
+
+  // const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => setLoading(true));
 
   return (
     <Wrapper>
@@ -101,12 +129,13 @@ export const ModelForm = () => {
           <STabPanel>
             <Form onSubmit={onSubmit}>
               <RowResponsive>
-                <Input
+                <Select
                   name="name"
-                  label="Nome"
-                  type="text"
-                  placeholder="nome do modelo"
+                  label="Modelo"
+                  placeholder="selecione um modelo"
                   control={control}
+                  optionValues={ModelOptions}
+                  optionLabel="title"
                 />
                 <DateInput
                   label="Ano"
@@ -138,7 +167,11 @@ export const ModelForm = () => {
                 width="500px"
               >
                 <>
-                  <ModalImage src={approve} alt="succes" />
+                  {loading ? (
+                    <LoadingSpinner loading={loading} size={100} />
+                  ) : (
+                    <ModalImage src={approve} alt="succes" />
+                  )}
                   <Row>
                     <ButtonSeconday
                       type="button"
@@ -146,7 +179,9 @@ export const ModelForm = () => {
                     >
                       Cancelar
                     </ButtonSeconday>
-                    <Button type="submit">Confirmar</Button>
+                    <Button type="button" onClick={() => onSubmit()}>
+                      Confirmar
+                    </Button>
                   </Row>
                 </>
               </Modal>
