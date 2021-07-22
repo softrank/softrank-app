@@ -62,34 +62,25 @@ export const ModelForm = () => {
   }, []);
 
   const handleCreateOrEditModel = (model: ModelEntity) => {
-    console.log('meu ovo');
+    setLoading(true);
     if (model.id) {
-      setLoading(true);
       modelsService
         .update(model)
         .then(() => {
           setModels([...models.filter((x) => x.id !== model.id), model]);
-          setLoading(false);
           handleSuccessMessage('Modelo atulizado!');
         })
         .catch((error) => {
-          setLoading(false);
           handleErrorMessage(error);
         });
     } else {
-      // model.id = uuid();
-      setLoading(true);
-      console.log('meu ovo');
-
       modelsService
         .create(model)
         .then(() => {
           setModels([...models, model]);
-          setLoading(false);
           handleSuccessMessage('Modelo criado!');
         })
         .catch((error) => {
-          setLoading(false);
           handleErrorMessage(error);
         });
     }
@@ -97,27 +88,23 @@ export const ModelForm = () => {
   };
 
   const handleErrorMessage = (error: any) => {
-    setShowModal(false);
+    setLoading(false);
     setError(error);
     setShowErrorMessage(true);
+    setShowModal(false);
   };
 
   const handleSuccessMessage = (title: string) => {
-    setShowModal(false);
+    setLoading(false);
     setSuccessMessage(title);
     setShowSuccessMessage(true);
+    setShowModal(false);
   };
 
-  const logData = (data: any) => {
-    console.log(data);
-  };
-
-  // const onSubmit = handleSubmit((data) => console.log(data));
-  const onSubmit = handleSubmit((data) => setLoading(true));
+  const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
 
   return (
     <Wrapper>
-      <div style={{ width: '100%' }}></div>
       <Card>
         <CardTitle>Cadastrar modelo</CardTitle>
         <STabs>

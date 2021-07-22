@@ -31,7 +31,12 @@ export const LoadingSpinner = (props: Props) => {
 
   return (
     <SpinnerContainer>
-      <MoonLoader loading={loading} color={'#625cff'} size={size} />
+      <MoonLoader
+        loading={loading}
+        color={'#625cff'}
+        size={size}
+        speedMultiplier={0.6}
+      />
       {content && <SpinnerContent>{content}</SpinnerContent>}
     </SpinnerContainer>
   );
