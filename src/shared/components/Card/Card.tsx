@@ -18,12 +18,9 @@ export default styled.div`
 
 export const CardTitle = styled.h1`
   margin-bottom: 0.2em;
-  margin-left: 0.6em;
-  display: flex;
-  justify-content: start;
 
   font-weight: 600;
-  font-size: 42px;
+  font-size: 36px;
   font-family: 'Montserrat', sans-serif;
 
   color: var(--gray-700);
