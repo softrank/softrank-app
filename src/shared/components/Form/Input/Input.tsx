@@ -6,12 +6,12 @@ interface Props {
   name: string;
   label: string;
   placeholder: string;
-  type: string;
+  type?: string;
   control: any;
 }
 
 export default function Input(props: Props) {
-  const { label, name, control, placeholder, type } = props;
+  const { label, name, control, placeholder, type = 'text' } = props;
 
   return (
     <InputDiv>
