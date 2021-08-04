@@ -21,6 +21,7 @@ interface Props {
   multi?: boolean;
   search?: boolean;
   error?: boolean;
+  defaultValue?: any;
 }
 
 export const Select = (props: Props) => {
@@ -36,6 +37,7 @@ export const Select = (props: Props) => {
     multi,
     search,
     error,
+    defaultValue,
   } = props;
 
   const options: OptionValue[] = [];
@@ -55,7 +57,8 @@ export const Select = (props: Props) => {
       <Controller
         name={name}
         control={control}
-        rules={{ required: true }}
+        defaultValue={defaultValue}
+        // rules={{ required: true }}
         render={({ field: { onChange, value } }) => (
           <CustomSelect
             classNamePrefix={'select'}

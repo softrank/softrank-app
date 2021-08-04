@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { ModalImage } from '../../../views/ModelForm/styled';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import {
   CloseModalButton,
   ModalBackground,
   ModalBody,
+  ModalImage,
   ModalTitle,
   ModalWrapper,
 } from './styled';
@@ -15,10 +16,21 @@ interface Props {
   children?: JSX.Element;
   width?: string;
   src?: string;
+  loading?: boolean;
+  imageAlt?: string;
 }
 
 export const Modal = (props: Props) => {
-  const { showModal, setShowModal, title, children, width, src } = props;
+  const {
+    showModal,
+    setShowModal,
+    title,
+    children,
+    width,
+    src,
+    loading,
+    imageAlt,
+  } = props;
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -46,10 +58,14 @@ export const Modal = (props: Props) => {
     <>
       {showModal && (
         <ModalBackground onClick={handleCloseModal} ref={modalRef}>
-          <ModalWrapper width={width ?? ''}>
+          <ModalWrapper width={width ?? '300px'}>
             <ModalBody>
               <ModalTitle>{title}</ModalTitle>
-              {src && <ModalImage src={src} alt="teste" />}
+              {loading ? (
+                <LoadingSpinner loading={loading} size={100} />
+              ) : (
+                src && <ModalImage src={src} alt={imageAlt ?? ''} />
+              )}
               {children}
             </ModalBody>
             <CloseModalButton

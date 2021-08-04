@@ -22,16 +22,6 @@ export const Options = styled.div`
   gap: 0.2em;
 `;
 
-export const ModalImage = styled.img`
-  width: 70%;
-  display: flex;
-  justify-content: space-between;
-
-  @media (max-width: 420px) {
-    width: 100%;
-  }
-`;
-
 export const LevelGroup = styled.div`
   width: 90%;
   display: flex;

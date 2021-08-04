@@ -31,7 +31,7 @@ export const CollapseHead = styled.div`
 `;
 
 export const CollapseTitle = styled.h1`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--dark-purple);
 `;

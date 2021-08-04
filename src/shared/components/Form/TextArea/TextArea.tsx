@@ -9,10 +9,37 @@ interface Props {
   placeholder: string;
   control: any;
   error?: boolean;
+  value?: any;
+  inputName?: string;
+  index?: number;
+  parentIndex?: number;
+  onChangeArray?: (
+    name: string,
+    index: number,
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  onChangeArrayParent?: (
+    name: string,
+    index: number,
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+    parentIndex: number
+  ) => void;
 }
 
-export default function Input(props: Props) {
-  const { label, name, control, placeholder, error } = props;
+export const TextArea = (props: Props) => {
+  const {
+    label,
+    name,
+    control,
+    placeholder,
+    error,
+    value,
+    inputName,
+    index,
+    parentIndex,
+    onChangeArray,
+    onChangeArrayParent,
+  } = props;
 
   return (
     <div style={{ width: '100%' }}>
@@ -23,11 +50,23 @@ export default function Input(props: Props) {
         render={({ field: { onChange } }) => (
           <StyledTextArea
             placeholder={placeholder}
-            onChange={onChange}
             error={error}
+            value={value}
+            onChange={(e) =>
+              onChangeArrayParent &&
+              index !== undefined &&
+              inputName &&
+              parentIndex !== undefined
+                ? onChange(
+                    onChangeArrayParent(inputName, index, e, parentIndex)
+                  )
+                : onChangeArray && index !== undefined && inputName
+                ? onChange(onChangeArray(inputName, index, e))
+                : onChange
+            }
           />
         )}
       />
     </div>
   );
-}
+};
