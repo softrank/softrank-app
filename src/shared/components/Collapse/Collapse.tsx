@@ -16,6 +16,7 @@ interface Props {
   setCollapse?: (state: boolean) => void;
   children: JSX.Element[];
   options?: any;
+  underline?: boolean;
 }
 
 export const Collapse = ({
@@ -24,6 +25,7 @@ export const Collapse = ({
   setCollapse,
   children,
   options,
+  underline,
 }: Props) => {
   const [collapseState, setCollapseState] = useState(collapse);
 
@@ -35,8 +37,8 @@ export const Collapse = ({
   };
 
   return (
-    <CollapseContainer>
-      <CollapseHead>
+    <CollapseContainer underline={underline}>
+      <CollapseHead underline={underline}>
         <CollapseTitle>{title}</CollapseTitle>
         <CollapseOptions>
           {options}

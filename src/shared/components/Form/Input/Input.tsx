@@ -8,21 +8,6 @@ interface Props {
   type?: string;
   control: any;
   defaultValue?: string;
-  value?: any;
-  inputName?: string;
-  index?: number;
-  parentIndex?: number;
-  onChangeArray?: (
-    name: string,
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
-  onChangeArrayParent?: (
-    name: string,
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>,
-    parentIndex: number
-  ) => void;
 }
 
 export default function Input({
@@ -32,12 +17,6 @@ export default function Input({
   placeholder,
   type = 'text',
   defaultValue,
-  value,
-  inputName,
-  index,
-  parentIndex,
-  onChangeArray,
-  onChangeArrayParent,
 }: Props) {
   return (
     <InputDiv>
@@ -46,21 +25,10 @@ export default function Input({
         name={name}
         control={control}
         defaultValue={defaultValue}
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
           <StyledInput
             placeholder={placeholder}
-            onChange={(e) =>
-              onChangeArrayParent &&
-              index !== undefined &&
-              inputName &&
-              parentIndex !== undefined
-                ? onChange(
-                    onChangeArrayParent(inputName, index, e, parentIndex)
-                  )
-                : onChangeArray && index !== undefined && inputName
-                ? onChange(onChangeArray(inputName, index, e))
-                : onChange
-            }
+            onChange={(e) => onChange((value = e.target.value))}
             type={type}
             value={value}
           />
