@@ -10,7 +10,7 @@ interface Props {
   loading?: boolean;
 }
 
-export const Message = ({
+const Message = ({
   showMessage,
   setShowMessage,
   src,
@@ -33,3 +33,5 @@ export const Message = ({
     </Modal>
   );
 };
+
+export default Message;

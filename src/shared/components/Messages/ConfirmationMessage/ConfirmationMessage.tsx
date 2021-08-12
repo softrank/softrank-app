@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { Message } from '../Message';
 import approve from '../../../assets/images/approve.svg';
 import { ButtonSeconday } from '../../Buttons/ButtonSecondary';
 import Button from '../../Buttons/Button';
+import Message from '../Message';
 
 const Options = styled.div`
   width: 100%;
@@ -21,7 +21,7 @@ interface Props {
   confirmAction: () => void;
 }
 
-export const ConfirmationMessage = ({
+const ConfirmationMessage = ({
   title,
   showMessage,
   setShowMessage,
@@ -49,3 +49,5 @@ export const ConfirmationMessage = ({
     </Message>
   );
 };
+
+export default ConfirmationMessage;

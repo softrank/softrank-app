@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { ModelEntity } from '../../shared/models/modelEntity';
-import Button from '../../shared/components/Buttons/Button';
-import Form from '../../shared/components/Form/Form';
-import { TextArea } from '../../shared/components/Form/TextArea/TextArea';
+import { Process } from '../../shared/models/process';
+import { ExpectedResult } from '../../shared/models/expectedResult';
+import { ExpectedResultsFieldArray } from './expectedResultsFieldArray';
+import Wrapper from '../../shared/components/Layouts/Wrapper';
+import { modelDummy } from '../../shared/services/modelDummy';
+import { modelsService } from '../../shared/services';
 import {
   Options,
   InputGroup,
@@ -14,25 +17,21 @@ import {
   RemoveIcon,
   CollapseContent,
 } from './styled';
-import { DateInput } from '../../shared/components/Form/DateInput/DateInput';
-import { ButtonSeconday } from '../../shared/components/Buttons/ButtonSecondary';
-import { ErrorMessage } from '../../shared/components/Messages/ErrorMessage/ErrorMessage';
-import { SuccessMessage } from '../../shared/components/Messages/SuccessMessage/SuccessMessage';
-import { modelsService } from '../../shared/services/modelsService';
-import { Collapse } from '../../shared/components/Collapse/Collapse';
-import Input from '../../shared/components/Form/Input/Input';
-import { ConfirmationMessage } from '../../shared/components/Messages/ConfirmationMessage/ConfirmationMessage';
-import { Process } from '../../shared/models/process';
-import { ExpectedResult } from '../../shared/models/expectedResult';
-import { ExpectedResultsFieldArray } from './expectedResultsFieldArray';
-interface Props {
-  models: ModelEntity[];
-  setModels: (models: ModelEntity[]) => void;
-  model: ModelEntity;
-  setModel: (model: ModelEntity) => void;
-}
+import { DateInput, Form, Input, TextArea } from '../../shared/components/Form';
+import {
+  ConfirmationMessage,
+  ErrorMessage,
+  SuccessMessage,
+} from '../../shared/components/Messages';
+import {
+  ButtonSeconday,
+  Button,
+  Card,
+  CardTitle,
+  Collapse,
+} from '../../shared/components';
 
-export const ModelForm = ({ models, setModels, model, setModel }: Props) => {
+export const ModelForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState();
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -41,6 +40,14 @@ export const ModelForm = ({ models, setModels, model, setModel }: Props) => {
   const [loading, setLoading] = useState(false);
   const [collapseLevels, setCollapseLevels] = useState(false);
   const [collapseProcesses, setCollapseProcesses] = useState(false);
+  const [model, setModel] = useState<ModelEntity>(modelDummy);
+  const [models, setModels] = useState<ModelEntity[]>([]);
+
+  useEffect(() => {
+    modelsService.list().then((response) => {
+      setModels(response);
+    });
+  }, []);
 
   const { handleSubmit, control, reset } = useForm<ModelEntity>();
 
@@ -159,129 +166,140 @@ export const ModelForm = ({ models, setModels, model, setModel }: Props) => {
     });
   }, [model, reset]);
 
+  useEffect(() => {
+    modelsService.list().then((response) => {
+      setModels(response);
+    });
+  }, []);
+
   const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
-        <InputGroup>
-          <Input
-            name="name"
-            label="Modelo"
-            placeholder="selecione um modelo"
-            control={control}
-          />
-          <DateInput
-            label="Ano"
-            name="year"
-            placeholder="selecione um ano"
-            control={control}
-            yearPicker
-            dateFormat="yyyy"
-          />
-        </InputGroup>
-        <InputGroup>
-          <TextArea
-            name="description"
-            label="Descrição"
-            placeholder="descrição do modelo"
-            control={control}
-          />
-        </InputGroup>
-        <Collapse
-          underline
-          title="Níveis"
-          collapse={collapseLevels}
-          setCollapse={setCollapseLevels}
-          options={<AddIcon onClick={() => handleAddLevel()} />}
-        >
-          {levels.map(({ id }, index) => {
-            return (
-              <div key={id}>
-                <CollapseContent>
-                  <LevelGroup>
-                    <Input
-                      name={`modelLevels[${index}].initial`}
-                      label="Sigla"
-                      placeholder="sigla do nível"
+      <Wrapper>
+        <Card>
+          <CardTitle>Cadastrar modelo</CardTitle>
+          <Form onSubmit={onSubmit}>
+            <InputGroup>
+              <Input
+                name="name"
+                label="Modelo"
+                placeholder="selecione um modelo"
+                control={control}
+              />
+              <DateInput
+                label="Ano"
+                name="year"
+                placeholder="selecione um ano"
+                control={control}
+                yearPicker
+                dateFormat="yyyy"
+              />
+            </InputGroup>
+            <InputGroup>
+              <TextArea
+                name="description"
+                label="Descrição"
+                placeholder="descrição do modelo"
+                control={control}
+              />
+            </InputGroup>
+            <Collapse
+              underline
+              title="Níveis"
+              collapse={collapseLevels}
+              setCollapse={setCollapseLevels}
+              options={<AddIcon onClick={() => handleAddLevel()} />}
+            >
+              {levels.map(({ id }, index) => {
+                return (
+                  <div key={id}>
+                    <CollapseContent>
+                      <LevelGroup>
+                        <Input
+                          name={`modelLevels[${index}].initial`}
+                          label="Sigla"
+                          placeholder="sigla do nível"
+                          control={control}
+                        />
+                        <Input
+                          name={`modelLevels[${index}].name`}
+                          label="Nome"
+                          placeholder="nome do nível"
+                          control={control}
+                        />
+                      </LevelGroup>
+                      <RemoveIcon onClick={() => handleRemoveLevel(index)} />
+                    </CollapseContent>
+                    {index !== levels.length - 1 && <GroupDivider />}
+                  </div>
+                );
+              })}
+            </Collapse>
+            <Collapse
+              underline
+              title="Processos"
+              collapse={collapseProcesses}
+              setCollapse={setCollapseProcesses}
+              options={<AddIcon onClick={() => handleAddProcess()} />}
+            >
+              {processes.map((process, index) => {
+                return (
+                  <Collapse
+                    key={process.id}
+                    title={`Processo ${index + 1}`}
+                    options={
+                      <RemoveIcon onClick={() => handleRemoveProcess(index)} />
+                    }
+                  >
+                    <InputGroup>
+                      <Input
+                        name={`modelProcesses[${index}].initial`}
+                        label="Sigla"
+                        placeholder="sigla do processo"
+                        control={control}
+                      />
+                      <Input
+                        name={`modelProcesses[${index}].name`}
+                        label="Nome"
+                        placeholder="nome do processo"
+                        control={control}
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <TextArea
+                        name={`modelProcesses[${index}].description`}
+                        label="Descrição"
+                        placeholder="descrição do processo"
+                        control={control}
+                      />
+                    </InputGroup>
+                    <ExpectedResultsFieldArray
+                      nestIndex={index}
                       control={control}
+                      model={model}
                     />
-                    <Input
-                      name={`modelLevels[${index}].name`}
-                      label="Nome"
-                      placeholder="nome do nível"
-                      control={control}
-                    />
-                  </LevelGroup>
-                  <RemoveIcon onClick={() => handleRemoveLevel(index)} />
-                </CollapseContent>
-                {index !== levels.length - 1 && <GroupDivider />}
-              </div>
-            );
-          })}
-        </Collapse>
-        <Collapse
-          underline
-          title="Processos"
-          collapse={collapseProcesses}
-          setCollapse={setCollapseProcesses}
-          options={<AddIcon onClick={() => handleAddProcess()} />}
-        >
-          {processes.map((process, index) => {
-            return (
-              <Collapse
-                key={process.id}
-                title={`Processo ${index + 1}`}
-                options={
-                  <RemoveIcon onClick={() => handleRemoveProcess(index)} />
-                }
-              >
-                <InputGroup>
-                  <Input
-                    name={`modelProcesses[${index}].initial`}
-                    label="Sigla"
-                    placeholder="sigla do processo"
-                    control={control}
-                  />
-                  <Input
-                    name={`modelProcesses[${index}].name`}
-                    label="Nome"
-                    placeholder="nome do processo"
-                    control={control}
-                  />
-                </InputGroup>
-                <InputGroup>
-                  <TextArea
-                    name={`modelProcesses[${index}].description`}
-                    label="Descrição"
-                    placeholder="descrição do processo"
-                    control={control}
-                  />
-                </InputGroup>
-                <ExpectedResultsFieldArray
-                  nestIndex={index}
-                  control={control}
-                  model={model}
-                />
-              </Collapse>
-            );
-          })}
-        </Collapse>
-        <Options>
-          <ButtonSeconday type="button">Cancelar</ButtonSeconday>
-          <Button type="button" onClick={() => setShowModal(true)}>
-            Salvar
-          </Button>
-        </Options>
-        <ConfirmationMessage
-          title="Confirmar modelo"
-          showMessage={showModal}
-          setShowMessage={setShowModal}
-          loading={loading}
-          cancelAction={() => setShowModal(false)}
-          confirmAction={() => onSubmit()}
-        />
-      </Form>
+                  </Collapse>
+                );
+              })}
+            </Collapse>
+            <Options>
+              <ButtonSeconday type="button">Cancelar</ButtonSeconday>
+              <Button type="button" onClick={() => setShowModal(true)}>
+                Salvar
+              </Button>
+            </Options>
+            <ConfirmationMessage
+              title="Confirmar modelo"
+              showMessage={showModal}
+              setShowMessage={setShowModal}
+              loading={loading}
+              cancelAction={() => setShowModal(false)}
+              confirmAction={() => onSubmit()}
+            />
+          </Form>
+        </Card>
+      </Wrapper>
       {showErrorMessage && (
         <ErrorMessage
           showMessage={showErrorMessage}

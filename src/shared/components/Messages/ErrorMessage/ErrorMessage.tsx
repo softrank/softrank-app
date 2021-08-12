@@ -1,6 +1,6 @@
 import warning from '../../../assets/images/warning.svg';
 import Button from '../../Buttons/Button';
-import { Message } from '../Message';
+import Message from '../Message';
 
 interface Props {
   showMessage: boolean;
@@ -8,7 +8,7 @@ interface Props {
   error: any;
 }
 
-export const ErrorMessage = (props: Props) => {
+const ErrorMessage = (props: Props) => {
   const { showMessage, setShowMessage, error } = props;
 
   return (
@@ -22,3 +22,5 @@ export const ErrorMessage = (props: Props) => {
     </Message>
   );
 };
+
+export default ErrorMessage;

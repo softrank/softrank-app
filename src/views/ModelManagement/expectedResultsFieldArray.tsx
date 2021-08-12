@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
-import { Collapse } from '../../shared/components/Collapse/Collapse';
-import Input from '../../shared/components/Form/Input/Input';
-import { TextArea } from '../../shared/components/Form/TextArea/TextArea';
+
 import { ExpectedResult } from '../../shared/models/expectedResult';
 import { ModelEntity } from '../../shared/models/modelEntity';
 import { AddIcon, InputGroup, RemoveIcon } from './styled';
+import { Input, TextArea } from '../../shared/components/Form';
+import { Collapse } from '../../shared/components';
 
 interface Props {
   nestIndex: number;
@@ -43,8 +43,9 @@ export const ExpectedResultsFieldArray = (props: Props) => {
   useEffect(() => {
     model.modelProcesses[nestIndex].expectedResults.map((er, index) => {
       append(er);
+      return er;
     });
-  }, [model]);
+  }, [model, append, nestIndex]);
 
   return (
     <Collapse

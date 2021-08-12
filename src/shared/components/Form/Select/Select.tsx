@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { Label } from '../Label/Label';
 
-import Label from '../Label/Label';
 import { CustomSelect } from './styled';
 
 interface OptionValue {

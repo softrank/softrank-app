@@ -1,7 +1,7 @@
 import { registerLocale } from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
 
-import Label from '../Label/Label';
+import { Label } from '../Label/Label';
 import { SDateInput } from './styled';
 import { Controller } from 'react-hook-form';
 

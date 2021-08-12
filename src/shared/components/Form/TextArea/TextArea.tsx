@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 
-import Label from '../Label/Label';
+import { Label } from '../Label/Label';
 import { StyledTextArea } from './styled';
 
 interface Props {

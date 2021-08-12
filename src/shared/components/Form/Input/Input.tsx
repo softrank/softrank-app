@@ -1,6 +1,6 @@
 import { InputDiv, StyledInput } from './styled';
 import { Controller } from 'react-hook-form';
-import Label from '../Label/Label';
+import { Label } from '../Label/Label';
 interface Props {
   name: string;
   label: string;
@@ -10,14 +10,16 @@ interface Props {
   defaultValue?: string;
 }
 
-export default function Input({
-  label,
-  name,
-  control,
-  placeholder,
-  type = 'text',
-  defaultValue,
-}: Props) {
+export const Input = (props: Props) => {
+  const {
+    name,
+    label,
+    placeholder,
+    type = 'text',
+    control,
+    defaultValue,
+  } = props;
+
   return (
     <InputDiv>
       <Label>{label}</Label>
@@ -36,4 +38,4 @@ export default function Input({
       />
     </InputDiv>
   );
-}
+};
