@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 
-import Label from '../Label/Label';
+import { Label } from '../Label/Label';
 import { StyledTextArea } from './styled';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   error?: boolean;
 }
 
-export default function Input(props: Props) {
+export const TextArea = (props: Props) => {
   const { label, name, control, placeholder, error } = props;
 
   return (
@@ -20,14 +20,15 @@ export default function Input(props: Props) {
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
           <StyledTextArea
+            value={value}
             placeholder={placeholder}
-            onChange={onChange}
             error={error}
+            onChange={(e) => onChange((value = e.target.value))}
           />
         )}
       />
     </div>
   );
-}
+};

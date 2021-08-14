@@ -1,4 +1,4 @@
-import { Message } from '../Message';
+import Message from '../Message';
 import success from '../../../assets/images/success.svg';
 import Button from '../../Buttons/Button';
 
@@ -9,7 +9,7 @@ interface Props {
   path: string;
 }
 
-export const SuccessMessage = (props: Props) => {
+const SuccessMessage = (props: Props) => {
   const { showMessage, setShowMessage, title, path } = props;
 
   return (
@@ -25,3 +25,5 @@ export const SuccessMessage = (props: Props) => {
     </Message>
   );
 };
+
+export default SuccessMessage;

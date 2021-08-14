@@ -1,17 +1,24 @@
 import { InputDiv, StyledInput } from './styled';
 import { Controller } from 'react-hook-form';
-import Label from '../Label/Label';
-
+import { Label } from '../Label/Label';
 interface Props {
   name: string;
   label: string;
   placeholder: string;
   type?: string;
   control: any;
+  defaultValue?: string;
 }
 
-export default function Input(props: Props) {
-  const { label, name, control, placeholder, type = 'text' } = props;
+export const Input = (props: Props) => {
+  const {
+    name,
+    label,
+    placeholder,
+    type = 'text',
+    control,
+    defaultValue,
+  } = props;
 
   return (
     <InputDiv>
@@ -19,14 +26,16 @@ export default function Input(props: Props) {
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange } }) => (
+        defaultValue={defaultValue}
+        render={({ field: { onChange, value } }) => (
           <StyledInput
             placeholder={placeholder}
-            onChange={onChange}
+            onChange={(e) => onChange((value = e.target.value))}
             type={type}
+            value={value}
           />
         )}
       />
     </InputDiv>
   );
-}
+};

@@ -85,6 +85,16 @@ export const ModalTitle = styled.div`
   }
 `;
 
+export const ModalImage = styled.img`
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 420px) {
+    width: 100%;
+  }
+`;
+
 export const ErrorImage = styled.img`
   width: 70%;
 

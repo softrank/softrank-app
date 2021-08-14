@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   CollapseBody,
@@ -12,34 +12,43 @@ import {
 
 interface Props {
   title: string;
-  collapse: boolean;
-  setCollapse: (state: boolean) => void;
+  collapse?: boolean;
+  setCollapse?: (state: boolean) => void;
   children: JSX.Element[];
   options?: any;
+  underline?: boolean;
 }
 
 export const Collapse = ({
   title,
-  collapse,
+  collapse = false,
   setCollapse,
   children,
   options,
+  underline,
 }: Props) => {
-  const toggleLevels = () => setCollapse(!collapse);
+  const [collapseState, setCollapseState] = useState(collapse);
+
+  const handleToggleCollapse = () => {
+    if (setCollapse) {
+      setCollapse(!collapse);
+    }
+    setCollapseState(!collapseState);
+  };
 
   return (
-    <CollapseContainer>
-      <CollapseHead>
+    <CollapseContainer underline={underline}>
+      <CollapseHead underline={underline}>
         <CollapseTitle>{title}</CollapseTitle>
         <CollapseOptions>
           {options}
           <ToggleCollapseIcon
-            onClick={() => toggleLevels()}
-            collapse={collapse}
+            onClick={() => handleToggleCollapse()}
+            collapse={collapseState}
           />
         </CollapseOptions>
       </CollapseHead>
-      {!collapse && (
+      {!collapseState && (
         <CollapseBody>
           {children.length > 0 ? (
             <>
@@ -48,7 +57,7 @@ export const Collapse = ({
               })}
             </>
           ) : (
-            <NoContent>Nenhum conteúdo para exibir</NoContent>
+            <NoContent>Nenhum conteúdo para ser exibido.</NoContent>
           )}
         </CollapseBody>
       )}

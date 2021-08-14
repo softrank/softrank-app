@@ -1384,7 +1384,7 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@hookform/devtools@^3.0.0-rc.2":
+"@hookform/devtools@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@hookform/devtools/-/devtools-3.1.0.tgz#ba2dc7a627f53535db8d0ff7e65f7a00db815cf5"
   integrity sha512-LCMOw8IrytV9z8nq5zwsM6056HXY0jwqZJjAOyh+GnCS7VUWKxMzYyC0ruvE76/Rs/wlVQB9EDuvgw6ZoyVEow==

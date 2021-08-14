@@ -7,7 +7,7 @@ interface Props {
   onSubmit: () => {};
 }
 
-export default function Form(props: Props) {
+export const Form = (props: Props) => {
   const { defaultValues, children, onSubmit } = props;
 
   const methods = useForm({ defaultValues });
@@ -28,4 +28,4 @@ export default function Form(props: Props) {
       })}
     </form>
   );
-}
+};

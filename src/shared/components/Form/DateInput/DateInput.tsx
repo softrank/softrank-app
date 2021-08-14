@@ -1,7 +1,7 @@
 import { registerLocale } from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
 
-import Label from '../Label/Label';
+import { Label } from '../Label/Label';
 import { SDateInput } from './styled';
 import { Controller } from 'react-hook-form';
 
@@ -12,11 +12,20 @@ interface Props {
   control: any;
   yearPicker?: boolean;
   dateFormat: string;
+  defaultValue?: any;
+  shouldUnregister?: boolean;
 }
 
-export const DateInput = (props: Props) => {
-  const { label, name, placeholder, control, yearPicker, dateFormat } = props;
-
+export const DateInput = ({
+  label,
+  name,
+  placeholder,
+  control,
+  yearPicker,
+  dateFormat,
+  defaultValue,
+  shouldUnregister = true,
+}: Props) => {
   registerLocale('pt', pt);
 
   return (
@@ -25,6 +34,8 @@ export const DateInput = (props: Props) => {
       <Controller
         name={name}
         control={control}
+        defaultValue={defaultValue}
+        shouldUnregister={shouldUnregister}
         render={({ field: { onChange, value } }) => (
           <SDateInput
             placeholderText={placeholder}
