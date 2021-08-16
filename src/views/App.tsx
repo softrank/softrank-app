@@ -1,11 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
 
 import { GlobalStyles } from '../shared/styles/GlobalStyle';
-import ModelsList from './ModelList/ModelsList';
 import HomePage from './HomePage/HomePage';
 import { NotFound } from './NotFound/NotFound';
 import { ModelForm } from './ModelManagement/ModelForm';
 import NavBar from './NavBar/NavBar';
+import { Login } from './Login/Login';
+import { ModelsList } from './ModelList/ModelsList';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Switch>
             <Route exact path="/cadastrarModelo" component={ModelForm} />
             <Route exact path="/listarModelos" component={ModelsList} />
+            <Route exact path="/login" component={Login} />
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}

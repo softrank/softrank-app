@@ -4,10 +4,10 @@ import Wrapper from '../../shared/components/Layouts/Wrapper';
 import { ModelEntity } from '../../shared/models/modelEntity';
 import { modelsService } from '../../shared/services';
 import { Card } from '../../shared/components';
-import { LoadingHorizontal } from '../../shared/components/Loading';
 import { Table, TableBody, TableHead } from '../../shared/components/Table';
+import { LoadingScreen } from '../../shared/components/Loading';
 
-export default function ModelsList() {
+export const ModelsList = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,11 +28,7 @@ export default function ModelsList() {
       <Card>
         <h2>Modelos</h2>
         {loading ? (
-          <LoadingHorizontal
-            loading={loading}
-            size={10}
-            // content="Carregando..."
-          />
+          <LoadingScreen loading={loading} content="Carregando modelos..." />
         ) : (
           <Table>
             <TableHead>
@@ -58,4 +54,4 @@ export default function ModelsList() {
       </Card>
     </Wrapper>
   );
-}
+};

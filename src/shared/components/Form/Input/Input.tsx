@@ -5,7 +5,7 @@ interface Props {
   name: string;
   label: string;
   placeholder: string;
-  type?: string;
+  type?: 'text' | 'email' | 'password';
   control: any;
   defaultValue?: string;
 }
@@ -32,7 +32,7 @@ export const Input = (props: Props) => {
             placeholder={placeholder}
             onChange={(e) => onChange((value = e.target.value))}
             type={type}
-            value={value}
+            value={value ?? ''}
           />
         )}
       />

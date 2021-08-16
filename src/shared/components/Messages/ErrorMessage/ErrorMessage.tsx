@@ -1,5 +1,5 @@
+import { Button } from '../..';
 import warning from '../../../assets/images/warning.svg';
-import Button from '../../Buttons/Button';
 import Message from '../Message';
 
 interface Props {

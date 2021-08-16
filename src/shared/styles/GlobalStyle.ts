@@ -35,6 +35,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     /*#endregion Colors*/
   }
+
   * {
     margin: 0;
     padding: 0;
@@ -58,6 +59,8 @@ export const GlobalStyles = styled.createGlobalStyle`
     @media (max-width: 640px) {
       background: var(--white);
     }
+
+    overscroll-behavior: none;
 
     /*#region DatePicker*/
     .react-datepicker-wrapper {

@@ -5,7 +5,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  margin: 1em;
+  /* margin: 1em; */
 
   display: flex;
   justify-content: center;
@@ -23,16 +23,24 @@ interface Props {
   loading: boolean;
   content?: string;
   size?: number;
+  color?: string;
+  speed?: number;
 }
 
-export const LoadingHorizontal = ({ loading, content, size = 60 }: Props) => {
+export const LoadingHorizontal = ({
+  loading,
+  content,
+  size = 60,
+  color = '#625cff',
+  speed = 0.4,
+}: Props) => {
   return (
     <Container>
       <PulseLoader
         loading={loading}
-        color={'#625cff'}
+        color={color}
         size={size}
-        speedMultiplier={0.4}
+        speedMultiplier={speed}
       />
       {content && <Content>{content}</Content>}
     </Container>

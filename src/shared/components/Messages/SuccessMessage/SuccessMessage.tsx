@@ -1,6 +1,6 @@
 import Message from '../Message';
 import success from '../../../assets/images/success.svg';
-import Button from '../../Buttons/Button';
+import { Button } from '../..';
 
 interface Props {
   showMessage: boolean;

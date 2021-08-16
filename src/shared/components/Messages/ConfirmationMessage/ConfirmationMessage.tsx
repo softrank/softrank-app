@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 import approve from '../../../assets/images/approve.svg';
-import { ButtonSeconday } from '../../Buttons/ButtonSecondary';
-import Button from '../../Buttons/Button';
+import { Button } from '../../Buttons/Button';
 import Message from '../Message';
 
 const Options = styled.div`
@@ -39,9 +38,9 @@ const ConfirmationMessage = ({
       loading={loading}
     >
       <Options>
-        <ButtonSeconday type="button" onClick={cancelAction}>
+        <Button secondary type="button" onClick={cancelAction}>
           Cancelar
-        </ButtonSeconday>
+        </Button>
         <Button type="button" onClick={confirmAction}>
           Confirmar
         </Button>

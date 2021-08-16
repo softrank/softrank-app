@@ -23,13 +23,7 @@ import {
   ErrorMessage,
   SuccessMessage,
 } from '../../shared/components/Messages';
-import {
-  ButtonSeconday,
-  Button,
-  Card,
-  CardTitle,
-  Collapse,
-} from '../../shared/components';
+import { Button, Card, CardTitle, Collapse } from '../../shared/components';
 
 export const ModelForm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -152,7 +146,6 @@ export const ModelForm = () => {
 
   const handleRemoveProcess = (index: number) => {
     processesRemove(index);
-    model.modelProcesses.splice(index, 1);
   };
 
   useEffect(() => {
@@ -284,7 +277,9 @@ export const ModelForm = () => {
               })}
             </Collapse>
             <Options>
-              <ButtonSeconday type="button">Cancelar</ButtonSeconday>
+              <Button secondary type="button">
+                Cancelar
+              </Button>
               <Button type="button" onClick={() => setShowModal(true)}>
                 Salvar
               </Button>
