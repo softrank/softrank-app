@@ -1,11 +1,37 @@
 import styled from 'styled-components';
 
-export const LoginForm = styled.div`
+export const LoginBackground = styled.div`
   position: absolute;
-  right: 0;
   top: 0;
-  width: 60%;
+  left: 0;
   height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: [loginInfo] 40% [loginForm] 60%;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
+
+  @media (max-width: 700px) {
+    grid-template-columns: [loginInfo] 0% [loginForm] 100%;
+  }
+`;
+
+export const LoginInfo = styled.div`
+  grid-column: loginInfo;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const LoginForm = styled.div`
+  grid-column: loginForm;
+  height: 100vh;
 
   display: flex;
   align-items: center;
@@ -15,29 +41,8 @@ export const LoginForm = styled.div`
   background-color: white;
 `;
 
-export const LoginBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-
-  background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
-`;
-
 export const LoginImage = styled.img`
   width: 140%;
-`;
-
-export const LoginInfo = styled.div`
-  position: absolute;
-  width: 40%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
 
 export const LoginFormContent = styled.div`
@@ -48,11 +53,15 @@ export const LoginFormContent = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  @media (max-width: 700px) {
+    width: 80%;
+  }
 `;
 
 export const LoginTitle = styled.h1`
   position: relative;
-  top: -100px;
+  top: -10vh;
 
   font-weight: 600;
   font-size: 36px;
