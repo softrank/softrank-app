@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   LoginBackground,
   LoginForm,
@@ -14,9 +14,25 @@ import { Button } from '../../shared/components';
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
-  const { handleSubmit, control } = useForm();
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = handleSubmit((data) => console.log(data));
+
+  useEffect(() => {
+    register('email', { required: true });
+    register('password', {
+      required: 'Necessario',
+      minLength: {
+        value: 8,
+        message: 'A senha deve conter no mínimo 8 caracteres!',
+      },
+    });
+  }, [register]);
 
   return (
     <LoginBackground>
@@ -33,6 +49,7 @@ export const Login = () => {
               placeholder="insira o seu email"
               control={control}
               type="text"
+              errors={errors.email}
             />
             <Input
               name="password"
@@ -40,6 +57,7 @@ export const Login = () => {
               placeholder="insira a sua senha"
               control={control}
               type="password"
+              errors={errors.password}
             />
             <Button type="submit" width="100%" loading={loading}>
               login

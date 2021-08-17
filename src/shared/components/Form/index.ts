@@ -5,3 +5,4 @@ export { Input } from '../Form/Input/Input';
 export { Label } from '../Form/Label/Label';
 export { Select } from '../Form/Select/Select';
 export { TextArea } from '../Form/TextArea/TextArea';
+export { ErrorsNote } from '../Form/ErrorsNote/ErrorsNote';

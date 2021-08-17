@@ -1,13 +1,22 @@
 import { InputDiv, StyledInput } from './styled';
-import { Controller } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  DeepMap,
+  FieldError,
+  FieldValues,
+} from 'react-hook-form';
 import { Label } from '../Label/Label';
+import { ErrorsNote } from '..';
 interface Props {
   name: string;
   label: string;
   placeholder: string;
   type?: 'text' | 'email' | 'password';
-  control: any;
+  control: Control<any>;
   defaultValue?: string;
+  rules?: any;
+  errors?: DeepMap<FieldValues, FieldError>;
 }
 
 export const Input = (props: Props) => {
@@ -18,6 +27,8 @@ export const Input = (props: Props) => {
     type = 'text',
     control,
     defaultValue,
+    rules,
+    errors,
   } = props;
 
   return (
@@ -27,13 +38,18 @@ export const Input = (props: Props) => {
         name={name}
         control={control}
         defaultValue={defaultValue}
+        rules={rules}
         render={({ field: { onChange, value } }) => (
-          <StyledInput
-            placeholder={placeholder}
-            onChange={(e) => onChange((value = e.target.value))}
-            type={type}
-            value={value ?? ''}
-          />
+          <>
+            <StyledInput
+              placeholder={placeholder}
+              onChange={(e) => onChange((value = e.target.value))}
+              type={type}
+              value={value ?? ''}
+              error={!!errors}
+            />
+            {errors && <ErrorsNote error={errors} />}
+          </>
         )}
       />
     </InputDiv>

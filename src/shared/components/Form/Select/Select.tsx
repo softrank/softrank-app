@@ -1,5 +1,12 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  DeepMap,
+  FieldError,
+  FieldValues,
+} from 'react-hook-form';
+import { ErrorsNote } from '..';
 import { Label } from '../Label/Label';
 
 import { CustomSelect } from './styled';
@@ -13,15 +20,16 @@ interface Props {
   name: string;
   label: string;
   placeholder: string;
-  control: any;
+  control: Control<any>;
   optionValues: any[];
   optionValue?: string;
   optionLabel: string;
   disabled?: boolean;
   multi?: boolean;
   search?: boolean;
-  error?: boolean;
   defaultValue?: any;
+  rules?: any;
+  errors?: DeepMap<FieldValues, FieldError>;
 }
 
 export const Select = (props: Props) => {
@@ -36,8 +44,9 @@ export const Select = (props: Props) => {
     disabled,
     multi,
     search,
-    error,
     defaultValue,
+    rules,
+    errors,
   } = props;
 
   const options: OptionValue[] = [];
@@ -58,20 +67,23 @@ export const Select = (props: Props) => {
         name={name}
         control={control}
         defaultValue={defaultValue}
-        // rules={{ required: true }}
+        rules={rules}
         render={({ field: { onChange, value } }) => (
-          <CustomSelect
-            classNamePrefix={'select'}
-            label={label}
-            placeholder={placeholder}
-            onChange={onChange}
-            value={value}
-            options={options}
-            isDisabled={disabled}
-            isMulti={multi}
-            isSearchable={search}
-            error={error}
-          />
+          <>
+            <CustomSelect
+              classNamePrefix={'select'}
+              label={label}
+              placeholder={placeholder}
+              onChange={onChange}
+              value={value}
+              options={options}
+              isDisabled={disabled}
+              isMulti={multi}
+              isSearchable={search}
+              error={!!errors}
+            />
+            {errors && <ErrorsNote error={errors} />}
+          </>
         )}
       />
     </div>
