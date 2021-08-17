@@ -26,7 +26,7 @@ export const Login = () => {
   useEffect(() => {
     register('email', { required: true });
     register('password', {
-      required: 'Necessario',
+      required: true,
       minLength: {
         value: 8,
         message: 'A senha deve conter no mínimo 8 caracteres!',

@@ -27,12 +27,10 @@ export const Collapse = ({
   options,
   underline,
 }: Props) => {
-  const [collapseState, setCollapseState] = useState(collapse);
+  const [collapseState, setCollapseState] = useState<boolean>(collapse);
 
   const handleToggleCollapse = () => {
-    if (setCollapse) {
-      setCollapse(!collapse);
-    }
+    if (setCollapse) setCollapse(!collapse);
     setCollapseState(!collapseState);
   };
 

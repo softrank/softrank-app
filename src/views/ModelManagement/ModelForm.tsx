@@ -6,7 +6,6 @@ import { Process } from '../../shared/models/process';
 import { ExpectedResult } from '../../shared/models/expectedResult';
 import { ExpectedResultsFieldArray } from './expectedResultsFieldArray';
 import Wrapper from '../../shared/components/Layouts/Wrapper';
-import { modelDummy } from '../../shared/services/modelDummy';
 import { modelsService } from '../../shared/services';
 import {
   Options,
@@ -24,6 +23,37 @@ import {
   SuccessMessage,
 } from '../../shared/components/Messages';
 import { Button, Card, CardTitle, Collapse } from '../../shared/components';
+import { ModelLevel } from '../../shared/models/modelLevel';
+
+const newModel: ModelEntity = {
+  id: '',
+  name: '',
+  year: new Date(),
+  description: '',
+  modelLevels: [
+    {
+      id: '',
+      initial: '',
+      name: '',
+    },
+  ],
+  modelProcesses: [
+    {
+      id: '',
+      initial: '',
+      name: '',
+      description: '',
+      expectedResults: [
+        {
+          id: '',
+          initial: '',
+          description: '',
+          modelLevels: [''],
+        },
+      ],
+    },
+  ],
+};
 
 export const ModelForm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -34,16 +64,18 @@ export const ModelForm = () => {
   const [loading, setLoading] = useState(false);
   const [collapseLevels, setCollapseLevels] = useState(false);
   const [collapseProcesses, setCollapseProcesses] = useState(false);
-  const [model, setModel] = useState<ModelEntity>(modelDummy);
+  const [model, setModel] = useState<ModelEntity>(newModel);
   const [models, setModels] = useState<ModelEntity[]>([]);
 
-  useEffect(() => {
-    modelsService.list().then((response) => {
-      setModels(response);
-    });
-  }, []);
+  //#region Form
 
-  const { handleSubmit, control, reset } = useForm<ModelEntity>();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm<ModelEntity>();
 
   const {
     fields: levels,
@@ -65,8 +97,6 @@ export const ModelForm = () => {
   const handleCreateOrEditModel = (data: any) => {
     setLoading(true);
 
-    console.log(data);
-
     const model: ModelEntity = {
       id: data.id,
       name: data.name,
@@ -75,8 +105,6 @@ export const ModelForm = () => {
       modelLevels: data.modelLevels,
       modelProcesses: data.modelProcesses,
     };
-
-    console.log(model);
 
     if (model.id) {
       modelsService
@@ -103,26 +131,14 @@ export const ModelForm = () => {
     }
   };
 
-  const handleErrorMessage = (error: any) => {
-    setLoading(false);
-    setError(error);
-    setShowErrorMessage(true);
-    setShowModal(false);
-  };
-
-  const handleSuccessMessage = (title: string) => {
-    setLoading(false);
-    setSuccessMessage(title);
-    setShowSuccessMessage(true);
-    setShowModal(false);
-  };
-
   const handleAddLevel = () => {
-    levelsAppend({});
-  };
+    const level: ModelLevel = {
+      id: '',
+      initial: '',
+      name: '',
+    };
 
-  const handleRemoveLevel = (index: number) => {
-    levelsRemove(index);
+    levelsAppend(level);
   };
 
   const handleAddProcess = () => {
@@ -144,9 +160,35 @@ export const ModelForm = () => {
     processesAppend(process);
   };
 
-  const handleRemoveProcess = (index: number) => {
-    processesRemove(index);
+  const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
+
+  //#endregion
+
+  //#region Messages
+
+  const handleErrorMessage = (error: any) => {
+    setLoading(false);
+    setError(error);
+    setShowErrorMessage(true);
+    setShowModal(false);
   };
+
+  const handleSuccessMessage = (title: string) => {
+    setLoading(false);
+    setSuccessMessage(title);
+    setShowSuccessMessage(true);
+    setShowModal(false);
+  };
+
+  //#endregion
+
+  //#region Effects
+
+  useEffect(() => {
+    modelsService.list().then((response) => {
+      setModels(response);
+    });
+  }, []);
 
   useEffect(() => {
     reset({
@@ -160,12 +202,23 @@ export const ModelForm = () => {
   }, [model, reset]);
 
   useEffect(() => {
-    modelsService.list().then((response) => {
-      setModels(response);
+    register('name', { required: true });
+    register('year', { required: true });
+    register('description', {
+      required: true,
+      minLength: {
+        value: 20,
+        message: 'A descrição deve conter no mínimo 20 caracteres!',
+      },
+      maxLength: {
+        value: 200,
+        message: 'A descrição deve conter no máximo 200 caracteres!',
+      },
     });
-  }, []);
+    // register('modelLevels', { required: true });
+  }, [register]);
 
-  const onSubmit = handleSubmit((data) => handleCreateOrEditModel(data));
+  //#endregion
 
   return (
     <>
@@ -179,6 +232,7 @@ export const ModelForm = () => {
                 label="Modelo"
                 placeholder="selecione um modelo"
                 control={control}
+                errors={errors.name}
               />
               <DateInput
                 label="Ano"
@@ -187,6 +241,7 @@ export const ModelForm = () => {
                 control={control}
                 yearPicker
                 dateFormat="yyyy"
+                errors={errors.year}
               />
             </InputGroup>
             <InputGroup>
@@ -195,6 +250,7 @@ export const ModelForm = () => {
                 label="Descrição"
                 placeholder="descrição do modelo"
                 control={control}
+                errors={errors.description}
               />
             </InputGroup>
             <Collapse
@@ -214,15 +270,19 @@ export const ModelForm = () => {
                           label="Sigla"
                           placeholder="sigla do nível"
                           control={control}
+                          rules={{ required: true }}
+                          errors={errors?.modelLevels?.[index]?.initial}
                         />
                         <Input
                           name={`modelLevels[${index}].name`}
                           label="Nome"
                           placeholder="nome do nível"
                           control={control}
+                          rules={{ required: true }}
+                          errors={errors?.modelLevels?.[index]?.name}
                         />
                       </LevelGroup>
-                      <RemoveIcon onClick={() => handleRemoveLevel(index)} />
+                      <RemoveIcon onClick={() => levelsRemove(index)} />
                     </CollapseContent>
                     {index !== levels.length - 1 && <GroupDivider />}
                   </div>
@@ -242,7 +302,7 @@ export const ModelForm = () => {
                     key={process.id}
                     title={`Processo ${index + 1}`}
                     options={
-                      <RemoveIcon onClick={() => handleRemoveProcess(index)} />
+                      <RemoveIcon onClick={() => processesRemove(index)} />
                     }
                   >
                     <InputGroup>
@@ -251,12 +311,16 @@ export const ModelForm = () => {
                         label="Sigla"
                         placeholder="sigla do processo"
                         control={control}
+                        rules={{ required: true }}
+                        errors={errors?.modelProcesses?.[index]?.initial}
                       />
                       <Input
                         name={`modelProcesses[${index}].name`}
                         label="Nome"
                         placeholder="nome do processo"
                         control={control}
+                        rules={{ required: true }}
+                        errors={errors?.modelProcesses?.[index]?.name}
                       />
                     </InputGroup>
                     <InputGroup>
@@ -265,12 +329,15 @@ export const ModelForm = () => {
                         label="Descrição"
                         placeholder="descrição do processo"
                         control={control}
+                        rules={{ required: true }}
+                        errors={errors?.modelProcesses?.[index]?.description}
                       />
                     </InputGroup>
                     <ExpectedResultsFieldArray
                       nestIndex={index}
                       control={control}
                       model={model}
+                      errors={errors}
                     />
                   </Collapse>
                 );

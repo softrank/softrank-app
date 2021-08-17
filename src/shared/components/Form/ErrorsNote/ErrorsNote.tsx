@@ -23,7 +23,7 @@ export const ErrorsNote = ({ error }: Props) => {
     if (error === undefined) {
       setErrorNote('');
     } else if (error.type === 'required') {
-      setErrorNote('Este campo é necessário!');
+      setErrorNote('Este campo é obrigatório!');
     } else if (error.type === 'minLength') {
       setErrorNote(error.message);
     }
