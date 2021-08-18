@@ -20,12 +20,16 @@ export const ErrorsNote = ({ error }: Props) => {
   const [errorNote, setErrorNote] = useState<string>();
 
   const handleErrorNote = (error: any) => {
-    if (error === undefined) {
-      setErrorNote('');
-    } else if (error.type === 'required') {
-      setErrorNote('Este campo é obrigatório!');
-    } else if (error.type === 'minLength') {
-      setErrorNote(error.message);
+    switch (error.type) {
+      case undefined:
+        setErrorNote('');
+        break;
+      case 'required':
+        setErrorNote('Este campo é obrigatório!');
+        break;
+      default:
+        setErrorNote(error.message);
+        break;
     }
   };
 
