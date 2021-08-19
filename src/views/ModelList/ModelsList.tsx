@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import Wrapper from '../../shared/components/Layouts/Wrapper';
-import { ModelEntity } from '../../shared/models/modelEntity';
-import { modelsService } from '../../shared/services';
-import { Card } from '../../shared/components';
-import { Table, TableBody, TableHead } from '../../shared/components/Table';
-import { LoadingScreen } from '../../shared/components/Loading';
+import Wrapper from 'shared/components/Layouts/Wrapper';
+import { Card } from 'shared/components';
+import { LoadingScreen } from 'shared/components/Loading';
+import { Table, TableHead, TableBody } from 'shared/components/Table';
+import { ModelEntity } from 'shared/models/modelEntity';
+import { modelsService } from 'shared/services';
 
 export const ModelsList = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);

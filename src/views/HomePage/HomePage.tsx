@@ -1,14 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button } from '../../shared/components';
-import Wrapper from '../../shared/components/Layouts/Wrapper';
-import { authActions } from '../../shared/store';
+
+import { Button } from 'shared/components';
+import Wrapper from 'shared/components/Layouts/Wrapper';
+import { authActions } from 'shared/store';
 import { Hero } from './styled';
 
 export const HomePage = () => {
   const history = useHistory();
 
-  const redirect = () => history.push('/login');
+  const redirect = () => history.push('/signIn');
   const dispatch = useDispatch();
 
   const handleLogout = () => {

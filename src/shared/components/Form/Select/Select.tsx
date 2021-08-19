@@ -6,9 +6,8 @@ import {
   FieldError,
   FieldValues,
 } from 'react-hook-form';
-import { ErrorsNote } from '..';
-import { Label } from '../Label/Label';
 
+import { Label, ErrorsNote } from '..';
 import { CustomSelect } from './styled';
 
 interface OptionValue {

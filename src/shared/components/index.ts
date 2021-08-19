@@ -1,3 +1,3 @@
-export { Card, CardTitle } from '../components/Card/Card';
-export { Collapse } from '../components/Collapse/Collapse';
-export { Button } from '../components/Buttons/Button';
+export { Card, CardTitle } from 'shared/components/Card/Card';
+export { Collapse } from 'shared/components/Collapse/Collapse';
+export { Button } from 'shared/components/Buttons/Button';

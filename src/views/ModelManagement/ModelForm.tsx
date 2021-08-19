@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { ModelEntity } from '../../shared/models/modelEntity';
-import { Process } from '../../shared/models/process';
-import { ExpectedResult } from '../../shared/models/expectedResult';
+import Wrapper from 'shared/components/Layouts/Wrapper';
+import { ExpectedResult } from 'shared/models/expectedResult';
+import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelLevel } from 'shared/models/modelLevel';
+import { Process } from 'shared/models/process';
+import { modelsService } from 'shared/services';
 import { ExpectedResultsFieldArray } from './expectedResultsFieldArray';
-import Wrapper from '../../shared/components/Layouts/Wrapper';
-import { modelsService } from '../../shared/services';
-import {
-  Options,
-  InputGroup,
-  LevelGroup,
-  GroupDivider,
-  AddIcon,
-  RemoveIcon,
-  CollapseContent,
-} from './styled';
-import { DateInput, Form, Input, TextArea } from '../../shared/components/Form';
+import { Card, CardTitle, Collapse, Button } from 'shared/components';
+import { Form, Input, DateInput, TextArea } from 'shared/components/Form';
 import {
   ConfirmationMessage,
   ErrorMessage,
   SuccessMessage,
-} from '../../shared/components/Messages';
-import { Button, Card, CardTitle, Collapse } from '../../shared/components';
-import { ModelLevel } from '../../shared/models/modelLevel';
+} from 'shared/components/Messages';
+import {
+  InputGroup,
+  AddIcon,
+  CollapseContent,
+  LevelGroup,
+  RemoveIcon,
+  GroupDivider,
+  Options,
+} from './styled';
 
 const newModel: ModelEntity = {
   id: '',

@@ -1,3 +1,3 @@
-export { store } from '../store/store';
-export { authReducer, authActions } from '../store/auth';
-export type { RootState } from '../store/store';
+export { store } from './store';
+export { authReducer, authActions } from './auth';
+export type { RootState } from './store';

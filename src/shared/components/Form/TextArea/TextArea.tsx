@@ -5,9 +5,8 @@ import {
   FieldError,
   FieldValues,
 } from 'react-hook-form';
-import { ErrorsNote } from '..';
 
-import { Label } from '../Label/Label';
+import { ErrorsNote, Label } from '..';
 import { StyledTextArea } from './styled';
 
 interface Props {

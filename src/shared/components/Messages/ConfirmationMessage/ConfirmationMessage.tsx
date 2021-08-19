@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import approve from '../../../assets/images/approve.svg';
-import { Button } from '../../Buttons/Button';
-import Message from '../Message';
+import approve from 'shared/assets/images/approve.svg';
+import { Button } from 'shared/components/Buttons/Button';
+import { Message } from '..';
 
 const Options = styled.div`
   width: 100%;

@@ -1,5 +1,4 @@
-import React from 'react';
-import img404 from '../../shared/assets/images/404.svg';
+import img404 from 'shared/assets/images/404.svg';
 import { Image404, Page404, Title404 } from './styled';
 
 export const NotFound = () => {

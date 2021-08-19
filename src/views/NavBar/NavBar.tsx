@@ -1,6 +1,14 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+import { Dropdown } from 'shared/components/Dropdown/Dropdown';
+import { SideBarData } from 'shared/services/SideBarData';
+import { RootState } from 'shared/store';
+import {
+  DropdownItem,
+  DropdownDivider,
+} from 'shared/components/Dropdown/styled';
 import {
   Header,
   HeaderColumn1,
@@ -10,14 +18,6 @@ import {
   IconBackground,
   MenuIcon,
 } from './styled';
-import { Dropdown } from '../../shared/components/Dropdown/Dropdown';
-import {
-  DropdownDivider,
-  DropdownItem,
-} from '../../shared/components/Dropdown/styled';
-import { SideBarData } from '../../shared/services/SideBarData';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../shared/store';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);

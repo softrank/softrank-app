@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Checkbox } from '../../Checkbox/Checkbox';
+import { Checkbox } from 'shared/components/Checkbox/Checkbox';
 interface Props {
   name: string;
   label: string;

@@ -1,4 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+
+import loginImage from 'shared/assets/images/login.svg';
+import { Button } from 'shared/components';
+import { Form, Input } from 'shared/components/Form';
+import { signDto } from 'shared/dtos/signDto';
+import { authService } from 'shared/services';
+import { RootState, authActions } from 'shared/store';
 import {
   LoginBackground,
   LoginForm,
@@ -7,15 +17,8 @@ import {
   LoginInfo,
   LoginTitle,
 } from './styled';
-import loginImage from '../../shared/assets/images/login.svg';
-import { Form, Input } from '../../shared/components/Form';
-import { useForm } from 'react-hook-form';
-import { Button } from '../../shared/components';
-import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../shared/store';
-import { useHistory } from 'react-router';
 
-export const Login = () => {
+export const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const {
     handleSubmit,
@@ -28,14 +31,29 @@ export const Login = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
-  const handleLogin = () => {
+  const handleLogin = (data: any) => {
     setLoading(true);
-    dispatch(authActions.login());
-    setLoading(false);
-    history.push('/');
+
+    const signIn: signDto = {
+      login: data.email,
+      password: data.password,
+    };
+
+    authService
+      .signin(signIn)
+      .then((res) => {
+        console.log(res);
+        dispatch(authActions.signin());
+        setLoading(false);
+        history.push('/');
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
-  const onSubmit = handleSubmit((data) => handleLogin());
+  const onSubmit = handleSubmit((data) => handleLogin(data));
 
   useEffect(() => {
     register('email', { required: true });

@@ -1,10 +1,9 @@
 import { registerLocale } from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
 
-import { Label } from '../Label/Label';
+import { DeepMap, FieldValues, FieldError, Controller } from 'react-hook-form';
+import { Label, ErrorsNote } from '..';
 import { SDateInput } from './styled';
-import { Controller, DeepMap, FieldError, FieldValues } from 'react-hook-form';
-import { ErrorsNote } from '..';
 
 interface Props {
   label: string;

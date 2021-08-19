@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
-import { ExpectedResult } from '../../shared/models/expectedResult';
-import { ModelEntity } from '../../shared/models/modelEntity';
-import { AddIcon, InputGroup, RemoveIcon } from './styled';
-import { Input, TextArea } from '../../shared/components/Form';
-import { Collapse } from '../../shared/components';
+import { Collapse } from 'shared/components';
+import { Input, TextArea } from 'shared/components/Form';
+import { ExpectedResult } from 'shared/models/expectedResult';
+import { ModelEntity } from 'shared/models/modelEntity';
+import { AddIcon, RemoveIcon, InputGroup } from './styled';
 
 interface Props {
   nestIndex: number;

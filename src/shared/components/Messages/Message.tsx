@@ -1,4 +1,4 @@
-import { Modal } from '../Modal/Modal';
+import { Modal } from 'shared/components/Modal/Modal';
 
 interface Props {
   showMessage: boolean;

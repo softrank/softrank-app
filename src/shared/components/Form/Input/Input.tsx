@@ -6,8 +6,9 @@ import {
   FieldError,
   FieldValues,
 } from 'react-hook-form';
-import { Label } from '../Label/Label';
-import { ErrorsNote } from '..';
+
+import { Label, ErrorsNote } from '..';
+
 interface Props {
   name: string;
   label: string;
