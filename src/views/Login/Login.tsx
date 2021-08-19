@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   LoginBackground,
   LoginForm,
@@ -11,6 +11,9 @@ import loginImage from '../../shared/assets/images/login.svg';
 import { Form, Input } from '../../shared/components/Form';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../shared/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, RootState } from '../../shared/store';
+import { useHistory } from 'react-router';
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +24,18 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isAuth = useSelector<RootState>((state) => state.auth.isAuthenticated);
+
+  const handleLogin = () => {
+    setLoading(true);
+    dispatch(authActions.login());
+    setLoading(false);
+    history.push('/');
+  };
+
+  const onSubmit = handleSubmit((data) => handleLogin());
 
   useEffect(() => {
     register('email', { required: true });
@@ -62,6 +76,7 @@ export const Login = () => {
             <Button type="submit" width="100%" loading={loading}>
               login
             </Button>
+            {isAuth && <div>autenticado</div>}
           </LoginFormContent>
         </LoginForm>
       </Form>

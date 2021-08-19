@@ -16,9 +16,13 @@ import {
   DropdownItem,
 } from '../../shared/components/Dropdown/styled';
 import { SideBarData } from '../../shared/services/SideBarData';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../shared/store';
 
-export default function NavBar() {
+export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
+
+  const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
   const toggleDropdown = () => setNavMenu(!navMenu);
 
@@ -58,7 +62,7 @@ export default function NavBar() {
           SoftRank
         </HeaderTitle>
       </HeaderColumn2>
-      <HeaderColumn3>other content</HeaderColumn3>
+      <HeaderColumn3>{auth ? 'authenticated' : 'no user'}</HeaderColumn3>
     </Header>
   );
-}
+};

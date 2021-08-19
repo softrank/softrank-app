@@ -51,5 +51,11 @@ export const StyledButton = styled.button<Props>`
       background: var(--light-purple);
       color: var(--dark-purple);
       border: 2px solid var(--light-purple);
+
+      &:active {
+        background-color: var(--dark-purple);
+        border: 2px solid var(--dark-purple);
+        color: var(--white);
+      }
     `}
 `;

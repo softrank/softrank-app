@@ -1,10 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
 
 import { GlobalStyles } from '../shared/styles/GlobalStyle';
-import HomePage from './HomePage/HomePage';
+import { HomePage } from './HomePage/HomePage';
 import { NotFound } from './NotFound/NotFound';
 import { ModelForm } from './ModelManagement/ModelForm';
-import NavBar from './NavBar/NavBar';
+import { NavBar } from './NavBar/NavBar';
 import { Login } from './Login/Login';
 import { ModelsList } from './ModelList/ModelsList';
 
