@@ -1,4 +1,4 @@
-import { LoadingHorizontal } from '../Loading';
+import { LoadingHorizontal } from 'shared/components/Loading';
 import { StyledButton } from './styled';
 
 interface Props {

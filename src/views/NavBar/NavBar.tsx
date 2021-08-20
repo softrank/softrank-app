@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Dropdown } from 'shared/components/Dropdown/Dropdown';
@@ -18,10 +18,11 @@ import {
   IconBackground,
   MenuIcon,
 } from './styled';
+import { ButtonLink } from 'shared/components';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
-
+  const history = useHistory();
   const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
   const toggleDropdown = () => setNavMenu(!navMenu);
@@ -62,7 +63,20 @@ export const NavBar = () => {
           SoftRank
         </HeaderTitle>
       </HeaderColumn2>
-      <HeaderColumn3>{auth ? 'authenticated' : 'no user'}</HeaderColumn3>
+      <HeaderColumn3>
+        {auth ? (
+          'authenticated'
+        ) : (
+          <>
+            <ButtonLink onClick={() => history.push('/signIn')}>
+              Login
+            </ButtonLink>
+            <ButtonLink secondary onClick={() => history.push('/signIn')}>
+              Sign up
+            </ButtonLink>
+          </>
+        )}
+      </HeaderColumn3>
     </Header>
   );
 };

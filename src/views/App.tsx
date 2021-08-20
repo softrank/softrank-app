@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { authActions } from 'shared/store';
 import {
   NavBar,
   HomePage,
@@ -10,6 +13,13 @@ import {
 } from './';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    token && dispatch(authActions.signin(token));
+  }, [dispatch]);
+
   return (
     <>
       <NavBar />

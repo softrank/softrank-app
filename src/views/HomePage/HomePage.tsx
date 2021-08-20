@@ -13,7 +13,7 @@ export const HomePage = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(authActions.logout);
+    dispatch(authActions.signOut());
   };
 
   return (

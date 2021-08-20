@@ -43,7 +43,7 @@ export const SignIn = () => {
       .signin(signIn)
       .then((res) => {
         console.log(res);
-        dispatch(authActions.signin());
+        dispatch(authActions.signin(res));
         setLoading(false);
         history.push('/');
       })
@@ -94,7 +94,6 @@ export const SignIn = () => {
             <Button type="submit" width="100%" loading={loading}>
               login
             </Button>
-            {isAuth && <div>autenticado</div>}
           </LoginFormContent>
         </LoginForm>
       </Form>
