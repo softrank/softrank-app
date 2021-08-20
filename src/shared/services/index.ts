@@ -1,1 +1,2 @@
-export { modelsService } from '../services/modelsService';
+export { modelsService } from 'shared/services/modelsService';
+export { authService } from 'shared/services/authService';

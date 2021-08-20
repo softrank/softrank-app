@@ -1,18 +1,25 @@
-import { Controller } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  DeepMap,
+  FieldError,
+  FieldValues,
+} from 'react-hook-form';
 
-import { Label } from '../Label/Label';
+import { ErrorsNote, Label } from '..';
 import { StyledTextArea } from './styled';
 
 interface Props {
   label: string;
   name: string;
   placeholder: string;
-  control: any;
-  error?: boolean;
+  control: Control<any>;
+  rules?: any;
+  errors?: DeepMap<FieldValues, FieldError>;
 }
 
 export const TextArea = (props: Props) => {
-  const { label, name, control, placeholder, error } = props;
+  const { label, name, control, placeholder, rules, errors } = props;
 
   return (
     <div style={{ width: '100%' }}>
@@ -20,13 +27,17 @@ export const TextArea = (props: Props) => {
       <Controller
         name={name}
         control={control}
+        rules={rules}
         render={({ field: { onChange, value } }) => (
-          <StyledTextArea
-            value={value}
-            placeholder={placeholder}
-            error={error}
-            onChange={(e) => onChange((value = e.target.value))}
-          />
+          <>
+            <StyledTextArea
+              value={value}
+              placeholder={placeholder}
+              error={!!errors}
+              onChange={(e) => onChange((value = e.target.value))}
+            />
+            {errors && <ErrorsNote error={errors} />}
+          </>
         )}
       />
     </div>

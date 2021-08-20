@@ -49,3 +49,13 @@ export const StyledInput = styled.input<Props>`
 export const InputDiv = styled.div`
   width: 100%;
 `;
+
+export const ErrorNote = styled.span`
+  position: relative;
+  top: -0.8em;
+  left: 0.8em;
+
+  font-size: 14px;
+
+  color: var(--error);
+`;

@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
-import { ExpectedResult } from '../../shared/models/expectedResult';
-import { ModelEntity } from '../../shared/models/modelEntity';
-import { AddIcon, InputGroup, RemoveIcon } from './styled';
-import { Input, TextArea } from '../../shared/components/Form';
-import { Collapse } from '../../shared/components';
+import { Collapse } from 'shared/components';
+import { Input, TextArea } from 'shared/components/Form';
+import { ExpectedResult } from 'shared/models/expectedResult';
+import { ModelEntity } from 'shared/models/modelEntity';
+import { AddIcon, RemoveIcon, InputGroup } from './styled';
 
 interface Props {
   nestIndex: number;
   control: any;
   model: ModelEntity;
+  errors: any;
 }
 
 export const ExpectedResultsFieldArray = (props: Props) => {
-  const { nestIndex, control, model } = props;
+  const { nestIndex, control, model, errors } = props;
+  const [collapseProcesses, setCollapseProcesses] = useState(false);
 
   const { fields, remove, append } = useFieldArray({
     control,
     name: `modelProcesses[${nestIndex}].expectedResults`,
   });
-
-  const [collapseProcesses, setCollapseProcesses] = useState(false);
 
   const handleAddExpectedResult = () => {
     setCollapseProcesses(false);
@@ -36,15 +36,12 @@ export const ExpectedResultsFieldArray = (props: Props) => {
     append(expectedResult);
   };
 
-  const handleRemoveExpectedResult = (index: number) => {
-    remove(index);
-  };
-
   useEffect(() => {
-    model.modelProcesses[nestIndex].expectedResults.map((er, index) => {
-      append(er);
-      return er;
-    });
+    if (model !== undefined) {
+      model.modelProcesses[nestIndex].expectedResults.map((er, index) =>
+        append(er)
+      );
+    }
   }, [model, append, nestIndex]);
 
   return (
@@ -60,9 +57,7 @@ export const ExpectedResultsFieldArray = (props: Props) => {
           <Collapse
             key={expectedResult.id}
             title="Insira o sigla do resultado esperado*"
-            options={
-              <RemoveIcon onClick={() => handleRemoveExpectedResult(index)} />
-            }
+            options={<RemoveIcon onClick={() => remove(index)} />}
           >
             <InputGroup>
               <Input
@@ -70,6 +65,11 @@ export const ExpectedResultsFieldArray = (props: Props) => {
                 label="Sigla"
                 placeholder="sigla do resultado esperado"
                 control={control}
+                rules={{ required: true }}
+                errors={
+                  errors?.modelProcesses?.[nestIndex]?.expectedResults?.[index]
+                    ?.initial
+                }
               />
             </InputGroup>
             <InputGroup>
@@ -78,6 +78,11 @@ export const ExpectedResultsFieldArray = (props: Props) => {
                 label="Descrição"
                 placeholder="descrição do resultado esperado"
                 control={control}
+                rules={{ required: true }}
+                errors={
+                  errors?.modelProcesses?.[nestIndex]?.expectedResults?.[index]
+                    ?.description
+                }
               />
             </InputGroup>
           </Collapse>

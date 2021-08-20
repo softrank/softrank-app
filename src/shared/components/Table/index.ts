@@ -1,3 +1,3 @@
-export { default as Table } from '../Table/Table';
-export { default as TableBody } from '../Table/TableBody';
-export { default as TableHead } from '../Table/TableHead';
+export { default as Table } from 'shared/components/Table/Table';
+export { default as TableBody } from 'shared/components/Table/TableBody';
+export { default as TableHead } from 'shared/components/Table/TableHead';

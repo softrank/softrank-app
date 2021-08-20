@@ -1,6 +1,14 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+import { Dropdown } from 'shared/components/Dropdown/Dropdown';
+import { SideBarData } from 'shared/services/SideBarData';
+import { RootState } from 'shared/store';
+import {
+  DropdownItem,
+  DropdownDivider,
+} from 'shared/components/Dropdown/styled';
 import {
   Header,
   HeaderColumn1,
@@ -10,15 +18,12 @@ import {
   IconBackground,
   MenuIcon,
 } from './styled';
-import { Dropdown } from '../../shared/components/Dropdown/Dropdown';
-import {
-  DropdownDivider,
-  DropdownItem,
-} from '../../shared/components/Dropdown/styled';
-import { SideBarData } from '../../shared/services/SideBarData';
+import { ButtonLink } from 'shared/components';
 
-export default function NavBar() {
+export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
+  const history = useHistory();
+  const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
   const toggleDropdown = () => setNavMenu(!navMenu);
 
@@ -58,7 +63,20 @@ export default function NavBar() {
           SoftRank
         </HeaderTitle>
       </HeaderColumn2>
-      <HeaderColumn3>other content</HeaderColumn3>
+      <HeaderColumn3>
+        {auth ? (
+          'authenticated'
+        ) : (
+          <>
+            <ButtonLink onClick={() => history.push('/signIn')}>
+              Login
+            </ButtonLink>
+            <ButtonLink secondary onClick={() => history.push('/signIn')}>
+              Sign up
+            </ButtonLink>
+          </>
+        )}
+      </HeaderColumn3>
     </Header>
   );
-}
+};

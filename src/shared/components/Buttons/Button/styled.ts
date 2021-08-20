@@ -1,13 +1,14 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface Props {
+  width?: string;
   secondary?: boolean;
 }
 
-export default styled.button<Props>`
+export const StyledButton = styled.button<Props>`
   text-decoration: none;
   box-sizing: border-box;
-  width: 9.2em;
+  width: ${(props) => (props.width ? props.width : '9.2em')};
   height: 2.4em;
   margin-top: 0.8em;
 
@@ -22,14 +23,12 @@ export default styled.button<Props>`
   cursor: pointer;
   outline: none;
 
-  transition: all 600ms ease;
+  transition: all 400ms ease;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
-    background-color: white;
     border: 2px solid var(--dark-purple);
-    color: var(--dark-purple);
     transform: translateY(-3px);
   }
 
@@ -45,4 +44,18 @@ export default styled.button<Props>`
     border: 2px solid var(--gray-100);
     pointer-events: none;
   }
+
+  ${(props) =>
+    props.secondary &&
+    css`
+      background: var(--light-purple);
+      color: var(--dark-purple);
+      border: 2px solid var(--light-purple);
+
+      &:active {
+        background-color: var(--dark-purple);
+        border: 2px solid var(--dark-purple);
+        color: var(--white);
+      }
+    `}
 `;
