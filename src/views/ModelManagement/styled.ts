@@ -2,19 +2,6 @@ import styled, { css } from 'styled-components';
 import { IoIosAdd } from 'react-icons/io';
 import { HiOutlineTrash } from 'react-icons/hi';
 
-export const InputGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-  }
-`;
-
 export const Options = styled.div`
   width: 100%;
   display: flex;

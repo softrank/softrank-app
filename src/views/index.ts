@@ -5,3 +5,6 @@ export { ModelForm } from './ModelManagement/ModelForm';
 export { NavBar } from './NavBar/NavBar';
 export { NotFound } from './NotFound/NotFound';
 export { SignIn } from './SignIn/SignIn';
+export { SignUp } from './SignUp/SignUp';
+export { EvaluatorManagment } from './EvaluatorManagment/EvaluatorManagment';
+export { EvaluatorForm } from './EvaluatorManagment/EvaluatorForm/EvaluatorForm';

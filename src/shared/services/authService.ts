@@ -5,5 +5,5 @@ import { User } from 'shared/models/user';
 const authController: string = '/auth';
 
 export const authService = {
-  signin: (signIn: signDto) => requests.post<User>(authController, signIn),
+  signin: (signIn: signDto) => requests.post<string>(authController, signIn),
 };

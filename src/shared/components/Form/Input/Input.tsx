@@ -6,6 +6,7 @@ import {
   FieldError,
   FieldValues,
 } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 import { Label, ErrorsNote } from '..';
 
@@ -18,6 +19,7 @@ interface Props {
   defaultValue?: string;
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
+  mask?: string;
 }
 
 export const Input = (props: Props) => {
@@ -30,6 +32,7 @@ export const Input = (props: Props) => {
     defaultValue,
     rules,
     errors,
+    mask,
   } = props;
 
   return (
@@ -44,10 +47,12 @@ export const Input = (props: Props) => {
           <>
             <StyledInput
               placeholder={placeholder}
-              onChange={(e) => onChange((value = e.target.value))}
+              onChange={(e: any) => onChange((value = e.target.value))}
               type={type}
               value={value ?? ''}
               error={!!errors}
+              as={InputMask}
+              mask={mask ?? ''}
             />
             {errors && <ErrorsNote error={errors} />}
           </>

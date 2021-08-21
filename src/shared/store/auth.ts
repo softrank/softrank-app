@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { User } from 'shared/models/user';
 
 interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
+  user: User | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   token: localStorage.getItem('token'),
+  user: null,
 };
 
 const authSlice = createSlice({
@@ -24,6 +27,9 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.token = token;
       window.localStorage.setItem('token', token);
+    },
+    setUser(state, action) {
+      state.user = action.payload;
     },
   },
 });

@@ -9,7 +9,7 @@ import { Hero } from './styled';
 export const HomePage = () => {
   const history = useHistory();
 
-  const redirect = () => history.push('/signIn');
+  const redirect = () => history.push('/login');
   const dispatch = useDispatch();
 
   const handleLogout = () => {

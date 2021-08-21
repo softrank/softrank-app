@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Wrapper from 'shared/components/Layouts/Wrapper';
-import { Card } from 'shared/components';
+import { Title } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Table, TableHead, TableBody } from 'shared/components/Table';
 import { ModelEntity } from 'shared/models/modelEntity';
@@ -23,35 +23,37 @@ export const ModelsList = () => {
       });
   }, []);
 
+  const formatDate = (date: Date) => {
+    return new Date(date.toString()).getFullYear();
+  };
+
   return (
     <Wrapper>
-      <Card>
-        <h2>Modelos</h2>
-        {loading ? (
-          <LoadingScreen loading={loading} content="Carregando modelos..." />
-        ) : (
-          <Table>
-            <TableHead>
-              <tr>
-                <td>Nome</td>
-                <td>Teste</td>
-                <td>Descrição</td>
-              </tr>
-            </TableHead>
-            <TableBody>
-              {models.map((model: ModelEntity, id) => {
-                return (
-                  <tr key={id}>
-                    <td>{model.name}</td>
-                    <td>{model.year}</td>
-                    <td>{model.description}</td>
-                  </tr>
-                );
-              })}
-            </TableBody>
-          </Table>
-        )}
-      </Card>
+      <Title>Modelos</Title>
+      {loading ? (
+        <LoadingScreen loading={loading} content="Carregando modelos..." />
+      ) : (
+        <Table>
+          <TableHead>
+            <tr>
+              <th>Nome</th>
+              <th>Ano</th>
+              <th>Descrição</th>
+            </tr>
+          </TableHead>
+          <TableBody>
+            {models.map((model: ModelEntity, id) => {
+              return (
+                <tr key={id}>
+                  <td>{model.name}</td>
+                  <td>{formatDate(model.year)}</td>
+                  <td>{model.description}</td>
+                </tr>
+              );
+            })}
+          </TableBody>
+        </Table>
+      )}
     </Wrapper>
   );
 };

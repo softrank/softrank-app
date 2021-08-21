@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const Note = styled.span`
   position: relative;
-  top: -0.8em;
-  left: 0.8em;
+  top: -10px;
+  left: 10px;
 
   font-size: 14px;
 
