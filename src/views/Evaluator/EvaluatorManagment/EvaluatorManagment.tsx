@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router';
-import { AddIcon, SearchBox, Title } from 'shared/components';
+import { AddIcon, SearchBox, Table, Title } from 'shared/components';
 import Wrapper from 'shared/components/Layouts/Wrapper';
-import { Table, TableHead, TableBody } from 'shared/components/Table';
 import { TableOptions } from './styled';
 
 export const EvaluatorManagment = () => {
@@ -17,22 +16,12 @@ export const EvaluatorManagment = () => {
         <AddIcon onClick={() => handleAddEvaluator()} />
         <SearchBox />
       </TableOptions>
-
-      <Table>
-        <TableHead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Celular</th>
-          </tr>
-        </TableHead>
-        <TableBody>
-          <tr>
-            <td>Fulano Teste</td>
-            <td>teste@teste.com</td>
-            <td>(41) 99999-9999</td>
-          </tr>
-        </TableBody>
+      <Table headers={['Nome', 'Email', 'Celular']}>
+        <tr>
+          <td>Fulano Teste</td>
+          <td>teste@teste.com</td>
+          <td>(41) 99999-9999</td>
+        </tr>
       </Table>
     </Wrapper>
   );

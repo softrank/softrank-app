@@ -1,6 +1,32 @@
 import styled from 'styled-components';
 
-export default styled.tbody`
+export const TableContainer = styled.table`
+  width: 100%;
+  min-width: 400px;
+  border-spacing: 0 5px;
+
+  overflow: scroll;
+`;
+
+export const TableHead = styled.thead`
+  text-align: left;
+  font-size: 20px;
+  color: var(--gray-700);
+
+  > tr > th {
+    padding: 0.6em;
+    background: var(--gray-50);
+
+    &:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+    &:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+  }
+`;
+
+export const TableBody = styled.tbody`
   text-align: left;
   font-size: 16px;
   font-weight: 500;

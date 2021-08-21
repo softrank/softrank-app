@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Table } from 'shared/components';
 
 import { LoadingScreen } from 'shared/components/Loading';
-import { Table, TableHead, TableBody } from 'shared/components/Table';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
 
@@ -21,7 +21,7 @@ export const ModelsList = () => {
       });
   }, []);
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: any) => {
     return new Date(date.toString()).getFullYear();
   };
 
@@ -30,25 +30,16 @@ export const ModelsList = () => {
       {loading ? (
         <LoadingScreen loading={loading} content="Carregando modelos..." />
       ) : (
-        <Table>
-          <TableHead>
-            <tr>
-              <th>Nome</th>
-              <th>Ano</th>
-              <th>Descrição</th>
-            </tr>
-          </TableHead>
-          <TableBody>
-            {models.map((model: ModelEntity, id) => {
-              return (
-                <tr key={id}>
-                  <td>{model.name}</td>
-                  <td>{formatDate(model.year)}</td>
-                  <td>{model.description}</td>
-                </tr>
-              );
-            })}
-          </TableBody>
+        <Table headers={['Nome', 'Ano', 'Descrição']}>
+          {models.map((model: ModelEntity, id) => {
+            return (
+              <tr key={id}>
+                <td>{model.name}</td>
+                <td>{formatDate(model.year)}</td>
+                <td>{model.description}</td>
+              </tr>
+            );
+          })}
         </Table>
       )}
     </>

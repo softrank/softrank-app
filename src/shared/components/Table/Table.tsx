@@ -1,9 +1,28 @@
-import styled from 'styled-components';
+import React from 'react';
+import { TableContainer, TableHead, TableBody } from './styled';
 
-export default styled.table`
-  width: 100%;
-  min-width: 400px;
-  border-spacing: 0 5px;
+interface Props {
+  headers: string[];
+  children: JSX.Element[] | JSX.Element;
+}
 
-  overflow: scroll;
-`;
+export const Table = (props: Props) => {
+  const { headers, children } = props;
+
+  return (
+    <TableContainer>
+      <TableHead>
+        <tr>
+          {headers.map((header: string, index) => {
+            return <th key={index}>{header}</th>;
+          })}
+        </tr>
+      </TableHead>
+      <TableBody>
+        {React.Children.map(children, (child, index) => {
+          return <React.Fragment key={index}>{child}</React.Fragment>;
+        })}
+      </TableBody>
+    </TableContainer>
+  );
+};
