@@ -1,4 +1,3 @@
-import { Props } from 'react';
 import { IoIosAdd, IoIosArrowDown } from 'react-icons/io';
 import styled, { css } from 'styled-components';
 

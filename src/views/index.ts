@@ -2,7 +2,7 @@ export { GlobalStyles } from 'shared/styles/GlobalStyle';
 export { HomePage } from './HomePage/HomePage';
 export { ModelManagment } from './Model/ModelManagment/ModelManagment';
 export { ModelsList } from './Model/ModelList/ModelsList';
-export { ModelDetails as ModelForm } from './Model/ModelDetails/ModelDetails';
+export { ModelDetails } from './Model/ModelDetails/ModelDetails';
 export { NavBar } from './NavBar/NavBar';
 export { NotFound } from './NotFound/NotFound';
 export { SignIn } from './SignIn/SignIn';

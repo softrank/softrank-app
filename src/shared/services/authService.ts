@@ -1,6 +1,5 @@
 import { requests } from './api';
 import { signDto } from 'shared/dtos/signDto';
-import { User } from 'shared/models/user';
 
 const authController: string = '/auth';
 

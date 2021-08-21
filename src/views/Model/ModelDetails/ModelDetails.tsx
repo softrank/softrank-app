@@ -29,6 +29,7 @@ import {
   Options,
 } from './styled';
 import { ExpectedResultsFieldArray } from './ExpectedResultsFieldArray';
+import { useHistory } from 'react-router';
 
 const newModel: ModelEntity = {
   id: '',
@@ -72,6 +73,8 @@ export const ModelDetails = () => {
   const [model, setModel] = useState<ModelEntity>(newModel);
   const [models, setModels] = useState<ModelEntity[]>([]);
 
+  const history = useHistory();
+
   //#region Form
 
   const {
@@ -81,7 +84,6 @@ export const ModelDetails = () => {
     register,
     formState: { errors },
   } = useForm<ModelEntity>();
-
   const {
     fields: levels,
     append: levelsAppend,
@@ -224,6 +226,8 @@ export const ModelDetails = () => {
 
   //#endregion
 
+  const handleRedirect = (path: string) => history.push(path);
+
   return (
     <>
       <Wrapper>
@@ -347,7 +351,7 @@ export const ModelDetails = () => {
             })}
           </Collapse>
           <Options>
-            <Button secondary type="button">
+            <Button secondary onClick={() => handleRedirect('/modelos')}>
               Cancelar
             </Button>
             <Button type="button" onClick={() => setShowModal(true)}>
