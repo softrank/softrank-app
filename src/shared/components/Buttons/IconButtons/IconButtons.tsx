@@ -21,7 +21,7 @@ const iconCss = css`
   &:active,
   &:hover {
     color: var(--dark-purple);
-    background: var(light-purple);
+    background: #eceeff;
   }
 `;
 

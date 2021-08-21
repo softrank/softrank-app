@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import Wrapper from 'shared/components/Layouts/Wrapper';
-import { Title } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Table, TableHead, TableBody } from 'shared/components/Table';
 import { ModelEntity } from 'shared/models/modelEntity';
@@ -28,8 +26,7 @@ export const ModelsList = () => {
   };
 
   return (
-    <Wrapper>
-      <Title>Modelos</Title>
+    <>
       {loading ? (
         <LoadingScreen loading={loading} content="Carregando modelos..." />
       ) : (
@@ -54,6 +51,6 @@ export const ModelsList = () => {
           </TableBody>
         </Table>
       )}
-    </Wrapper>
+    </>
   );
 };

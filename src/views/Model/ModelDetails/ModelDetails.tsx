@@ -7,7 +7,6 @@ import { ModelEntity } from 'shared/models/modelEntity';
 import { ModelLevel } from 'shared/models/modelLevel';
 import { Process } from 'shared/models/process';
 import { modelsService } from 'shared/services';
-import { ExpectedResultsFieldArray } from './expectedResultsFieldArray';
 import { Collapse, Button, Title } from 'shared/components';
 import {
   Form,
@@ -29,6 +28,7 @@ import {
   GroupDivider,
   Options,
 } from './styled';
+import { ExpectedResultsFieldArray } from './ExpectedResultsFieldArray';
 
 const newModel: ModelEntity = {
   id: '',
@@ -60,7 +60,7 @@ const newModel: ModelEntity = {
   ],
 };
 
-export const ModelForm = () => {
+export const ModelDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState();
   const [showErrorMessage, setShowErrorMessage] = useState(false);

@@ -9,7 +9,7 @@ import { Evaluator } from 'shared/models/evaluator';
 import { evaluatorService } from 'shared/services';
 import { Options } from './styled';
 
-export const EvaluatorForm = () => {
+export const EvaluatorDetails = () => {
   const {
     handleSubmit,
     control,

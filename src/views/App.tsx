@@ -6,14 +6,14 @@ import { authActions, RootState } from 'shared/store';
 import {
   NavBar,
   HomePage,
-  ModelForm,
-  ModelsList,
   SignIn,
   NotFound,
   GlobalStyles,
   EvaluatorManagment,
-  EvaluatorForm,
+  EvaluatorDetails,
+  ModelManagment,
 } from './';
+import { ModelDetails } from './Model/ModelDetails/ModelDetails';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -46,11 +46,15 @@ export default function App() {
         path={'/(.+)'}
         render={() => (
           <Switch>
-            <Route exact path="/cadastro/modelo" component={ModelForm} />
-            <Route exact path="/lista/modelos" component={ModelsList} />
+            <Route exact path="/modelos" component={ModelManagment} />
+            <Route exact path="/cadastro/modelo" component={ModelDetails} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/avaliadores" component={EvaluatorManagment} />
-            <Route exact path="/cadastro/avaliador" component={EvaluatorForm} />
+            <Route
+              exact
+              path="/cadastro/avaliador"
+              component={EvaluatorDetails}
+            />
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}

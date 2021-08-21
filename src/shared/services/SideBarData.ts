@@ -4,12 +4,8 @@ export const SideBarData = [
     path: '/',
   },
   {
-    title: 'Cadastrar modelo',
-    path: '/cadastro/modelo',
-  },
-  {
-    title: 'Listar modelos',
-    path: '/lista/modelos',
+    title: 'Modelos',
+    path: '/modelos',
   },
   {
     title: 'Avaliadores',

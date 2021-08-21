@@ -7,3 +7,4 @@ export {
   ToggleIcon,
   AddIcon,
 } from 'shared/components/Buttons/IconButtons/IconButtons';
+export { SearchBox } from 'shared/components/SearchBox/SearchBox';
