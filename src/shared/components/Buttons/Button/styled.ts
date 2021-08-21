@@ -6,23 +6,20 @@ interface Props {
 }
 
 export const StyledButton = styled.button<Props>`
-  text-decoration: none;
-  box-sizing: border-box;
   width: ${(props) => (props.width ? props.width : '9.2em')};
   height: 2.4em;
-  margin-top: 0.8em;
 
   font-size: 1.2rem;
   font-weight: 600;
-
-  border: 2px solid var(--dark-purple);
-  border-radius: 10px;
+  text-decoration: none;
+  color: var(--white);
 
   background: var(--dark-purple);
-  color: var(--white);
-  cursor: pointer;
+  border: 2px solid var(--dark-purple);
+  border-radius: 10px;
   outline: none;
 
+  cursor: pointer;
   transition: all 400ms ease;
 
   &:hover {

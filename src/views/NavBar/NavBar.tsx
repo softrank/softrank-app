@@ -68,11 +68,8 @@ export const NavBar = () => {
           'authenticated'
         ) : (
           <>
-            <ButtonLink onClick={() => history.push('/signIn')}>
+            <ButtonLink onClick={() => history.push('/login')}>
               Login
-            </ButtonLink>
-            <ButtonLink secondary onClick={() => history.push('/signIn')}>
-              Sign up
             </ButtonLink>
           </>
         )}

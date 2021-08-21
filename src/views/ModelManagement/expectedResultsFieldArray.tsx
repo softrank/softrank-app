@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
 import { Collapse } from 'shared/components';
-import { Input, TextArea } from 'shared/components/Form';
+import { Input, InputGroup, TextArea } from 'shared/components/Form';
 import { ExpectedResult } from 'shared/models/expectedResult';
 import { ModelEntity } from 'shared/models/modelEntity';
-import { AddIcon, RemoveIcon, InputGroup } from './styled';
+import { AddIcon, RemoveIcon } from './styled';
 
 interface Props {
   nestIndex: number;

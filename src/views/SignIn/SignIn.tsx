@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import loginImage from 'shared/assets/images/login.svg';
 import { Button } from 'shared/components';
 import { Form, Input } from 'shared/components/Form';
 import { signDto } from 'shared/dtos/signDto';
 import { authService } from 'shared/services';
-import { RootState, authActions } from 'shared/store';
+import { authActions } from 'shared/store';
 import {
   LoginBackground,
   LoginForm,
@@ -29,7 +29,6 @@ export const SignIn = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const isAuth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
   const handleLogin = (data: any) => {
     setLoading(true);
@@ -42,7 +41,6 @@ export const SignIn = () => {
     authService
       .signin(signIn)
       .then((res) => {
-        console.log(res);
         dispatch(authActions.signin(res));
         setLoading(false);
         history.push('/');
