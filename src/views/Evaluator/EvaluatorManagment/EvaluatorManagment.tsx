@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { AddIcon, Title } from 'shared/components';
+import { AddIcon, SearchBox, Title } from 'shared/components';
 import Wrapper from 'shared/components/Layouts/Wrapper';
 import { LoadingScreen } from 'shared/components/Loading';
-import { SearchBox } from 'shared/components/SearchBox/SearchBox';
 import { Table, TableHead, TableBody } from 'shared/components/Table';
 import { TableOptions } from './styled';
 

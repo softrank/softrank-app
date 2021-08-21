@@ -1,10 +1,11 @@
 export { GlobalStyles } from 'shared/styles/GlobalStyle';
 export { HomePage } from './HomePage/HomePage';
-export { ModelsList } from './ModelList/ModelsList';
-export { ModelForm } from './ModelManagement/ModelForm';
+export { ModelManagment } from './Model/ModelManagment/ModelManagment';
+export { ModelsList } from './Model/ModelList/ModelsList';
+export { ModelDetails as ModelForm } from './Model/ModelDetails/ModelDetails';
 export { NavBar } from './NavBar/NavBar';
 export { NotFound } from './NotFound/NotFound';
 export { SignIn } from './SignIn/SignIn';
 export { SignUp } from './SignUp/SignUp';
-export { EvaluatorManagment } from './EvaluatorManagment/EvaluatorManagment';
-export { EvaluatorForm } from './EvaluatorManagment/EvaluatorForm/EvaluatorForm';
+export { EvaluatorManagment } from './Evaluator/EvaluatorManagment/EvaluatorManagment';
+export { EvaluatorDetails } from './Evaluator/EvaluatorDetails/EvaluatorDetails';
