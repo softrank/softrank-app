@@ -38,6 +38,7 @@ export const ExpectedResultsFieldArray = (props: Props) => {
 
   useEffect(() => {
     if (model !== undefined) {
+      console.log('meu ovo');
       model.modelProcesses[nestIndex].expectedResults.map((er, index) =>
         append(er)
       );
@@ -47,7 +48,7 @@ export const ExpectedResultsFieldArray = (props: Props) => {
   return (
     <Collapse
       underline
-      title="Resultados esperados"
+      title="Resultados esperados (RE)"
       collapse={collapseProcesses}
       setCollapse={setCollapseProcesses}
       options={<AddIcon onClick={() => handleAddExpectedResult()} />}
@@ -56,7 +57,7 @@ export const ExpectedResultsFieldArray = (props: Props) => {
         return (
           <Collapse
             key={expectedResult.id}
-            title="Insira o sigla do resultado esperado*"
+            title={`RE-${++index}`}
             options={<RemoveIcon onClick={() => remove(index)} />}
           >
             <InputGroup>

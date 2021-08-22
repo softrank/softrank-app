@@ -24,13 +24,13 @@ export const StyledInput = styled.input<Props>`
 
   &:hover {
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     color: black;
   }
 
   &:focus {
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     color: black;
   }
 

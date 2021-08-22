@@ -19,7 +19,7 @@ const iconCss = css`
 
   &:active,
   &:hover {
-    color: var(--dark-purple);
+    color: var(--purple-500);
     background: #eceeff;
   }
 `;

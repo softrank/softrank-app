@@ -31,7 +31,7 @@ export const HeaderTitle = styled.a`
   font-weight: 700;
   padding: 0.4em;
 
-  color: var(--dark-purple);
+  color: var(--purple-500);
 
   @media (max-width: 640px) {
     font-size: 25px;
@@ -48,7 +48,7 @@ export const IconBackground = styled.div`
   transition: 0.3s;
 
   &:active {
-    background: var(--light-purple);
+    background: var(--purple-300);
     border-radius: 100%;
   }
 `;
@@ -57,7 +57,7 @@ const iconCss = css`
   width: 1.4em;
   height: 1.4em;
 
-  color: var(--dark-purple);
+  color: var(--purple-500);
 
   cursor: pointer;
 `;

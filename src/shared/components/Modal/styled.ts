@@ -52,7 +52,7 @@ export const CloseModalButton = styled(IoIosClose)`
   z-index: 10;
 
   cursor: pointer;
-  color: var(--dark-purple);
+  color: var(--purple-500);
 `;
 
 export const ModalBody = styled.div`

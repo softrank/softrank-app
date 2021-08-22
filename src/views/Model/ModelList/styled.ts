@@ -6,7 +6,7 @@ export const TableHeader = styled.thead`
 
   font-size: 18px;
   font-weight: 600;
-  color: var(--dark-purple);
+  color: var(--purple-500);
 
   border-radius: var(--radius);
   background: var(--gray-50);

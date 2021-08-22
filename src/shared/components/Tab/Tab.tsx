@@ -28,9 +28,9 @@ export const STab = styled(Tab)<TabProps>`
   transition: 0.6s;
 
   &.react-tabs__tab--selected {
-    color: var(--dark-purple);
+    color: var(--purple-500);
     background-color: var(--white);
-    border-bottom: 2px solid var(--dark-purple);
+    border-bottom: 2px solid var(--purple-500);
   }
 
   ${(props) =>

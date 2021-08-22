@@ -26,13 +26,13 @@ export const StyledTextArea = styled.textarea<Props>`
 
   &:hover {
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     color: black;
   }
 
   &:focus {
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     color: black;
   }
 
@@ -54,11 +54,11 @@ export const StyledTextArea = styled.textarea<Props>`
   &::-webkit-scrollbar-track {
     margin: 10px;
 
-    background: var(--light-purple);
+    background: var(--purple-300);
     border-radius: var(--radius);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: var(--dark-purple);
+    background-color: var(--purple-500);
     border-radius: var(--radius);
   }
   /* #endregion Scrollbar  */

@@ -14,8 +14,8 @@ export const StyledButton = styled.button<Props>`
   text-decoration: none;
   color: var(--white);
 
-  background: var(--dark-purple);
-  border: 2px solid var(--dark-purple);
+  background: var(--purple-500);
+  border: 2px solid var(--purple-500);
   border-radius: 10px;
   outline: none;
 
@@ -25,14 +25,14 @@ export const StyledButton = styled.button<Props>`
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     transform: translateY(-3px);
   }
 
   &:active {
-    background-color: var(--light-purple);
-    border: 2px solid var(--dark-purple);
-    color: var(--dark-purple);
+    background-color: var(--purple-300);
+    border: 2px solid var(--purple-500);
+    color: var(--purple-500);
   }
 
   &:disabled {
@@ -45,13 +45,13 @@ export const StyledButton = styled.button<Props>`
   ${(props) =>
     props.secondary &&
     css`
-      background: var(--light-purple);
-      color: var(--dark-purple);
-      border: 2px solid var(--light-purple);
+      background: var(--purple-300);
+      color: var(--purple-500);
+      border: 2px solid var(--purple-300);
 
       &:active {
-        background-color: var(--dark-purple);
-        border: 2px solid var(--dark-purple);
+        background-color: var(--purple-500);
+        border: 2px solid var(--purple-500);
         color: var(--white);
       }
     `}

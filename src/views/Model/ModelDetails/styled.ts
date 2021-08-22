@@ -48,7 +48,7 @@ const iconCss = css`
   transition: all 0.5s;
 
   &:active {
-    color: var(--dark-purple);
+    color: var(--purple-500);
   }
 `;
 
@@ -91,15 +91,15 @@ export const RemoveIcon = styled(HiOutlineTrash)`
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
       background-color: white;
-      border: 2px solid var(--dark-purple);
-      color: var(--dark-purple);
+      border: 2px solid var(--purple-500);
+      color: var(--purple-500);
       transform: translateY(-3px);
     }
 
     &:active {
-      background-color: var(--light-purple);
-      border: 2px solid var(--dark-purple);
-      color: var(--dark-purple);
+      background-color: var(--purple-300);
+      border: 2px solid var(--purple-500);
+      color: var(--purple-500);
     }
   }
 `;

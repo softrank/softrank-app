@@ -31,18 +31,18 @@ export const CustomSelect = styled(Select)<Props>`
       border-color: none;
       outline: none;
       box-shadow: var(--box-shadow);
-      border: 2px solid var(--dark-purple);
+      border: 2px solid var(--purple-500);
       color: black;
     }
   }
 
   .select__control--is-focused {
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--dark-purple);
+    border: 2px solid var(--purple-500);
     color: black;
 
     .select__dropdown-indicator {
-      color: var(--dark-purple);
+      color: var(--purple-500);
     }
   }
 
@@ -69,18 +69,18 @@ export const CustomSelect = styled(Select)<Props>`
   }
 
   .select__option:hover {
-    color: var(--dark-purple);
-    background-color: var(--light-purple);
+    color: var(--purple-500);
+    background-color: var(--purple-300);
   }
 
   .select__option--is-focused {
-    color: var(--dark-purple);
-    background-color: var(--light-purple);
+    color: var(--purple-500);
+    background-color: var(--purple-300);
   }
 
   .select__option--is-selected {
     color: var(--white);
-    background-color: var(--dark-purple);
+    background-color: var(--purple-500);
   }
 
   .select__menu {
@@ -93,8 +93,8 @@ export const CustomSelect = styled(Select)<Props>`
   }
 
   .select__multi-value {
-    background: var(--light-purple);
+    background: var(--purple-300);
     border-radius: 2px;
-    color: var(--dark-purple);
+    color: var(--purple-500);
   }
 `;

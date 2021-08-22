@@ -14,7 +14,7 @@ export const ButtonLink = styled.a<Props>`
   font-size: 16px;
   font-weight: 700;
 
-  color: ${(props) => (props.secondary ? '#9794ff' : 'var(--dark-purple)')};
+  color: ${(props) => (props.secondary ? '#9794ff' : 'var(--purple-500)')};
 
   &::after {
     content: '';

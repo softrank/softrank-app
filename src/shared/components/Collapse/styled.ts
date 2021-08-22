@@ -48,7 +48,7 @@ export const CollapseHead = styled.div<Props>`
 export const CollapseTitle = styled.h1`
   font-size: 20px;
   font-weight: 500;
-  color: var(--dark-purple);
+  color: var(--purple-500);
 `;
 
 export const CollapseOptions = styled.div`
@@ -79,7 +79,7 @@ const iconCss = css`
   transition: all 0.5s;
 
   &:active {
-    color: var(--dark-purple);
+    color: var(--purple-500);
   }
 `;
 

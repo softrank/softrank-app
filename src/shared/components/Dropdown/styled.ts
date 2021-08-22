@@ -37,12 +37,12 @@ export const DropdownItem = styled.li`
   font-weight: bold;
   text-decoration: none;
 
-  color: var(--dark-purple);
+  color: var(--purple-500);
   list-style-type: none;
 
   &:hover {
-    color: var(--dark-purple);
-    background-color: var(--light-purple);
+    color: var(--purple-500);
+    background-color: var(--purple-300);
     border-radius: var(--radius);
   }
 `;

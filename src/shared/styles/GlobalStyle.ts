@@ -21,7 +21,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     --error: #e57373;
 
     /* Grays */
-
     --gray-50: #f4f6fa;
     --gray-100: #e6e8eb;
     --gray-400: #ced4da;
@@ -32,9 +31,14 @@ export const GlobalStyles = styled.createGlobalStyle`
     --gray-900: #1b1a25;
 
     /* Purples */
-
-    --light-purple: #ccccff;
-    --dark-purple: #625cff;
+    --purple-50: #eceeff;
+    --purple-100: #dcdcff;
+    --purple-300: #ccccff;
+    --purple-400: #9794ff;
+    --purple-500: #625cff;
+    --purple-700: #3c389e;
+    --purple-800: #16143d;
+    --purple-900: #010029;
 
     /*#endregion Colors*/
   }
@@ -43,7 +47,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
     background: var(---white);
   }
 
@@ -58,11 +61,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
     background: var(--white);
-
-    /* background: var(--gray-50);
-    @media (max-width: 640px) {
-      background: var(--white);
-    } */
 
     /*#region DatePicker*/
     .react-datepicker-wrapper {
@@ -98,10 +96,10 @@ export const GlobalStyles = styled.createGlobalStyle`
     .react-datepicker__day--selected,
     .react-datepicker__year-text--selected,
     .react-datepicker__year-text--keyboard-selected {
-      background: var(--dark-purple);
+      background: var(--purple-500);
       &:hover {
-        background: var(--light-purple);
-        color: var(--dark-purple);
+        background: var(--purple-300);
+        color: var(--purple-500);
         font-weight: 700;
       }
     }

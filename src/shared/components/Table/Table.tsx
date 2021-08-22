@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableContainer, TableHead, TableBody } from './styled';
+import { TableContainer, TableHead, TableBody, TableStyle } from './styled';
 
 interface Props {
   headers: string[];
@@ -11,18 +11,20 @@ export const Table = (props: Props) => {
 
   return (
     <TableContainer>
-      <TableHead>
-        <tr>
-          {headers.map((header: string, index) => {
-            return <th key={index}>{header}</th>;
+      <TableStyle>
+        <TableHead>
+          <tr>
+            {headers.map((header: string, index) => {
+              return <th key={index}>{header}</th>;
+            })}
+          </tr>
+        </TableHead>
+        <TableBody>
+          {React.Children.map(children, (child, index) => {
+            return <React.Fragment key={index}>{child}</React.Fragment>;
           })}
-        </tr>
-      </TableHead>
-      <TableBody>
-        {React.Children.map(children, (child, index) => {
-          return <React.Fragment key={index}>{child}</React.Fragment>;
-        })}
-      </TableBody>
+        </TableBody>
+      </TableStyle>
     </TableContainer>
   );
 };
