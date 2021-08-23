@@ -9,7 +9,6 @@ interface Props {
 export const CollapseContainer = styled.div<Props>`
   width: 100%;
   padding: 0.6em 1em;
-  margin: 0.2em 0 2rem 0;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
 

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import { Dropdown } from 'shared/components/Dropdown/Dropdown';
 import { SideBarData } from 'shared/services/SideBarData';
-import { RootState } from 'shared/store';
 import {
   DropdownItem,
   DropdownDivider,
@@ -19,6 +18,7 @@ import {
   MenuIcon,
 } from './styled';
 import { ButtonLink } from 'shared/components';
+import { RootState } from 'shared/store';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
@@ -67,11 +67,7 @@ export const NavBar = () => {
         {auth ? (
           'authenticated'
         ) : (
-          <>
-            <ButtonLink onClick={() => history.push('/login')}>
-              Login
-            </ButtonLink>
-          </>
+          <ButtonLink onClick={() => history.push('/login')}>Login</ButtonLink>
         )}
       </HeaderColumn3>
     </Header>

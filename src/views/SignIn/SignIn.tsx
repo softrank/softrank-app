@@ -10,12 +10,12 @@ import { signDto } from 'shared/dtos/signDto';
 import { authService } from 'shared/services';
 import { authActions } from 'shared/store';
 import {
-  LoginBackground,
-  LoginForm,
-  LoginFormContent,
-  LoginImage,
-  LoginInfo,
-  LoginTitle,
+  SignInBackground,
+  SignInForm,
+  SignInFormContent,
+  SignInImage,
+  SignInInfo,
+  SignInTitle,
 } from './styled';
 
 export const SignIn = () => {
@@ -30,7 +30,7 @@ export const SignIn = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleLogin = (data: any) => {
+  const handleSignIn = (data: any) => {
     setLoading(true);
 
     const signIn: signDto = {
@@ -51,7 +51,7 @@ export const SignIn = () => {
       });
   };
 
-  const onSubmit = handleSubmit((data) => handleLogin(data));
+  const onSubmit = handleSubmit((data) => handleSignIn(data));
 
   useEffect(() => {
     register('email', { required: true });
@@ -65,14 +65,14 @@ export const SignIn = () => {
   }, [register]);
 
   return (
-    <LoginBackground>
-      <LoginInfo>
-        <LoginImage src={loginImage} alt="Login image" />
-      </LoginInfo>
+    <SignInBackground>
+      <SignInInfo>
+        <SignInImage src={loginImage} alt="Login image" />
+      </SignInInfo>
       <Form onSubmit={onSubmit}>
-        <LoginForm>
-          <LoginTitle>Entre em sua conta</LoginTitle>
-          <LoginFormContent>
+        <SignInForm>
+          <SignInTitle>Entre em sua conta</SignInTitle>
+          <SignInFormContent>
             <Input
               name="email"
               label="Email"
@@ -92,9 +92,9 @@ export const SignIn = () => {
             <Button type="submit" width="100%" loading={loading}>
               login
             </Button>
-          </LoginFormContent>
-        </LoginForm>
+          </SignInFormContent>
+        </SignInForm>
       </Form>
-    </LoginBackground>
+    </SignInBackground>
   );
 };

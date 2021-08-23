@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginBackground = styled.div`
+export const SignInBackground = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -8,19 +8,19 @@ export const LoginBackground = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: [loginInfo] 40% [loginForm] 60%;
+  grid-template-columns: [SignInInfo] 40% [SignInForm] 60%;
   align-items: center;
   justify-content: center;
 
   background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
 
   @media (max-width: 700px) {
-    grid-template-columns: [loginInfo] 0% [loginForm] 100%;
+    grid-template-columns: [SignInInfo] 0% [SignInForm] 100%;
   }
 `;
 
-export const LoginInfo = styled.div`
-  grid-column: loginInfo;
+export const SignInInfo = styled.div`
+  grid-column: SignInInfo;
   height: 100vh;
 
   display: flex;
@@ -29,23 +29,29 @@ export const LoginInfo = styled.div`
   flex-direction: column;
 `;
 
-export const LoginForm = styled.div`
-  grid-column: loginForm;
+export const SignInForm = styled.div`
+  grid-column: SignInForm;
   height: 100vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 6rem;
 
   background-color: white;
+
+  @media (max-width: 700px) {
+    padding-top: 8rem;
+    justify-content: flex-start;
+  }
 `;
 
-export const LoginImage = styled.img`
+export const SignInImage = styled.img`
   width: 140%;
 `;
 
-export const LoginFormContent = styled.div`
+export const SignInFormContent = styled.div`
   width: 60%;
   height: auto;
 
@@ -53,24 +59,21 @@ export const LoginFormContent = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 1rem;
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     width: 80%;
   }
 `;
 
-export const LoginTitle = styled.h1`
-  position: relative;
-  top: -10vh;
-
+export const SignInTitle = styled.h1`
   font-weight: 600;
   font-size: 36px;
   font-family: 'Montserrat', sans-serif;
 
   color: var(--gray-700);
 
-  @media (max-width: 640px) {
+  @media (max-width: 700px) {
     font-size: 30px;
-    margin: 0.2em 0 0.6em 0.3em;
   }
 `;

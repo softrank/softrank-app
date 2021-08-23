@@ -33,4 +33,8 @@ export const ButtonLink = styled.a<Props>`
   &:focus::after {
     transform: scale(1);
   }
+
+  @media (max-width: 640px) {
+    font-size: 18px;
+  }
 `;
