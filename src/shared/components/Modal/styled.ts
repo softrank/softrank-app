@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
+import { motion } from 'framer-motion';
 
 interface Props {
   width: string;
@@ -21,7 +22,7 @@ export const ModalBackground = styled.div`
   -webkit-backdrop-filter: blur(5px);
 `;
 
-export const ModalWrapper = styled.div<Props>`
+export const ModalWrapper = styled(motion.div)<Props>`
   position: relative;
   max-width: ${(props) => (props.width ? props.width : '800px')};
   height: 500px;
