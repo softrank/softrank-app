@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Dropdown } from 'shared/components/Dropdown/Dropdown';
 import { SideBarData } from 'shared/services/SideBarData';
@@ -18,14 +18,17 @@ import {
   MenuIcon,
 } from './styled';
 import { ButtonLink } from 'shared/components';
-import { RootState } from 'shared/store';
+import { authActions, RootState } from 'shared/store';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
 
   const toggleDropdown = () => setNavMenu(!navMenu);
+  const logoutHandler = () => dispatch(authActions.signOut());
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -65,7 +68,7 @@ export const NavBar = () => {
       </HeaderColumn2>
       <HeaderColumn3>
         {auth ? (
-          'authenticated'
+          <ButtonLink onClick={() => logoutHandler()}>Logout</ButtonLink>
         ) : (
           <ButtonLink onClick={() => history.push('/login')}>Login</ButtonLink>
         )}

@@ -18,12 +18,7 @@ export const HomePage = () => {
 
   return (
     <Wrapper>
-      <Hero>
-        <Button onClick={() => redirect()}>Login</Button>
-        <Button onClick={() => handleLogout()} secondary>
-          Logout
-        </Button>
-      </Hero>
+      <Hero></Hero>
     </Wrapper>
   );
 };
