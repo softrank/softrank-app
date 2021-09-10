@@ -3,6 +3,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { HiOutlineTrash } from 'react-icons/hi';
 
 export const Options = styled.div`
+  margin-top: 2rem;
   width: 100%;
   display: flex;
   justify-content: space-between;

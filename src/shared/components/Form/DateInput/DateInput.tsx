@@ -13,7 +13,6 @@ interface Props {
   yearPicker?: boolean;
   dateFormat: string;
   defaultValue?: any;
-  shouldUnregister?: boolean;
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
 }
@@ -26,7 +25,6 @@ export const DateInput = ({
   yearPicker,
   dateFormat,
   defaultValue,
-  shouldUnregister = true,
   rules,
   errors,
 }: Props) => {
@@ -39,7 +37,6 @@ export const DateInput = ({
         name={name}
         control={control}
         defaultValue={defaultValue}
-        shouldUnregister={shouldUnregister}
         rules={rules}
         render={({ field: { onChange, value } }) => (
           <>

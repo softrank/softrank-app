@@ -6,12 +6,37 @@ const LevelOptions: ModelLevel[] = [
   {
     id: '1',
     initial: 'A',
-    name: 'Maduro',
+    name: 'Em otimização',
   },
   {
     id: '2',
     initial: 'B',
-    name: 'Parcialmente maduro',
+    name: 'Gerenciado quantativamente',
+  },
+  {
+    id: '3',
+    initial: 'C',
+    name: 'Definido',
+  },
+  {
+    id: '4',
+    initial: 'D',
+    name: 'Largamente eefinido',
+  },
+  {
+    id: '5',
+    initial: 'E',
+    name: 'Parcialmente definido',
+  },
+  {
+    id: '6',
+    initial: 'F',
+    name: 'Gerenciado',
+  },
+  {
+    id: '7',
+    initial: 'G',
+    name: 'Parcialmente gerenciado',
   },
 ];
 
@@ -26,7 +51,6 @@ const ProcessOptions: Process[] = [
         id: '1',
         initial: 'GPR1',
         description: 'descrip resultado',
-        modelLevels: ['1'],
       },
     ],
   },
@@ -37,16 +61,14 @@ const ProcessOptions: Process[] = [
     description: 'descrição de configuração',
     expectedResults: [
       {
-        id: '1',
+        id: '2',
         initial: 'GCO1',
         description: 'descrip resultado',
-        modelLevels: ['1'],
       },
       {
-        id: '2',
+        id: '3',
         initial: 'GCO2',
         description: 'descrip gco 2',
-        modelLevels: ['1'],
       },
     ],
   },

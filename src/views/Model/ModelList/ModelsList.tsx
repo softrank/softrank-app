@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'shared/components';
 
+import { Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';

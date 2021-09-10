@@ -5,16 +5,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     --radius: 12px;
     --break: 640px;
 
-    /* Font sizes */
-
-    --font-size-title-big: 32px;
-    --font-size-title: 24px;
-    --font-size-text-title: 24px;
-    --font-size-text-big: 18px;
-    --font-size-text: 16px;
-    --font-size-text-small: 14px;
-    --font-size-text-smaller: 12px;
-
     /*#region Colors*/
 
     --white: #fff;
@@ -24,7 +14,6 @@ export const GlobalStyles = styled.createGlobalStyle`
     --gray-50: #f4f6fa;
     --gray-100: #e6e8eb;
     --gray-400: #ced4da;
-    /* --gray-500: #babcc6; */
     --gray-500: #adb5bd;
     --gray-600: #6c757d;
     --gray-700: #4f505c;
@@ -62,17 +51,19 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     background: var(--white);
 
+    overflow-x: hidden;
+
     /*#region DatePicker*/
     .react-datepicker-wrapper {
       width: 100%;
     }
-    .react-datepicker__input-container {
+    /* .react-datepicker__input-container {
       > input {
         &::placeholder {
           color: var(--gray-500);
         }
       }
-    }
+    } */
     .react-datepicker {
       top: -18px;
       border-radius: var(--radius);

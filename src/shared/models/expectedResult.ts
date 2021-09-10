@@ -4,5 +4,5 @@ export interface ExpectedResult {
   id: string;
   initial: string;
   description: string;
-  modelLevels: string[];
+  modelLevels?: string[];
 }

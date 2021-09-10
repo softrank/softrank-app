@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 
 import Wrapper from 'shared/components/Layouts/Wrapper';
 import { ExpectedResult } from 'shared/models/expectedResult';
@@ -29,7 +30,6 @@ import {
   Options,
 } from './styled';
 import { ExpectedResultsFieldArray } from './ExpectedResultsFieldArray';
-import { useHistory } from 'react-router';
 
 const newModel: ModelEntity = {
   id: '',
@@ -341,9 +341,8 @@ export const ModelDetails = () => {
                     />
                   </InputGroup>
                   <ExpectedResultsFieldArray
-                    nestIndex={index}
+                    processIndex={index}
                     control={control}
-                    model={model}
                     errors={errors}
                   />
                 </Collapse>

@@ -13,6 +13,7 @@ import {
   ModelManagment,
   ModelDetails,
 } from './';
+import { ModelTest } from './Model/ModelTest/ModelTest';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -46,12 +47,13 @@ export default function App() {
         render={() => (
           <Switch>
             <Route exact path="/modelos" component={ModelManagment} />
-            <Route exact path="/cadastro/modelo" component={ModelDetails} />
+            <Route exact path="/modelos/cadastro" component={ModelDetails} />
+            <Route exact path="/modelos/cadastro2" component={ModelTest} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route
               exact
-              path="/cadastro/avaliador"
+              path="/avaliadores/cadastro"
               component={EvaluatorDetails}
             />
             <Route path="*" exact={true} component={NotFound} />
