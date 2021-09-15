@@ -2,20 +2,20 @@ import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
-const sleep = (delay: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
+// const sleep = (delay: number) => {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, delay);
+//   });
+// };
 
-axios.interceptors.response.use(async (response) => {
-  try {
-    await sleep(2000);
-    return response;
-  } catch (error) {
-    return await Promise.reject(error);
-  }
-});
+// axios.interceptors.response.use(async (response) => {
+//   try {
+//     await sleep(2000);
+//     return response;
+//   } catch (error) {
+//     return await Promise.reject(error);
+//   }
+// });
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 

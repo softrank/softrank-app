@@ -80,6 +80,7 @@ export const Select = (props: Props) => {
               isMulti={multi}
               isSearchable={search}
               error={!!errors}
+              defaultValue={value}
             />
             {errors && <ErrorsNote error={errors} />}
           </>

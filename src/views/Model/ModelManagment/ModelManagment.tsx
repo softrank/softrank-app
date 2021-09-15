@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 
 export const ModelManagment = () => {
   const history = useHistory();
-  const handleAddModel = () => history.push('/modelos/cadastro2');
+  const handleAddModel = () => history.push('/modelos/cadastro');
 
   return (
     <Wrapper>
