@@ -1,18 +1,13 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Collapse, Button, AddIcon } from 'shared/components';
 import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
 import FlexSpace from 'shared/components/Layouts/FlexSpace';
-import { ExpectedResult } from 'shared/models/expectedResult';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';
 import { ExpectedResultsFieldArray } from 'views/Model/ModelDetails/ExpectedResultsFieldArray';
 import { Options, RemoveIcon } from 'views/Model/ModelDetails/styled';
-
-interface FormFields {
-  modelProcesses: Process[];
-}
 
 interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
@@ -26,7 +21,7 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
     control,
     reset,
     formState: { errors },
-  } = useForm<FormFields>();
+  } = useForm<{ modelProcesses: Process[] }>();
   const {
     fields: modelProcesses,
     append,
@@ -35,25 +30,6 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
     control,
     name: 'modelProcesses',
   });
-
-  const addProcessHandler = () => {
-    const expectedResult: ExpectedResult = {
-      id: '',
-      initial: '',
-      description: '',
-      modelLevels: [],
-    };
-
-    const process: Process = {
-      id: '',
-      initial: '',
-      name: '',
-      description: '',
-      expectedResults: [expectedResult],
-    };
-
-    append(process);
-  };
 
   const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -68,7 +44,7 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
       <FlexSpace space="1.4rem">
         <AddIcon
           onClick={() => {
-            addProcessHandler();
+            append(new Process());
           }}
         />
         {modelProcesses.map((process, index) => {
@@ -110,6 +86,7 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
                 processIndex={index}
                 control={control}
                 errors={errors}
+                levels={model.modelLevels}
               />
             </Collapse>
           );
@@ -119,7 +96,7 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
         <Button secondary onClick={() => setTabIndex(1)}>
           Voltar
         </Button>
-        <Button type="submit">Próximo</Button>
+        <Button type="submit">Salvar</Button>
       </Options>
     </Form>
   );

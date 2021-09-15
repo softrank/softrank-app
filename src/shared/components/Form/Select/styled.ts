@@ -69,8 +69,8 @@ export const CustomSelect = styled(Select)<Props>`
   }
 
   .select__option:hover {
-    color: var(--white);
-    background-color: var(--purple-300);
+    color: var(--gray-700);
+    background-color: var(--gray-100);
   }
 
   .select__option--is-focused,

@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
 import { Collapse } from 'shared/components';
-import { Input, InputGroup, TextArea } from 'shared/components/Form';
+import { Input, InputGroup, Select, TextArea } from 'shared/components/Form';
 import { ExpectedResult } from 'shared/models/expectedResult';
+import { ModelLevel } from 'shared/models/modelLevel';
 import { AddIcon, RemoveIcon } from './styled';
 
 interface Props {
   processIndex: number;
   control: any;
   errors: any;
+  levels: ModelLevel[];
 }
 
 export const ExpectedResultsFieldArray = (props: Props) => {
-  const { processIndex, control, errors } = props;
+  const { processIndex, control, errors, levels } = props;
   const [collapseProcesses, setCollapseProcesses] = useState(false);
 
   const {
@@ -27,15 +29,8 @@ export const ExpectedResultsFieldArray = (props: Props) => {
 
   const handleAddExpectedResult = () => {
     setCollapseProcesses(false);
-
-    const expectedResult: ExpectedResult = {
-      id: '',
-      initial: '',
-      description: '',
-      modelLevels: [],
-    };
-
-    append(expectedResult);
+    const newExpectedResult = new ExpectedResult();
+    append(newExpectedResult);
   };
 
   return (
@@ -64,6 +59,36 @@ export const ExpectedResultsFieldArray = (props: Props) => {
                   errors?.modelProcesses?.[processIndex]?.expectedResults?.[
                     index
                   ]?.initial
+                }
+              />
+            </InputGroup>
+            <InputGroup>
+              <Select
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].minLevel`}
+                label="Nível mínimo"
+                placeholder="selecione um nível"
+                control={control}
+                rules={{ required: true }}
+                optionValues={levels}
+                optionLabel="initial"
+                errors={
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.minLevel
+                }
+              />
+              <Select
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].maxLevel`}
+                label="Nível máximo"
+                placeholder="selecione um nível"
+                control={control}
+                rules={{ required: true }}
+                optionValues={levels}
+                optionLabel="initial"
+                errors={
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.maxLevel
                 }
               />
             </InputGroup>

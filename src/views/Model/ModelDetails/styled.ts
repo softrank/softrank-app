@@ -104,3 +104,24 @@ export const RemoveIcon = styled(HiOutlineTrash)`
     }
   }
 `;
+
+export const LevelItem = styled.div`
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 0.6rem;
+
+  font-size: 16px;
+
+  outline: none;
+  border-radius: var(--radius);
+  border: 2px solid var(--gray-100);
+
+  background: var(--white);
+`;
+
+export const Info = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 0.2rem;
+  margin-bottom: 1.4rem;
+`;

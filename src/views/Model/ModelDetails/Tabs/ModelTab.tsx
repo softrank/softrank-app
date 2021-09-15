@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
@@ -24,9 +24,16 @@ import { ModelLevel } from 'shared/models/modelLevel';
 interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
   model: ModelEntity;
+  setModel: Dispatch<SetStateAction<ModelEntity>>;
+  setLevelsTabDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ModelTab = ({ setTabIndex, model }: Props) => {
+export const ModelTab = ({
+  setTabIndex,
+  model,
+  setModel,
+  setLevelsTabDisabled,
+}: Props) => {
   const [collapseLevels, setCollapseLevels] = useState(false);
 
   const {
@@ -51,18 +58,20 @@ export const ModelTab = ({ setTabIndex, model }: Props) => {
   const redirectHandler = (path: string) => history.push(path);
 
   const submitModelHandler = (data: ModelDto) => {
-    console.log(data);
-    setTabIndex(1);
-  };
+    let tempModel = model;
 
-  const addLevelHandler = () => {
-    const level: ModelLevel = {
-      id: '',
-      initial: '',
-      name: '',
+    tempModel = {
+      id: data.name ?? '',
+      name: data.name,
+      year: data.year,
+      description: data.description,
+      modelLevels: data.levels,
+      modelProcesses: model.modelProcesses,
     };
 
-    levelsAppend(level);
+    setModel(tempModel);
+    setLevelsTabDisabled(false);
+    setTabIndex(1);
   };
 
   const onSubmit = handleSubmit((data) => submitModelHandler(data));
@@ -84,8 +93,12 @@ export const ModelTab = ({ setTabIndex, model }: Props) => {
   }, [register]);
 
   useEffect(() => {
-    levelsAppend({});
-  }, [levelsAppend]);
+    if (model.modelLevels) {
+      if (model.modelLevels.length <= 0) {
+        levelsAppend({});
+      }
+    }
+  }, [levelsAppend, model]);
 
   useEffect(() => {
     reset({
@@ -131,11 +144,11 @@ export const ModelTab = ({ setTabIndex, model }: Props) => {
         title="Níveis"
         collapse={collapseLevels}
         setCollapse={setCollapseLevels}
-        options={<AddIcon onClick={() => addLevelHandler()} />}
+        options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
       >
         {levels.map(({ id }, index) => {
           return (
-            <div key={id}>
+            <React.Fragment key={id}>
               <CollapseContent>
                 <LevelGroup>
                   <Input
@@ -164,7 +177,7 @@ export const ModelTab = ({ setTabIndex, model }: Props) => {
                 <RemoveIcon onClick={() => levelsRemove(index)} />
               </CollapseContent>
               {index !== levels.length - 1 && <GroupDivider />}
-            </div>
+            </React.Fragment>
           );
         })}
       </Collapse>
@@ -172,9 +185,7 @@ export const ModelTab = ({ setTabIndex, model }: Props) => {
         <Button secondary onClick={() => redirectHandler('/modelos')}>
           Cancelar
         </Button>
-        <Button type="button" onClick={() => setTabIndex(1)}>
-          Próximo
-        </Button>
+        <Button type="submit">Próximo</Button>
       </Options>
     </Form>
   );
