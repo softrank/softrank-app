@@ -24,17 +24,6 @@ export const LevelGroup = styled.div`
   }
 `;
 
-export const GroupDivider = styled.hr`
-  height: 2px;
-  width: 98%;
-  margin: auto;
-  margin-top: 0.8em;
-
-  border-style: none;
-  border-radius: 20px;
-  background-color: var(--gray-100);
-`;
-
 const iconCss = css`
   width: 1.6em;
   height: 1.6em;
@@ -50,18 +39,6 @@ const iconCss = css`
 
   &:active {
     color: var(--purple-500);
-  }
-`;
-
-export const CollapseContent = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
   }
 `;
 

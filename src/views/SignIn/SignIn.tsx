@@ -10,16 +10,21 @@ import { signDto } from 'shared/dtos/signDto';
 import { authService } from 'shared/services';
 import { authActions } from 'shared/store';
 import {
+  ErrorNote,
+  LinkButton,
+  RegisterInfo,
   SignInBackground,
   SignInForm,
   SignInFormContent,
   SignInImage,
   SignInInfo,
+  SignInInputs,
   SignInTitle,
 } from './styled';
 
 export const SignIn = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const {
     handleSubmit,
     control,
@@ -47,6 +52,9 @@ export const SignIn = () => {
       })
       .catch((error) => {
         setLoading(false);
+        setError(true);
+        console.log(`um error: ${error.message}`);
+
         console.log(error);
       });
   };
@@ -57,10 +65,6 @@ export const SignIn = () => {
     register('email', { required: true });
     register('password', {
       required: true,
-      minLength: {
-        value: 8,
-        message: 'A senha deve conter no mínimo 8 caracteres!',
-      },
     });
   }, [register]);
 
@@ -71,27 +75,37 @@ export const SignIn = () => {
       </SignInInfo>
       <Form onSubmit={onSubmit}>
         <SignInForm>
-          <SignInTitle>Entre em sua conta</SignInTitle>
           <SignInFormContent>
-            <Input
-              name="email"
-              label="Email"
-              placeholder="insira o seu email"
-              control={control}
-              type="text"
-              errors={errors.email}
-            />
-            <Input
-              name="password"
-              label="Senha"
-              placeholder="insira a sua senha"
-              control={control}
-              type="password"
-              errors={errors.password}
-            />
-            <Button type="submit" width="100%" loading={loading}>
-              login
-            </Button>
+            <SignInTitle>Entre em sua conta</SignInTitle>
+            <SignInInputs>
+              <Input
+                name="email"
+                label="Email"
+                placeholder="insira o seu email"
+                control={control}
+                type="text"
+                errors={errors.email}
+              />
+              <Input
+                name="password"
+                label="Senha"
+                placeholder="insira a sua senha"
+                control={control}
+                type="password"
+                errors={errors.password}
+              />
+              {error && <ErrorNote>Email ou senha incorretos</ErrorNote>}
+
+              <Button type="submit" width="100%" loading={loading}>
+                login
+              </Button>
+              <RegisterInfo>
+                Ainda não é cadastrado?
+                <LinkButton onClick={() => history.push('/cadastro')}>
+                  Cadastre-se
+                </LinkButton>
+              </RegisterInfo>
+            </SignInInputs>
           </SignInFormContent>
         </SignInForm>
       </Form>

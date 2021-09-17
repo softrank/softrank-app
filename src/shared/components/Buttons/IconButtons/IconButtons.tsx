@@ -1,5 +1,6 @@
 import { IoIosAdd, IoIosArrowDown } from 'react-icons/io';
-import { FiEdit2 } from 'react-icons/fi';
+import { MdEdit } from 'react-icons/md';
+import { HiOutlineTrash } from 'react-icons/hi';
 import styled, { css } from 'styled-components';
 
 interface Props {
@@ -40,11 +41,14 @@ const AddIcon = styled(IoIosAdd)`
   ${iconCss}
 `;
 
-const EditIcon = styled(FiEdit2)`
+const EditIcon = styled(MdEdit)`
   ${iconCss}
-  padding: 8px;
 
-  padding: ${(props) => (props.size === 'small' ? '4px' : '8px')};
+  padding: ${(props) => (props.size === 'small' ? '4px' : '6px')};
 `;
 
-export { ToggleIcon, AddIcon, EditIcon };
+const RemoveIcon = styled(HiOutlineTrash)`
+  ${iconCss}
+`;
+
+export { ToggleIcon, AddIcon, EditIcon, RemoveIcon };

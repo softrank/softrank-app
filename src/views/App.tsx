@@ -13,6 +13,8 @@ import {
   EvaluatorDetails,
   ModelManagment,
   ModelDetails,
+  Register,
+  EvaluatorRegister,
 } from './';
 
 export default function App() {
@@ -38,9 +40,15 @@ export default function App() {
             <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route
               exact
+              path="/avaliador/cadastro"
+              component={EvaluatorRegister}
+            />
+            <Route
+              exact
               path="/avaliadores/cadastro"
               component={EvaluatorDetails}
             />
+            <Route exact path="/cadastro" component={Register} />
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}

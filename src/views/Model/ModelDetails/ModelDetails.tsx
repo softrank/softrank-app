@@ -12,8 +12,8 @@ import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
 
 export const ModelDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [model, setModel] = useState(new ModelEntity());
-  // const [model, setModel] = useState(modelDummy);
+  // const [model, setModel] = useState(new ModelEntity());
+  const [model, setModel] = useState(modelDummy);
   const [levelsTabDisabled, setLevelsTabDisabled] = useState(true);
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
   const [loading, setLoading] = useState(false);

@@ -11,15 +11,18 @@ import {
   TextArea,
 } from 'shared/components/Form';
 import {
-  CollapseContent,
   LevelGroup,
   RemoveIcon,
-  GroupDivider,
   Options,
 } from 'views/Model/ModelDetails/styled';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { ModelLevel } from 'shared/models/modelLevel';
+import FlexSpace from 'shared/components/Layouts/FlexSpace';
+import {
+  CollapseContent,
+  GroupDivider,
+} from 'shared/components/Collapse/styled';
 
 interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
@@ -112,81 +115,83 @@ export const ModelTab = ({
 
   return (
     <Form onSubmit={onSubmit}>
-      <InputGroup>
-        <Input
-          name="name"
-          label="Modelo"
-          placeholder="selecione um modelo"
-          control={control}
-          errors={errors.name}
-        />
-        <DateInput
-          label="Ano"
-          name="year"
-          placeholder="selecione um ano"
-          control={control}
-          yearPicker
-          dateFormat="yyyy"
-          errors={errors.year}
-        />
-      </InputGroup>
-      <InputGroup>
-        <TextArea
-          name="description"
-          label="Descrição"
-          placeholder="descrição do modelo"
-          control={control}
-          errors={errors.description}
-        />
-      </InputGroup>
-      <Collapse
-        underline
-        title="Níveis"
-        collapse={collapseLevels}
-        setCollapse={setCollapseLevels}
-        options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
-      >
-        {levels.map(({ id }, index) => {
-          return (
-            <React.Fragment key={id}>
-              <CollapseContent>
-                <LevelGroup>
-                  <Input
-                    name={`levels[${index}].initial`}
-                    label="Sigla"
-                    placeholder="sigla do nível"
-                    control={control}
-                    rules={{
-                      required: true,
-                      maxLength: {
-                        value: 1,
-                        message: 'A sigla deve conter no máximo 1 caractér!',
-                      },
-                    }}
-                    errors={errors?.levels?.[index]?.initial}
-                  />
-                  <Input
-                    name={`levels[${index}].name`}
-                    label="Nome"
-                    placeholder="nome do nível"
-                    control={control}
-                    rules={{ required: true }}
-                    errors={errors?.levels?.[index]?.name}
-                  />
-                </LevelGroup>
-                <RemoveIcon onClick={() => levelsRemove(index)} />
-              </CollapseContent>
-              {index !== levels.length - 1 && <GroupDivider />}
-            </React.Fragment>
-          );
-        })}
-      </Collapse>
-      <Options>
-        <Button secondary onClick={() => redirectHandler('/modelos')}>
-          Cancelar
-        </Button>
-        <Button type="submit">Próximo</Button>
-      </Options>
+      <FlexSpace space="4px">
+        <InputGroup>
+          <Input
+            name="name"
+            label="Modelo"
+            placeholder="selecione um modelo"
+            control={control}
+            errors={errors.name}
+          />
+          <DateInput
+            label="Ano"
+            name="year"
+            placeholder="selecione um ano"
+            control={control}
+            yearPicker
+            dateFormat="yyyy"
+            errors={errors.year}
+          />
+        </InputGroup>
+        <InputGroup>
+          <TextArea
+            name="description"
+            label="Descrição"
+            placeholder="descrição do modelo"
+            control={control}
+            errors={errors.description}
+          />
+        </InputGroup>
+        <Collapse
+          underline
+          title="Níveis"
+          collapse={collapseLevels}
+          setCollapse={setCollapseLevels}
+          options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
+        >
+          {levels.map(({ id }, index) => {
+            return (
+              <React.Fragment key={id}>
+                <CollapseContent>
+                  <LevelGroup>
+                    <Input
+                      name={`levels[${index}].initial`}
+                      label="Sigla"
+                      placeholder="sigla do nível"
+                      control={control}
+                      rules={{
+                        required: true,
+                        maxLength: {
+                          value: 1,
+                          message: 'A sigla deve conter no máximo 1 caractér!',
+                        },
+                      }}
+                      errors={errors?.levels?.[index]?.initial}
+                    />
+                    <Input
+                      name={`levels[${index}].name`}
+                      label="Nome"
+                      placeholder="nome do nível"
+                      control={control}
+                      rules={{ required: true }}
+                      errors={errors?.levels?.[index]?.name}
+                    />
+                  </LevelGroup>
+                  <RemoveIcon onClick={() => levelsRemove(index)} />
+                </CollapseContent>
+                {index !== levels.length - 1 && <GroupDivider />}
+              </React.Fragment>
+            );
+          })}
+        </Collapse>
+        <Options>
+          <Button secondary onClick={() => redirectHandler('/modelos')}>
+            Cancelar
+          </Button>
+          <Button type="submit">Próximo</Button>
+        </Options>
+      </FlexSpace>
     </Form>
   );
 };

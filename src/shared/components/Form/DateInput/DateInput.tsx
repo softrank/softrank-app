@@ -11,7 +11,7 @@ interface Props {
   placeholder: string;
   control: any;
   yearPicker?: boolean;
-  dateFormat: string;
+  dateFormat?: string;
   defaultValue?: any;
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;

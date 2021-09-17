@@ -9,3 +9,5 @@ export { SignIn } from './SignIn/SignIn';
 export { SignUp } from './SignUp/SignUp';
 export { EvaluatorManagment } from './Evaluator/EvaluatorManagment/EvaluatorManagment';
 export { EvaluatorDetails } from './Evaluator/EvaluatorDetails/EvaluatorDetails';
+export { Register } from './Register/Register';
+export { EvaluatorRegister } from './Evaluator/EvaluatorRegister/EvaluatorRegister';
