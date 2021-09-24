@@ -6,6 +6,8 @@ export { Title } from 'shared/components/Title/Title';
 export {
   ToggleIcon,
   AddIcon,
+  EditIcon,
+  RemoveIcon,
 } from 'shared/components/Buttons/IconButtons/IconButtons';
 export { SearchBox } from 'shared/components/SearchBox/SearchBox';
 export { Table } from 'shared/components/Table/Table';

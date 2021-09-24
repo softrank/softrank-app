@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'shared/components';
+import { Link } from 'react-router-dom';
 
+import { EditIcon, Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
@@ -30,13 +31,18 @@ export const ModelsList = () => {
       {loading ? (
         <LoadingScreen loading={loading} content="Carregando modelos..." />
       ) : (
-        <Table headers={['Nome', 'Ano', 'Descrição']}>
+        <Table headers={['Nome', 'Ano', 'Descrição', 'Ações']}>
           {models.map((model: ModelEntity, id) => {
             return (
               <tr key={id}>
                 <td>{model.name}</td>
                 <td>{formatDate(model.year)}</td>
                 <td>{model.description}</td>
+                <td>
+                  <Link to={`/modelo/${model.id}/2`}>
+                    <EditIcon />
+                  </Link>
+                </td>
               </tr>
             );
           })}

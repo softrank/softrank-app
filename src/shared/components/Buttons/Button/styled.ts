@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface Props {
   width?: string;
   secondary?: boolean;
+  neutral?: boolean;
 }
 
 export const StyledButton = styled.button<Props>`
@@ -53,6 +54,27 @@ export const StyledButton = styled.button<Props>`
         background-color: var(--purple-500);
         border: 2px solid var(--purple-500);
         color: var(--white);
+      }
+    `}
+
+  ${(props) =>
+    props.neutral &&
+    css`
+      background: var(--white);
+      color: var(--gray-700);
+      border: 2px solid var(--gray-100);
+
+      font-weight: 500;
+
+      &:hover {
+        border: 2px solid var(--purple-500);
+        color: var(--purple-500);
+      }
+
+      &:active {
+        background-color: var(--purple-500);
+        border: 2px solid var(--purple-500);
+        color: var(--purple-500);
       }
     `}
 `;

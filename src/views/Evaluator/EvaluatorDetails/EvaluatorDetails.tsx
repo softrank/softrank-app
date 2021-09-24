@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 
 import { Button, Title } from 'shared/components';
 import { Form, Input, InputGroup } from 'shared/components/Form';
+import FlexSpace from 'shared/components/Layouts/FlexSpace';
 import Wrapper from 'shared/components/Layouts/Wrapper';
 import { Evaluator } from 'shared/models/evaluator';
 import { evaluatorService } from 'shared/services';
@@ -37,7 +38,13 @@ export const EvaluatorDetails = () => {
 
   useEffect(() => {
     register('name', { required: true });
-    register('email', { required: true });
+    register('email', {
+      required: true,
+      pattern: {
+        value: /[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i,
+        message: 'Email inválido',
+      },
+    });
     register('password', { required: true });
     register('documentNumber', {
       required: true,
@@ -58,58 +65,59 @@ export const EvaluatorDetails = () => {
   return (
     <Wrapper>
       <Title>Cadastrar avaliador</Title>
-
       <Form onSubmit={onSubmit}>
-        <InputGroup>
-          <Input
-            name="name"
-            label="Nome"
-            placeholder="nome do avaliador"
-            control={control}
-            errors={errors?.name}
-          />
-          <Input
-            name="documentNumber"
-            label="Documento"
-            placeholder="CPF do avaliador"
-            control={control}
-            errors={errors?.documentNumber}
-            mask="999.999.999-99"
-          />
-        </InputGroup>
-        <InputGroup>
-          <Input
-            name="email"
-            label="Email"
-            placeholder="email do avaliador"
-            type="email"
-            control={control}
-            errors={errors?.email}
-          />
-          <Input
-            name="password"
-            label="Senha"
-            placeholder="senha do avaliador"
-            control={control}
-            errors={errors?.password}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Input
-            name="phone"
-            label="Celular"
-            placeholder="celular do avaliador"
-            control={control}
-            errors={errors?.phone}
-            mask="(99) 99999-9999"
-          />
-        </InputGroup>
-        <Options>
-          <Button secondary type="button" onClick={() => handleRedirect()}>
-            Cancelar
-          </Button>
-          <Button type="submit">Salvar</Button>
-        </Options>
+        <FlexSpace space="10px">
+          <InputGroup>
+            <Input
+              name="name"
+              label="Nome"
+              placeholder="nome do avaliador"
+              control={control}
+              errors={errors?.name}
+            />
+            <Input
+              name="documentNumber"
+              label="Documento"
+              placeholder="CPF do avaliador"
+              control={control}
+              errors={errors?.documentNumber}
+              mask="999.999.999-99"
+            />
+          </InputGroup>
+          <InputGroup>
+            <Input
+              name="email"
+              label="Email"
+              placeholder="email do avaliador"
+              type="email"
+              control={control}
+              errors={errors?.email}
+            />
+            <Input
+              name="password"
+              label="Senha"
+              placeholder="senha do avaliador"
+              control={control}
+              errors={errors?.password}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Input
+              name="phone"
+              label="Celular"
+              placeholder="celular do avaliador"
+              control={control}
+              errors={errors?.phone}
+              mask="(99) 99999-9999"
+            />
+          </InputGroup>
+          <Options>
+            <Button secondary type="button" onClick={() => handleRedirect()}>
+              Cancelar
+            </Button>
+            <Button type="submit">Salvar</Button>
+          </Options>
+        </FlexSpace>
       </Form>
     </Wrapper>
   );

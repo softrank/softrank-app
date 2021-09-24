@@ -1,9 +1,18 @@
 import { IoIosAdd, IoIosArrowDown } from 'react-icons/io';
+import { MdEdit } from 'react-icons/md';
+import { HiOutlineTrash } from 'react-icons/hi';
 import styled, { css } from 'styled-components';
 
-const iconCss = css`
-  width: 2.6rem;
-  height: 2.6rem;
+interface Props {
+  size?: 'small' | 'medium' | 'large';
+}
+
+const iconCss = css<Props>`
+  width: ${(props) =>
+    props.size === 'small' ? '28px' : props.size === 'large' ? '44px' : '36px'};
+  height: ${(props) =>
+    props.size === 'small' ? '28px' : props.size === 'large' ? '44px' : '36px'};
+
   padding: 0;
   margin: 0;
 
@@ -32,4 +41,14 @@ const AddIcon = styled(IoIosAdd)`
   ${iconCss}
 `;
 
-export { ToggleIcon, AddIcon };
+const EditIcon = styled(MdEdit)`
+  ${iconCss}
+
+  padding: ${(props) => (props.size === 'small' ? '4px' : '6px')};
+`;
+
+const RemoveIcon = styled(HiOutlineTrash)`
+  ${iconCss}
+`;
+
+export { ToggleIcon, AddIcon, EditIcon, RemoveIcon };

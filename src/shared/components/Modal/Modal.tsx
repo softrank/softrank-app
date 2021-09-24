@@ -58,7 +58,11 @@ export const Modal = (props: Props) => {
     <>
       {showModal && (
         <ModalBackground onClick={handleCloseModal} ref={modalRef}>
-          <ModalWrapper width={width ?? '300px'}>
+          <ModalWrapper
+            width={width ?? '300px'}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+          >
             <ModalBody>
               <ModalTitle>{title}</ModalTitle>
               {loading ? (

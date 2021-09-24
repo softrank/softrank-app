@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+interface TabProps {
+  disabled?: boolean;
+}
 
 export const STabs = styled(Tabs)`
   width: 100%;
@@ -8,13 +11,8 @@ export const STabs = styled(Tabs)`
 
 export const STabList = styled(TabList)`
   list-style-type: none;
-  padding: 4px;
   display: flex;
 `;
-
-interface TabProps {
-  disabled?: boolean;
-}
 
 export const STab = styled(Tab)<TabProps>`
   padding: 0.2em 0.6em;

@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 
 interface Props {
-  collapse?: boolean;
   underline?: boolean;
 }
 
@@ -82,11 +81,15 @@ const iconCss = css`
   }
 `;
 
-export const ToggleCollapseIcon = styled(IoIosArrowDown)<Props>`
+interface IconProps {
+  spin: boolean;
+}
+
+export const ToggleCollapseIcon = styled(IoIosArrowDown)<IconProps>`
   ${iconCss}
 
   ${(props) =>
-    !props.collapse &&
+    props.spin &&
     css`
       transform: rotate(180deg);
     `}
@@ -107,4 +110,27 @@ export const CollapseDivider = styled.hr`
   border-style: none;
   border-radius: 20px;
   background-color: var(--gray-100);
+`;
+
+export const GroupDivider = styled.hr`
+  height: 2px;
+  width: 98%;
+  margin: auto;
+  margin-top: 0.8em;
+
+  border-style: none;
+  border-radius: 20px;
+  background-color: var(--gray-100);
+`;
+
+export const CollapseContent = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
 `;

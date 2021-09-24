@@ -1,88 +1,103 @@
-import { useEffect, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
 import { Collapse } from 'shared/components';
-import { Input, InputGroup, TextArea } from 'shared/components/Form';
+import { Input, InputGroup, Select, TextArea } from 'shared/components/Form';
 import { ExpectedResult } from 'shared/models/expectedResult';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelLevel } from 'shared/models/modelLevel';
 import { AddIcon, RemoveIcon } from './styled';
 
 interface Props {
-  nestIndex: number;
+  processIndex: number;
   control: any;
-  model: ModelEntity;
   errors: any;
+  levels: ModelLevel[];
 }
 
 export const ExpectedResultsFieldArray = (props: Props) => {
-  const { nestIndex, control, model, errors } = props;
-  const [collapseProcesses, setCollapseProcesses] = useState(false);
+  const { processIndex, control, errors, levels } = props;
 
-  const { fields, remove, append } = useFieldArray({
+  const {
+    fields: expectedResults,
+    remove,
+    append,
+  } = useFieldArray({
     control,
-    name: `modelProcesses[${nestIndex}].expectedResults`,
+    name: `modelProcesses[${processIndex}].expectedResults`,
   });
 
   const handleAddExpectedResult = () => {
-    setCollapseProcesses(false);
-
-    const expectedResult: ExpectedResult = {
-      id: '',
-      initial: '',
-      description: '',
-      modelLevels: [],
-    };
-
-    append(expectedResult);
+    const newExpectedResult = new ExpectedResult();
+    append(newExpectedResult);
   };
-
-  useEffect(() => {
-    if (model !== undefined) {
-      console.log('meu ovo');
-      model.modelProcesses[nestIndex].expectedResults.map((er, index) =>
-        append(er)
-      );
-    }
-  }, [model, append, nestIndex]);
 
   return (
     <Collapse
       underline
       title="Resultados esperados (RE)"
-      collapse={collapseProcesses}
-      setCollapse={setCollapseProcesses}
       options={<AddIcon onClick={() => handleAddExpectedResult()} />}
     >
-      {fields.map((expectedResult, index) => {
+      {expectedResults.map((er, index) => {
         return (
           <Collapse
-            key={expectedResult.id}
-            title={`RE-${++index}`}
+            key={er.id}
+            title={`RE ${index + 1}`}
             options={<RemoveIcon onClick={() => remove(index)} />}
           >
             <InputGroup>
               <Input
-                name={`modelProcesses[${nestIndex}].expectedResults[${index}].initial`}
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].initial`}
                 label="Sigla"
                 placeholder="sigla do resultado esperado"
                 control={control}
                 rules={{ required: true }}
                 errors={
-                  errors?.modelProcesses?.[nestIndex]?.expectedResults?.[index]
-                    ?.initial
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.initial
+                }
+              />
+            </InputGroup>
+            <InputGroup>
+              <Select
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].minLevel`}
+                label="Nível mínimo"
+                placeholder="selecione um nível"
+                control={control}
+                rules={{ required: true }}
+                optionValues={levels}
+                optionLabel="initial"
+                errors={
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.minLevel
+                }
+              />
+              <Select
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].maxLevel`}
+                label="Nível máximo"
+                placeholder="selecione um nível"
+                control={control}
+                rules={{ required: true }}
+                optionValues={levels}
+                optionLabel="initial"
+                errors={
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.maxLevel
                 }
               />
             </InputGroup>
             <InputGroup>
               <TextArea
-                name={`modelProcesses[${nestIndex}].expectedResults[${index}].description`}
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].description`}
                 label="Descrição"
                 placeholder="descrição do resultado esperado"
                 control={control}
                 rules={{ required: true }}
                 errors={
-                  errors?.modelProcesses?.[nestIndex]?.expectedResults?.[index]
-                    ?.description
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.description
                 }
               />
             </InputGroup>

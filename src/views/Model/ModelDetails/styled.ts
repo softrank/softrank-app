@@ -3,6 +3,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { HiOutlineTrash } from 'react-icons/hi';
 
 export const Options = styled.div`
+  margin-top: 2rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -23,17 +24,6 @@ export const LevelGroup = styled.div`
   }
 `;
 
-export const GroupDivider = styled.hr`
-  height: 2px;
-  width: 98%;
-  margin: auto;
-  margin-top: 0.8em;
-
-  border-style: none;
-  border-radius: 20px;
-  background-color: var(--gray-100);
-`;
-
 const iconCss = css`
   width: 1.6em;
   height: 1.6em;
@@ -49,18 +39,6 @@ const iconCss = css`
 
   &:active {
     color: var(--purple-500);
-  }
-`;
-
-export const CollapseContent = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
   }
 `;
 
@@ -102,4 +80,25 @@ export const RemoveIcon = styled(HiOutlineTrash)`
       color: var(--purple-500);
     }
   }
+`;
+
+export const LevelItem = styled.div`
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 0.6rem;
+
+  font-size: 16px;
+
+  outline: none;
+  border-radius: var(--radius);
+  border: 2px solid var(--gray-100);
+
+  background: var(--white);
+`;
+
+export const Info = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 0.2rem;
+  margin-bottom: 1.4rem;
 `;

@@ -4,56 +4,84 @@ import { Process } from '../models/process';
 
 const LevelOptions: ModelLevel[] = [
   {
-    id: '1',
+    id: '',
     initial: 'A',
-    name: 'Maduro',
+    name: 'Em otimização',
   },
   {
-    id: '2',
+    id: '',
     initial: 'B',
-    name: 'Parcialmente maduro',
+    name: 'Gerenciado quantativamente',
+  },
+  {
+    id: '',
+    initial: 'C',
+    name: 'Definido',
+  },
+  {
+    id: '',
+    initial: 'D',
+    name: 'Largamente eefinido',
+  },
+  {
+    id: '',
+    initial: 'E',
+    name: 'Parcialmente definido',
+  },
+  {
+    id: '',
+    initial: 'F',
+    name: 'Gerenciado',
+  },
+  {
+    id: '',
+    initial: 'G',
+    name: 'Parcialmente gerenciado',
   },
 ];
 
 const ProcessOptions: Process[] = [
   {
-    id: '1',
-    initial: 'GPR',
+    id: '',
+    initials: 'GPR',
     name: 'Gerenciamento de projetos',
     description: 'descrição de projetos',
     expectedResults: [
       {
-        id: '1',
+        id: '',
         initial: 'GPR1',
         description: 'descrip resultado',
-        modelLevels: ['1'],
+        minLevel: '',
+        maxLevel: '',
       },
     ],
   },
   {
-    id: '2',
-    initial: 'GCO',
+    id: '',
+    initials: 'GCO',
     name: 'Gerenciamento de configuração',
     description: 'descrição de configuração',
     expectedResults: [
       {
-        id: '1',
+        id: '',
         initial: 'GCO1',
         description: 'descrip resultado',
-        modelLevels: ['1'],
+        minLevel: '',
+        maxLevel: '',
       },
       {
-        id: '2',
+        id: '',
         initial: 'GCO2',
         description: 'descrip gco 2',
-        modelLevels: ['1'],
+        minLevel: '',
+        maxLevel: '',
       },
     ],
   },
 ];
 
 export const modelDummy: ModelEntity = {
-  id: '1',
+  id: '',
   name: 'MPS.BR Software',
   year: new Date(),
   description: 'model description',

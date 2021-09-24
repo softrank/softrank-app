@@ -7,14 +7,14 @@ import { useHistory } from 'react-router';
 
 export const ModelManagment = () => {
   const history = useHistory();
-  const handleAddModel = () => history.push('/cadastro/modelo');
+  const handleAddModel = () => history.push('/modelo');
 
   return (
     <Wrapper>
       <Title>Modelos</Title>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <SearchBox />
         <AddIcon onClick={() => handleAddModel()} />
+        <SearchBox />
       </div>
       <ModelsList />
     </Wrapper>

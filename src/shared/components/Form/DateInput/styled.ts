@@ -35,4 +35,12 @@ export const SDateInput = styled(DatePicker)<Props>`
     border: 2px solid var(--purple-500);
     color: black;
   }
+
+  .react-datepicker__input-container {
+    > input {
+      &::placeholder {
+        color: var(--error);
+      }
+    }
+  }
 `;

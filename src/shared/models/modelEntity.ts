@@ -1,11 +1,13 @@
 import { ModelLevel } from './modelLevel';
 import { Process } from './process';
 
-export interface ModelEntity {
-  id: string;
-  name: string;
-  year: Date | number;
-  description: string;
-  modelLevels: ModelLevel[];
-  modelProcesses: Process[];
+export class ModelEntity {
+  constructor(
+    public id: string = '',
+    public name: string = '',
+    public year: Date | number = Date.now(),
+    public description: string = '',
+    public modelLevels: ModelLevel[] = [new ModelLevel()],
+    public modelProcesses: Process[] = [new Process()]
+  ) {}
 }

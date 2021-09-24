@@ -40,11 +40,6 @@ export const SignInForm = styled.div`
   gap: 6rem;
 
   background-color: white;
-
-  @media (max-width: 700px) {
-    padding-top: 8rem;
-    justify-content: flex-start;
-  }
 `;
 
 export const SignInImage = styled.img`
@@ -59,7 +54,7 @@ export const SignInFormContent = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 1rem;
+  gap: 10vh;
 
   @media (max-width: 900px) {
     width: 80%;
@@ -76,4 +71,47 @@ export const SignInTitle = styled.h1`
   @media (max-width: 700px) {
     font-size: 30px;
   }
+`;
+
+export const SignInInputs = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const ErrorNote = styled.span`
+  position: relative;
+  width: 100%;
+  left: 2px;
+
+  font-size: 16px;
+  text-align: left;
+  font-weight: 500;
+
+  color: var(--error);
+`;
+
+interface LinkProps {
+  secondary?: boolean;
+}
+
+export const LinkButton = styled.a<LinkProps>`
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  font-size: 16px;
+  font-weight: 700;
+
+  color: ${(props) => (props.secondary ? '#9794ff' : 'var(--purple-500)')};
+`;
+
+export const RegisterInfo = styled.span`
+  margin-left: 4px;
+
+  display: flex;
+  gap: 4px;
+
+  color: var(--gray-700);
+  font-weight: 500;
 `;

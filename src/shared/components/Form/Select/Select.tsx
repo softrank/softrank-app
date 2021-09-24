@@ -21,8 +21,8 @@ interface Props {
   placeholder: string;
   control: Control<any>;
   optionValues: any[];
-  optionValue?: string;
   optionLabel: string;
+  optionValue?: string;
   disabled?: boolean;
   multi?: boolean;
   search?: boolean;
@@ -38,7 +38,7 @@ export const Select = (props: Props) => {
     placeholder,
     control,
     optionValues,
-    optionValue = 'id',
+    optionValue,
     optionLabel,
     disabled,
     multi,
@@ -52,7 +52,7 @@ export const Select = (props: Props) => {
 
   optionValues.map((element) => {
     const option: OptionValue = {
-      value: element[optionValue],
+      value: optionValue ?? element.id,
       label: element[optionLabel],
     };
     options.push(option);
@@ -80,6 +80,7 @@ export const Select = (props: Props) => {
               isMulti={multi}
               isSearchable={search}
               error={!!errors}
+              defaultValue={value}
             />
             {errors && <ErrorsNote error={errors} />}
           </>

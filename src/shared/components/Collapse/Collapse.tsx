@@ -12,25 +12,15 @@ import {
 
 interface Props {
   title: string;
-  collapse?: boolean;
-  setCollapse?: (state: boolean) => void;
   children: JSX.Element[];
   options?: any;
   underline?: boolean;
 }
 
-export const Collapse = ({
-  title,
-  collapse = false,
-  setCollapse,
-  children,
-  options,
-  underline,
-}: Props) => {
-  const [collapseState, setCollapseState] = useState<boolean>(collapse);
+export const Collapse = ({ title, children, options, underline }: Props) => {
+  const [collapseState, setCollapseState] = useState(false);
 
   const handleToggleCollapse = () => {
-    if (setCollapse) setCollapse(!collapse);
     setCollapseState(!collapseState);
   };
 
@@ -42,7 +32,7 @@ export const Collapse = ({
           {options}
           <ToggleCollapseIcon
             onClick={() => handleToggleCollapse()}
-            collapse={collapseState}
+            spin={!collapseState}
           />
         </CollapseOptions>
       </CollapseHead>

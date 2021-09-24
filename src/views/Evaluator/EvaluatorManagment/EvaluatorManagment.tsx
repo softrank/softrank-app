@@ -7,7 +7,7 @@ export const EvaluatorManagment = () => {
   // const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const handleAddEvaluator = () => history.push('/cadastro/avaliador');
+  const handleAddEvaluator = () => history.push('/avaliadores/cadastro');
 
   return (
     <Wrapper>

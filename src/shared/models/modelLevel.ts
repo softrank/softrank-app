@@ -1,5 +1,7 @@
-export interface ModelLevel {
-  id: string;
-  initial: string;
-  name: string;
+export class ModelLevel {
+  constructor(
+    public id: string = '',
+    public initial: string = '',
+    public name: string = ''
+  ) {}
 }

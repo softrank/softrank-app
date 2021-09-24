@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { store } from 'shared/store';
 
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
@@ -10,11 +11,18 @@ const sleep = (delay: number) => {
 
 axios.interceptors.response.use(async (response) => {
   try {
-    await sleep(2000);
+    await sleep(500);
     return response;
   } catch (error) {
     return await Promise.reject(error);
   }
+});
+
+axios.interceptors.request.use((config) => {
+  const state = store.getState();
+  const token = state.auth.token;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;

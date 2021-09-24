@@ -5,17 +5,17 @@ import { Message } from '..';
 interface Props {
   showMessage: boolean;
   setShowMessage: (state: boolean) => void;
-  error: any;
+  errorMessage: string;
 }
 
 const ErrorMessage = (props: Props) => {
-  const { showMessage, setShowMessage, error } = props;
+  const { showMessage, setShowMessage, errorMessage } = props;
 
   return (
     <Message
       showMessage={showMessage}
       setShowMessage={setShowMessage}
-      title={error.message}
+      title={errorMessage}
       src={warning}
     >
       <Button onClick={() => setShowMessage(false)}>Okay</Button>
