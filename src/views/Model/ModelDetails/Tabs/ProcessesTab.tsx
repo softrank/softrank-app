@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Collapse, Button, AddIcon } from 'shared/components';
 import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
 import FlexSpace from 'shared/components/Layouts/FlexSpace';
+import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';
 import { ExpectedResultsFieldArray } from 'views/Model/ModelDetails/ExpectedResultsFieldArray';
@@ -13,9 +14,17 @@ interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
   model: ModelEntity;
   setModel: Dispatch<SetStateAction<ModelEntity>>;
+  createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
+  loading: boolean;
 }
 
-export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
+export const ProcessesTab = ({
+  setTabIndex,
+  model,
+  setModel,
+  createOrUpdateModel,
+  loading,
+}: Props) => {
   const {
     handleSubmit,
     control,
@@ -31,11 +40,26 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
     name: 'modelProcesses',
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const submitProcesses = async (data: Process[]) => {
+    const modelDto: ModelDto = {
+      id: model.id,
+      name: model.name,
+      year: new Date(model.year),
+      description: model.description,
+      modelLevels: model.modelLevels,
+      modelProcesses: data,
+    };
+
+    await createOrUpdateModel(modelDto, 3);
+  };
+
+  const onSubmit = handleSubmit(
+    async (data) => await submitProcesses(data.modelProcesses)
+  );
 
   useEffect(() => {
     reset({
-      modelProcesses: model.modelProcesses,
+      modelProcesses: model.modelProcesses ?? new Process(),
     });
   }, [model, reset]);
 
@@ -61,7 +85,7 @@ export const ProcessesTab = ({ setTabIndex, model, setModel }: Props) => {
                   placeholder="sigla do processo"
                   control={control}
                   rules={{ required: true }}
-                  errors={errors?.modelProcesses?.[index]?.initial}
+                  errors={errors?.modelProcesses?.[index]?.initials}
                 />
                 <Input
                   name={`modelProcesses[${index}].name`}

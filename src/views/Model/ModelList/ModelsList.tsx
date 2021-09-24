@@ -39,7 +39,7 @@ export const ModelsList = () => {
                 <td>{formatDate(model.year)}</td>
                 <td>{model.description}</td>
                 <td>
-                  <Link to={`/modelos/editar/${model.id}`}>
+                  <Link to={`/modelo/${model.id}/2`}>
                     <EditIcon />
                   </Link>
                 </td>

@@ -2,21 +2,24 @@ import { Dispatch, SetStateAction } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { Button } from 'shared/components';
+import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Info, LevelItem, Options } from 'views/Model/ModelDetails/styled';
 
 interface Props {
-  setTabIndex: Dispatch<SetStateAction<number>>;
   model: ModelEntity;
   setModel: Dispatch<SetStateAction<ModelEntity>>;
-  setProcessesTabDisabled: Dispatch<SetStateAction<boolean>>;
+  setTabIndex: Dispatch<SetStateAction<number>>;
+  createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
+  loading: boolean;
 }
 
 export const LevelsHierarchyTab = ({
-  setTabIndex,
   model,
   setModel,
-  setProcessesTabDisabled,
+  setTabIndex,
+  createOrUpdateModel,
+  loading,
 }: Props) => {
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
@@ -29,9 +32,16 @@ export const LevelsHierarchyTab = ({
     setModel(tempModel);
   };
 
-  const submitHierarchy = () => {
-    setProcessesTabDisabled(false);
-    setTabIndex(2);
+  const submitHierarchy = async () => {
+    const modelDto: ModelDto = {
+      id: model.id,
+      name: model.name,
+      year: new Date(model.year),
+      description: model.description,
+      modelLevels: model.modelLevels,
+    };
+
+    await createOrUpdateModel(modelDto, 2);
   };
 
   return (
@@ -69,7 +79,9 @@ export const LevelsHierarchyTab = ({
         <Button secondary onClick={() => setTabIndex(0)}>
           Voltar
         </Button>
-        <Button onClick={() => submitHierarchy()}>Próximo</Button>
+        <Button onClick={() => submitHierarchy()} loading={loading}>
+          Próximo
+        </Button>
       </Options>
     </>
   );

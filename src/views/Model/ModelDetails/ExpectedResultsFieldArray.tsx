@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
 import { Collapse } from 'shared/components';
@@ -16,7 +15,6 @@ interface Props {
 
 export const ExpectedResultsFieldArray = (props: Props) => {
   const { processIndex, control, errors, levels } = props;
-  const [collapseProcesses, setCollapseProcesses] = useState(false);
 
   const {
     fields: expectedResults,
@@ -28,7 +26,6 @@ export const ExpectedResultsFieldArray = (props: Props) => {
   });
 
   const handleAddExpectedResult = () => {
-    setCollapseProcesses(false);
     const newExpectedResult = new ExpectedResult();
     append(newExpectedResult);
   };
@@ -37,8 +34,6 @@ export const ExpectedResultsFieldArray = (props: Props) => {
     <Collapse
       underline
       title="Resultados esperados (RE)"
-      collapse={collapseProcesses}
-      setCollapse={setCollapseProcesses}
       options={<AddIcon onClick={() => handleAddExpectedResult()} />}
     >
       {expectedResults.map((er, index) => {

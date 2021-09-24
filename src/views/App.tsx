@@ -34,8 +34,9 @@ export default function App() {
         render={() => (
           <Switch>
             <Route exact path="/modelos" component={ModelManagment} />
-            <Route exact path="/modelos/cadastro" component={ModelDetails} />
-            <Route exact path="/modelos/editar/:id" component={ModelDetails} />
+            <Route exact path="/modelo" component={ModelDetails} />
+            <Route exact path="/modelo/:id" component={ModelDetails} />
+            <Route exact path="/modelo/:id/:tab" component={ModelDetails} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route

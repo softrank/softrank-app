@@ -1,3 +1,4 @@
+import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from '../models/modelEntity';
 import { requests } from './api';
 
@@ -7,8 +8,9 @@ export const modelsService = {
   list: () => requests.get<ModelEntity[]>(modelsController),
   details: (id: string) =>
     requests.get<ModelEntity>(`${modelsController}/${id}`),
-  create: (model: ModelEntity) => requests.post<void>(modelsController, model),
-  update: (model: ModelEntity) =>
-    requests.put<void>(`${modelsController}/${model.id}`, model),
+  create: (model: ModelDto) =>
+    requests.post<ModelEntity>(modelsController, model),
+  update: (model: ModelDto) =>
+    requests.put<ModelEntity>(`${modelsController}/${model.id}`, model),
   delete: (id: string) => requests.del<void>(`${modelsController}/${id}`),
 };

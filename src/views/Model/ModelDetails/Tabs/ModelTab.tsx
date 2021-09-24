@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
@@ -25,24 +25,17 @@ import {
 } from 'shared/components/Collapse/styled';
 
 interface Props {
-  setTabIndex: Dispatch<SetStateAction<number>>;
   model: ModelEntity;
-  setModel: Dispatch<SetStateAction<ModelEntity>>;
-  setLevelsTabDisabled: Dispatch<SetStateAction<boolean>>;
+  createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
+  loading: boolean;
 }
 
-export const ModelTab = ({
-  setTabIndex,
-  model,
-  setModel,
-  setLevelsTabDisabled,
-}: Props) => {
-  const [collapseLevels, setCollapseLevels] = useState(false);
+export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
+  const history = useHistory();
 
   const {
     handleSubmit,
     control,
-    register,
     reset,
     formState: { errors },
   } = useForm<ModelDto>();
@@ -53,63 +46,20 @@ export const ModelTab = ({
     remove: levelsRemove,
   } = useFieldArray({
     control,
-    name: 'levels',
+    name: 'modelLevels',
   });
 
-  const history = useHistory();
-
-  const redirectHandler = (path: string) => history.push(path);
-
-  const submitModelHandler = (data: ModelDto) => {
-    let tempModel = model;
-
-    tempModel = {
-      id: data.name ?? '',
-      name: data.name,
-      year: data.year,
-      description: data.description,
-      modelLevels: data.levels,
-      modelProcesses: model.modelProcesses,
-    };
-
-    setModel(tempModel);
-    setLevelsTabDisabled(false);
-    setTabIndex(1);
-  };
-
-  const onSubmit = handleSubmit((data) => submitModelHandler(data));
-
-  useEffect(() => {
-    register('name', { required: true });
-    register('year', { required: true });
-    register('description', {
-      required: true,
-      minLength: {
-        value: 20,
-        message: 'A descrição deve conter no mínimo 20 caracteres!',
-      },
-      maxLength: {
-        value: 200,
-        message: 'A descrição deve conter no máximo 200 caracteres!',
-      },
-    });
-  }, [register]);
-
-  useEffect(() => {
-    if (model.modelLevels) {
-      if (model.modelLevels.length <= 0) {
-        levelsAppend({});
-      }
-    }
-  }, [levelsAppend, model]);
+  const onSubmit = handleSubmit(
+    async (data) => await createOrUpdateModel(data, 1)
+  );
 
   useEffect(() => {
     reset({
       id: model.id,
       name: model.name,
-      year: model.year,
+      year: new Date(model.year),
       description: model.description,
-      levels: model.modelLevels,
+      modelLevels: model.modelLevels,
     });
   }, [model, reset]);
 
@@ -120,17 +70,19 @@ export const ModelTab = ({
           <Input
             name="name"
             label="Modelo"
-            placeholder="selecione um modelo"
+            placeholder="nome do modelo"
             control={control}
+            rules={{ required: true }}
             errors={errors.name}
           />
           <DateInput
             label="Ano"
             name="year"
             placeholder="selecione um ano"
-            control={control}
             yearPicker
             dateFormat="yyyy"
+            control={control}
+            rules={{ required: true }}
             errors={errors.year}
           />
         </InputGroup>
@@ -140,14 +92,23 @@ export const ModelTab = ({
             label="Descrição"
             placeholder="descrição do modelo"
             control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 20,
+                message: 'A descrição deve conter no mínimo 20 caracteres!',
+              },
+              maxLength: {
+                value: 200,
+                message: 'A descrição deve conter no máximo 200 caracteres!',
+              },
+            }}
             errors={errors.description}
           />
         </InputGroup>
         <Collapse
           underline
           title="Níveis"
-          collapse={collapseLevels}
-          setCollapse={setCollapseLevels}
           options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
         >
           {levels.map(({ id }, index) => {
@@ -156,7 +117,7 @@ export const ModelTab = ({
                 <CollapseContent>
                   <LevelGroup>
                     <Input
-                      name={`levels[${index}].initial`}
+                      name={`modelLevels[${index}].initial`}
                       label="Sigla"
                       placeholder="sigla do nível"
                       control={control}
@@ -167,15 +128,15 @@ export const ModelTab = ({
                           message: 'A sigla deve conter no máximo 1 caractér!',
                         },
                       }}
-                      errors={errors?.levels?.[index]?.initial}
+                      errors={errors?.modelLevels?.[index]?.initial}
                     />
                     <Input
-                      name={`levels[${index}].name`}
+                      name={`modelLevels[${index}].name`}
                       label="Nome"
                       placeholder="nome do nível"
                       control={control}
                       rules={{ required: true }}
-                      errors={errors?.levels?.[index]?.name}
+                      errors={errors?.modelLevels?.[index]?.name}
                     />
                   </LevelGroup>
                   <RemoveIcon onClick={() => levelsRemove(index)} />
@@ -186,10 +147,12 @@ export const ModelTab = ({
           })}
         </Collapse>
         <Options>
-          <Button secondary onClick={() => redirectHandler('/modelos')}>
+          <Button secondary onClick={() => history.push('/modelos')}>
             Cancelar
           </Button>
-          <Button type="submit">Próximo</Button>
+          <Button type="submit" loading={loading}>
+            Próximo
+          </Button>
         </Options>
       </FlexSpace>
     </Form>

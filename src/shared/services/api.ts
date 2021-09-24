@@ -11,7 +11,7 @@ const sleep = (delay: number) => {
 
 axios.interceptors.response.use(async (response) => {
   try {
-    await sleep(2000);
+    await sleep(500);
     return response;
   } catch (error) {
     return await Promise.reject(error);
