@@ -62,7 +62,13 @@ export const SignIn = () => {
   const onSubmit = handleSubmit((data) => handleSignIn(data));
 
   useEffect(() => {
-    register('email', { required: true });
+    register('email', {
+      required: true,
+      pattern: {
+        value: /[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i,
+        message: 'Email inválido',
+      },
+    });
     register('password', {
       required: true,
     });
@@ -83,7 +89,7 @@ export const SignIn = () => {
                 label="Email"
                 placeholder="insira o seu email"
                 control={control}
-                type="text"
+                type="email"
                 errors={errors.email}
               />
               <Input
@@ -95,7 +101,6 @@ export const SignIn = () => {
                 errors={errors.password}
               />
               {error && <ErrorNote>Email ou senha incorretos</ErrorNote>}
-
               <Button type="submit" width="100%" loading={loading}>
                 login
               </Button>

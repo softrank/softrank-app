@@ -38,7 +38,13 @@ export const EvaluatorDetails = () => {
 
   useEffect(() => {
     register('name', { required: true });
-    register('email', { required: true });
+    register('email', {
+      required: true,
+      pattern: {
+        value: /[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i,
+        message: 'Email inválido',
+      },
+    });
     register('password', { required: true });
     register('documentNumber', {
       required: true,

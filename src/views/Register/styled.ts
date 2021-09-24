@@ -7,6 +7,7 @@ export const RegisterOptinos = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.6rem;
 
   padding-top: 10vh;
 `;
@@ -14,7 +15,6 @@ export const RegisterOptinos = styled.div`
 export const RegisterItem = styled.a`
   width: 60%;
   padding: 0.4em;
-  margin-bottom: 0.6rem;
 
   font-size: 24px;
   text-align: center;
@@ -30,5 +30,6 @@ export const RegisterItem = styled.a`
 
   &:hover {
     transform: translateY(-3px);
+    color: var(--purple-500);
   }
 `;

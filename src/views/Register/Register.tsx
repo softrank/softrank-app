@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router';
 
 import Wrapper from 'shared/components/Layouts/Wrapper';

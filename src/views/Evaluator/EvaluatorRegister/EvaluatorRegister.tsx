@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
 
 import Wrapper from 'shared/components/Layouts/Wrapper';
-import { AddIcon, Collapse, Title } from 'shared/components';
+import { AddIcon, Button, Collapse, Title } from 'shared/components';
 import {
   Form,
   InputGroup,
@@ -25,12 +24,11 @@ import { RemoveIcon } from 'views/Model/ModelDetails/styled';
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [loading, setLoading] = useState(true);
-  const [evaluator, setEvaluator] = useState(new Evaluator());
+  const [evaluator] = useState(new Evaluator());
 
   const {
     handleSubmit,
     control,
-    register,
     reset,
     formState: { errors },
   } = useForm<Evaluator>();
@@ -43,7 +41,10 @@ export const EvaluatorRegister = () => {
     name: 'licenses',
   });
 
-  const history = useHistory();
+  const licenseTypes = [
+    { value: '1', label: 'Líder' },
+    { value: '2', label: 'Adjunto' },
+  ];
 
   const handleCreateEvaluator = (evaluator: Evaluator) => {
     evaluator.documentType = 'CPF';
@@ -58,29 +59,7 @@ export const EvaluatorRegister = () => {
       });
   };
 
-  const handleRedirect = () => history.push('/');
-
   const onSubmit = handleSubmit((data) => handleCreateEvaluator(data));
-
-  useEffect(() => {
-    register('name', { required: true });
-    register('email', { required: true });
-    register('password', { required: true });
-    register('documentNumber', {
-      required: true,
-      pattern: {
-        value: /^\d{3}.\d{3}.\d{3}-\d{2}/g,
-        message: 'Número de CPF inválido.',
-      },
-    });
-    register('phone', {
-      required: true,
-      pattern: {
-        value: /\(\d{2}\)\s\d{4,5}-\d{4}/g,
-        message: 'Número de celular inválido.',
-      },
-    });
-  }, [register]);
 
   useEffect(() => {
     reset({
@@ -116,6 +95,13 @@ export const EvaluatorRegister = () => {
                   placeholder="email do avaliador"
                   type="email"
                   control={control}
+                  rules={{
+                    required: true,
+                    pattern: {
+                      value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+                      message: 'Email inválido.',
+                    },
+                  }}
                   errors={errors?.email}
                 />
                 <Input
@@ -123,25 +109,33 @@ export const EvaluatorRegister = () => {
                   label="Senha"
                   placeholder="senha do avaliador"
                   control={control}
+                  rules={{ required: true }}
                   errors={errors?.password}
                 />
               </InputGroup>
-
               <InputGroup>
                 <Input
                   name="name"
                   label="Nome"
                   placeholder="nome do avaliador"
                   control={control}
+                  rules={{ required: true }}
                   errors={errors?.name}
                 />
                 <Input
                   name="documentNumber"
                   label="Documento"
                   placeholder="CPF do avaliador"
-                  control={control}
-                  errors={errors?.documentNumber}
                   mask="999.999.999-99"
+                  control={control}
+                  rules={{
+                    required: true,
+                    pattern: {
+                      value: /^\d{3}.\d{3}.\d{3}-\d{2}/g,
+                      message: 'Número de CPF inválido.',
+                    },
+                  }}
+                  errors={errors?.documentNumber}
                 />
               </InputGroup>
               <InputGroup>
@@ -149,9 +143,16 @@ export const EvaluatorRegister = () => {
                   name="phone"
                   label="Celular"
                   placeholder="celular do avaliador"
-                  control={control}
-                  errors={errors?.phone}
                   mask="(99) 99999-9999"
+                  control={control}
+                  rules={{
+                    required: true,
+                    pattern: {
+                      value: /\(\d{2}\)\s\d{4,5}-\d{4}/g,
+                      message: 'Número de celular inválido.',
+                    },
+                  }}
+                  errors={errors?.phone}
                 />
               </InputGroup>
               <Collapse
@@ -169,9 +170,9 @@ export const EvaluatorRegister = () => {
                               label="Validade"
                               name={`licenses[${index}].expiration`}
                               placeholder="selecione uma data"
+                              dateFormat="dd/MM/yyyy"
                               control={control}
                               rules={{ required: true }}
-                              dateFormat="dd/MM/yyyy"
                               errors={errors?.licenses?.[index]?.expiration}
                             />
                             <Input
@@ -182,14 +183,27 @@ export const EvaluatorRegister = () => {
                               rules={{ required: true }}
                               errors={errors?.licenses?.[index]?.number}
                             />
+                          </InputGroup>
+                          <InputGroup>
                             <Select
                               name={`licenses[${index}].modelLevelId`}
                               label="Modelo"
                               placeholder="selecione um modelo"
-                              control={control}
-                              rules={{ required: true }}
                               optionValues={models}
                               optionLabel="name"
+                              control={control}
+                              rules={{ required: true }}
+                              errors={errors?.licenses?.[index]?.modelLevelId}
+                            />
+                            <Select
+                              name={`licenses[${index}].type`}
+                              label="Tipo"
+                              placeholder="selecione um tipo de licença"
+                              optionValues={licenseTypes}
+                              optionLabel="label"
+                              control={control}
+                              rules={{ required: true }}
+                              errors={errors?.licenses?.[index]?.type}
                             />
                           </InputGroup>
                         </div>
@@ -200,6 +214,9 @@ export const EvaluatorRegister = () => {
                   );
                 })}
               </Collapse>
+              <Button type="submit" width="100%">
+                Confirmar
+              </Button>
             </FlexSpace>
           </Form>
         </Wrapper>
