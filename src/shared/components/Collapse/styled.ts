@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 
 interface Props {
-  collapse?: boolean;
   underline?: boolean;
 }
 
@@ -82,11 +81,15 @@ const iconCss = css`
   }
 `;
 
-export const ToggleCollapseIcon = styled(IoIosArrowDown)<Props>`
+interface IconProps {
+  spin: boolean;
+}
+
+export const ToggleCollapseIcon = styled(IoIosArrowDown)<IconProps>`
   ${iconCss}
 
   ${(props) =>
-    !props.collapse &&
+    props.spin &&
     css`
       transform: rotate(180deg);
     `}

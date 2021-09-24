@@ -50,7 +50,7 @@ export const Input = (props: Props) => {
               onChange={(e: any) => onChange((value = e.target.value))}
               type={type}
               value={value ?? ''}
-              error={!!errors}
+              error={errors && true}
               as={InputMask}
               mask={mask ?? ''}
             />

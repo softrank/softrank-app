@@ -9,6 +9,7 @@ interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined;
   disabled?: boolean;
   secondary?: boolean;
+  neutral?: boolean;
 }
 
 export const Button = (props: Props) => {
@@ -20,6 +21,7 @@ export const Button = (props: Props) => {
     width,
     disabled,
     secondary,
+    neutral,
   } = props;
 
   return (
@@ -29,6 +31,7 @@ export const Button = (props: Props) => {
       width={width}
       disabled={disabled}
       secondary={secondary}
+      neutral={neutral}
     >
       <>
         {loading ? (

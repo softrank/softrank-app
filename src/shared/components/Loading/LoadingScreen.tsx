@@ -38,7 +38,7 @@ export const LoadingScreen = (props: Props) => {
         loading={loading}
         color={'#625cff'}
         size={60}
-        speedMultiplier={0.9}
+        speedMultiplier={1}
       />
       {content && <SpinnerContent>{content}</SpinnerContent>}
     </SpinnerContainer>
