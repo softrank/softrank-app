@@ -9,9 +9,8 @@ export const CustomSelect = styled(Select)<Props>`
   --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   .select__control {
-    padding: 0.3em;
-    margin: 0.2em 0 0.8em 0;
     height: 3.2rem;
+    margin-top: 0.4em;
     box-sizing: border-box;
     border-radius: var(--radius);
 
@@ -92,5 +91,9 @@ export const CustomSelect = styled(Select)<Props>`
     background: var(--purple-300);
     border-radius: 2px;
     color: var(--purple-500);
+  }
+
+  .select__placeholder {
+    color: var(--gray-500);
   }
 `;

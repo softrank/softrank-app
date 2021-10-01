@@ -12,7 +12,7 @@ export const SDateInput = styled(DatePicker)<Props>`
   width: 100%;
   height: 3.2rem;
   padding: 0.6em;
-  margin: 0.2em 0 0.8em 0;
+  margin-top: 0.4em;
   border-radius: var(--radius);
   box-sizing: border-box;
 
