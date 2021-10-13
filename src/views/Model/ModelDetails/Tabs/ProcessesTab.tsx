@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Collapse, Button, AddIcon } from 'shared/components';
+import { Collapse, Button, AddIcon, FlexSpace } from 'shared/components';
 import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
-import FlexSpace from 'shared/components/Layouts/FlexSpace';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';

@@ -1,4 +1,4 @@
-import Wrapper from 'shared/components/Layouts/Wrapper';
+import { Wrapper } from 'shared/components';
 import { Hero } from './styled';
 
 export const HomePage = () => {

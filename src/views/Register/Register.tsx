@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router';
 
-import Wrapper from 'shared/components/Layouts/Wrapper';
-import { Title } from 'shared/components';
+import { Title, Wrapper } from 'shared/components';
 import { RegisterItem, RegisterOptinos } from './styled';
 
 export const Register = () => {
@@ -14,13 +13,15 @@ export const Register = () => {
         <RegisterItem onClick={() => history.push('/avaliador/cadastro')}>
           Avaliador
         </RegisterItem>
-        <RegisterItem onClick={() => history.push('/404')}>
+        <RegisterItem onClick={() => history.push('/auditor/cadastro')}>
           Auditor
         </RegisterItem>
-        <RegisterItem onClick={() => history.push('/404')}>
+        <RegisterItem
+          onClick={() => history.push('/instituicaoAvalidadora/cadastro')}
+        >
           Instituição avaliadora
         </RegisterItem>
-        <RegisterItem onClick={() => history.push('/404')}>
+        <RegisterItem onClick={() => history.push('/organizacao/cadastro')}>
           Organização
         </RegisterItem>
       </RegisterOptinos>

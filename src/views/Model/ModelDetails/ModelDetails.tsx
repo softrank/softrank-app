@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Title } from 'shared/components';
-import Wrapper from 'shared/components/Layouts/Wrapper';
+import { Title, Wrapper } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { ErrorMessage } from 'shared/components/Messages';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
-import { modelDummy } from 'shared/services/modelDummy';
 import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
 
 export const ModelDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  // const [model, setModel] = useState(new ModelEntity());
-  const [model, setModel] = useState(modelDummy);
+  const [model, setModel] = useState(new ModelEntity());
   const [levelsTabDisabled, setLevelsTabDisabled] = useState(true);
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
