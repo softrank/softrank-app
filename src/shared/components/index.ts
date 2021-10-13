@@ -11,3 +11,4 @@ export {
 } from 'shared/components/Buttons/IconButtons/IconButtons';
 export { SearchBox } from 'shared/components/SearchBox/SearchBox';
 export { Table } from 'shared/components/Table/Table';
+export * from './Layouts';

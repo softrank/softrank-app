@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
-import { Collapse, AddIcon, Button } from 'shared/components';
+import { Collapse, AddIcon, Button, FlexSpace } from 'shared/components';
 import {
   Form,
   InputGroup,
@@ -18,7 +18,6 @@ import {
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { ModelLevel } from 'shared/models/modelLevel';
-import FlexSpace from 'shared/components/Layouts/FlexSpace';
 import {
   CollapseContent,
   GroupDivider,

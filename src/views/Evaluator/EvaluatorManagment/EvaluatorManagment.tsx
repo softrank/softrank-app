@@ -1,10 +1,9 @@
 import { useHistory } from 'react-router';
-import { AddIcon, SearchBox, Table, Title } from 'shared/components';
-import Wrapper from 'shared/components/Layouts/Wrapper';
+
+import { Wrapper, Title, AddIcon, SearchBox, Table } from 'shared/components';
 import { TableOptions } from './styled';
 
 export const EvaluatorManagment = () => {
-  // const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleAddEvaluator = () => history.push('/avaliadores/cadastro');

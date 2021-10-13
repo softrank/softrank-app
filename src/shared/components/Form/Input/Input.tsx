@@ -14,7 +14,7 @@ interface Props {
   name: string;
   label: string;
   placeholder: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'text' | 'email' | 'password' | 'number';
   control: Control<any>;
   defaultValue?: string;
   rules?: any;

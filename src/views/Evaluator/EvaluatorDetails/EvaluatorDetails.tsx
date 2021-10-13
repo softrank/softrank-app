@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
-import { Button, Title } from 'shared/components';
+import { Button, FlexSpace, Title, Wrapper } from 'shared/components';
 import { Form, Input, InputGroup } from 'shared/components/Form';
-import FlexSpace from 'shared/components/Layouts/FlexSpace';
-import Wrapper from 'shared/components/Layouts/Wrapper';
 import { Evaluator } from 'shared/models/evaluator';
 import { evaluatorService } from 'shared/services';
 import { Options } from './styled';

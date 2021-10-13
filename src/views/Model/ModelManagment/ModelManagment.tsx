@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Wrapper from 'shared/components/Layouts/Wrapper';
-import { AddIcon, SearchBox, Title } from 'shared/components';
+import { AddIcon, SearchBox, Title, Wrapper } from 'shared/components';
 import { ModelsList } from 'views';
 import { useHistory } from 'react-router';
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import Wrapper from 'shared/components/Layouts/Wrapper';
-import { AddIcon, Button, Collapse, Title } from 'shared/components';
+import { Title, Collapse, Button, FlexSpace, Wrapper } from 'shared/components';
 import {
   Form,
   InputGroup,
@@ -18,8 +17,7 @@ import {
 } from 'shared/components/Collapse/styled';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { LoadingScreen } from 'shared/components/Loading';
-import FlexSpace from 'shared/components/Layouts/FlexSpace';
-import { RemoveIcon } from 'views/Model/ModelDetails/styled';
+import { AddIcon, RemoveIcon } from 'views/Model/ModelDetails/styled';
 
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
