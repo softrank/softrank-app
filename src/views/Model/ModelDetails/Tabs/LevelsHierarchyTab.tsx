@@ -39,6 +39,7 @@ export const LevelsHierarchyTab = ({
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
+      modelProcesses: model.modelProcesses,
     };
 
     await createOrUpdateModel(modelDto, 2);

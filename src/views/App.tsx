@@ -36,7 +36,6 @@ export default function App() {
             <Route exact path="/modelos" component={ModelManagment} />
             <Route exact path="/modelo" component={ModelDetails} />
             <Route exact path="/modelo/:id" component={ModelDetails} />
-            <Route exact path="/modelo/:id/:tab" component={ModelDetails} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route

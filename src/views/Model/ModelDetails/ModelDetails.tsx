@@ -9,11 +9,13 @@ import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
+import { modelDummy } from 'shared/services/modelDummy';
 import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
 
 export const ModelDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [model, setModel] = useState(new ModelEntity());
+  // const [model, setModel] = useState(new ModelEntity());
+  const [model, setModel] = useState(modelDummy);
   const [levelsTabDisabled, setLevelsTabDisabled] = useState(true);
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
@@ -21,7 +23,7 @@ export const ModelDetails = () => {
   const [loading, setLoading] = useState(false);
   const [modelLoading, setModelLoading] = useState(false);
 
-  const { id, tab } = useParams<{ id: string; tab: string }>();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
 
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
@@ -29,6 +31,8 @@ export const ModelDetails = () => {
     let res: ModelEntity;
     try {
       if (data.id) {
+        console.log(data);
+
         res = await modelsService.update(data);
       } else {
         res = await modelsService.create(data);
@@ -67,6 +71,7 @@ export const ModelDetails = () => {
       }
     };
     getModel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
