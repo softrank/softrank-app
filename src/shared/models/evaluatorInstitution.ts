@@ -1,9 +1,12 @@
+import { Address } from './address';
+
 export interface EvaluatorInstitution {
   id: string;
+  status: string;
   name: string;
-  email: string;
-  documentNumber: string;
-  documentType: string;
   phone: string;
-  password: string;
+  email: string;
+  documentType: string;
+  documentNumber: string;
+  address: Address;
 }

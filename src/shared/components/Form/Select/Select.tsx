@@ -29,6 +29,7 @@ interface Props {
   defaultValue?: any;
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
+  value?: any;
 }
 
 export const Select = (props: Props) => {
@@ -67,15 +68,18 @@ export const Select = (props: Props) => {
         control={control}
         defaultValue={defaultValue}
         rules={rules}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange, value, ref } }) => (
           <>
             <CustomSelect
+              inputRef={ref}
               classNamePrefix={'select'}
               label={label}
               placeholder={placeholder}
               onChange={onChange}
-              value={value}
               options={options}
+              value={
+                props.value ? options.find((c) => c.value === value) : undefined
+              }
               isDisabled={disabled}
               isMulti={multi}
               isSearchable={search}

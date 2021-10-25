@@ -91,17 +91,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
             label="Descrição"
             placeholder="descrição do modelo"
             control={control}
-            rules={{
-              required: true,
-              minLength: {
-                value: 20,
-                message: 'A descrição deve conter no mínimo 20 caracteres!',
-              },
-              maxLength: {
-                value: 200,
-                message: 'A descrição deve conter no máximo 200 caracteres!',
-              },
-            }}
+            rules={{ required: true }}
             errors={errors.description}
           />
         </InputGroup>

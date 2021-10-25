@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { authActions } from 'shared/store';
+import { PrivateRoute } from 'shared/components/PrivateRoute';
 
+import { authActions } from 'shared/store';
 import {
   NavBar,
   HomePage,
@@ -18,6 +19,10 @@ import {
   AuditorRegister,
   EvaluatorInstitutionRegister,
   OrganizationRegister,
+  EvaluationDetails,
+  EvaluationManagment,
+  EvaluationNew,
+  EvaluatorInstitutionManagment,
 } from './';
 
 export default function App() {
@@ -36,11 +41,7 @@ export default function App() {
         path={'/(.+)'}
         render={() => (
           <Switch>
-            <Route exact path="/modelos" component={ModelManagment} />
-            <Route exact path="/modelo" component={ModelDetails} />
-            <Route exact path="/modelo/:id" component={ModelDetails} />
             <Route exact path="/login" component={SignIn} />
-            <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route
               exact
               path="/avaliador/cadastro"
@@ -62,6 +63,39 @@ export default function App() {
               exact
               path="/organizacao/cadastro"
               component={OrganizationRegister}
+            />
+            <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            <PrivateRoute exact path="/modelo" component={ModelDetails} />
+            <PrivateRoute exact path="/modelo/:id" component={ModelDetails} />
+            <PrivateRoute
+              exact
+              path="/avaliadores"
+              component={EvaluatorManagment}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacoes"
+              component={EvaluationManagment}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacao"
+              component={EvaluationDetails}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacao/nova"
+              component={EvaluationNew}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacao/:id"
+              component={EvaluationDetails}
+            />
+            <Route
+              exact
+              path="/instituicoesAvaliadoras"
+              component={EvaluatorInstitutionManagment}
             />
             <Route path="*" exact={true} component={NotFound} />
           </Switch>

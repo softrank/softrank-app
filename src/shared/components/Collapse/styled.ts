@@ -47,6 +47,10 @@ export const CollapseTitle = styled.h1`
   font-size: 20px;
   font-weight: 500;
   color: var(--purple-500);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CollapseOptions = styled.div`

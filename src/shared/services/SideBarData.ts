@@ -11,4 +11,12 @@ export const SideBarData = [
     title: 'Avaliadores',
     path: '/avaliadores',
   },
+  {
+    title: 'Avaliações',
+    path: '/avaliacoes',
+  },
+  {
+    title: 'Instituições Avaliadoras',
+    path: '/instituicoesAvaliadoras',
+  },
 ];
