@@ -60,13 +60,11 @@ export const RemoveIcon = styled(HiOutlineTrash)`
 
     background: var(--gray-50);
     color: var(--gray-500);
-    cursor: pointer;
     outline: none;
 
     transition: all 600ms ease;
 
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
       background-color: white;
       border: 2px solid var(--purple-500);

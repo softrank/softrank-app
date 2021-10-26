@@ -17,10 +17,16 @@ import {
 } from 'shared/components/Collapse/styled';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { LoadingScreen } from 'shared/components/Loading';
-import { AddIcon, RemoveIcon } from 'views/Model/ModelDetails/styled';
+import { AddIcon } from 'views/Model/ModelDetails/styled';
+import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
+import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { RemoveIconButton } from './styled';
 
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
+  const [evaluatorInstitutions, setEvaluatorInstitutions] = useState<
+    EvaluatorInstitution[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [evaluator] = useState(new Evaluator());
 
@@ -45,7 +51,7 @@ export const EvaluatorRegister = () => {
   ];
 
   const handleCreateEvaluator = (evaluator: Evaluator) => {
-    evaluator.documentType = 'CPF';
+    evaluator.documentType = 'f';
 
     evaluatorService
       .create(evaluator)
@@ -68,13 +74,21 @@ export const EvaluatorRegister = () => {
   useEffect(() => {
     modelsService
       .list()
-      .then((response) => {
-        setModels(response);
-        setLoading(false);
+      .then((models) => {
+        setModels(models);
       })
       .catch((error) => {
-        setLoading(false);
+        console.log(error);
       });
+    evaluatorInstitutionService
+      .list()
+      .then((instituitions) => {
+        setEvaluatorInstitutions(instituitions);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setLoading(false);
   }, []);
 
   return (
@@ -152,6 +166,16 @@ export const EvaluatorRegister = () => {
                   }}
                   errors={errors?.phone}
                 />
+                <Select
+                  name="evaluatorInstitution"
+                  label="Instituição"
+                  placeholder="selecione uma instituição"
+                  optionValues={evaluatorInstitutions}
+                  optionLabel="name"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.evaluatorInstitution}
+                />
               </InputGroup>
               <Collapse
                 underline
@@ -163,49 +187,51 @@ export const EvaluatorRegister = () => {
                     <React.Fragment key={id}>
                       <CollapseContent>
                         <div style={{ width: '100%' }}>
-                          <InputGroup>
-                            <DateInput
-                              label="Validade"
-                              name={`licenses[${index}].expiration`}
-                              placeholder="selecione uma data"
-                              dateFormat="dd/MM/yyyy"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.expiration}
-                            />
-                            <Input
-                              name={`licenses[${index}].number`}
-                              label="Número"
-                              placeholder="número da licença"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.number}
-                            />
-                          </InputGroup>
-                          <InputGroup>
-                            <Select
-                              name={`licenses[${index}].modelLevelId`}
-                              label="Modelo"
-                              placeholder="selecione um modelo"
-                              optionValues={models}
-                              optionLabel="name"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.modelLevelId}
-                            />
-                            <Select
-                              name={`licenses[${index}].type`}
-                              label="Tipo"
-                              placeholder="selecione um tipo de licença"
-                              optionValues={licenseTypes}
-                              optionLabel="label"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.type}
-                            />
-                          </InputGroup>
+                          <FlexSpace space="16px">
+                            <InputGroup>
+                              <DateInput
+                                label="Validade"
+                                name={`licenses[${index}].expiration`}
+                                placeholder="selecione uma data"
+                                dateFormat="dd/MM/yyyy"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.expiration}
+                              />
+                              <Input
+                                name={`licenses[${index}].number`}
+                                label="Número"
+                                placeholder="número da licença"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.number}
+                              />
+                            </InputGroup>
+                            <InputGroup>
+                              <Select
+                                name={`licenses[${index}].modelLevelId`}
+                                label="Modelo"
+                                placeholder="selecione um modelo"
+                                optionValues={models}
+                                optionLabel="name"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.modelLevelId}
+                              />
+                              <Select
+                                name={`licenses[${index}].type`}
+                                label="Tipo"
+                                placeholder="selecione um tipo de licença"
+                                optionValues={licenseTypes}
+                                optionLabel="label"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.type}
+                              />
+                            </InputGroup>
+                            <RemoveIconButton onClick={() => remove(index)} />
+                          </FlexSpace>
                         </div>
-                        <RemoveIcon onClick={() => remove(index)} />
                       </CollapseContent>
                       {index !== licenses.length - 1 && <GroupDivider />}
                     </React.Fragment>

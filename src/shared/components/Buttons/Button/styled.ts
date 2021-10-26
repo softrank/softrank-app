@@ -46,15 +46,10 @@ export const StyledButton = styled.button<Props>`
   ${(props) =>
     props.secondary &&
     css`
+      width: 100%;
       background: var(--purple-300);
       color: var(--purple-500);
       border: 2px solid var(--purple-300);
-
-      &:active {
-        background-color: var(--purple-500);
-        border: 2px solid var(--purple-500);
-        color: var(--white);
-      }
     `}
 
   ${(props) =>
