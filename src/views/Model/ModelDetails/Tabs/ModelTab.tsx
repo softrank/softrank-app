@@ -53,13 +53,29 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
   );
 
   useEffect(() => {
+    const processes = model.modelProcesses;
+
     reset({
       id: model.id,
       name: model.name,
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
-      modelProcesses: model.modelProcesses ?? undefined,
+      modelProcesses: model.modelProcesses
+        ? processes?.map((modelProcess) => {
+            modelProcess.expectedResults?.forEach((expectedResult) => {
+              expectedResult.minLevel = {
+                value: expectedResult.minLevel,
+                label: expectedResult.minLevel,
+              } as any;
+              expectedResult.maxLevel = {
+                value: expectedResult.maxLevel,
+                label: expectedResult.maxLevel,
+              } as any;
+            });
+            return modelProcess;
+          })
+        : undefined,
     });
   }, [model, reset]);
 

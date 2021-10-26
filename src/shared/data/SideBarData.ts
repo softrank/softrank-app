@@ -15,7 +15,6 @@ export const SideBarData = [
   {
     title: 'Avaliações',
     path: '/avaliacoes',
-    roles: ['adm'],
   },
   {
     title: 'Instituições Avaliadoras',

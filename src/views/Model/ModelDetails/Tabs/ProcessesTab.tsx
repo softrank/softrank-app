@@ -42,7 +42,6 @@ export const ProcessesTab = ({
   const submitProcesses = async (processes: Process[]) => {
     processes.forEach((modelProcess) => {
       modelProcess.expectedResults?.forEach((expectedResult) => {
-        console.log(expectedResult);
         expectedResult.minLevel = (expectedResult.minLevel as any).label;
         expectedResult.maxLevel = (expectedResult.maxLevel as any).label;
       });

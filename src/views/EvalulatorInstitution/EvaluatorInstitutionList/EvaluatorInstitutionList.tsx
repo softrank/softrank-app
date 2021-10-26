@@ -26,7 +26,7 @@ export const EvaluatorInstitutionList = () => {
       {loading ? (
         <LoadingScreen loading={loading} content="Carregando instituições..." />
       ) : (
-        <Table headers={['Nome', 'Ano', 'Descrição', 'Ações']}>
+        <Table headers={['Nome', 'Email', 'CNPJ', 'Telefone']}>
           {institutions.map((institution: EvaluatorInstitution, id) => {
             return (
               <tr key={id}>

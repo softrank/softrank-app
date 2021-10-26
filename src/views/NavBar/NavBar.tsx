@@ -35,7 +35,7 @@ export const NavBar = () => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const mockRoles = ['modelManager'];
+  const mockRoles: string[] = ['modelManager'];
 
   useEffect(() => {
     const rolesArray: any[] = roles as any[];
@@ -55,13 +55,12 @@ export const NavBar = () => {
             positionLeft="-1em"
           >
             {SideBarData.map(({ title, path, roles }, index) => {
-              if (roles) {
+              if (roles)
                 if (!roles?.some((element) => mockRoles.includes(element)))
                   return <React.Fragment key={index}></React.Fragment>;
-              }
 
               return (
-                <div key={index}>
+                <React.Fragment key={index}>
                   <DropdownItem
                     as={Link}
                     to={path}
@@ -70,7 +69,7 @@ export const NavBar = () => {
                     <span>{title}</span>
                   </DropdownItem>
                   {index !== SideBarData.length - 1 && <DropdownDivider />}
-                </div>
+                </React.Fragment>
               );
             })}
           </Dropdown>
