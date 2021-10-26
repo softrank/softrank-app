@@ -6,6 +6,7 @@ export const SideBarData = [
   {
     title: 'Modelos',
     path: '/modelos',
+    roles: ['modelManager'],
   },
   {
     title: 'Avaliadores',
@@ -14,6 +15,7 @@ export const SideBarData = [
   {
     title: 'Avaliações',
     path: '/avaliacoes',
+    roles: ['adm'],
   },
   {
     title: 'Instituições Avaliadoras',

@@ -39,14 +39,22 @@ export const ProcessesTab = ({
     name: 'modelProcesses',
   });
 
-  const submitProcesses = async (data: Process[]) => {
+  const submitProcesses = async (processes: Process[]) => {
+    processes.forEach((modelProcess) => {
+      modelProcess.expectedResults?.forEach((expectedResult) => {
+        console.log(expectedResult);
+        expectedResult.minLevel = (expectedResult.minLevel as any).label;
+        expectedResult.maxLevel = (expectedResult.maxLevel as any).label;
+      });
+    });
+
     const modelDto: ModelDto = {
       id: model.id,
       name: model.name,
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
-      modelProcesses: data,
+      modelProcesses: processes,
     };
 
     await createOrUpdateModel(modelDto, 3);

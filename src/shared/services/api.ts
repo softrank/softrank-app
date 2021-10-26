@@ -20,8 +20,8 @@ axios.interceptors.response.use(async (response) => {
 
 axios.interceptors.request.use((config) => {
   const state = store.getState();
-  const token = state.auth.token;
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  const authToken = state.auth.authToken;
+  if (authToken) config.headers.Authorization = `Bearer ${authToken}`;
   return config;
 });
 

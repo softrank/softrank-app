@@ -17,11 +17,11 @@ import {
 } from 'views/Model/ModelDetails/styled';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
-import { ModelLevel } from 'shared/models/modelLevel';
 import {
   CollapseContent,
   GroupDivider,
 } from 'shared/components/Collapse/styled';
+import { ModelLevelDto } from 'shared/dtos/modelLevelDto';
 
 interface Props {
   model: ModelEntity;
@@ -59,6 +59,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
+      modelProcesses: model.modelProcesses ?? undefined,
     });
   }, [model, reset]);
 
@@ -98,7 +99,9 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
         <Collapse
           underline
           title="Níveis"
-          options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
+          options={
+            <AddIcon onClick={() => levelsAppend(new ModelLevelDto())} />
+          }
         >
           {levels.map(({ id }, index) => {
             return (

@@ -1,11 +1,11 @@
-import { ModelLevel } from 'shared/models/modelLevel';
 import { Process } from 'shared/models/process';
+import { ModelLevelDto } from './modelLevelDto';
 
 export interface ModelDto {
   id?: string;
   name: string;
   year: Date;
   description: string;
-  modelLevels: ModelLevel[];
+  modelLevels: ModelLevelDto[];
   modelProcesses?: Process[];
 }

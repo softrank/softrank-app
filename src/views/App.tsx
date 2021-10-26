@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from 'shared/components/PrivateRoute';
+import { userService } from 'shared/services';
 
-import { authActions } from 'shared/store';
+import { authActions, RootState } from 'shared/store';
 import {
   NavBar,
   HomePage,
@@ -26,12 +27,25 @@ import {
 } from './';
 
 export default function App() {
+  const [userRoles, setUserRoles] = useState<any[]>([]);
   const dispatch = useDispatch();
+  const roles = useSelector<RootState>((state) => state.auth.roles);
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
-    token && dispatch(authActions.signin(token));
+    const authToken = window.localStorage.getItem('authToken');
+
+    if (authToken && authToken !== 'undefined') {
+      dispatch(authActions.setToken(authToken));
+      userService
+        .details()
+        .then((roles) => dispatch(authActions.setRoles(roles)));
+    } else dispatch(authActions.signOut());
   }, [dispatch]);
+
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
 
   return (
     <>
@@ -56,15 +70,17 @@ export default function App() {
             <Route exact path="/auditor/cadastro" component={AuditorRegister} />
             <Route
               exact
-              path="/instituicaoAvalidadora/cadastro"
-              component={EvaluatorInstitutionRegister}
-            />
-            <Route
-              exact
               path="/organizacao/cadastro"
               component={OrganizationRegister}
             />
-            <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            <Route
+              exact
+              path="/instituicaoAvalidadora/cadastro"
+              component={EvaluatorInstitutionRegister}
+            />
+            {userRoles[0]?.role === 'modelManager' && (
+              <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            )}
             <PrivateRoute exact path="/modelo" component={ModelDetails} />
             <PrivateRoute exact path="/modelo/:id" component={ModelDetails} />
             <PrivateRoute
@@ -92,7 +108,7 @@ export default function App() {
               path="/avaliacao/:id"
               component={EvaluationDetails}
             />
-            <Route
+            <PrivateRoute
               exact
               path="/instituicoesAvaliadoras"
               component={EvaluatorInstitutionManagment}

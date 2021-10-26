@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dropdown } from 'shared/components/Dropdown/Dropdown';
-import { SideBarData } from 'shared/services/SideBarData';
+import { SideBarData } from 'shared/data/SideBarData';
 import {
   DropdownItem,
   DropdownDivider,
@@ -22,15 +22,25 @@ import { authActions, RootState } from 'shared/store';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
+  const [userRoles, setUserRoles] = useState<any[]>([]);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
   const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
+  const roles = useSelector<RootState>((state) => state.auth.roles);
 
   const toggleDropdown = () => setNavMenu(!navMenu);
   const logoutHandler = () => dispatch(authActions.signOut());
 
   const ref = useRef<HTMLDivElement>(null);
+
+  const mockRoles = ['modelManager'];
+
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
 
   return (
     <Header>
@@ -44,15 +54,20 @@ export const NavBar = () => {
             positionTop="1.1em"
             positionLeft="-1em"
           >
-            {SideBarData.map((item, index) => {
+            {SideBarData.map(({ title, path, roles }, index) => {
+              if (roles) {
+                if (!roles?.some((element) => mockRoles.includes(element)))
+                  return <React.Fragment key={index}></React.Fragment>;
+              }
+
               return (
                 <div key={index}>
                   <DropdownItem
                     as={Link}
-                    to={item.path}
+                    to={path}
                     onClick={() => setNavMenu(false)}
                   >
-                    <span>{item.title}</span>
+                    <span>{title}</span>
                   </DropdownItem>
                   {index !== SideBarData.length - 1 && <DropdownDivider />}
                 </div>
