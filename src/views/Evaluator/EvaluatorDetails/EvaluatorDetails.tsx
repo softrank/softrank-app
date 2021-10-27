@@ -64,7 +64,7 @@ export const EvaluatorDetails = () => {
     <Wrapper>
       <Title>Cadastrar avaliador</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="10px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="name"

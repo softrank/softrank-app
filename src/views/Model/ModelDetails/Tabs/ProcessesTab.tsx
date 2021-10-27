@@ -71,7 +71,7 @@ export const ProcessesTab = ({
 
   return (
     <Form onSubmit={onSubmit}>
-      <FlexSpace space="1rem">
+      <FlexSpace>
         <AddIcon
           onClick={() => {
             append(new Process());

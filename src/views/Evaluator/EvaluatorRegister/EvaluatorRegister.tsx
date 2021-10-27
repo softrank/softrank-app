@@ -99,7 +99,7 @@ export const EvaluatorRegister = () => {
         <Wrapper>
           <Title>Cadastro avaliador</Title>
           <Form onSubmit={onSubmit}>
-            <FlexSpace space="16px">
+            <FlexSpace>
               <InputGroup>
                 <Input
                   name="email"
@@ -187,7 +187,7 @@ export const EvaluatorRegister = () => {
                     <React.Fragment key={id}>
                       <CollapseContent>
                         <div style={{ width: '100%' }}>
-                          <FlexSpace space="16px">
+                          <FlexSpace>
                             <InputGroup>
                               <DateInput
                                 label="Validade"

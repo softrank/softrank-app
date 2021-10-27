@@ -1,4 +1,10 @@
-export const SideBarData = [
+interface IPath {
+  title: string;
+  path: string;
+  roles?: string[];
+}
+
+export const SideBarData: IPath[] = [
   {
     title: 'Home',
     path: '/',

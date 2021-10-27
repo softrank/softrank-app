@@ -26,7 +26,7 @@ export const EvaluatorInstitutionRegister = () => {
     <Wrapper>
       <Title>Instituição avaliadora</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="name"

@@ -21,7 +21,7 @@ export const ModelManagerRegister = () => {
     <Wrapper>
       <Title>Cadastro gestor do modelo</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="name"

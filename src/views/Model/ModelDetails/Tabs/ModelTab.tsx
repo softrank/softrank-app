@@ -81,7 +81,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <FlexSpace space="4px">
+      <FlexSpace>
         <InputGroup>
           <Input
             name="name"
@@ -123,7 +123,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
             return (
               <React.Fragment key={id}>
                 <CollapseContent>
-                  <LevelGroup>
+                  <InputGroup>
                     <Input
                       name={`modelLevels[${index}].initial`}
                       label="Sigla"
@@ -146,8 +146,8 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
                       rules={{ required: true }}
                       errors={errors?.modelLevels?.[index]?.name}
                     />
-                  </LevelGroup>
-                  <RemoveIcon onClick={() => levelsRemove(index)} />
+                    <RemoveIcon onClick={() => levelsRemove(index)} />
+                  </InputGroup>
                 </CollapseContent>
                 {index !== levels.length - 1 && <GroupDivider />}
               </React.Fragment>

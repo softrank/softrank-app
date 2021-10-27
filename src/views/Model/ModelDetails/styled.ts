@@ -11,7 +11,7 @@ export const Options = styled.div`
 `;
 
 export const LevelGroup = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 2em;
@@ -49,9 +49,12 @@ export const AddIcon = styled(IoIosAdd)`
 export const RemoveIcon = styled(HiOutlineTrash)`
   ${iconCss}
   margin: auto;
+  min-width: 50px;
+  position: relative;
+  top: 10px;
 
   @media (max-width: 640px) {
-    width: 90%;
+    width: 100%;
     height: 2.4em;
     padding: 0.2em;
 

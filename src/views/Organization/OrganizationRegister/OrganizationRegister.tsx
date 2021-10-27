@@ -22,7 +22,7 @@ export const OrganizationRegister = () => {
     <Wrapper>
       <Title>Cadastro organização</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="email"

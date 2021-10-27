@@ -72,7 +72,7 @@ export const EvaluationNew = () => {
         <Wrapper>
           <Title>Adicionar avaliação</Title>
           <Form onSubmit={onSubmit}>
-            <FlexSpace space="16px">
+            <FlexSpace>
               <InputGroup>
                 <Input
                   name="name"

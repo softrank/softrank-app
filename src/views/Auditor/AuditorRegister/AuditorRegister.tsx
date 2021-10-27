@@ -23,7 +23,7 @@ export const AuditorRegister = () => {
     <Wrapper>
       <Title>Cadastro auditor</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="email"
