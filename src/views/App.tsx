@@ -78,7 +78,7 @@ export default function App() {
               path="/instituicaoAvalidadora/cadastro"
               component={EvaluatorInstitutionRegister}
             />
-            {userRoles[0]?.role === 'modelManager' && (
+            {userRoles.includes('modelManager') && (
               <PrivateRoute exact path="/modelos" component={ModelManagment} />
             )}
             <PrivateRoute exact path="/modelo" component={ModelDetails} />

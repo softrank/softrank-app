@@ -35,8 +35,6 @@ export const NavBar = () => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const mockRoles: string[] = ['modelManager'];
-
   useEffect(() => {
     const rolesArray: any[] = roles as any[];
     setUserRoles(rolesArray);
@@ -56,7 +54,7 @@ export const NavBar = () => {
           >
             {SideBarData.map(({ title, path, roles }, index) => {
               if (roles)
-                if (!roles?.some((element) => mockRoles.includes(element)))
+                if (!roles?.some((element) => userRoles.includes(element)))
                   return <React.Fragment key={index}></React.Fragment>;
 
               return (

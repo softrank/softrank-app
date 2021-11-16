@@ -78,6 +78,8 @@ export const GlobalStyles = styled.createGlobalStyle`
       border-color: var(--gray-500) !important;
     }
     .react-datepicker__day--selected,
+    .react-datepicker__day--keyboard-selected,
+    .react-datepicker__month-text--keyboard-selected,
     .react-datepicker__year-text--selected,
     .react-datepicker__year-text--keyboard-selected {
       background: var(--purple-500);

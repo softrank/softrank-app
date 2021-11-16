@@ -10,20 +10,6 @@ export const Options = styled.div`
   gap: 0.2em;
 `;
 
-export const LevelGroup = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-  }
-`;
-
 const iconCss = css`
   width: 1.6em;
   height: 1.6em;

@@ -10,11 +10,7 @@ import {
   DateInput,
   TextArea,
 } from 'shared/components/Form';
-import {
-  LevelGroup,
-  RemoveIcon,
-  Options,
-} from 'views/Model/ModelDetails/styled';
+import { RemoveIcon, Options } from 'views/Model/ModelDetails/styled';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import {
