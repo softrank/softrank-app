@@ -1,5 +1,5 @@
-export class ModelLevelDto {
-  public id?: string;
-
-  constructor(public initial: string = '', public name: string = '') {}
+export interface ModelLevelDto {
+  id?: string;
+  initial: string;
+  name: string;
 }

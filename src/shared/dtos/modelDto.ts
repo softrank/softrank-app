@@ -1,5 +1,5 @@
-import { Process } from 'shared/models/process';
 import { ModelLevelDto } from './modelLevelDto';
+import { ProcessDto } from './processDto';
 
 export interface ModelDto {
   id?: string;
@@ -7,5 +7,5 @@ export interface ModelDto {
   year: Date;
   description: string;
   modelLevels: ModelLevelDto[];
-  modelProcesses?: Process[];
+  modelProcesses?: ProcessDto[];
 }

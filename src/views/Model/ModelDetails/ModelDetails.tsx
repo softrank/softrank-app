@@ -26,6 +26,7 @@ export const ModelDetails = () => {
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
     setLoading(true);
     let response: ModelEntity;
+
     try {
       if (data.id) {
         response = await modelsService.update(data);

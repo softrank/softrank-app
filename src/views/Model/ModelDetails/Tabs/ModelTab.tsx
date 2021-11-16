@@ -18,6 +18,7 @@ import {
   GroupDivider,
 } from 'shared/components/Collapse/styled';
 import { ModelLevelDto } from 'shared/dtos/modelLevelDto';
+import { ModelLevel } from 'shared/models/modelLevel';
 
 interface Props {
   model: ModelEntity;
@@ -44,9 +45,37 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
     name: 'modelLevels',
   });
 
-  const onSubmit = handleSubmit(
-    async (data) => await createOrUpdateModel(data, 1)
-  );
+  const formatModel = (data: ModelDto) => {
+    const levels = data.modelLevels.map((level) => {
+      let levelDto: ModelLevelDto = {
+        initial: level.initial,
+        name: level.name,
+      };
+      if (level.id !== '' && data.id) levelDto.id = level.id;
+      return levelDto;
+    });
+
+    let modelDto: ModelDto = {
+      name: data.name,
+      year: new Date(data.year),
+      description: data.description,
+      modelLevels: levels,
+    };
+
+    if (data.id !== '' && data.id !== undefined) {
+      modelDto.id = data.id;
+      if (data.modelProcesses) modelDto.modelProcesses = data.modelProcesses;
+    }
+
+    return modelDto;
+  };
+
+  const saveModel = (data: ModelDto) => {
+    const model = formatModel(data);
+    createOrUpdateModel(model, 1);
+  };
+
+  const onSubmit = handleSubmit(async (data) => await saveModel(data));
 
   useEffect(() => {
     const processes = model.modelProcesses;
@@ -111,13 +140,11 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
         <Collapse
           underline
           title="Níveis"
-          options={
-            <AddIcon onClick={() => levelsAppend(new ModelLevelDto())} />
-          }
+          options={<AddIcon onClick={() => levelsAppend(new ModelLevel())} />}
         >
           {levels.map(({ id }, index) => {
             return (
-              <React.Fragment key={id}>
+              <React.Fragment key={index}>
                 <CollapseContent>
                   <InputGroup>
                     <Input

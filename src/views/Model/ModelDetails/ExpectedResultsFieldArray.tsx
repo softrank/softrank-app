@@ -56,6 +56,18 @@ export const ExpectedResultsFieldArray = (props: Props) => {
                   ]?.initial
                 }
               />
+              <Input
+                name={`modelProcesses[${processIndex}].expectedResults[${index}].name`}
+                label="Nome"
+                placeholder="nome do resultado esperado"
+                control={control}
+                rules={{ required: true }}
+                errors={
+                  errors?.modelProcesses?.[processIndex]?.expectedResults?.[
+                    index
+                  ]?.name
+                }
+              />
             </InputGroup>
             <InputGroup>
               <Select

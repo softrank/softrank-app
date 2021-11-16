@@ -43,13 +43,14 @@ const LevelOptions: ModelLevel[] = [
 const ProcessOptions: Process[] = [
   {
     id: '',
-    initials: 'GPR',
+    initial: 'GPR',
     name: 'Gerenciamento de projetos',
     description: 'descrição de projetos',
     expectedResults: [
       {
         id: '',
         initial: 'GPR1',
+        name: 'O escopo do trabalho para o projeto é definido',
         description: 'descrip resultado',
         minLevel: '',
         maxLevel: '',
@@ -58,13 +59,14 @@ const ProcessOptions: Process[] = [
   },
   {
     id: '',
-    initials: 'GCO',
+    initial: 'GCO',
     name: 'Gerenciamento de configuração',
     description: 'descrição de configuração',
     expectedResults: [
       {
         id: '',
         initial: 'GCO1',
+        name: 'O escopo do trabalho para o projeto é definido',
         description: 'descrip resultado',
         minLevel: '',
         maxLevel: '',
@@ -72,6 +74,7 @@ const ProcessOptions: Process[] = [
       {
         id: '',
         initial: 'GCO2',
+        name: 'O escopo do trabalho para o projeto é definido',
         description: 'descrip gco 2',
         minLevel: '',
         maxLevel: '',

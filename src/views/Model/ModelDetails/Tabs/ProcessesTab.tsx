@@ -3,7 +3,9 @@ import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Collapse, Button, AddIcon, FlexSpace } from 'shared/components';
 import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
+import { ExpectedResultDto } from 'shared/dtos/expectedResultDto';
 import { ModelDto } from 'shared/dtos/modelDto';
+import { ProcessDto } from 'shared/dtos/processDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';
 import { ExpectedResultsFieldArray } from 'views/Model/ModelDetails/ExpectedResultsFieldArray';
@@ -40,11 +42,27 @@ export const ProcessesTab = ({
   });
 
   const submitProcesses = async (processes: Process[]) => {
-    processes.forEach((modelProcess) => {
-      modelProcess.expectedResults?.forEach((expectedResult) => {
-        expectedResult.minLevel = (expectedResult.minLevel as any).label;
-        expectedResult.maxLevel = (expectedResult.maxLevel as any).label;
+    const formatedProcesses = processes.map((process) => {
+      const formatedExpectedResults = process.expectedResults.map((er) => {
+        const erDto: ExpectedResultDto = {
+          initial: er.initial,
+          name: er.name,
+          description: er.description,
+          minLevel: (er.minLevel = (er.minLevel as any).label),
+          maxLevel: (er.maxLevel = (er.maxLevel as any).label),
+        };
+        if (er.id !== '' && er.id) erDto.id = er.id;
+        return erDto;
       });
+
+      const processDto: ProcessDto = {
+        name: process.name,
+        initial: process.initial,
+        description: process.description,
+        expectedResults: formatedExpectedResults,
+      };
+      if (process.id !== '' && process.id) processDto.id = process.id;
+      return processDto;
     });
 
     const modelDto: ModelDto = {
@@ -53,7 +71,7 @@ export const ProcessesTab = ({
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
-      modelProcesses: processes,
+      modelProcesses: formatedProcesses,
     };
 
     await createOrUpdateModel(modelDto, 3);
@@ -64,8 +82,13 @@ export const ProcessesTab = ({
   );
 
   useEffect(() => {
+    console.log(model.modelProcesses);
+
     reset({
-      modelProcesses: model.modelProcesses ?? new Process(),
+      modelProcesses:
+        model.modelProcesses && model.modelProcesses.length > 0
+          ? model.modelProcesses
+          : [new Process()],
     });
   }, [model, reset]);
 
@@ -91,7 +114,7 @@ export const ProcessesTab = ({
                   placeholder="sigla do processo"
                   control={control}
                   rules={{ required: true }}
-                  errors={errors?.modelProcesses?.[index]?.initials}
+                  errors={errors?.modelProcesses?.[index]?.initial}
                 />
                 <Input
                   name={`modelProcesses[${index}].name`}
