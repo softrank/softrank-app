@@ -1,9 +1,9 @@
 export interface Address {
-  id: string;
+  id?: string;
   zipcode: string;
   addressLine: string;
   number: number;
   observation?: string;
-  state: string;
   city: string;
+  state: string;
 }

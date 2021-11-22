@@ -11,15 +11,18 @@ import {
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvalutationDto } from 'shared/dtos/evaluationDto';
+import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { ModelLevel } from 'shared/models/modelLevel';
 import { modelsService } from 'shared/services';
+import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
 
 export const EvaluationNew = () => {
   const [loading, setLoading] = useState(true);
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [levels, setLevels] = useState<ModelLevel[]>([]);
-  const [levelField, setLevelField] = useState(null);
+  const [disableLevels, setDisableLevels] = useState(true);
+  const [institutions, setInstitutions] = useState<EvaluatorInstitution[]>([]);
 
   const {
     handleSubmit,
@@ -29,26 +32,23 @@ export const EvaluationNew = () => {
     getValues,
     formState: { errors },
   } = useForm<any>();
+
   const handleCreateAuditor = (evaluation: EvalutationDto) => {
     console.log(evaluation);
+
+    evaluation.organizationalUnitId = '7d11b246-87f2-4271-a6ec-d39d74954a5c';
   };
 
   const watchModel: any = watch('model');
 
-  // const defaultValues = {
-  //   expectedLevel: { value: undefined, label: '' },
-  // };
-
   useEffect(() => {
-    modelsService
-      .list()
-      .then((response) => {
-        setModels(response);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
+    modelsService.list().then((response) => {
+      setModels(response);
+    });
+    evaluatorInstitutionService.list().then((response) => {
+      setInstitutions(response);
+    });
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -58,8 +58,8 @@ export const EvaluationNew = () => {
       );
       const levelOptions = selectedModel[0].modelLevels;
       setLevels(levelOptions);
-      reset({ ...getValues(), expectedLevel: { value: undefined, label: '' } });
-      setLevelField(null);
+      setDisableLevels(false);
+      reset({ ...getValues(), expectedLevel: undefined });
     }
   }, [watchModel, models, reset, getValues]);
 
@@ -107,6 +107,28 @@ export const EvaluationNew = () => {
               </InputGroup>
               <InputGroup>
                 <Select
+                  name="evaluatorInstitutionId"
+                  label="Instituição avaliadora"
+                  placeholder="selecione uma instituição"
+                  control={control}
+                  rules={{ required: true }}
+                  optionValues={institutions}
+                  optionLabel="name"
+                  errors={errors?.evaluatorInstitutionId}
+                />
+                <Select
+                  name="organizationalUnitId"
+                  label="Unidade ornizacional"
+                  placeholder="selecione uma organização"
+                  control={control}
+                  rules={{ required: true }}
+                  optionValues={institutions}
+                  optionLabel="name"
+                  errors={errors?.organizationalUnitId}
+                />
+              </InputGroup>
+              <InputGroup>
+                <Select
                   name="model"
                   label="Modelo"
                   placeholder="selecione um modelo"
@@ -119,13 +141,17 @@ export const EvaluationNew = () => {
                 <Select
                   name="expectedLevel"
                   label="Nível pretendido"
-                  placeholder="selecione um nível"
+                  placeholder={
+                    disableLevels
+                      ? 'primeiro selecione um modelo'
+                      : 'selecione um nível'
+                  }
                   control={control}
                   rules={{ required: true }}
                   optionValues={levels}
                   optionLabel="initial"
                   errors={errors?.expectedLevel}
-                  value={levelField}
+                  disabled={disableLevels}
                 />
               </InputGroup>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>

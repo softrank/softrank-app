@@ -36,6 +36,8 @@ export const EvaluatorInstitutionRegister = () => {
               rules={{ required: true }}
               errors={errors?.name}
             />
+          </InputGroup>
+          <InputGroup>
             <Input
               name="email"
               label="Email"
@@ -50,6 +52,17 @@ export const EvaluatorInstitutionRegister = () => {
                 },
               }}
               errors={errors?.email}
+            />
+            <Input
+              name="password"
+              label="Senha"
+              placeholder="senha da instituição"
+              type="password"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              errors={errors?.password}
             />
           </InputGroup>
           <InputGroup>

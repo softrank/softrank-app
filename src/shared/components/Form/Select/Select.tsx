@@ -77,9 +77,7 @@ export const Select = (props: Props) => {
               placeholder={placeholder}
               onChange={onChange}
               options={options}
-              value={
-                props.value ? options.find((c) => c.value === value) : undefined
-              }
+              value={value ?? null}
               isDisabled={disabled}
               isMulti={multi}
               isSearchable={search}

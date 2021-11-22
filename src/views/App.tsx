@@ -50,7 +50,7 @@ export default function App() {
   return (
     <>
       <NavBar />
-      <Route exact path="/" component={HomePage} />
+      <PrivateRoute exact path="/" component={HomePage} />
       <Route
         path={'/(.+)'}
         render={() => (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Button, Collapse, FlexSpace, Title, Wrapper } from 'shared/components';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
+import { ERTitle } from './styled';
 
 export const EvaluationDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -18,22 +19,48 @@ export const EvaluationDetails = () => {
         <STabPanel>
           <FlexSpace space="1rem">
             <Collapse title="GPR - 1">
-              <div>Projeto 1</div>
-              <div>Projeto 2</div>
-              <div>Projeto 3</div>
-              <div>Projeto 4</div>
+              <ERTitle>
+                O escopo do trabalho para o projeto é estabelecido, mantido
+                atualizado e utilizado.
+              </ERTitle>
+              <Collapse title="Projeto - 1" underline>
+                <input type="file" />
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 2" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 3" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 4" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
             </Collapse>
             <Collapse title="GPR - 2">
-              <div>Projeto 1</div>
-              <div>Projeto 2</div>
-              <div>Projeto 3</div>
-              <div>Projeto 4</div>
-            </Collapse>
-            <Collapse title="GPR - 3">
-              <div>Projeto 1</div>
-              <div>Projeto 2</div>
-              <div>Projeto 3</div>
-              <div>Projeto 4</div>
+              <ERTitle>
+                O processo a ser utilizado para a execução do projeto é
+                descrito, mantido atualizado e utilizado.
+              </ERTitle>
+              <Collapse title="Projeto - 1" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 2" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 3" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
+              <Collapse title="Projeto - 4" underline>
+                <div>teste</div>
+                <></>
+              </Collapse>
             </Collapse>
           </FlexSpace>
         </STabPanel>

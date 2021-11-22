@@ -82,8 +82,6 @@ export const ProcessesTab = ({
   );
 
   useEffect(() => {
-    console.log(model.modelProcesses);
-
     reset({
       modelProcesses:
         model.modelProcesses && model.modelProcesses.length > 0

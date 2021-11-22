@@ -5,5 +5,4 @@ export interface Auditor {
   documentNumber: string;
   documentType: string;
   phone: string;
-  password: string;
 }
