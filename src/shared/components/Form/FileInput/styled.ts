@@ -25,6 +25,10 @@ export const StyledDropzone = styled.div<Props>`
   font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
   color: var(--gray-700);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ZoneTitle = styled.p`
