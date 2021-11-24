@@ -80,7 +80,7 @@ export const NavBar = () => {
       </HeaderColumn2>
       <HeaderColumn3>
         {auth ? (
-          <ButtonLink onClick={() => logoutHandler()}>Logout</ButtonLink>
+          <ButtonLink onClick={() => logoutHandler()}>Sair</ButtonLink>
         ) : (
           <ButtonLink onClick={() => history.push('/login')}>Login</ButtonLink>
         )}
