@@ -41,7 +41,7 @@ export const OrganizationRegister = () => {
 
   useEffect(() => {
     append({});
-  }, []);
+  }, [append]);
 
   const onSubmit = handleSubmit((data) => handleCreateOrganization(data));
   return (

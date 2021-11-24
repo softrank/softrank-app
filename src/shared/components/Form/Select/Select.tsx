@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Control,
   Controller,
@@ -9,7 +8,6 @@ import {
 
 import { ErrorsNote, Label } from '..';
 import { CustomSelect } from './styled';
-
 interface OptionValue {
   value: string;
   label: string;
@@ -39,7 +37,7 @@ export const Select = (props: Props) => {
     placeholder,
     control,
     optionValues,
-    optionValue,
+    optionValue = '',
     optionLabel,
     disabled,
     multi,
@@ -53,7 +51,7 @@ export const Select = (props: Props) => {
 
   optionValues.map((element) => {
     const option: OptionValue = {
-      value: optionValue ?? element.id,
+      value: element.id ?? element[optionValue],
       label: element[optionLabel],
     };
     options.push(option);

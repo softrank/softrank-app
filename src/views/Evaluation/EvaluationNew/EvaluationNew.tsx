@@ -7,6 +7,7 @@ import {
   Form,
   Input,
   InputGroup,
+  FileInput,
   Select,
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -152,6 +153,15 @@ export const EvaluationNew = () => {
                   optionLabel="initial"
                   errors={errors?.expectedLevel}
                   disabled={disableLevels}
+                />
+              </InputGroup>
+              <InputGroup>
+                <FileInput
+                  label="Plano de avaliação"
+                  name="evaluationPlan"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.evaluationPlan}
                 />
               </InputGroup>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>

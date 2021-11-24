@@ -1,11 +1,22 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Button, Collapse, FlexSpace, Title, Wrapper } from 'shared/components';
+import { Form, Input, InputGroup, Select } from 'shared/components/Form';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
+import { ImplementationDegreesData } from 'shared/data/implementationDegrees';
 import { ERTitle } from './styled';
 
 export const EvaluationDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<any>();
+
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <Wrapper>
@@ -24,20 +35,156 @@ export const EvaluationDetails = () => {
                 atualizado e utilizado.
               </ERTitle>
               <Collapse title="Projeto - 1" underline>
-                <input type="file" />
-                <></>
+                <InputGroup>
+                  <Input
+                    name="name"
+                    label="Nome"
+                    placeholder="nome do arquivo"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Input
+                    name="file"
+                    label="Arquivo"
+                    placeholder="arquivo"
+                    type="file"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Select
+                    name="implementationDegree"
+                    label="Grau de implementação"
+                    placeholder="selecione uma opção"
+                    control={control}
+                    rules={{ required: true }}
+                    optionValues={ImplementationDegreesData}
+                    optionLabel="label"
+                    optionValue="value"
+                    errors={errors?.implementationDegree}
+                  />
+                </InputGroup>
               </Collapse>
               <Collapse title="Projeto - 2" underline>
-                <div>teste</div>
-                <></>
+                <InputGroup>
+                  <Input
+                    name="name"
+                    label="Nome"
+                    placeholder="nome do arquivo"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Input
+                    name="file"
+                    label="Arquivo"
+                    placeholder="arquivo"
+                    type="file"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Select
+                    name="implementationDegree"
+                    label="Grau de implementação"
+                    placeholder="selecione uma opção"
+                    control={control}
+                    rules={{ required: true }}
+                    optionValues={ImplementationDegreesData}
+                    optionLabel="label"
+                    optionValue="value"
+                    errors={errors?.implementationDegree}
+                  />
+                </InputGroup>
               </Collapse>
               <Collapse title="Projeto - 3" underline>
-                <div>teste</div>
-                <></>
+                <InputGroup>
+                  <Input
+                    name="name"
+                    label="Nome"
+                    placeholder="nome do arquivo"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Input
+                    name="file"
+                    label="Arquivo"
+                    placeholder="arquivo"
+                    type="file"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Select
+                    name="implementationDegree"
+                    label="Grau de implementação"
+                    placeholder="selecione uma opção"
+                    control={control}
+                    rules={{ required: true }}
+                    optionValues={ImplementationDegreesData}
+                    optionLabel="label"
+                    optionValue="value"
+                    errors={errors?.implementationDegree}
+                  />
+                </InputGroup>
               </Collapse>
               <Collapse title="Projeto - 4" underline>
-                <div>teste</div>
-                <></>
+                <InputGroup>
+                  <Input
+                    name="name"
+                    label="Nome"
+                    placeholder="nome do arquivo"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Input
+                    name="file"
+                    label="Arquivo"
+                    placeholder="arquivo"
+                    type="file"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Select
+                    name="implementationDegree"
+                    label="Grau de implementação"
+                    placeholder="selecione uma opção"
+                    control={control}
+                    rules={{ required: true }}
+                    optionValues={ImplementationDegreesData}
+                    optionLabel="label"
+                    optionValue="value"
+                    errors={errors?.implementationDegree}
+                  />
+                </InputGroup>
               </Collapse>
             </Collapse>
             <Collapse title="GPR - 2">
@@ -45,22 +192,58 @@ export const EvaluationDetails = () => {
                 O processo a ser utilizado para a execução do projeto é
                 descrito, mantido atualizado e utilizado.
               </ERTitle>
-              <Collapse title="Projeto - 1" underline>
-                <div>teste</div>
-                <></>
-              </Collapse>
-              <Collapse title="Projeto - 2" underline>
-                <div>teste</div>
-                <></>
-              </Collapse>
-              <Collapse title="Projeto - 3" underline>
-                <div>teste</div>
-                <></>
-              </Collapse>
-              <Collapse title="Projeto - 4" underline>
-                <div>teste</div>
-                <></>
-              </Collapse>
+              <Form onSubmit={onSubmit}>
+                <FlexSpace>
+                  <InputGroup>
+                    <Select
+                      name="evaluatorInstitutionId"
+                      label="Grau de implementação"
+                      placeholder="selecione uma opção"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={ImplementationDegreesData}
+                      optionLabel="label"
+                      optionValue="value"
+                      errors={errors?.evaluatorInstitutionId}
+                    />
+                    <Select
+                      name="evaluatorInstitutionId2"
+                      label="Projeto 2"
+                      placeholder="selecione uma opção"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={ImplementationDegreesData}
+                      optionLabel="label"
+                      optionValue="value"
+                      errors={errors?.evaluatorInstitutionId}
+                    />
+                  </InputGroup>
+                  <InputGroup>
+                    <Select
+                      name="evaluatorInstitutionId"
+                      label="Projeto 3"
+                      placeholder="selecione uma opção"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={ImplementationDegreesData}
+                      optionLabel="label"
+                      optionValue="value"
+                      errors={errors?.evaluatorInstitutionId}
+                    />
+                    <Select
+                      name="evaluatorInstitutionId2"
+                      label="Projeto 4"
+                      placeholder="selecione uma opção"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={ImplementationDegreesData}
+                      optionLabel="label"
+                      optionValue="value"
+                      errors={errors?.evaluatorInstitutionId}
+                    />
+                  </InputGroup>
+                </FlexSpace>
+              </Form>
             </Collapse>
           </FlexSpace>
         </STabPanel>
@@ -71,7 +254,7 @@ export const EvaluationDetails = () => {
           <div>pcp</div>
         </STabPanel>
       </STabs>
-      <Button secondary width="6rem" onClick={() => console.log('salvando')}>
+      <Button secondary width="6rem" onClick={() => onSubmit()}>
         Salvar
       </Button>
     </Wrapper>
