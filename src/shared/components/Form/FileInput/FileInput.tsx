@@ -32,10 +32,16 @@ interface Props {
   getValues: UseFormGetValues<any>;
 }
 
-export const FileInput = (props: Props) => {
-  const { label, name, control, rules, errors, multiple, reset, getValues } =
-    props;
-
+export const FileInput = ({
+  label,
+  name,
+  control,
+  rules,
+  errors,
+  multiple,
+  reset,
+  getValues,
+}: Props) => {
   const [filesList, setFilesList] = useState<any[]>([]);
   const [paths, setPaths] = useState<string[]>([]);
 
@@ -117,7 +123,6 @@ const Dropzone = ({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple,
-    noKeyboard: true,
   });
 
   return (

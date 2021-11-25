@@ -27,8 +27,13 @@ export const StyledDropzone = styled.div<Props>`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
   color: var(--gray-700);
 
+  transition: all 200ms ease;
+
   &:hover {
     cursor: pointer;
+  }
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -65,10 +70,6 @@ export const FileContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     width: 80%;
-  }
-
-  &:hover {
-    cursor: default;
   }
 `;
 
