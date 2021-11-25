@@ -90,7 +90,7 @@ export const EvaluationNew = () => {
                 <DateInput
                   label="Data de início"
                   name="startDate"
-                  placeholder="selecione um data de início"
+                  placeholder="selecione uma data de início"
                   dateFormat="dd/MM/yyyy"
                   control={control}
                   rules={{ required: true }}
@@ -99,7 +99,7 @@ export const EvaluationNew = () => {
                 <DateInput
                   label="Data de fim"
                   name="endDate"
-                  placeholder="selecione um data de fim"
+                  placeholder="selecione uma data de fim"
                   dateFormat="dd/MM/yyyy"
                   control={control}
                   rules={{ required: true }}
@@ -119,7 +119,7 @@ export const EvaluationNew = () => {
                 />
                 <Select
                   name="organizationalUnitId"
-                  label="Unidade ornizacional"
+                  label="Unidade organizacional"
                   placeholder="selecione uma organização"
                   control={control}
                   rules={{ required: true }}
@@ -137,6 +137,7 @@ export const EvaluationNew = () => {
                   errors={errors?.evaluationPlan}
                   reset={reset}
                   getValues={getValues}
+                  multiple
                 />
               </InputGroup>
               <InputGroup>

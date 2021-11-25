@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { defaultStyles, FileIcon } from 'react-file-icon';
 import {
@@ -36,7 +36,21 @@ export const FileInput = (props: Props) => {
   const { label, name, control, rules, errors, multiple, reset, getValues } =
     props;
 
-  const [files, setFiles] = useState<any[]>([]);
+  const [filesList, setFilesList] = useState<any[]>([]);
+  const [paths, setPaths] = useState<string[]>([]);
+
+  const removeFiles = (listIndex: number, fileIndex: number) => {
+    const copyFiles = [...filesList];
+    const copyPaths = [...paths];
+
+    const filePath = copyFiles[listIndex][fileIndex].path;
+    setPaths(copyPaths.filter((path) => path !== filePath));
+
+    copyFiles[listIndex].splice(fileIndex, 1);
+    const filterFiles = copyFiles.filter((line) => line.length > 0);
+    reset({ ...getValues(), [name]: filterFiles });
+    setFilesList(filterFiles);
+  };
 
   return (
     <div style={{ width: '100%' }}>
@@ -45,18 +59,17 @@ export const FileInput = (props: Props) => {
         name={name}
         control={control}
         rules={rules}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange } }) => (
           <Dropzone
             multiple={multiple}
             onChange={(e: any) =>
               onChange(multiple ? e.target.files : e.target.files[0])
             }
-            files={files}
-            setFiles={setFiles}
-            value={value}
-            reset={reset}
-            getValues={getValues}
-            name={name}
+            filesList={filesList}
+            setFilesList={setFilesList}
+            removeFiles={removeFiles}
+            paths={paths}
+            setPaths={setPaths}
           />
         )}
       />
@@ -68,30 +81,37 @@ export const FileInput = (props: Props) => {
 interface DropzoneProps {
   multiple?: boolean;
   onChange: any;
-  files: any[];
-  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
-  value: any;
-  reset: UseFormReset<any>;
-  getValues: UseFormGetValues<any>;
-  name: string;
+  filesList: any[];
+  setFilesList: React.Dispatch<React.SetStateAction<any[]>>;
+  removeFiles: (listIndex: number, fileIndex: number) => void;
+  paths: string[];
+  setPaths: Dispatch<SetStateAction<string[]>>;
 }
 
 const Dropzone = ({
   multiple,
   onChange,
-  files,
-  setFiles,
-  reset,
-  getValues,
-  name,
+  filesList,
+  setFilesList,
+  removeFiles,
+  paths,
+  setPaths,
 }: DropzoneProps) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const copyfiles = [...files];
-      copyfiles.push(acceptedFiles);
-      setFiles(copyfiles);
+      if (acceptedFiles.length > 0) {
+        const copyFiles = [...filesList];
+        const copyPaths = [...paths];
+        const filteredFiles = acceptedFiles.filter(
+          (file: any) => !paths.includes(file.path)
+        );
+        filteredFiles.map((file: any) => copyPaths.push(file.path));
+        copyFiles.push(filteredFiles);
+        setFilesList(copyFiles);
+        setPaths(copyPaths);
+      }
     },
-    [setFiles, files]
+    [setFilesList, filesList, setPaths, paths]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -99,11 +119,6 @@ const Dropzone = ({
     multiple,
     noKeyboard: true,
   });
-
-  const removeFiles = () => {
-    reset({ ...getValues(), [name]: undefined });
-    setFiles([]);
-  };
 
   return (
     <>
@@ -116,19 +131,22 @@ const Dropzone = ({
         )}
       </StyledDropzone>
       <FilesContainer>
-        {files.map((file) => {
-          const splits = file[0].path.split('.');
-          const type: undefined = splits.at(-1);
-          console.log(type);
-          return (
-            <FileContainer>
-              <FileWrapper>
-                <FileIcon extension={type} {...defaultStyles[type!]} />
-              </FileWrapper>
-              <div>{file[0].path}</div>
-              <RemoveFileButton onClick={() => removeFiles()} />
-            </FileContainer>
-          );
+        {filesList.map((files, index) => {
+          return files.map((file: any, fileIndex = index) => {
+            const splits = file.path.split('.');
+            const type: undefined = splits.at(-1);
+            return (
+              <FileContainer key={fileIndex}>
+                <FileWrapper>
+                  <FileIcon extension={type} {...defaultStyles[type!]} />
+                </FileWrapper>
+                <div>{files[0].path}</div>
+                <RemoveFileButton
+                  onClick={() => removeFiles(index, fileIndex)}
+                />
+              </FileContainer>
+            );
+          });
         })}
       </FilesContainer>
     </>

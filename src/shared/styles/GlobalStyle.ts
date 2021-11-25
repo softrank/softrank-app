@@ -57,6 +57,15 @@ export const GlobalStyles = styled.createGlobalStyle`
     .react-datepicker-wrapper {
       width: 100%;
     }
+
+    .react-datepicker__input-container {
+      > input::placeholder {
+        color: var(--gray-500);
+        font-size: 16px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
+      }
+    }
+
     .react-datepicker {
       top: -18px;
       border-radius: var(--radius);

@@ -56,6 +56,7 @@ export const FileContainer = styled.div`
   max-width: 260px;
 
   background-color: var(--gray-100);
+  background-color: rgba(231, 234, 251, 0.46);
 
   div {
     color: var(--gray-700);
