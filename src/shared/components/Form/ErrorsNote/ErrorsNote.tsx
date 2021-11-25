@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DeepMap, FieldValues, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
 const Note = styled.span`
   position: relative;
-  /* top: -10px; */
   left: 10px;
-
   font-size: 14px;
-
   color: var(--error);
 `;
 

@@ -129,6 +129,17 @@ export const EvaluationNew = () => {
                 />
               </InputGroup>
               <InputGroup>
+                <FileInput
+                  label="Plano de avaliação"
+                  name="evaluationPlan"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.evaluationPlan}
+                  reset={reset}
+                  getValues={getValues}
+                />
+              </InputGroup>
+              <InputGroup>
                 <Select
                   name="model"
                   label="Modelo"
@@ -153,15 +164,6 @@ export const EvaluationNew = () => {
                   optionLabel="initial"
                   errors={errors?.expectedLevel}
                   disabled={disableLevels}
-                />
-              </InputGroup>
-              <InputGroup>
-                <FileInput
-                  label="Plano de avaliação"
-                  name="evaluationPlan"
-                  control={control}
-                  rules={{ required: true }}
-                  errors={errors?.evaluationPlan}
                 />
               </InputGroup>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>

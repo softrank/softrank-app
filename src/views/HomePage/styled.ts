@@ -5,9 +5,8 @@ export const ActionCardContainer = styled.div`
   gap: 1rem;
   flex-wrap: nowrap;
   overflow-y: hidden;
+  overflow-x: visible;
   z-index: 0;
-
-  height: auto;
 
   border-radius: var(--radius);
 
@@ -16,7 +15,7 @@ export const ActionCardContainer = styled.div`
     padding: 10px;
   }
   &::-webkit-scrollbar-track {
-    margin: 350px;
+    margin: 20vw;
     background: var(--purple-300);
     border-radius: var(--radius) 50px;
   }

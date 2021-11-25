@@ -1,14 +1,25 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { defaultStyles, FileIcon } from 'react-file-icon';
 import {
   Control,
   Controller,
   DeepMap,
   FieldError,
   FieldValues,
+  UseFormGetValues,
+  UseFormReset,
 } from 'react-hook-form';
+
 import { ErrorsNote, Label } from '..';
-import { StyledDropzone, ZoneTitle } from './styled';
+import {
+  FileContainer,
+  FilesContainer,
+  FileWrapper,
+  RemoveFileButton,
+  StyledDropzone,
+  ZoneTitle,
+} from './styled';
 
 interface Props {
   label: string;
@@ -17,10 +28,13 @@ interface Props {
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
   multiple?: boolean;
+  reset: UseFormReset<any>;
+  getValues: UseFormGetValues<any>;
 }
 
 export const FileInput = (props: Props) => {
-  const { label, name, control, rules, errors, multiple } = props;
+  const { label, name, control, rules, errors, multiple, reset, getValues } =
+    props;
 
   const [files, setFiles] = useState<any[]>([]);
 
@@ -39,6 +53,10 @@ export const FileInput = (props: Props) => {
             }
             files={files}
             setFiles={setFiles}
+            value={value}
+            reset={reset}
+            getValues={getValues}
+            name={name}
           />
         )}
       />
@@ -52,14 +70,28 @@ interface DropzoneProps {
   onChange: any;
   files: any[];
   setFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  value: any;
+  reset: UseFormReset<any>;
+  getValues: UseFormGetValues<any>;
+  name: string;
 }
 
-const Dropzone = ({ multiple, onChange, files, setFiles }: DropzoneProps) => {
+const Dropzone = ({
+  multiple,
+  onChange,
+  files,
+  setFiles,
+  reset,
+  getValues,
+  name,
+}: DropzoneProps) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFiles(acceptedFiles);
+      const copyfiles = [...files];
+      copyfiles.push(acceptedFiles);
+      setFiles(copyfiles);
     },
-    [setFiles]
+    [setFiles, files]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -68,18 +100,37 @@ const Dropzone = ({ multiple, onChange, files, setFiles }: DropzoneProps) => {
     noKeyboard: true,
   });
 
+  const removeFiles = () => {
+    reset({ ...getValues(), [name]: undefined });
+    setFiles([]);
+  };
+
   return (
-    <StyledDropzone {...getRootProps()} isActive={isDragActive}>
-      <input {...getInputProps({ onChange })} />
-      {files.length <= 0 ? (
-        isDragActive ? (
+    <>
+      <StyledDropzone {...getRootProps()} isActive={isDragActive}>
+        <input {...getInputProps({ onChange })} multiple />
+        {isDragActive ? (
           <ZoneTitle>Solte os arquivos aqui</ZoneTitle>
         ) : (
           <ZoneTitle>Selecione ou arraste arquivos aqui</ZoneTitle>
-        )
-      ) : (
-        files.map((file: any, index) => <p key={index}>{file.path}</p>)
-      )}
-    </StyledDropzone>
+        )}
+      </StyledDropzone>
+      <FilesContainer>
+        {files.map((file) => {
+          const splits = file[0].path.split('.');
+          const type: undefined = splits.at(-1);
+          console.log(type);
+          return (
+            <FileContainer>
+              <FileWrapper>
+                <FileIcon extension={type} {...defaultStyles[type!]} />
+              </FileWrapper>
+              <div>{file[0].path}</div>
+              <RemoveFileButton onClick={() => removeFiles()} />
+            </FileContainer>
+          );
+        })}
+      </FilesContainer>
+    </>
   );
 };
