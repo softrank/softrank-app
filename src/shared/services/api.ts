@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { store } from 'shared/store';
 
-axios.defaults.baseURL = 'http://localhost:3001/api';
+axios.defaults.baseURL = 'http://localhost:3002/api';
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
