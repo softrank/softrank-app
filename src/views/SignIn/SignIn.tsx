@@ -62,7 +62,7 @@ export const SignIn = () => {
     register('email', {
       required: true,
       pattern: {
-        value: /[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i,
+        value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
         message: 'Email inválido',
       },
     });

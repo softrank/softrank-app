@@ -21,6 +21,7 @@ export const SideBarData: IPath[] = [
   {
     title: 'Avaliações',
     path: '/avaliacoes',
+    roles: ['modelManager'],
   },
   {
     title: 'Instituições Avaliadoras',

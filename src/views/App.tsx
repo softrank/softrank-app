@@ -12,7 +12,6 @@ import {
   NotFound,
   GlobalStyles,
   EvaluatorManagment,
-  EvaluatorDetails,
   ModelManagment,
   ModelDetails,
   Register,
@@ -61,11 +60,11 @@ export default function App() {
               path="/avaliador/cadastro"
               component={EvaluatorRegister}
             />
-            <Route
+            {/* <Route
               exact
               path="/avaliadores/cadastro"
               component={EvaluatorDetails}
-            />
+            /> */}
             <Route exact path="/cadastro" component={Register} />
             <Route exact path="/auditor/cadastro" component={AuditorRegister} />
             <Route
@@ -78,9 +77,6 @@ export default function App() {
               path="/instituicaoAvalidadora/cadastro"
               component={EvaluatorInstitutionRegister}
             />
-            {userRoles.includes('modelManager') && (
-              <PrivateRoute exact path="/modelos" component={ModelManagment} />
-            )}
             <PrivateRoute exact path="/modelo" component={ModelDetails} />
             <PrivateRoute exact path="/modelo/:id" component={ModelDetails} />
             <PrivateRoute
@@ -88,6 +84,16 @@ export default function App() {
               path="/avaliadores"
               component={EvaluatorManagment}
             />
+            {userRoles.includes('modelManager') && (
+              <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            )}
+            {userRoles.includes('evaluator') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/nova"
+                component={EvaluationNew}
+              />
+            )}
             <PrivateRoute
               exact
               path="/avaliacoes"
@@ -97,11 +103,6 @@ export default function App() {
               exact
               path="/avaliacao"
               component={EvaluationDetails}
-            />
-            <PrivateRoute
-              exact
-              path="/avaliacao/nova"
-              component={EvaluationNew}
             />
             <PrivateRoute
               exact

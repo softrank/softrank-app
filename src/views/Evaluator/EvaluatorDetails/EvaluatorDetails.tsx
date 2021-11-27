@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 import { Button, FlexSpace, Title, Wrapper } from 'shared/components';
 import { Form, Input, InputGroup } from 'shared/components/Form';
-import { Evaluator } from 'shared/models/evaluator';
+import { EvaluatorDto } from 'shared/dtos/evaluatorDto';
 import { evaluatorService } from 'shared/services';
 import { Options } from './styled';
 
@@ -14,10 +14,10 @@ export const EvaluatorDetails = () => {
     control,
     register,
     formState: { errors },
-  } = useForm<Evaluator>();
+  } = useForm<EvaluatorDto>();
   const history = useHistory();
 
-  const handleCreateEvaluator = (evaluator: Evaluator) => {
+  const handleCreateEvaluator = (evaluator: EvaluatorDto) => {
     evaluator.documentType = 'CPF';
 
     evaluatorService

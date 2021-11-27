@@ -1,5 +1,6 @@
 import { BsClipboardData } from 'react-icons/bs';
 import { CgLoadbarDoc } from 'react-icons/cg';
+import { IoIosAdd } from 'react-icons/io';
 import styled, { css } from 'styled-components';
 
 export const ActionCardStyle = styled.div`
@@ -29,6 +30,8 @@ export const ActionCardHeaderContent = styled.div`
   align-items: center;
 
   width: 100%;
+
+  text-align: center;
 `;
 
 export const ActionCardTitle = styled.h1`
@@ -46,4 +49,9 @@ export const EvaluationIcon = styled(BsClipboardData)`
 
 export const DocIcon = styled(CgLoadbarDoc)`
   ${iconCss}
+`;
+export const AddIcon = styled(IoIosAdd)`
+  ${iconCss}
+  height: 60px;
+  width: 70px;
 `;

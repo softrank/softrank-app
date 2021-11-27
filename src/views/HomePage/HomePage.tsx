@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+
+import { RootState } from 'shared/store';
 import { ActionCard, EditIcon, Table, Title, Wrapper } from 'shared/components';
-import { LoadingScreen } from 'shared/components/Loading';
+import { LoadingSpinner } from 'shared/components/Loading';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
 import { ActionCardContainer } from './styled';
@@ -10,6 +13,9 @@ import { ActionCardContainer } from './styled';
 export const HomePage = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userRoles, setUserRoles] = useState<any[]>([]);
+
+  const roles = useSelector<RootState>((state) => state.auth.roles);
 
   const history = useHistory();
 
@@ -25,6 +31,11 @@ export const HomePage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
+
   const formatDate = (date: any) => {
     return new Date(date.toString()).getFullYear();
   };
@@ -34,14 +45,28 @@ export const HomePage = () => {
       <Title>Atividades</Title>
       <ActionCardContainer>
         <ActionCard path="avaliacoes" title="Avaliações" icon="evaluation" />
-        <ActionCard path="modelos" title="Modelos" icon="doc" />
-        <ActionCard path="avaliacoes" title="Avaliações" icon="evaluation" />
-        <ActionCard path="modelos" title="Modelos" icon="doc" />
+        {userRoles.includes('evaluator') && (
+          <ActionCard
+            path="avaliacao/nova"
+            title="Adicionar avaliação"
+            icon="add"
+          />
+        )}
+        {userRoles.includes('modelManager') && (
+          <>
+            <ActionCard path="modelos" title="Modelos" icon="doc" />
+            <ActionCard path="modelo" title="Adicionar modelos" icon="add" />
+          </>
+        )}
       </ActionCardContainer>
 
       <Title>Minhas avaliações</Title>
       {loading ? (
-        <LoadingScreen loading={loading} content="Carregando modelos..." />
+        <LoadingSpinner
+          loading={loading}
+          content="Carregando suas avaliações..."
+          size={80}
+        />
       ) : (
         <Table
           headers={[

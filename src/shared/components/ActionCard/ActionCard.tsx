@@ -3,6 +3,7 @@ import {
   ActionCardHeaderContent,
   ActionCardStyle,
   ActionCardTitle,
+  AddIcon,
   DocIcon,
   EvaluationIcon,
 } from './styled';
@@ -10,7 +11,7 @@ import {
 interface Props {
   path: string;
   title: string;
-  icon: 'evaluation' | 'doc';
+  icon: 'evaluation' | 'doc' | 'add';
 }
 
 export const ActionCard = ({ path, title, icon }: Props) => {
@@ -22,6 +23,7 @@ export const ActionCard = ({ path, title, icon }: Props) => {
         <ActionCardTitle>{title}</ActionCardTitle>
         {icon === 'evaluation' && <EvaluationIcon />}
         {icon === 'doc' && <DocIcon />}
+        {icon === 'add' && <AddIcon />}
       </ActionCardHeaderContent>
     </ActionCardStyle>
   );

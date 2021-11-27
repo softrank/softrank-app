@@ -11,11 +11,16 @@ interface Props {
   control: any;
   errors: any;
   levels: ModelLevel[];
+  watch: any;
 }
 
-export const ExpectedResultsFieldArray = (props: Props) => {
-  const { processIndex, control, errors, levels } = props;
-
+export const ExpectedResultsFieldArray = ({
+  processIndex,
+  control,
+  errors,
+  levels,
+  watch,
+}: Props) => {
   const {
     fields: expectedResults,
     remove,
@@ -40,7 +45,11 @@ export const ExpectedResultsFieldArray = (props: Props) => {
         return (
           <Collapse
             key={er.id}
-            title={`RE ${index + 1}`}
+            title={
+              watch[processIndex].expectedResults[index].initial === ''
+                ? 'Resultado esperado novo'
+                : watch[processIndex].expectedResults[index].initial
+            }
             options={<RemoveIcon onClick={() => remove(index)} />}
           >
             <InputGroup>

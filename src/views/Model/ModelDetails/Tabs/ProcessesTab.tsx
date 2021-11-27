@@ -22,14 +22,13 @@ interface Props {
 export const ProcessesTab = ({
   setTabIndex,
   model,
-  setModel,
   createOrUpdateModel,
-  loading,
 }: Props) => {
   const {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm<{ modelProcesses: Process[] }>();
   const {
@@ -90,6 +89,8 @@ export const ProcessesTab = ({
     });
   }, [model, reset]);
 
+  const watchProcess = watch('modelProcesses');
+
   return (
     <Form onSubmit={onSubmit}>
       <FlexSpace>
@@ -102,7 +103,11 @@ export const ProcessesTab = ({
           return (
             <Collapse
               key={index}
-              title={`Processo ${index + 1}`}
+              title={
+                watchProcess[index].name === ''
+                  ? 'Processo novo'
+                  : watchProcess[index].name
+              }
               options={<RemoveIcon onClick={() => remove(index)} />}
             >
               <InputGroup>
@@ -138,6 +143,7 @@ export const ProcessesTab = ({
                 control={control}
                 errors={errors}
                 levels={model.modelLevels}
+                watch={watchProcess}
               />
             </Collapse>
           );
