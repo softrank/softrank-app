@@ -45,6 +45,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'GPR',
     name: 'Gerência de projetos',
+    processCapacity: 'P',
     description:
       'O propósito do processo Gerência de Projetos é estabelecer e manter atualizados planos que definam as atividades, recursos, riscos, prazos e responsabilidades do projeto. Também é propósito deste processo prover informações sobre o andamento do projeto que permitam a realização de correções quando houver desvios significativos no desempenho do projeto, incluindo análise de causa-raiz',
     expectedResults: [
@@ -342,6 +343,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'REQ',
     name: 'Engenharia de Requisitos',
+    processCapacity: 'P',
     description:
       'O propósito do processo Engenharia de Requisitos é definir, gerenciar e manter atualizados os requisitos das partes interessadas e do produto, garantindo que inconsistências entre os requisitos, os planos e os produtos de trabalho sejam identificadas e tratadas.',
     expectedResults: [
@@ -440,6 +442,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'PCP',
     name: 'Projeto e Construção do Produto',
+    processCapacity: 'P',
     description:
       'O propósito do processo Projeto e Construção do Produto é projetar, desenvolver e implementar soluções para atender aos requisitos.',
     expectedResults: [
@@ -485,6 +488,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'ITP',
     name: 'Integração do Produto',
+    processCapacity: 'P',
     description:
       'O propósito do processo Integração do Produto é montar os componentes do produto conforme a estratégia definida, produzindo um produto integrado consistente com seu projeto (design) e seus requisitos.',
     expectedResults: [
@@ -548,6 +552,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'VV',
     name: 'Verificação e Validação',
+    processCapacity: 'P',
     description:
       'O propósito do processo Verificação e Validação é confirmar que os produtos de trabalho selecionados atendem aos requisitos especificados, pela execução de testes e revisão por pares, e que um produto ou componente do produto atenderá a seu uso pretendido quando colocado no ambiente operacional.',
     expectedResults: [
@@ -602,6 +607,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'GCO',
     name: 'Gerência de Configuração',
+    processCapacity: 'O',
     description:
       'O propósito do processo Gerência de Configuração é estabelecer e manter a integridade de produtos de trabalho e disponibilizá-los a todos os envolvidos.',
     expectedResults: [
@@ -656,6 +662,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'AQU',
     name: 'Aquisição',
+    processCapacity: 'O',
     description:
       'O propósito do processo Aquisição é gerenciar a aquisição de produtos que satisfaçam às necessidades expressas pelo adquirente.',
     expectedResults: [
@@ -728,6 +735,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'MED',
     name: 'Medição',
+    processCapacity: 'O',
     description:
       'O propósito do processo Medição é coletar, armazenar, analisar e relatar dados objetivos relacionados aos produtos desenvolvidos e aos processos implementados, de forma a apoiar os objetivos organizacionais.',
     expectedResults: [
@@ -872,6 +880,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'GDE',
     name: 'Gerência de Decisões',
+    processCapacity: 'O',
     description:
       'O propósito do processo Gerência de Decisões é analisar possíveis decisões críticas usando um processo formal, com critérios estabelecidos, para avaliação das alternativas identificadas',
     expectedResults: [
@@ -944,6 +953,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'GRH',
     name: 'Gerência de Recursos Humanos',
+    processCapacity: 'O',
     description:
       'O propósito do processo de Gerência de Recursos Humanos é prover a organização com os recursos humanos necessários e manter as suas competências adequadas às necessidades do negócio.',
     expectedResults: [
@@ -988,6 +998,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'GPC',
     name: 'Gerência de Processos',
+    processCapacity: 'O',
     description:
       'O propósito do processo Gerência de Processos é estabelecer, manter atualizado, identificar e realizar melhorias em um conjunto de processo da organização e padrões do ambiente de trabalho usáveis e aplicáveis às necessidades de negócio da organização. Também é propósito deste processo definir as estratégias para a garantia da qualidade e gerência de riscos e a infraestrutura para realização de medições.',
     expectedResults: [
@@ -1105,6 +1116,7 @@ export const ProcessOptions: Process[] = [
     id: '',
     initial: 'ORG',
     name: 'Gerência Organizacional',
+    processCapacity: 'O',
     description:
       'O propósito do processo Gerência Organizacional é fornecer para a gerência da organização instrumentos para apoiar os processos e prover um alinhamento entre os objetivos de negócio, os processos, os recursos e os projetos/serviços da organização.',
     expectedResults: [

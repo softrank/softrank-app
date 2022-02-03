@@ -55,7 +55,7 @@ export const HomePage = () => {
         {userRoles.includes('modelManager') && (
           <>
             <ActionCard path="modelos" title="Modelos" icon="doc" />
-            <ActionCard path="modelo" title="Adicionar modelos" icon="add" />
+            <ActionCard path="modelo" title="Adicionar modelo" icon="add" />
           </>
         )}
       </ActionCardContainer>

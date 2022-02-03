@@ -2,9 +2,15 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, Collapse, FlexSpace, Title, Wrapper } from 'shared/components';
-import { Form, Input, InputGroup, Select } from 'shared/components/Form';
+import {
+  FileInput,
+  Form,
+  Input,
+  InputGroup,
+  Select,
+} from 'shared/components/Form';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
-import { ImplementationDegreesData } from 'shared/data/implementationDegrees';
+import { implementationDegreesData } from 'shared/data/implementationDegrees';
 import { ERTitle } from './styled';
 
 export const EvaluationDetails = () => {
@@ -13,6 +19,8 @@ export const EvaluationDetails = () => {
   const {
     handleSubmit,
     control,
+    reset,
+    getValues,
     formState: { errors },
   } = useForm<any>();
 
@@ -48,16 +56,15 @@ export const EvaluationDetails = () => {
                   />
                 </InputGroup>
                 <InputGroup>
-                  <Input
-                    name="file"
-                    label="Arquivo"
-                    placeholder="arquivo"
-                    type="file"
+                  <FileInput
+                    label="Fonte de evidência"
+                    name="evidenceSource"
                     control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
+                    rules={{ required: true }}
+                    errors={errors?.evaluationPlan}
+                    reset={reset}
+                    getValues={getValues}
+                    multiple
                   />
                   <Select
                     name="implementationDegree"
@@ -65,7 +72,7 @@ export const EvaluationDetails = () => {
                     placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={ImplementationDegreesData}
+                    optionValues={implementationDegreesData}
                     optionLabel="label"
                     optionValue="value"
                     errors={errors?.implementationDegree}
@@ -103,7 +110,7 @@ export const EvaluationDetails = () => {
                     placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={ImplementationDegreesData}
+                    optionValues={implementationDegreesData}
                     optionLabel="label"
                     optionValue="value"
                     errors={errors?.implementationDegree}
@@ -141,7 +148,7 @@ export const EvaluationDetails = () => {
                     placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={ImplementationDegreesData}
+                    optionValues={implementationDegreesData}
                     optionLabel="label"
                     optionValue="value"
                     errors={errors?.implementationDegree}
@@ -179,7 +186,7 @@ export const EvaluationDetails = () => {
                     placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={ImplementationDegreesData}
+                    optionValues={implementationDegreesData}
                     optionLabel="label"
                     optionValue="value"
                     errors={errors?.implementationDegree}
@@ -201,7 +208,7 @@ export const EvaluationDetails = () => {
                       placeholder="selecione uma opção"
                       control={control}
                       rules={{ required: true }}
-                      optionValues={ImplementationDegreesData}
+                      optionValues={implementationDegreesData}
                       optionLabel="label"
                       optionValue="value"
                       errors={errors?.evaluatorInstitutionId}
@@ -212,7 +219,7 @@ export const EvaluationDetails = () => {
                       placeholder="selecione uma opção"
                       control={control}
                       rules={{ required: true }}
-                      optionValues={ImplementationDegreesData}
+                      optionValues={implementationDegreesData}
                       optionLabel="label"
                       optionValue="value"
                       errors={errors?.evaluatorInstitutionId}
@@ -225,7 +232,7 @@ export const EvaluationDetails = () => {
                       placeholder="selecione uma opção"
                       control={control}
                       rules={{ required: true }}
-                      optionValues={ImplementationDegreesData}
+                      optionValues={implementationDegreesData}
                       optionLabel="label"
                       optionValue="value"
                       errors={errors?.evaluatorInstitutionId}
@@ -236,7 +243,7 @@ export const EvaluationDetails = () => {
                       placeholder="selecione uma opção"
                       control={control}
                       rules={{ required: true }}
-                      optionValues={ImplementationDegreesData}
+                      optionValues={implementationDegreesData}
                       optionLabel="label"
                       optionValue="value"
                       errors={errors?.evaluatorInstitutionId}

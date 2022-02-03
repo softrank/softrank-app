@@ -2,7 +2,14 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Collapse, Button, AddIcon, FlexSpace } from 'shared/components';
-import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
+import {
+  InputGroup,
+  Input,
+  TextArea,
+  Form,
+  Select,
+} from 'shared/components/Form';
+import { capacitiesData } from 'shared/data/capacities';
 import { ExpectedResultDto } from 'shared/dtos/expectedResultDto';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ProcessDto } from 'shared/dtos/processDto';
@@ -112,6 +119,14 @@ export const ProcessesTab = ({
             >
               <InputGroup>
                 <Input
+                  name={`modelProcesses[${index}].name`}
+                  label="Nome"
+                  placeholder="nome do processo"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.modelProcesses?.[index]?.name}
+                />
+                <Input
                   name={`modelProcesses[${index}].initial`}
                   label="Sigla"
                   placeholder="sigla do processo"
@@ -119,13 +134,17 @@ export const ProcessesTab = ({
                   rules={{ required: true }}
                   errors={errors?.modelProcesses?.[index]?.initial}
                 />
-                <Input
-                  name={`modelProcesses[${index}].name`}
-                  label="Nome"
-                  placeholder="nome do processo"
+              </InputGroup>
+              <InputGroup>
+                <Select
+                  name={`modelProcesses[${index}].processCapacity`}
+                  label="Capacidade"
+                  placeholder="selecione uma capacidade"
                   control={control}
                   rules={{ required: true }}
-                  errors={errors?.modelProcesses?.[index]?.name}
+                  optionValues={capacitiesData}
+                  optionLabel="initial"
+                  errors={errors?.modelProcesses?.[index]?.processCapacity}
                 />
               </InputGroup>
               <InputGroup>

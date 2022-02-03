@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router';
 
-import { AddIcon, Title, Wrapper } from 'shared/components';
+import { AddIcon, Divider, Title, Wrapper } from 'shared/components';
+import { SubTitle } from 'shared/components/Titles/SubTitle';
 
 export const EvaluationManagment = () => {
   const history = useHistory();
@@ -11,6 +12,8 @@ export const EvaluationManagment = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <AddIcon onClick={() => history.push('/avaliacao/nova')} />
       </div>
+      <SubTitle>Em andamento</SubTitle>
+      <Divider />
     </Wrapper>
   );
 };

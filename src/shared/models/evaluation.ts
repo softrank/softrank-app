@@ -1,4 +1,5 @@
-export interface EvalutationDto {
+export interface Evalutation {
+  id: string;
   name: string;
   start: Date;
   end: Date;

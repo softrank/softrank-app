@@ -3,7 +3,7 @@ interface Degreee {
   value: string;
 }
 
-export const ImplementationDegreesData: Degreee[] = [
+export const implementationDegreesData: Degreee[] = [
   {
     value: 'T',
     label: 'Totalmente implementado',

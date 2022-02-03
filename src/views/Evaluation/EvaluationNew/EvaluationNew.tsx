@@ -1,7 +1,19 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Button, FlexSpace, Title, Wrapper } from 'shared/components';
+import {
+  AddIcon,
+  Button,
+  Collapse,
+  FlexSpace,
+  Title,
+  Wrapper,
+} from 'shared/components';
+import {
+  CollapseContent,
+  GroupDivider,
+} from 'shared/components/Collapse/styled';
 import {
   DateInput,
   Form,
@@ -12,18 +24,34 @@ import {
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvalutationDto } from 'shared/dtos/evaluationDto';
+import { Auditor } from 'shared/models/auditor';
+import { Evaluator } from 'shared/models/evaluator';
 import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { ModelLevel } from 'shared/models/modelLevel';
-import { modelsService } from 'shared/services';
-import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
+import { Organization } from 'shared/models/organization';
+import {
+  auditorService,
+  evaluatorInstitutionService,
+  evaluatorService,
+  modelsService,
+  organizationalUnitService,
+} from 'shared/services';
+import { RemoveIcon } from 'views/Model/ModelDetails/styled';
+import { EvaluationForm } from './evaluationForm';
 
 export const EvaluationNew = () => {
   const [loading, setLoading] = useState(true);
   const [models, setModels] = useState<ModelEntity[]>([]);
   const [levels, setLevels] = useState<ModelLevel[]>([]);
-  const [disableLevels, setDisableLevels] = useState(true);
   const [institutions, setInstitutions] = useState<EvaluatorInstitution[]>([]);
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [auditors, setAuditors] = useState<Auditor[]>([]);
+  const [evaluatorsOptions, setEvaluatorsOptions] = useState<Evaluator[]>([]);
+  const [disableLevels, setDisableLevels] = useState(true);
+  const [disableEvaluators, setDisableEvaluators] = useState(true);
+  const [disableAddEvaluators, setDisableAddEvaluators] = useState(false);
+  const [disableAddProjects, setDisableAddProjects] = useState(false);
 
   const {
     handleSubmit,
@@ -32,23 +60,79 @@ export const EvaluationNew = () => {
     reset,
     getValues,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm<EvaluationForm>();
 
-  const handleCreateAuditor = (evaluation: EvalutationDto) => {
-    console.log(evaluation);
+  const {
+    fields: evaluators,
+    append: evaluatorsAppend,
+    remove: evaluatorsRemove,
+  } = useFieldArray({
+    control,
+    name: 'evaluatorsIds',
+  });
 
-    evaluation.organizationalUnitId = '7d11b246-87f2-4271-a6ec-d39d74954a5c';
-  };
+  const {
+    fields: projects,
+    append: projectsAppend,
+    remove: projectsRemove,
+  } = useFieldArray({
+    control,
+    name: 'projects',
+  });
 
   const watchModel: any = watch('model');
+  const watchInstitution: any = watch('evaluatorInstitutionId');
+
+  const formatEvaluation = (formData: EvaluationForm) => {
+    const formatedEvaluators = formData.evaluatorsIds.map((evaluator) => {
+      return evaluator.evaluatorId;
+    });
+
+    const formatedProjects = formData.projects.map((project) => {
+      return project.name;
+    });
+
+    const evalutationDto: EvalutationDto = {
+      name: formData.name,
+      start: formData.start,
+      end: formData.end,
+      evaluatorInstitutionId: (formData.evaluatorInstitutionId = (
+        formData.evaluatorInstitutionId as any
+      ).value),
+      organizationalUnitId: (formData.organizationalUnitId = (
+        formData.organizationalUnitId as any
+      ).value),
+      expectedModelLevelId: (formData.expectedModelLevelId = (
+        formData.expectedModelLevelId as any
+      ).value),
+      implementationInstitution: formData.implementationInstitution,
+      auditorId: (formData.auditorId = (formData.auditorId as any).value),
+      evaluatorsIds: formatedEvaluators,
+      projects: formatedProjects,
+    };
+
+    return evalutationDto;
+  };
+
+  const handleCreateAuditor = (formData: EvaluationForm) => {
+    const evaluation = formatEvaluation(formData);
+
+    console.log(evaluation);
+
+    // evaluationService
+    //   .create(evaluation)
+    //   .then((response) => console.log('criado'));
+  };
 
   useEffect(() => {
-    modelsService.list().then((response) => {
-      setModels(response);
-    });
-    evaluatorInstitutionService.list().then((response) => {
-      setInstitutions(response);
-    });
+    modelsService.list().then((response) => setModels(response));
+    evaluatorInstitutionService
+      .list()
+      .then((response) => setInstitutions(response));
+    organizationalUnitService
+      .list()
+      .then((response) => setOrganizations(response));
+    auditorService.list().then((response) => setAuditors(response));
     setLoading(false);
   }, []);
 
@@ -60,9 +144,45 @@ export const EvaluationNew = () => {
       const levelOptions = selectedModel[0].modelLevels;
       setLevels(levelOptions);
       setDisableLevels(false);
-      reset({ ...getValues(), expectedLevel: undefined });
+      reset({
+        ...getValues(),
+        expectedModelLevelId: { value: null, label: null },
+      });
     }
   }, [watchModel, models, reset, getValues]);
+
+  useEffect(() => {
+    if (watchInstitution) {
+      setDisableEvaluators(false);
+      const institutionId = watchInstitution.value;
+      evaluatorService.list(institutionId).then((response) => {
+        setEvaluatorsOptions(response);
+      });
+      reset({ ...getValues(), evaluatorsIds: [] });
+      evaluatorsAppend({});
+    }
+  }, [watchInstitution, reset, getValues, evaluatorsAppend]);
+
+  useEffect(() => {
+    if (evaluators.length === 3) {
+      setDisableAddEvaluators(true);
+    } else {
+      setDisableAddEvaluators(false);
+    }
+  }, [evaluators, evaluatorsRemove]);
+
+  useEffect(() => {
+    if (projects.length === 4) {
+      setDisableAddProjects(true);
+    } else {
+      setDisableAddProjects(false);
+    }
+  }, [projects, projectsRemove]);
+
+  useEffect(() => {
+    evaluatorsAppend({});
+    projectsAppend({});
+  }, [evaluatorsAppend, projectsAppend]);
 
   const onSubmit = handleSubmit((data) => handleCreateAuditor(data));
   return (
@@ -85,6 +205,16 @@ export const EvaluationNew = () => {
                   }}
                   errors={errors?.name}
                 />
+                <Select
+                  name="auditorId"
+                  label="Auditor"
+                  placeholder="selecione um auditor"
+                  control={control}
+                  rules={{ required: true }}
+                  optionValues={auditors}
+                  optionLabel="name"
+                  errors={errors?.auditorId}
+                />
               </InputGroup>
               <InputGroup>
                 <DateInput
@@ -94,7 +224,7 @@ export const EvaluationNew = () => {
                   dateFormat="dd/MM/yyyy"
                   control={control}
                   rules={{ required: true }}
-                  errors={errors.startDate}
+                  errors={errors?.start}
                 />
                 <DateInput
                   label="Data de fim"
@@ -103,7 +233,7 @@ export const EvaluationNew = () => {
                   dateFormat="dd/MM/yyyy"
                   control={control}
                   rules={{ required: true }}
-                  errors={errors.endDate}
+                  errors={errors?.end}
                 />
               </InputGroup>
               <InputGroup>
@@ -123,7 +253,7 @@ export const EvaluationNew = () => {
                   placeholder="selecione uma organização"
                   control={control}
                   rules={{ required: true }}
-                  optionValues={institutions}
+                  optionValues={organizations}
                   optionLabel="name"
                   errors={errors?.organizationalUnitId}
                 />
@@ -153,7 +283,7 @@ export const EvaluationNew = () => {
                 />
                 <Select
                   name="expectedLevel"
-                  label="Nível pretendido"
+                  label="Nível"
                   placeholder={
                     disableLevels
                       ? 'primeiro selecione um modelo'
@@ -163,10 +293,79 @@ export const EvaluationNew = () => {
                   rules={{ required: true }}
                   optionValues={levels}
                   optionLabel="initial"
-                  errors={errors?.expectedLevel}
+                  errors={errors?.expectedModelLevelId}
                   disabled={disableLevels}
                 />
               </InputGroup>
+              <Collapse
+                underline
+                title="Avaliadores adjuntos"
+                options={
+                  <AddIcon
+                    disable={disableAddEvaluators}
+                    onClick={() => evaluatorsAppend({})}
+                  />
+                }
+              >
+                {evaluators.map(({ id }, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <CollapseContent>
+                        <InputGroup>
+                          <Select
+                            name={`evaluatorsIds[${index}].evaluatorId`}
+                            label="Avaliador"
+                            placeholder={
+                              disableEvaluators
+                                ? 'primeiro selecione uma instituição'
+                                : 'selecione um avaliador'
+                            }
+                            control={control}
+                            rules={{ required: true }}
+                            optionValues={evaluatorsOptions}
+                            optionLabel="name"
+                            disabled={disableEvaluators}
+                            errors={errors?.evaluatorsIds?.[index]?.evaluatorId}
+                          />
+                          <RemoveIcon onClick={() => evaluatorsRemove(index)} />
+                        </InputGroup>
+                      </CollapseContent>
+                      {index !== evaluators.length - 1 && <GroupDivider />}
+                    </React.Fragment>
+                  );
+                })}
+              </Collapse>
+              <Collapse
+                underline
+                title="Projetos"
+                options={
+                  <AddIcon
+                    disable={disableAddProjects}
+                    onClick={() => projectsAppend({})}
+                  />
+                }
+              >
+                {projects.map(({ id }, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <CollapseContent>
+                        <InputGroup>
+                          <Input
+                            name={`projects[${index}].name`}
+                            label="Nome"
+                            placeholder="nome do projeto"
+                            control={control}
+                            rules={{ required: true }}
+                            errors={errors?.projects?.[index]?.name}
+                          />
+                          <RemoveIcon onClick={() => projectsRemove(index)} />
+                        </InputGroup>
+                      </CollapseContent>
+                      {index !== projects.length - 1 && <GroupDivider />}
+                    </React.Fragment>
+                  );
+                })}
+              </Collapse>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
                 <Button type="submit" secondary>
                   Salvar

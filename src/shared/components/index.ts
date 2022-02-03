@@ -8,3 +8,4 @@ export { SearchBox } from 'shared/components/SearchBox/SearchBox';
 export { Table } from 'shared/components/Table/Table';
 export * from './Layouts';
 export * from './ActionCard/ActionCard';
+export * from './Divider/Divider';

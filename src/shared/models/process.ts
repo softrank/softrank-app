@@ -6,6 +6,7 @@ export class Process {
     public name: string = '',
     public initial: string = '',
     public description: string = '',
-    public expectedResults: ExpectedResult[] = [new ExpectedResult()]
+    public expectedResults: ExpectedResult[] = [new ExpectedResult()],
+    public processCapacity: string = ''
   ) {}
 }

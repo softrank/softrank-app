@@ -14,7 +14,7 @@ import {
   GroupDivider,
 } from 'shared/components/Collapse/styled';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { OrganizationDto } from 'shared/dtos/organizationalUnit';
+import { OrganizationDto } from 'shared/dtos/organizationalUnitDto';
 import { RemoveIcon } from 'views/Model/ModelDetails/styled';
 
 export const OrganizationRegister = () => {

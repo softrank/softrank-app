@@ -87,7 +87,8 @@ export default function App() {
             {userRoles.includes('modelManager') && (
               <PrivateRoute exact path="/modelos" component={ModelManagment} />
             )}
-            {userRoles.includes('evaluator') && (
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('modelManager')) && (
               <PrivateRoute
                 exact
                 path="/avaliacao/nova"
