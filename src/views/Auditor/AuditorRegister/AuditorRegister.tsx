@@ -1,20 +1,26 @@
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 
 import { Title, Button, Wrapper, FlexSpace } from 'shared/components';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { Auditor } from 'shared/models/auditor';
+import { AuditorDto } from 'shared/dtos/auditorDto';
+import { auditorService } from 'shared/services/auditorService';
 
 export const AuditorRegister = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Auditor>();
+  } = useForm<AuditorDto>();
 
-  const handleCreateAuditor = (auditor: Auditor) => {
-    auditor.documentType = 'CPF';
+  const history = useHistory();
+
+  const handleCreateAuditor = (auditor: AuditorDto) => {
+    auditor.documentType = 'f';
 
     console.log(auditor);
+
+    auditorService.create(auditor).then((response) => history.push('/'));
   };
 
   const onSubmit = handleSubmit((data) => handleCreateAuditor(data));
@@ -23,7 +29,7 @@ export const AuditorRegister = () => {
     <Wrapper>
       <Title>Cadastro auditor</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="email"

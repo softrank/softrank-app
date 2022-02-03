@@ -7,7 +7,7 @@ import loginImage from 'shared/assets/images/login.svg';
 import { Button } from 'shared/components';
 import { Form, Input } from 'shared/components/Form';
 import { signDto } from 'shared/dtos/signDto';
-import { authService } from 'shared/services';
+import { userService } from 'shared/services';
 import { authActions } from 'shared/store';
 import {
   ErrorNote,
@@ -43,7 +43,7 @@ export const SignIn = () => {
       password: data.password,
     };
 
-    authService
+    userService
       .signin(signIn)
       .then((res) => {
         dispatch(authActions.signin(res));
@@ -53,9 +53,6 @@ export const SignIn = () => {
       .catch((error) => {
         setLoading(false);
         setError(true);
-        console.log(`um error: ${error.message}`);
-
-        console.log(error);
       });
   };
 
@@ -65,7 +62,7 @@ export const SignIn = () => {
     register('email', {
       required: true,
       pattern: {
-        value: /[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i,
+        value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
         message: 'Email inválido',
       },
     });

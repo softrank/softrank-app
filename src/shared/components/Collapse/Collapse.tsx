@@ -27,7 +27,9 @@ export const Collapse = ({ title, children, options, underline }: Props) => {
   return (
     <CollapseContainer underline={underline}>
       <CollapseHead underline={underline}>
-        <CollapseTitle>{title}</CollapseTitle>
+        <CollapseTitle onClick={() => handleToggleCollapse()}>
+          {title}
+        </CollapseTitle>
         <CollapseOptions>
           {options}
           <ToggleCollapseIcon

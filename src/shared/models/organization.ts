@@ -5,5 +5,5 @@ export interface Organization {
   documentNumber: string;
   documentType: string;
   phone: string;
-  password: string;
+  projects: string[];
 }

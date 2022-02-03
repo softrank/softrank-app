@@ -9,7 +9,6 @@ import {
   Select,
   DateInput,
 } from 'shared/components/Form';
-import { Evaluator } from 'shared/models/evaluator';
 import { evaluatorService, modelsService } from 'shared/services';
 import {
   CollapseContent,
@@ -17,19 +16,27 @@ import {
 } from 'shared/components/Collapse/styled';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { LoadingScreen } from 'shared/components/Loading';
-import { AddIcon, RemoveIcon } from 'views/Model/ModelDetails/styled';
+import { AddIcon } from 'views/Model/ModelDetails/styled';
+import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
+import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { RemoveIconButton } from './styled';
+import { EvaluatorDto, LicenseDto } from 'shared/dtos/evaluatorDto';
+import { EvaluatorFormValues } from './evaluatorFormValues';
 
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
+  const [levels, setLevels] = useState<any[]>([]);
+  const [evaluatorInstitutions, setEvaluatorInstitutions] = useState<
+    EvaluatorInstitution[]
+  >([]);
   const [loading, setLoading] = useState(true);
-  const [evaluator] = useState(new Evaluator());
 
   const {
     handleSubmit,
     control,
-    reset,
+    watch,
     formState: { errors },
-  } = useForm<Evaluator>();
+  } = useForm<EvaluatorFormValues>();
   const {
     fields: licenses,
     append,
@@ -40,15 +47,38 @@ export const EvaluatorRegister = () => {
   });
 
   const licenseTypes = [
-    { value: '1', label: 'Líder' },
-    { value: '2', label: 'Adjunto' },
+    { value: 'leader', label: 'Líder' },
+    { value: 'adjunct', label: 'Adjunto' },
   ];
 
-  const handleCreateEvaluator = (evaluator: Evaluator) => {
-    evaluator.documentType = 'CPF';
+  const handleCreateEvaluator = (evaluator: EvaluatorFormValues) => {
+    const formatedLicenses = evaluator.licenses.map((license) => {
+      const licenseDto: LicenseDto = {
+        expiration: license.expiration,
+        modelLevelId: (license.modelLevelId = (
+          license.modelLevelId as any
+        ).value),
+        type: (license.type = (license.type as any).value),
+      };
+
+      return licenseDto;
+    });
+
+    const dto: EvaluatorDto = {
+      name: evaluator.name,
+      email: evaluator.email,
+      documentNumber: evaluator.documentNumber,
+      documentType: 'f',
+      phone: evaluator.phone,
+      password: evaluator.password,
+      evaluatorInstitutionId: (evaluator.evaluatorInstitutionId = (
+        evaluator.evaluatorInstitutionId as any
+      ).value),
+      licenses: formatedLicenses,
+    };
 
     evaluatorService
-      .create(evaluator)
+      .create(dto)
       .then(() => {
         console.log('criado');
       })
@@ -60,22 +90,45 @@ export const EvaluatorRegister = () => {
   const onSubmit = handleSubmit((data) => handleCreateEvaluator(data));
 
   useEffect(() => {
-    reset({
-      licenses: evaluator.licenses,
-    });
-  }, [evaluator, reset]);
-
-  useEffect(() => {
     modelsService
       .list()
-      .then((response) => {
-        setModels(response);
-        setLoading(false);
+      .then((models) => {
+        setModels(models);
       })
       .catch((error) => {
-        setLoading(false);
+        console.log(error);
       });
+    evaluatorInstitutionService
+      .list()
+      .then((instituitions) => {
+        setEvaluatorInstitutions(instituitions);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    const subscription = watch((data) => {
+      const licenses = data.licenses;
+      const tempLevels = new Array(licenses.length ? licenses.length - 1 : 0);
+
+      licenses.forEach((license: any, index: number) => {
+        if (license.model) {
+          const copyModels = models;
+          const filteredModels = copyModels.filter(
+            (model) => model.id === license.model.value
+          );
+          const modelLevels = filteredModels[0].modelLevels;
+          tempLevels.splice(index, 0, modelLevels);
+        }
+        setLevels(tempLevels);
+      });
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, models]);
 
   return (
     <>
@@ -85,7 +138,7 @@ export const EvaluatorRegister = () => {
         <Wrapper>
           <Title>Cadastro avaliador</Title>
           <Form onSubmit={onSubmit}>
-            <FlexSpace space="16px">
+            <FlexSpace>
               <InputGroup>
                 <Input
                   name="email"
@@ -96,7 +149,7 @@ export const EvaluatorRegister = () => {
                   rules={{
                     required: true,
                     pattern: {
-                      value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+                      value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
                       message: 'Email inválido.',
                     },
                   }}
@@ -106,6 +159,7 @@ export const EvaluatorRegister = () => {
                   name="password"
                   label="Senha"
                   placeholder="senha do avaliador"
+                  type="password"
                   control={control}
                   rules={{ required: true }}
                   errors={errors?.password}
@@ -152,6 +206,16 @@ export const EvaluatorRegister = () => {
                   }}
                   errors={errors?.phone}
                 />
+                <Select
+                  name="evaluatorInstitutionId"
+                  label="Instituição"
+                  placeholder="selecione uma instituição"
+                  optionValues={evaluatorInstitutions}
+                  optionLabel="name"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.evaluatorInstitutionId}
+                />
               </InputGroup>
               <Collapse
                 underline
@@ -163,49 +227,59 @@ export const EvaluatorRegister = () => {
                     <React.Fragment key={id}>
                       <CollapseContent>
                         <div style={{ width: '100%' }}>
-                          <InputGroup>
-                            <DateInput
-                              label="Validade"
-                              name={`licenses[${index}].expiration`}
-                              placeholder="selecione uma data"
-                              dateFormat="dd/MM/yyyy"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.expiration}
-                            />
-                            <Input
-                              name={`licenses[${index}].number`}
-                              label="Número"
-                              placeholder="número da licença"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.number}
-                            />
-                          </InputGroup>
-                          <InputGroup>
-                            <Select
-                              name={`licenses[${index}].modelLevelId`}
-                              label="Modelo"
-                              placeholder="selecione um modelo"
-                              optionValues={models}
-                              optionLabel="name"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.modelLevelId}
-                            />
-                            <Select
-                              name={`licenses[${index}].type`}
-                              label="Tipo"
-                              placeholder="selecione um tipo de licença"
-                              optionValues={licenseTypes}
-                              optionLabel="label"
-                              control={control}
-                              rules={{ required: true }}
-                              errors={errors?.licenses?.[index]?.type}
-                            />
-                          </InputGroup>
+                          <FlexSpace>
+                            <InputGroup>
+                              <Select
+                                name={`licenses[${index}].model`}
+                                label="Modelo"
+                                placeholder="selecione um modelo"
+                                optionValues={models}
+                                optionLabel="name"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.model}
+                              />
+                              <Select
+                                name={`licenses[${index}].modelLevelId`}
+                                label="Nível pretendido"
+                                placeholder={
+                                  false
+                                    ? 'primeiro selecione um modelo'
+                                    : 'selecione um nível'
+                                }
+                                control={control}
+                                rules={{ required: true }}
+                                optionValues={levels[index] ?? []}
+                                optionLabel="initial"
+                                errors={errors?.licenses?.[index]?.modelLevelId}
+                                disabled={false}
+                              />
+                            </InputGroup>
+                            <InputGroup>
+                              <DateInput
+                                label="Validade"
+                                name={`licenses[${index}].expiration`}
+                                placeholder="selecione uma data"
+                                dateFormat="dd/MM/yyyy"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.expiration}
+                              />
+                              <Select
+                                name={`licenses[${index}].type`}
+                                label="Tipo"
+                                placeholder="selecione um tipo de licença"
+                                optionValues={licenseTypes}
+                                optionLabel="label"
+                                optionValue="value"
+                                control={control}
+                                rules={{ required: true }}
+                                errors={errors?.licenses?.[index]?.type}
+                              />
+                            </InputGroup>
+                            <RemoveIconButton onClick={() => remove(index)} />
+                          </FlexSpace>
                         </div>
-                        <RemoveIcon onClick={() => remove(index)} />
                       </CollapseContent>
                       {index !== licenses.length - 1 && <GroupDivider />}
                     </React.Fragment>

@@ -2,8 +2,17 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Collapse, Button, AddIcon, FlexSpace } from 'shared/components';
-import { InputGroup, Input, TextArea, Form } from 'shared/components/Form';
+import {
+  InputGroup,
+  Input,
+  TextArea,
+  Form,
+  Select,
+} from 'shared/components/Form';
+import { capacitiesData } from 'shared/data/capacities';
+import { ExpectedResultDto } from 'shared/dtos/expectedResultDto';
 import { ModelDto } from 'shared/dtos/modelDto';
+import { ProcessDto } from 'shared/dtos/processDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';
 import { ExpectedResultsFieldArray } from 'views/Model/ModelDetails/ExpectedResultsFieldArray';
@@ -20,14 +29,13 @@ interface Props {
 export const ProcessesTab = ({
   setTabIndex,
   model,
-  setModel,
   createOrUpdateModel,
-  loading,
 }: Props) => {
   const {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm<{ modelProcesses: Process[] }>();
   const {
@@ -39,14 +47,37 @@ export const ProcessesTab = ({
     name: 'modelProcesses',
   });
 
-  const submitProcesses = async (data: Process[]) => {
+  const submitProcesses = async (processes: Process[]) => {
+    const formatedProcesses = processes.map((process) => {
+      const formatedExpectedResults = process.expectedResults.map((er) => {
+        const erDto: ExpectedResultDto = {
+          initial: er.initial,
+          name: er.name,
+          description: er.description,
+          minLevel: (er.minLevel = (er.minLevel as any).label),
+          maxLevel: (er.maxLevel = (er.maxLevel as any).label),
+        };
+        if (er.id !== '' && er.id) erDto.id = er.id;
+        return erDto;
+      });
+
+      const processDto: ProcessDto = {
+        name: process.name,
+        initial: process.initial,
+        description: process.description,
+        expectedResults: formatedExpectedResults,
+      };
+      if (process.id !== '' && process.id) processDto.id = process.id;
+      return processDto;
+    });
+
     const modelDto: ModelDto = {
       id: model.id,
       name: model.name,
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
-      modelProcesses: data,
+      modelProcesses: formatedProcesses,
     };
 
     await createOrUpdateModel(modelDto, 3);
@@ -58,13 +89,18 @@ export const ProcessesTab = ({
 
   useEffect(() => {
     reset({
-      modelProcesses: model.modelProcesses ?? new Process(),
+      modelProcesses:
+        model.modelProcesses && model.modelProcesses.length > 0
+          ? model.modelProcesses
+          : [new Process()],
     });
   }, [model, reset]);
 
+  const watchProcess = watch('modelProcesses');
+
   return (
     <Form onSubmit={onSubmit}>
-      <FlexSpace space="1rem">
+      <FlexSpace>
         <AddIcon
           onClick={() => {
             append(new Process());
@@ -74,18 +110,14 @@ export const ProcessesTab = ({
           return (
             <Collapse
               key={index}
-              title={`Processo ${index + 1}`}
+              title={
+                watchProcess[index].name === ''
+                  ? 'Processo novo'
+                  : watchProcess[index].name
+              }
               options={<RemoveIcon onClick={() => remove(index)} />}
             >
               <InputGroup>
-                <Input
-                  name={`modelProcesses[${index}].initial`}
-                  label="Sigla"
-                  placeholder="sigla do processo"
-                  control={control}
-                  rules={{ required: true }}
-                  errors={errors?.modelProcesses?.[index]?.initials}
-                />
                 <Input
                   name={`modelProcesses[${index}].name`}
                   label="Nome"
@@ -93,6 +125,26 @@ export const ProcessesTab = ({
                   control={control}
                   rules={{ required: true }}
                   errors={errors?.modelProcesses?.[index]?.name}
+                />
+                <Input
+                  name={`modelProcesses[${index}].initial`}
+                  label="Sigla"
+                  placeholder="sigla do processo"
+                  control={control}
+                  rules={{ required: true }}
+                  errors={errors?.modelProcesses?.[index]?.initial}
+                />
+              </InputGroup>
+              <InputGroup>
+                <Select
+                  name={`modelProcesses[${index}].processCapacity`}
+                  label="Capacidade"
+                  placeholder="selecione uma capacidade"
+                  control={control}
+                  rules={{ required: true }}
+                  optionValues={capacitiesData}
+                  optionLabel="initial"
+                  errors={errors?.modelProcesses?.[index]?.processCapacity}
                 />
               </InputGroup>
               <InputGroup>
@@ -110,6 +162,7 @@ export const ProcessesTab = ({
                 control={control}
                 errors={errors}
                 levels={model.modelLevels}
+                watch={watchProcess}
               />
             </Collapse>
           );

@@ -9,6 +9,7 @@ export class Evaluator {
     public documentType: string = 'f',
     public phone: string = '',
     public password: string = '',
+    public evaluatorInstitution: string = '',
     public licenses: License[] = [new License()]
   ) {}
 }

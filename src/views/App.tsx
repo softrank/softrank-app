@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { authActions } from 'shared/store';
+import { PrivateRoute } from 'shared/components/PrivateRoute';
+import { userService } from 'shared/services';
 
+import { authActions, RootState } from 'shared/store';
 import {
   NavBar,
   HomePage,
@@ -10,7 +12,6 @@ import {
   NotFound,
   GlobalStyles,
   EvaluatorManagment,
-  EvaluatorDetails,
   ModelManagment,
   ModelDetails,
   Register,
@@ -18,50 +19,101 @@ import {
   AuditorRegister,
   EvaluatorInstitutionRegister,
   OrganizationRegister,
+  EvaluationDetails,
+  EvaluationManagment,
+  EvaluationNew,
+  EvaluatorInstitutionManagment,
 } from './';
 
 export default function App() {
+  const [userRoles, setUserRoles] = useState<any[]>([]);
   const dispatch = useDispatch();
+  const roles = useSelector<RootState>((state) => state.auth.roles);
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
-    token && dispatch(authActions.signin(token));
+    const authToken = window.localStorage.getItem('authToken');
+
+    if (authToken && authToken !== 'undefined') {
+      dispatch(authActions.setToken(authToken));
+      userService
+        .details()
+        .then((roles) => dispatch(authActions.setRoles(roles)));
+    } else dispatch(authActions.signOut());
   }, [dispatch]);
+
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
 
   return (
     <>
       <NavBar />
-      <Route exact path="/" component={HomePage} />
+      <PrivateRoute exact path="/" component={HomePage} />
       <Route
         path={'/(.+)'}
         render={() => (
           <Switch>
-            <Route exact path="/modelos" component={ModelManagment} />
-            <Route exact path="/modelo" component={ModelDetails} />
-            <Route exact path="/modelo/:id" component={ModelDetails} />
             <Route exact path="/login" component={SignIn} />
-            <Route exact path="/avaliadores" component={EvaluatorManagment} />
             <Route
               exact
               path="/avaliador/cadastro"
               component={EvaluatorRegister}
             />
-            <Route
+            {/* <Route
               exact
               path="/avaliadores/cadastro"
               component={EvaluatorDetails}
-            />
+            /> */}
             <Route exact path="/cadastro" component={Register} />
             <Route exact path="/auditor/cadastro" component={AuditorRegister} />
+            <Route
+              exact
+              path="/organizacao/cadastro"
+              component={OrganizationRegister}
+            />
             <Route
               exact
               path="/instituicaoAvalidadora/cadastro"
               component={EvaluatorInstitutionRegister}
             />
-            <Route
+            <PrivateRoute exact path="/modelo" component={ModelDetails} />
+            <PrivateRoute exact path="/modelo/:id" component={ModelDetails} />
+            <PrivateRoute
               exact
-              path="/organizacao/cadastro"
-              component={OrganizationRegister}
+              path="/avaliadores"
+              component={EvaluatorManagment}
+            />
+            {userRoles.includes('modelManager') && (
+              <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('modelManager')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/nova"
+                component={EvaluationNew}
+              />
+            )}
+            <PrivateRoute
+              exact
+              path="/avaliacoes"
+              component={EvaluationManagment}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacao"
+              component={EvaluationDetails}
+            />
+            <PrivateRoute
+              exact
+              path="/avaliacao/:id"
+              component={EvaluationDetails}
+            />
+            <PrivateRoute
+              exact
+              path="/instituicoesAvaliadoras"
+              component={EvaluatorInstitutionManagment}
             />
             <Route path="*" exact={true} component={NotFound} />
           </Switch>

@@ -1,8 +1,9 @@
 export interface Address {
-  cep: string;
-  state: string;
-  neighborhood: string;
-  street: string;
+  id?: string;
+  zipcode: string;
+  addressLine: string;
   number: number;
-  country: string;
+  observation?: string;
+  city: string;
+  state: string;
 }

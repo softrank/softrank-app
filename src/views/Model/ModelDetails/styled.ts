@@ -10,20 +10,6 @@ export const Options = styled.div`
   gap: 0.2em;
 `;
 
-export const LevelGroup = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-  }
-`;
-
 const iconCss = css`
   width: 1.6em;
   height: 1.6em;
@@ -49,9 +35,12 @@ export const AddIcon = styled(IoIosAdd)`
 export const RemoveIcon = styled(HiOutlineTrash)`
   ${iconCss}
   margin: auto;
+  min-width: 50px;
+  position: relative;
+  top: 10px;
 
   @media (max-width: 640px) {
-    width: 90%;
+    width: 100%;
     height: 2.4em;
     padding: 0.2em;
 
@@ -60,13 +49,11 @@ export const RemoveIcon = styled(HiOutlineTrash)`
 
     background: var(--gray-50);
     color: var(--gray-500);
-    cursor: pointer;
     outline: none;
 
     transition: all 600ms ease;
 
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
       background-color: white;
       border: 2px solid var(--purple-500);

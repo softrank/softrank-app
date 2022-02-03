@@ -11,7 +11,7 @@ interface FlexSpaceProps {
 export const FlexSpace = styled.div<FlexSpaceProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.space ?? '2rem'};
+  gap: ${(props) => props.space ?? '16px'};
 `;
 
 export const Fullpage = styled.div`

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Control,
   Controller,
@@ -9,7 +8,6 @@ import {
 
 import { ErrorsNote, Label } from '..';
 import { CustomSelect } from './styled';
-
 interface OptionValue {
   value: string;
   label: string;
@@ -29,6 +27,7 @@ interface Props {
   defaultValue?: any;
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
+  value?: any;
 }
 
 export const Select = (props: Props) => {
@@ -38,7 +37,7 @@ export const Select = (props: Props) => {
     placeholder,
     control,
     optionValues,
-    optionValue,
+    optionValue = '',
     optionLabel,
     disabled,
     multi,
@@ -52,7 +51,7 @@ export const Select = (props: Props) => {
 
   optionValues.map((element) => {
     const option: OptionValue = {
-      value: optionValue ?? element.id,
+      value: element.id ?? element[optionValue],
       label: element[optionLabel],
     };
     options.push(option);
@@ -67,15 +66,16 @@ export const Select = (props: Props) => {
         control={control}
         defaultValue={defaultValue}
         rules={rules}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange, value, ref } }) => (
           <>
             <CustomSelect
+              inputRef={ref}
               classNamePrefix={'select'}
               label={label}
               placeholder={placeholder}
               onChange={onChange}
-              value={value}
               options={options}
+              value={value ?? null}
               isDisabled={disabled}
               isMulti={multi}
               isSearchable={search}

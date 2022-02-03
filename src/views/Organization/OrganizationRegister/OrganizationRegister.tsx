@@ -1,28 +1,54 @@
-import { useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Title, Button, Wrapper, FlexSpace } from 'shared/components';
+import {
+  Title,
+  Button,
+  Wrapper,
+  FlexSpace,
+  AddIcon,
+  Collapse,
+} from 'shared/components';
+import {
+  CollapseContent,
+  GroupDivider,
+} from 'shared/components/Collapse/styled';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { Organization } from 'shared/models/organization';
+import { OrganizationDto } from 'shared/dtos/organizationalUnitDto';
+import { RemoveIcon } from 'views/Model/ModelDetails/styled';
 
 export const OrganizationRegister = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Organization>();
+  } = useForm<OrganizationDto>();
 
-  const handleCreateOrganization = (organization: Organization) => {
-    organization.documentType = 'CNPJ';
+  const {
+    fields: projects,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'projects',
+  });
+
+  const handleCreateOrganization = (organization: OrganizationDto) => {
+    organization.documentType = 'j';
 
     console.log(organization);
   };
+
+  useEffect(() => {
+    append({});
+  }, [append]);
 
   const onSubmit = handleSubmit((data) => handleCreateOrganization(data));
   return (
     <Wrapper>
       <Title>Cadastro organização</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
           <InputGroup>
             <Input
               name="email"
@@ -91,6 +117,32 @@ export const OrganizationRegister = () => {
               errors={errors?.phone}
             />
           </InputGroup>
+          <Collapse
+            underline
+            title="Projetos"
+            options={<AddIcon onClick={() => append({})} />}
+          >
+            {projects.map(({ id }, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <CollapseContent>
+                    <InputGroup>
+                      <Input
+                        name={`projects[${index}].name`}
+                        label="Nome"
+                        placeholder="nome do projeto"
+                        control={control}
+                        rules={{ required: true }}
+                        errors={errors?.projects?.[index]?.name}
+                      />
+                      <RemoveIcon onClick={() => remove(index)} />
+                    </InputGroup>
+                  </CollapseContent>
+                  {index !== projects.length - 1 && <GroupDivider />}
+                </React.Fragment>
+              );
+            })}
+          </Collapse>
           <Button type="submit" width="100%">
             Confirmar
           </Button>

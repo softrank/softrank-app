@@ -25,19 +25,18 @@ export const ModelDetails = () => {
 
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
     setLoading(true);
-    let res: ModelEntity;
+    let response: ModelEntity;
+
     try {
       if (data.id) {
-        console.log(data);
-
-        res = await modelsService.update(data);
+        response = await modelsService.update(data);
       } else {
-        res = await modelsService.create(data);
+        response = await modelsService.create(data);
       }
-      setModel(res);
+      setModel(response);
       tabsHandler(tabIndex);
     } catch (e: any) {
-      setErrorMessage(e.response.data.message[0]);
+      setErrorMessage(e.response.data.message);
       setShowError(true);
     }
     setLoading(false);

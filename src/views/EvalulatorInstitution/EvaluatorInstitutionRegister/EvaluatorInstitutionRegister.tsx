@@ -2,17 +2,21 @@ import { useForm } from 'react-hook-form';
 
 import { Title, Button, Wrapper, FlexSpace } from 'shared/components';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { SubTitle } from 'shared/components/Titles/SubTitle';
+import { EvaluatorInstitutionDto } from 'shared/dtos/evaluatorInstitutionDto';
+import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
 
 export const EvaluatorInstitutionRegister = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<EvaluatorInstitution>();
+  } = useForm<EvaluatorInstitutionDto>();
 
-  const handleCreateInstitution = (institution: EvaluatorInstitution) => {
-    institution.documentType = 'CNPJ';
+  const handleCreateInstitution = (institution: EvaluatorInstitutionDto) => {
+    institution.documentType = 'j';
+
+    evaluatorInstitutionService.create(institution);
 
     console.log(institution);
   };
@@ -20,9 +24,19 @@ export const EvaluatorInstitutionRegister = () => {
   const onSubmit = handleSubmit((data) => handleCreateInstitution(data));
   return (
     <Wrapper>
-      <Title>Cadastro instutuição avaliadora</Title>
+      <Title>Instituição avaliadora</Title>
       <Form onSubmit={onSubmit}>
-        <FlexSpace space="16px">
+        <FlexSpace>
+          <InputGroup>
+            <Input
+              name="name"
+              label="Nome"
+              placeholder="nome da instituição"
+              control={control}
+              rules={{ required: true }}
+              errors={errors?.name}
+            />
+          </InputGroup>
           <InputGroup>
             <Input
               name="email"
@@ -33,7 +47,7 @@ export const EvaluatorInstitutionRegister = () => {
               rules={{
                 required: true,
                 pattern: {
-                  value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+                  value: /\S+@\S+\.\S+/,
                   message: 'Email inválido.',
                 },
               }}
@@ -43,26 +57,20 @@ export const EvaluatorInstitutionRegister = () => {
               name="password"
               label="Senha"
               placeholder="senha da instituição"
+              type="password"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                required: true,
+              }}
               errors={errors?.password}
             />
           </InputGroup>
           <InputGroup>
             <Input
-              name="name"
-              label="Nome"
-              placeholder="nome da instituição"
-              control={control}
-              rules={{ required: true }}
-              errors={errors?.name}
-            />
-            <Input
               name="documentNumber"
               label="Documento"
               placeholder="CNPJ da instituição"
               mask="99.999.999/9999-99"
-              // type="number"
               control={control}
               rules={{
                 required: true,
@@ -73,8 +81,6 @@ export const EvaluatorInstitutionRegister = () => {
               }}
               errors={errors?.documentNumber}
             />
-          </InputGroup>
-          <InputGroup>
             <Input
               name="phone"
               label="Telefone"
@@ -91,7 +97,71 @@ export const EvaluatorInstitutionRegister = () => {
               errors={errors?.phone}
             />
           </InputGroup>
-          <Button type="submit" width="100%">
+          <SubTitle>Endereço</SubTitle>
+          <InputGroup>
+            <Input
+              name="address.zipcode"
+              label="CEP"
+              placeholder="insira o CEP"
+              mask="99999-999"
+              control={control}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^\d{5}-\d{3}/g,
+                  message: 'Número de CEP inválido.',
+                },
+              }}
+              errors={errors?.address?.zipcode}
+            />
+            <Input
+              name="address.addressLine"
+              label="Rua"
+              placeholder="insira a rua"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              errors={errors?.address?.addressLine}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Input
+              name="address.number"
+              label="Número"
+              placeholder="insira o número"
+              control={control}
+              type="number"
+              rules={{ required: true }}
+              errors={errors?.address?.number}
+            />
+            <Input
+              name="address.observation"
+              label="Observação"
+              placeholder="insira a observação"
+              control={control}
+              errors={errors?.address?.observation}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Input
+              name="address.city"
+              label="Cidade"
+              placeholder="insira a cidade"
+              control={control}
+              rules={{ required: true }}
+              errors={errors?.address?.city}
+            />
+            <Input
+              name="address.state"
+              label="Estado"
+              placeholder="insira o estado"
+              control={control}
+              rules={{ required: true }}
+              errors={errors?.address?.state}
+            />
+          </InputGroup>
+          <Button type="submit" width="100%" secondary>
             Confirmar
           </Button>
         </FlexSpace>

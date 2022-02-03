@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 
 interface Props {
   size?: 'small' | 'medium' | 'large';
+  disable?: boolean;
 }
 
 const iconCss = css<Props>`
@@ -16,7 +17,7 @@ const iconCss = css<Props>`
   padding: 0;
   margin: 0;
 
-  display: inline;
+  display: ${(props) => (props.disable ? 'none' : 'inline')};
 
   color: var(--gray-500);
   background: var(--gray-50);

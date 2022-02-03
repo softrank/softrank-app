@@ -3,13 +3,15 @@ import { User } from 'shared/models/user';
 
 interface AuthState {
   isAuthenticated: boolean;
-  token: string | null;
+  authToken: string | null;
+  roles: Array<any>;
   user: User | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: localStorage.getItem('token'),
+  authToken: localStorage.getItem('authToken'),
+  roles: [],
   user: null,
 };
 
@@ -19,14 +21,25 @@ const authSlice = createSlice({
   reducers: {
     signOut(state) {
       state.isAuthenticated = false;
-      state.token = null;
-      window.localStorage.setItem('token', '');
+      state.authToken = null;
+      window.localStorage.setItem('authToken', '');
     },
     signin(state, action) {
-      const token = action.payload;
+      const { authToken, roles } = action.payload;
       state.isAuthenticated = true;
-      state.token = token;
-      window.localStorage.setItem('token', token);
+      state.authToken = authToken;
+      state.roles = roles;
+      window.localStorage.setItem('authToken', authToken);
+    },
+    setToken(state, action) {
+      const authToken = action.payload;
+      state.isAuthenticated = true;
+      state.authToken = authToken;
+      window.localStorage.setItem('authToken', authToken);
+    },
+    setRoles(state, action) {
+      const roles = action.payload;
+      state.roles = roles;
     },
     setUser(state, action) {
       state.user = action.payload;

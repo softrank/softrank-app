@@ -10,18 +10,15 @@ import {
   DateInput,
   TextArea,
 } from 'shared/components/Form';
-import {
-  LevelGroup,
-  RemoveIcon,
-  Options,
-} from 'views/Model/ModelDetails/styled';
+import { RemoveIcon, Options } from 'views/Model/ModelDetails/styled';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
-import { ModelLevel } from 'shared/models/modelLevel';
 import {
   CollapseContent,
   GroupDivider,
 } from 'shared/components/Collapse/styled';
+import { ModelLevelDto } from 'shared/dtos/modelLevelDto';
+import { ModelLevel } from 'shared/models/modelLevel';
 
 interface Props {
   model: ModelEntity;
@@ -48,23 +45,68 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
     name: 'modelLevels',
   });
 
-  const onSubmit = handleSubmit(
-    async (data) => await createOrUpdateModel(data, 1)
-  );
+  const formatModel = (data: ModelDto) => {
+    const levels = data.modelLevels.map((level) => {
+      let levelDto: ModelLevelDto = {
+        initial: level.initial,
+        name: level.name,
+      };
+      if (level.id !== '' && data.id) levelDto.id = level.id;
+      return levelDto;
+    });
+
+    let modelDto: ModelDto = {
+      name: data.name,
+      year: new Date(data.year),
+      description: data.description,
+      modelLevels: levels,
+    };
+
+    if (data.id !== '' && data.id !== undefined) {
+      modelDto.id = data.id;
+      if (data.modelProcesses) modelDto.modelProcesses = data.modelProcesses;
+    }
+
+    return modelDto;
+  };
+
+  const saveModel = (data: ModelDto) => {
+    const model = formatModel(data);
+    createOrUpdateModel(model, 1);
+  };
+
+  const onSubmit = handleSubmit(async (data) => await saveModel(data));
 
   useEffect(() => {
+    const processes = model.modelProcesses;
+
     reset({
       id: model.id,
       name: model.name,
       year: new Date(model.year),
       description: model.description,
       modelLevels: model.modelLevels,
+      modelProcesses: model.modelProcesses
+        ? processes?.map((modelProcess) => {
+            modelProcess.expectedResults?.forEach((expectedResult) => {
+              expectedResult.minLevel = {
+                value: expectedResult.minLevel,
+                label: expectedResult.minLevel,
+              } as any;
+              expectedResult.maxLevel = {
+                value: expectedResult.maxLevel,
+                label: expectedResult.maxLevel,
+              } as any;
+            });
+            return modelProcess;
+          })
+        : undefined,
     });
   }, [model, reset]);
 
   return (
     <Form onSubmit={onSubmit}>
-      <FlexSpace space="4px">
+      <FlexSpace>
         <InputGroup>
           <Input
             name="name"
@@ -91,17 +133,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
             label="Descrição"
             placeholder="descrição do modelo"
             control={control}
-            rules={{
-              required: true,
-              minLength: {
-                value: 20,
-                message: 'A descrição deve conter no mínimo 20 caracteres!',
-              },
-              maxLength: {
-                value: 200,
-                message: 'A descrição deve conter no máximo 200 caracteres!',
-              },
-            }}
+            rules={{ required: true }}
             errors={errors.description}
           />
         </InputGroup>
@@ -112,9 +144,9 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
         >
           {levels.map(({ id }, index) => {
             return (
-              <React.Fragment key={id}>
+              <React.Fragment key={index}>
                 <CollapseContent>
-                  <LevelGroup>
+                  <InputGroup>
                     <Input
                       name={`modelLevels[${index}].initial`}
                       label="Sigla"
@@ -137,8 +169,8 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
                       rules={{ required: true }}
                       errors={errors?.modelLevels?.[index]?.name}
                     />
-                  </LevelGroup>
-                  <RemoveIcon onClick={() => levelsRemove(index)} />
+                    <RemoveIcon onClick={() => levelsRemove(index)} />
+                  </InputGroup>
                 </CollapseContent>
                 {index !== levels.length - 1 && <GroupDivider />}
               </React.Fragment>

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { store } from 'shared/store';
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = 'http://localhost:3002/api';
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -20,8 +20,8 @@ axios.interceptors.response.use(async (response) => {
 
 axios.interceptors.request.use((config) => {
   const state = store.getState();
-  const token = state.auth.token;
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  const authToken = state.auth.authToken;
+  if (authToken) config.headers.Authorization = `Bearer ${authToken}`;
   return config;
 });
 

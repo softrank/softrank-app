@@ -1,10 +1,27 @@
 import styled from 'styled-components';
 
-export const Hero = styled.div`
-  width: 100%;
-  padding: 8em;
-
+export const ActionCardContainer = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 1em;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: visible;
+  z-index: 0;
+
+  border-radius: var(--radius);
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    padding: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    margin: 20vw;
+    background: var(--purple-300);
+    border-radius: var(--radius) 50px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--purple-500);
+    border-radius: var(--radius);
+    height: 1px;
+  }
 `;

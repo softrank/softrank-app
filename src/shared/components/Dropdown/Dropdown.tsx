@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DropdownContainer, DropdownBody } from './styled';
 interface Props {
-  children: JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
   positionTop?: string;
   positionLeft?: string;
   visible: boolean;
