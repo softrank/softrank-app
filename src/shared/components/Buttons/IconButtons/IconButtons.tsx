@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 interface Props {
   size?: 'small' | 'medium' | 'large';
   disable?: boolean;
+  outline?: boolean;
 }
 
 const iconCss = css<Props>`
@@ -20,7 +21,8 @@ const iconCss = css<Props>`
   display: ${(props) => (props.disable ? 'none' : 'inline')};
 
   color: var(--gray-500);
-  background: var(--gray-50);
+  /* background: var(--gray-50); */
+  background: ${(props) => (props.outline ? 'none' : 'var(--gray-50)')};
   border-radius: 8px;
   box-sizing: border-box;
 

@@ -127,14 +127,16 @@ const Dropzone = ({
 
   return (
     <>
-      <StyledDropzone {...getRootProps()} isActive={isDragActive}>
-        <input {...getInputProps({ onChange })} multiple />
-        {isDragActive ? (
-          <ZoneTitle>Solte os arquivos aqui</ZoneTitle>
-        ) : (
-          <ZoneTitle>Selecione ou arraste arquivos aqui</ZoneTitle>
-        )}
-      </StyledDropzone>
+      {((!multiple && filesList.length === 0) || multiple) && (
+        <StyledDropzone {...getRootProps()} isActive={isDragActive}>
+          <input {...getInputProps({ onChange })} multiple />
+          {isDragActive ? (
+            <ZoneTitle>Solte os arquivos aqui</ZoneTitle>
+          ) : (
+            <ZoneTitle>Selecione ou arraste arquivos aqui</ZoneTitle>
+          )}
+        </StyledDropzone>
+      )}
       <FilesContainer>
         {filesList.map((files, index) => {
           return files.map((file: any, fileIndex = index) => {

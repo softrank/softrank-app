@@ -6,26 +6,26 @@ interface Degreee {
 export const implementationDegreesData: Degreee[] = [
   {
     value: 'T',
-    label: 'Totalmente implementado',
+    label: 'T - Totalmente implementado',
   },
   {
     value: 'L',
-    label: 'Largamente implementado',
+    label: 'L - Largamente implementado',
   },
   {
     value: 'P',
-    label: 'Parcialmente implementado',
+    label: 'P - Parcialmente implementado',
   },
   {
     value: 'N',
-    label: 'Não implementado',
+    label: 'N - Não implementado',
   },
   {
     value: 'NA',
-    label: 'Não avaliado',
+    label: 'N/A - Não avaliado',
   },
   {
     value: 'F',
-    label: 'Fora do escopo implementado',
+    label: 'F - Fora do escopo implementado',
   },
 ];

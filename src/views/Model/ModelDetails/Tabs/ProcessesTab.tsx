@@ -126,6 +126,8 @@ export const ProcessesTab = ({
                   rules={{ required: true }}
                   errors={errors?.modelProcesses?.[index]?.name}
                 />
+              </InputGroup>
+              <InputGroup>
                 <Input
                   name={`modelProcesses[${index}].initial`}
                   label="Sigla"
@@ -134,8 +136,6 @@ export const ProcessesTab = ({
                   rules={{ required: true }}
                   errors={errors?.modelProcesses?.[index]?.initial}
                 />
-              </InputGroup>
-              <InputGroup>
                 <Select
                   name={`modelProcesses[${index}].processCapacity`}
                   label="Capacidade"
@@ -143,7 +143,7 @@ export const ProcessesTab = ({
                   control={control}
                   rules={{ required: true }}
                   optionValues={capacitiesData}
-                  optionLabel="initial"
+                  optionLabel="label"
                   errors={errors?.modelProcesses?.[index]?.processCapacity}
                 />
               </InputGroup>

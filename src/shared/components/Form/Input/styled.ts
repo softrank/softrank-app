@@ -59,3 +59,7 @@ export const ErrorNote = styled.span`
 
   color: var(--error);
 `;
+
+export const ReadOnlyInput = styled.div`
+  background-color: blue;
+`;
