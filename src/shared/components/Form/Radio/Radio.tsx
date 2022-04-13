@@ -7,10 +7,11 @@ interface Props {
   control: Control<any>;
   option: string;
   rules?: any;
+  color?: 'red' | 'yellow' | 'green';
 }
 
 export const Radio = (props: Props) => {
-  const { name, control, option, rules } = props;
+  const { name, control, option, rules, color } = props;
 
   return (
     <Controller
@@ -26,7 +27,7 @@ export const Radio = (props: Props) => {
               value={option}
               name={name}
             />
-            <StyledRadio />
+            <StyledRadio color={color} />
           </div>
           <RadioLabel>teste</RadioLabel>
         </>

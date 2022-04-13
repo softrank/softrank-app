@@ -168,13 +168,19 @@ export const EvaluationDetails = () => {
                       name="status"
                       option="1"
                       control={control}
-                      rules={{ required: true }}
+                      color="red"
                     />
                     <Radio
                       name="status"
                       option="2"
                       control={control}
-                      rules={{ required: true }}
+                      color="yellow"
+                    />
+                    <Radio
+                      name="status"
+                      option="3"
+                      control={control}
+                      color="green"
                     />
                   </RadioContainer>
                 </InputGroup>

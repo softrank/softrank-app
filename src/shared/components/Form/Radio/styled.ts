@@ -1,8 +1,7 @@
-import { BsCircleFill } from 'react-icons/bs';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface Props {
-  color?: string;
+  color?: 'red' | 'yellow' | 'green';
 }
 
 export const HiddenRadio = styled.input.attrs({ type: 'radio' })<Props>`
@@ -14,21 +13,24 @@ export const HiddenRadio = styled.input.attrs({ type: 'radio' })<Props>`
 `;
 
 export const StyledRadio = styled.div<Props>`
+  position: relative;
   width: 1.2em;
   height: 1.2em;
-  position: relative;
 
-  border: 2px solid var(--purple-500);
-  border-radius: 100%;
   transition: all 150ms;
+  border-radius: 100%;
+  border: ${(props) =>
+    props.color === 'green'
+      ? '2px solid green'
+      : props.color === 'red'
+      ? '2px solid red'
+      : props.color === 'yellow'
+      ? '2px solid yellow'
+      : '2px solid var(--purple-500)'};
 
   ${HiddenRadio}:checked + & {
-    background: var(--purple-300);
-    border: 2px solid var(--purple-500);
-  }
-
-  ${HiddenRadio}:hover, ${HiddenRadio}:focus + & {
-    box-shadow: 0 0 0 3px var(--purple-300);
+    background: var(--purple-400);
+    border: 2px solid var(--purple-300);
   }
 `;
 
