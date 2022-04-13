@@ -13,7 +13,14 @@ import {
   Wrapper,
 } from 'shared/components';
 import { File } from 'shared/components/File/File';
-import { FileInput, Input, InputGroup, Select } from 'shared/components/Form';
+import {
+  FileInput,
+  Input,
+  InputGroup,
+  Radio,
+  Select,
+} from 'shared/components/Form';
+import { RadioContainer } from 'shared/components/Form/RadioContainer/RadioContainer';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
 import { implementationDegreesData } from 'shared/data/implementationDegrees';
 import { ERTitle } from './styled';
@@ -40,6 +47,7 @@ export const EvaluationDetails = () => {
           <STab>Avaliação inicial - 2</STab>
           <STab>Avaliação final - 1</STab>
         </STabList>
+        {/* Tela avaliacao inicial 1 */}
         <STabPanel>
           <FlexSpace space="1rem">
             <Collapse
@@ -68,6 +76,16 @@ export const EvaluationDetails = () => {
                     label="Fonte de evidência"
                     name="evidenceSource"
                     placeholder="nome da fonte de evidência"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Input
+                    label="Grupo de garantia da qualidade"
+                    name="evidenceSource"
+                    placeholder="nome do grupo"
                     control={control}
                     rules={{
                       required: true,
@@ -117,6 +135,7 @@ export const EvaluationDetails = () => {
             </Collapse>
           </FlexSpace>
         </STabPanel>
+        {/* Tela avaliacao inicial 2 */}
         <STabPanel>
           <FlexSpace space="1rem">
             <Collapse title="GPR - 1">
@@ -144,17 +163,20 @@ export const EvaluationDetails = () => {
                 <InputGroup>
                   <ReadOnly label="Projeto" value="Projeto 2" />
                   <File label="Fonte de evidência" path="Outro arquivo" />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
-                    control={control}
-                    rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
-                  />
+                  <RadioContainer label="Status">
+                    <Radio
+                      name="status"
+                      option="1"
+                      control={control}
+                      rules={{ required: true }}
+                    />
+                    <Radio
+                      name="status"
+                      option="2"
+                      control={control}
+                      rules={{ required: true }}
+                    />
+                  </RadioContainer>
                 </InputGroup>
               </Collapse>
             </Collapse>
