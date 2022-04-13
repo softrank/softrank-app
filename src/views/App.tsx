@@ -24,6 +24,8 @@ import {
   EvaluationNew,
   EvaluatorInstitutionManagment,
 } from './';
+import { InitialEvaluationOrg } from './Evaluation/InitalEvaluationOrg/InitialEvaluationOrg';
+import { InitialEvaluationTeam } from './Evaluation/InitalEvaluationTeam/InitialEvaluationTeam';
 
 export default function App() {
   const [userRoles, setUserRoles] = useState<any[]>([]);
@@ -93,6 +95,22 @@ export default function App() {
                 exact
                 path="/avaliacao/nova"
                 component={EvaluationNew}
+              />
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('modelManager')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/nova1"
+                component={InitialEvaluationOrg}
+              />
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('modelManager')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/nova2"
+                component={InitialEvaluationTeam}
               />
             )}
             <PrivateRoute

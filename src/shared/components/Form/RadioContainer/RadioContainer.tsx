@@ -28,5 +28,5 @@ const Radios = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
 `;

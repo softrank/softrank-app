@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface Props {
   color?: 'red' | 'yellow' | 'green';
@@ -8,29 +8,28 @@ export const HiddenRadio = styled.input.attrs({ type: 'radio' })<Props>`
   position: absolute;
   z-index: 10;
   opacity: 0;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.4em;
+  height: 1.4em;
 `;
 
 export const StyledRadio = styled.div<Props>`
   position: relative;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.4em;
+  height: 1.4em;
 
   transition: all 150ms;
   border-radius: 100%;
   border: ${(props) =>
     props.color === 'green'
-      ? '2px solid green'
+      ? '3px solid #52b788'
       : props.color === 'red'
-      ? '2px solid red'
+      ? '3px solid #f7a399'
       : props.color === 'yellow'
-      ? '2px solid yellow'
-      : '2px solid var(--purple-500)'};
+      ? '3px solid #ffd500'
+      : '3px solid var(--purple-500)'};
 
   ${HiddenRadio}:checked + & {
-    background: var(--purple-400);
-    border: 2px solid var(--purple-300);
+    background-color: var(--gray-100);
   }
 `;
 

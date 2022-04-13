@@ -13,16 +13,9 @@ import {
   Wrapper,
 } from 'shared/components';
 import { File } from 'shared/components/File/File';
-import {
-  FileInput,
-  Input,
-  InputGroup,
-  Radio,
-  Select,
-} from 'shared/components/Form';
+import { FileInput, Input, InputGroup, Radio } from 'shared/components/Form';
 import { RadioContainer } from 'shared/components/Form/RadioContainer/RadioContainer';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
-import { implementationDegreesData } from 'shared/data/implementationDegrees';
 import { ERTitle } from './styled';
 
 export const EvaluationDetails = () => {
@@ -45,7 +38,6 @@ export const EvaluationDetails = () => {
         <STabList>
           <STab>Avaliação inicial - 1</STab>
           <STab>Avaliação inicial - 2</STab>
-          <STab>Avaliação final - 1</STab>
         </STabList>
         {/* Tela avaliacao inicial 1 */}
         <STabPanel>
@@ -145,22 +137,6 @@ export const EvaluationDetails = () => {
               </ERTitle>
               <Collapse title="Documento de requisitos" underline>
                 <InputGroup>
-                  <ReadOnly label="Projeto" value="Projeto 1" />
-                  <File label="Fonte de evidência" path="Um arquivo" />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
-                    control={control}
-                    rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
-                  />
-                </InputGroup>
-                <Divider />
-                <InputGroup>
                   <ReadOnly label="Projeto" value="Projeto 2" />
                   <File label="Fonte de evidência" path="Outro arquivo" />
                   <RadioContainer label="Status">
@@ -184,12 +160,10 @@ export const EvaluationDetails = () => {
                     />
                   </RadioContainer>
                 </InputGroup>
+                <Divider />
               </Collapse>
             </Collapse>
           </FlexSpace>
-        </STabPanel>
-        <STabPanel>
-          <div>pcp</div>
         </STabPanel>
       </STabs>
       <Button secondary width="6rem" onClick={() => onSubmit()}>

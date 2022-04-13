@@ -8,10 +8,11 @@ interface Props {
   option: string;
   rules?: any;
   color?: 'red' | 'yellow' | 'green';
+  legend?: string;
 }
 
 export const Radio = (props: Props) => {
-  const { name, control, option, rules, color } = props;
+  const { name, control, option, rules, color, legend } = props;
 
   return (
     <Controller
@@ -29,7 +30,7 @@ export const Radio = (props: Props) => {
             />
             <StyledRadio color={color} />
           </div>
-          <RadioLabel>teste</RadioLabel>
+          {legend && <RadioLabel>{legend}</RadioLabel>}
         </>
       )}
     />
