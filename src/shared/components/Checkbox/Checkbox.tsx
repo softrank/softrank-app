@@ -23,21 +23,19 @@ export const Checkbox = (props: Props) => {
   const handleCheck = () => setCheck(!check);
 
   return (
-    <>
-      <CheckboxContainer>
-        <HiddenCheckbox
-          onChange={onChange}
-          onClick={() => handleCheck()}
-          checked={check}
-          disabled={disabled}
-        />
-        <StyledCheckbox checked={check} disabled={disabled} error={error}>
-          <Icon disabled={disabled} viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12" />
-          </Icon>
-        </StyledCheckbox>
-      </CheckboxContainer>
-      <span style={{ marginLeft: 8 }}>{label}</span>
-    </>
+    <CheckboxContainer>
+      <HiddenCheckbox
+        onChange={onChange}
+        onClick={() => handleCheck()}
+        checked={check}
+        disabled={disabled}
+      />
+      <StyledCheckbox checked={check} disabled={disabled} error={error}>
+        <Icon disabled={disabled} viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </Icon>
+      </StyledCheckbox>
+      <span>{label}</span>
+    </CheckboxContainer>
   );
 };

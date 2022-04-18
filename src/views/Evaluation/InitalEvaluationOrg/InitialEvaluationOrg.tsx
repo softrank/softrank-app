@@ -9,16 +9,19 @@ import {
   Button,
   AddIcon,
   RemoveIcon,
+  Modal,
 } from 'shared/components';
 import { InputGroup, FileInput, Input } from 'shared/components/Form';
 import { ERTitle } from '../EvaluationDetails/styled';
 import { STabs, STabList, STab, STabPanel } from 'shared/components/Tab/Tab';
 import { modelDummy } from 'shared/data/modelDummy';
 import { Process } from 'shared/models/process';
+import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
 
 export const InitialEvaluationOrg = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<Process[]>();
+  const [showEvidenceDetails, setShowEvidenceDetails] = useState(false);
 
   const {
     control,
@@ -51,7 +54,7 @@ export const InitialEvaluationOrg = () => {
                       options={
                         <AddIcon
                           outline={true}
-                          onClick={() => console.log('me add')}
+                          onClick={() => setShowEvidenceDetails(true)}
                         />
                       }
                       key={index}
@@ -140,6 +143,15 @@ export const InitialEvaluationOrg = () => {
       <Button secondary width="6rem" onClick={() => console.log('salvar')}>
         Salvar
       </Button>
+      <Modal
+        title="Evidencia"
+        showModal={showEvidenceDetails}
+        setShowModal={setShowEvidenceDetails}
+        width="90%"
+        height="100%"
+      >
+        <EvidenceDetails setShowModal={setShowEvidenceDetails} />
+      </Modal>
     </Wrapper>
   );
 };

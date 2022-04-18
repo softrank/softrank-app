@@ -15,6 +15,7 @@ interface Props {
   title: string;
   children?: JSX.Element;
   width?: string;
+  height?: string;
   src?: string;
   loading?: boolean;
   imageAlt?: string;
@@ -27,6 +28,7 @@ export const Modal = (props: Props) => {
     title,
     children,
     width,
+    height,
     src,
     loading,
     imageAlt,
@@ -60,6 +62,7 @@ export const Modal = (props: Props) => {
         <ModalBackground onClick={handleCloseModal} ref={modalRef}>
           <ModalWrapper
             width={width ?? '300px'}
+            height={height ?? '500px'}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
           >

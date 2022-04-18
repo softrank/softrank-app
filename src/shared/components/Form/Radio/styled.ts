@@ -26,7 +26,7 @@ export const StyledRadio = styled.div<Props>`
       ? '3px solid #f7a399'
       : props.color === 'yellow'
       ? '3px solid #ffd500'
-      : '3px solid var(--purple-500)'};
+      : '3px solid var(--gray-500)'};
 
   ${HiddenRadio}:checked + & {
     background-color: var(--gray-100);

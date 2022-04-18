@@ -21,12 +21,7 @@ export const InitialEvaluationTeam = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<Process[]>();
 
-  const {
-    control,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm<any>();
+  const { control } = useForm<any>();
 
   useEffect(() => {
     setProcesses(modelDummy.modelProcesses);
@@ -74,6 +69,12 @@ export const InitialEvaluationTeam = () => {
                               option="3"
                               control={control}
                               color="green"
+                            />
+                            <Radio
+                              name="status"
+                              option="4"
+                              control={control}
+                              legend="N/A"
                             />
                           </RadioContainer>
                         </InputGroup>
