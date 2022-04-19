@@ -10,10 +10,13 @@ import {
   AddIcon,
   RemoveIcon,
   Modal,
+  STab,
+  STabList,
+  STabPanel,
+  STabs,
 } from 'shared/components';
 import { InputGroup, FileInput, Input } from 'shared/components/Form';
 import { ERTitle } from '../EvaluationDetails/styled';
-import { STabs, STabList, STab, STabPanel } from 'shared/components/Tab/Tab';
 import { modelDummy } from 'shared/data/modelDummy';
 import { Process } from 'shared/models/process';
 import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
@@ -53,7 +56,7 @@ export const InitialEvaluationOrg = () => {
                       title={er.initial}
                       options={
                         <AddIcon
-                          outline={true}
+                          $outline={true}
                           onClick={() => setShowEvidenceDetails(true)}
                         />
                       }
@@ -65,9 +68,9 @@ export const InitialEvaluationOrg = () => {
                         underline
                         options={
                           <RemoveIcon
-                            outline={true}
+                            $outline={true}
                             onClick={() => console.log('me add')}
-                            size="small"
+                            $size="small"
                           />
                         }
                       >
@@ -144,7 +147,7 @@ export const InitialEvaluationOrg = () => {
         Salvar
       </Button>
       <Modal
-        title="Evidencia"
+        title="Fonte de evidência"
         showModal={showEvidenceDetails}
         setShowModal={setShowEvidenceDetails}
         width="90%"

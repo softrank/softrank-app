@@ -47,15 +47,12 @@ export const Select = (props: Props) => {
     errors,
   } = props;
 
-  const options: OptionValue[] = [];
-
-  optionValues.map((element) => {
+  const options = optionValues.map((element) => {
     const option: OptionValue = {
       value: element.id ?? element[optionValue],
       label: element[optionLabel],
     };
-    options.push(option);
-    return options;
+    return option;
   });
 
   return (

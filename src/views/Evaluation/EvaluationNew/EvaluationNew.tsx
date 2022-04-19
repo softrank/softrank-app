@@ -302,7 +302,7 @@ export const EvaluationNew = () => {
                 title="Avaliadores adjuntos"
                 options={
                   <AddIcon
-                    disable={disableAddEvaluators}
+                    $disable={disableAddEvaluators}
                     onClick={() => evaluatorsAppend({})}
                   />
                 }
@@ -340,7 +340,7 @@ export const EvaluationNew = () => {
                 title="Projetos"
                 options={
                   <AddIcon
-                    disable={disableAddProjects}
+                    $disable={disableAddProjects}
                     onClick={() => projectsAppend({})}
                   />
                 }

@@ -2,7 +2,13 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { Button, FlexSpace, Options, Wrapper } from 'shared/components';
-import { Form, InputGroup, FileInput, Input } from 'shared/components/Form';
+import {
+  Form,
+  InputGroup,
+  FileInput,
+  Input,
+  Label,
+} from 'shared/components/Form';
 import { ProjectsData } from 'shared/data/projects';
 import { EvidenceDetailsForm } from './EvidenceDatailsForm';
 import { Checkbox } from 'shared/components/Checkbox/Checkbox';
@@ -49,7 +55,7 @@ export const EvidenceDetails = (props: Props) => {
 
   const checkboxHandler = (checked: boolean, project: string) => {
     const projectsCopy = [...projectsChecked];
-    let projectIndex = projectsCopy.findIndex(
+    const projectIndex = projectsCopy.findIndex(
       (pr) => pr.projectName === project
     );
     projectsCopy[projectIndex].checked = checked;
@@ -82,20 +88,25 @@ export const EvidenceDetails = (props: Props) => {
               errors={errors?.group}
             />
           </InputGroup>
-          <CheckBoxContainer>
-            {projectsChecked.map((pc, index) => {
-              return (
-                <Checkbox
-                  key={index}
-                  label={pc.projectName}
-                  checked={pc.checked}
-                  onChange={(e) =>
-                    checkboxHandler(e.target.checked, pc.projectName)
-                  }
-                />
-              );
-            })}
-          </CheckBoxContainer>
+          <InputGroup>
+            <div>
+              <Label>Selecione o(s) projeto(s):</Label>
+              <CheckBoxContainer>
+                {projectsChecked.map((pc, index) => {
+                  return (
+                    <Checkbox
+                      key={index}
+                      label={pc.projectName}
+                      checked={pc.checked}
+                      onChange={(e) =>
+                        checkboxHandler(e.target.checked, pc.projectName)
+                      }
+                    />
+                  );
+                })}
+              </CheckBoxContainer>
+            </div>
+          </InputGroup>
           <InputGroup>
             {projectsChecked.map((pc, index) => {
               return (
@@ -127,6 +138,7 @@ export const EvidenceDetails = (props: Props) => {
 };
 
 const CheckBoxContainer = styled.div`
+  margin-top: 0.4em;
   display: flex;
   align-items: flex-start;
   gap: 16px;

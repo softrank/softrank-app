@@ -86,14 +86,14 @@ const iconCss = css`
 `;
 
 interface IconProps {
-  spin: boolean;
+  $spin: boolean;
 }
 
 export const ToggleCollapseIcon = styled(IoIosArrowDown)<IconProps>`
   ${iconCss}
 
   ${(props) =>
-    props.spin &&
+    props.$spin &&
     css`
       transform: rotate(180deg);
     `}

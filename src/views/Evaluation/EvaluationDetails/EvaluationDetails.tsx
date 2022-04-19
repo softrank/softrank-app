@@ -45,7 +45,10 @@ export const EvaluationDetails = () => {
             <Collapse
               title="GPR - 1"
               options={
-                <AddIcon outline={true} onClick={() => console.log('me add')} />
+                <AddIcon
+                  $outline={true}
+                  onClick={() => console.log('me add')}
+                />
               }
             >
               <ERTitle>
@@ -57,9 +60,9 @@ export const EvaluationDetails = () => {
                 underline
                 options={
                   <RemoveIcon
-                    outline={true}
+                    $outline={true}
                     onClick={() => console.log('me add')}
-                    size="small"
+                    $size="small"
                   />
                 }
               >
