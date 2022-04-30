@@ -9,7 +9,7 @@ interface IconProps {
 }
 
 export const RadioContainer = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   align-items: center;
   gap: 0.3em;
