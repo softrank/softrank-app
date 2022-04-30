@@ -6,7 +6,7 @@ interface Props {
   children: JSX.Element[];
 }
 
-export const RadioContainer = (props: Props) => {
+export const RadioGroup = (props: Props) => {
   const { label, children } = props;
 
   return (
@@ -28,5 +28,6 @@ const Radios = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 12px;
 `;

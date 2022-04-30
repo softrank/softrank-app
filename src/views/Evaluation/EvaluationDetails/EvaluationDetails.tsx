@@ -13,8 +13,8 @@ import {
   Wrapper,
 } from 'shared/components';
 import { File } from 'shared/components/File/File';
-import { FileInput, Input, InputGroup, Radio } from 'shared/components/Form';
-import { RadioContainer } from 'shared/components/Form/RadioContainer/RadioContainer';
+import { FileInput, Input, InputGroup } from 'shared/components/Form';
+import { RadioGroup } from 'shared/components/Form/RadioGroup/RadioGroup';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
 import { ERTitle } from './styled';
 
@@ -142,8 +142,8 @@ export const EvaluationDetails = () => {
                 <InputGroup>
                   <ReadOnly label="Projeto" value="Projeto 2" />
                   <File label="Fonte de evidência" path="Outro arquivo" />
-                  <RadioContainer label="Status">
-                    <Radio
+                  <RadioGroup label="Status">
+                    {/* <Radio
                       name="status"
                       option="1"
                       control={control}
@@ -160,8 +160,8 @@ export const EvaluationDetails = () => {
                       option="3"
                       control={control}
                       color="green"
-                    />
-                  </RadioContainer>
+                    /> */}
+                  </RadioGroup>
                 </InputGroup>
                 <Divider />
               </Collapse>

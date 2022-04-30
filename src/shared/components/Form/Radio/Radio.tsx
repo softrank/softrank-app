@@ -1,38 +1,50 @@
-import { Control, Controller } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 
-import { HiddenRadio, RadioLabel, StyledRadio } from './styled';
+import {
+  CheckedCircle,
+  HiddenRadio,
+  RadioContainer,
+  RadioLabel,
+  StyledRadio,
+} from './styled';
 
 interface Props {
   name: string;
-  control: Control<any>;
-  option: string;
-  rules?: any;
+  value: string;
   color?: 'red' | 'yellow' | 'green';
   legend?: string;
+  register: any;
 }
 
 export const Radio = (props: Props) => {
-  const { name, control, option, rules, color, legend } = props;
+  const { name, value, color, legend, register } = props;
+
+  const [radioCollor, setRadioCollor] = useState('var(--gray-500)');
+
+  useEffect(() => {
+    color === 'green'
+      ? setRadioCollor('#52b788')
+      : color === 'red'
+      ? setRadioCollor('#f7a399')
+      : color === 'yellow'
+      ? setRadioCollor('#ffd500')
+      : setRadioCollor('var(--gray-500)');
+  }, [color]);
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      rules={rules}
-      render={({ field: { onChange, value } }) => (
-        <>
-          <div style={{ position: 'relative' }}>
-            <HiddenRadio
-              onChange={(e: any) => onChange((value = e.target.value))}
-              type="radio"
-              value={option}
-              name={name}
-            />
-            <StyledRadio color={color} />
-          </div>
-          {legend && <RadioLabel>{legend}</RadioLabel>}
-        </>
-      )}
-    />
+    <RadioContainer>
+      <div style={{ position: 'relative' }}>
+        <HiddenRadio
+          type="radio"
+          name={name}
+          value={value}
+          {...register(name)}
+        />
+        <StyledRadio color={color}>
+          <CheckedCircle color={radioCollor} />
+        </StyledRadio>
+      </div>
+      {legend && <RadioLabel>{legend}</RadioLabel>}
+    </RadioContainer>
   );
 };

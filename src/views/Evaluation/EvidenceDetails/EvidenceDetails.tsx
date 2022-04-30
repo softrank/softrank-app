@@ -36,6 +36,7 @@ export const EvidenceDetails = (props: Props) => {
     reset,
     getValues,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<EvidenceDetailsForm>();
 
@@ -61,6 +62,14 @@ export const EvidenceDetails = (props: Props) => {
     projectsCopy[projectIndex].checked = checked;
     setProjectsChecked(projectsCopy);
   };
+
+  useEffect(() => {
+    const subscription = watch((data) => {
+      console.log(data);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <Wrapper>
@@ -114,11 +123,12 @@ export const EvidenceDetails = (props: Props) => {
                   {pc.checked && (
                     <FileInput
                       label={pc.projectName}
-                      name={`project${pc.projectId}File`}
+                      name={`project${pc.projectId}`}
                       control={control}
-                      rules={{ required: true }}
+                      // rules={{ required: true }}
                       reset={reset}
                       getValues={getValues}
+                      // errors={errors?.projectFile}
                     />
                   )}
                 </React.Fragment>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 
 import {
   FlexSpace,
@@ -10,7 +10,7 @@ import {
   ReadOnly,
   Divider,
 } from 'shared/components';
-import { InputGroup, Radio, RadioContainer } from 'shared/components/Form';
+import { Form, InputGroup, Radio, RadioGroup } from 'shared/components/Form';
 import { ERTitle } from '../EvaluationDetails/styled';
 import { STabs, STabList, STab, STabPanel } from 'shared/components/Tab/Tab';
 import { modelDummy } from 'shared/data/modelDummy';
@@ -21,11 +21,18 @@ export const InitialEvaluationTeam = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<Process[]>();
 
-  const { control } = useForm<any>();
+  const { control, handleSubmit, register } = useForm<any>();
+
+  const { fields } = useFieldArray({
+    control,
+    name: 'acceptanceLevel',
+  });
 
   useEffect(() => {
     setProcesses(modelDummy.modelProcesses);
   }, [processes]);
+
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <Wrapper>
@@ -39,58 +46,65 @@ export const InitialEvaluationTeam = () => {
         {processes?.map((process, index) => {
           return (
             <STabPanel key={index}>
-              <FlexSpace space="1rem">
-                {process.expectedResults?.map((er, index) => {
-                  return (
-                    <Collapse title={er.initial}>
-                      <ERTitle>{er.description}</ERTitle>
-                      <Collapse title="Documento de requisitos" underline>
-                        <InputGroup>
-                          <ReadOnly label="Projeto" value="Projeto 2" />
-                          <File
-                            label="Fonte de evidência"
-                            path="Outro arquivo"
-                          />
-                          <RadioContainer label="Status">
-                            <Radio
-                              name="status"
-                              option="1"
-                              control={control}
-                              color="red"
-                            />
-                            <Radio
-                              name="status"
-                              option="2"
-                              control={control}
-                              color="yellow"
-                            />
-                            <Radio
-                              name="status"
-                              option="3"
-                              control={control}
-                              color="green"
-                            />
-                            <Radio
-                              name="status"
-                              option="4"
-                              control={control}
-                              legend="N/A"
-                            />
-                          </RadioContainer>
-                        </InputGroup>
-                        <Divider />
+              <Form onSubmit={onSubmit}>
+                <Button type="submit">Salvar</Button>
+                <FlexSpace space="1rem">
+                  {process.expectedResults?.map((er, index) => {
+                    return (
+                      <Collapse title={er.initial} key={index}>
+                        <ERTitle>{er.description}</ERTitle>
+                        <Collapse title="Documento de requisitos" underline>
+                          <div>
+                            <InputGroup>
+                              <ReadOnly label="Projeto" value="Projeto 2" />
+                              <File
+                                label="Fonte de evidência"
+                                path="Outro arquivo"
+                              />
+                            </InputGroup>
+                            <InputGroup>
+                              <RadioGroup label="Status">
+                                <Radio
+                                  name={`acceptanceLevel[${index}]`}
+                                  value="1"
+                                  color="red"
+                                  legend="Inválido"
+                                  register={register}
+                                />
+                                <Radio
+                                  name={`acceptanceLevel[${index}]`}
+                                  value="2"
+                                  color="yellow"
+                                  legend="Incompleto"
+                                  register={register}
+                                />
+                                <Radio
+                                  name={`acceptanceLevel[${index}]`}
+                                  value="3"
+                                  color="green"
+                                  legend="Completo"
+                                  register={register}
+                                />
+                                <Radio
+                                  name={`acceptanceLevel[${index}]`}
+                                  value="4"
+                                  legend="N/A"
+                                  register={register}
+                                />
+                              </RadioGroup>
+                            </InputGroup>
+                          </div>
+                          <Divider />
+                        </Collapse>
                       </Collapse>
-                    </Collapse>
-                  );
-                })}
-              </FlexSpace>
+                    );
+                  })}
+                </FlexSpace>
+              </Form>
             </STabPanel>
           );
         })}
       </STabs>
-      <Button secondary width="6rem" onClick={() => console.log('salvar')}>
-        Salvar
-      </Button>
     </Wrapper>
   );
 };

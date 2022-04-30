@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface Props {
-  error?: boolean;
+  $error?: boolean;
 }
 
 export const StyledInput = styled.input<Props>`
@@ -18,9 +18,9 @@ export const StyledInput = styled.input<Props>`
 
   transition: 0.4s;
   outline: none;
-  color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
+  color: ${(props) => (props.$error ? 'var(--error)' : 'var(--gray-700)')};
   border: 2px solid
-    ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
+    ${(props) => (props.$error ? 'var(--error)' : 'var(--gray-100)')};
 
   &:hover {
     box-shadow: var(--box-shadow);
@@ -35,7 +35,7 @@ export const StyledInput = styled.input<Props>`
   }
 
   &::placeholder {
-    color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-500)')};
+    color: ${(props) => (props.$error ? 'var(--error)' : 'var(--gray-500)')};
   }
 
   &:disabled {
@@ -50,7 +50,7 @@ export const InputDiv = styled.div`
   width: 100%;
 `;
 
-export const ErrorNote = styled.span`
+export const $errorNote = styled.span`
   position: relative;
   top: -0.8em;
   left: 0.8em;
