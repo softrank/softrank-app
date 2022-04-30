@@ -8,3 +8,5 @@ export * from 'shared/components/Form/TextArea/TextArea';
 export * from 'shared/components/Form/ErrorsNote/ErrorsNote';
 export * from 'shared/components/Form/InputGroup/InputGroup';
 export * from 'shared/components/Form/FileInput/FileInput';
+export * from 'shared/components/Form/Radio/Radio';
+export * from 'shared/components/Form/RadioGroup/RadioGroup';

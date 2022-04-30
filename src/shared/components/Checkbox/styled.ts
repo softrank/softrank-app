@@ -7,8 +7,9 @@ interface Props {
 }
 
 export const CheckboxContainer = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<Props>`

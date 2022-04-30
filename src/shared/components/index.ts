@@ -9,3 +9,7 @@ export { Table } from 'shared/components/Table/Table';
 export * from './Layouts';
 export * from './ActionCard/ActionCard';
 export * from './Divider/Divider';
+export * from './ReadOnly/ReadOnly';
+export * from './Modal/Modal';
+export * from './Options/Options';
+export * from './Tab/Tab';

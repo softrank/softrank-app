@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button, Collapse, FlexSpace, Title, Wrapper } from 'shared/components';
 import {
-  FileInput,
-  Form,
-  Input,
-  InputGroup,
-  Select,
-} from 'shared/components/Form';
+  AddIcon,
+  Button,
+  Collapse,
+  Divider,
+  FlexSpace,
+  ReadOnly,
+  RemoveIcon,
+  Title,
+  Wrapper,
+} from 'shared/components';
+import { File } from 'shared/components/File/File';
+import { FileInput, Input, InputGroup } from 'shared/components/Form';
+import { RadioGroup } from 'shared/components/Form/RadioGroup/RadioGroup';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
-import { implementationDegreesData } from 'shared/data/implementationDegrees';
 import { ERTitle } from './styled';
 
 export const EvaluationDetails = () => {
@@ -31,23 +36,51 @@ export const EvaluationDetails = () => {
       <Title>Avaliação</Title>
       <STabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <STabList>
-          <STab>GPR</STab>
-          <STab>REQ</STab>
-          <STab>PCP</STab>
+          <STab>Avaliação inicial - 1</STab>
+          <STab>Avaliação inicial - 2</STab>
         </STabList>
+        {/* Tela avaliacao inicial 1 */}
         <STabPanel>
           <FlexSpace space="1rem">
-            <Collapse title="GPR - 1">
+            <Collapse
+              title="GPR - 1"
+              options={
+                <AddIcon
+                  $outline={true}
+                  onClick={() => console.log('me add')}
+                />
+              }
+            >
               <ERTitle>
                 O escopo do trabalho para o projeto é estabelecido, mantido
                 atualizado e utilizado.
               </ERTitle>
-              <Collapse title="Projeto - 1" underline>
+              <Collapse
+                title="Fonte de evidência - 1"
+                underline
+                options={
+                  <RemoveIcon
+                    $outline={true}
+                    onClick={() => console.log('me add')}
+                    $size="small"
+                  />
+                }
+              >
                 <InputGroup>
                   <Input
-                    name="name"
-                    label="Nome"
-                    placeholder="nome do arquivo"
+                    label="Fonte de evidência"
+                    name="evidenceSource"
+                    placeholder="nome da fonte de evidência"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    errors={errors?.name}
+                  />
+                  <Input
+                    label="Grupo de garantia da qualidade"
+                    name="evidenceSource"
+                    placeholder="nome do grupo"
                     control={control}
                     rules={{
                       required: true,
@@ -57,208 +90,83 @@ export const EvaluationDetails = () => {
                 </InputGroup>
                 <InputGroup>
                   <FileInput
-                    label="Fonte de evidência"
-                    name="evidenceSource"
+                    label="Projeto 1"
+                    name="file"
                     control={control}
                     rules={{ required: true }}
                     errors={errors?.evaluationPlan}
                     reset={reset}
                     getValues={getValues}
-                    multiple
                   />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
-                    control={control}
-                    rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
-                  />
-                </InputGroup>
-              </Collapse>
-              <Collapse title="Projeto - 2" underline>
-                <InputGroup>
-                  <Input
-                    name="name"
-                    label="Nome"
-                    placeholder="nome do arquivo"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                </InputGroup>
-                <InputGroup>
-                  <Input
+                  <FileInput
+                    label="Projeto 2"
                     name="file"
-                    label="Arquivo"
-                    placeholder="arquivo"
-                    type="file"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
+                    errors={errors?.evaluationPlan}
+                    reset={reset}
+                    getValues={getValues}
                   />
-                </InputGroup>
-              </Collapse>
-              <Collapse title="Projeto - 3" underline>
-                <InputGroup>
-                  <Input
-                    name="name"
-                    label="Nome"
-                    placeholder="nome do arquivo"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                </InputGroup>
-                <InputGroup>
-                  <Input
+                  <FileInput
+                    label="Projeto 3"
                     name="file"
-                    label="Arquivo"
-                    placeholder="arquivo"
-                    type="file"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
+                    errors={errors?.evaluationPlan}
+                    reset={reset}
+                    getValues={getValues}
                   />
-                </InputGroup>
-              </Collapse>
-              <Collapse title="Projeto - 4" underline>
-                <InputGroup>
-                  <Input
-                    name="name"
-                    label="Nome"
-                    placeholder="nome do arquivo"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                </InputGroup>
-                <InputGroup>
-                  <Input
+                  <FileInput
+                    label="Projeto 4"
                     name="file"
-                    label="Arquivo"
-                    placeholder="arquivo"
-                    type="file"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    errors={errors?.name}
-                  />
-                  <Select
-                    name="implementationDegree"
-                    label="Grau de implementação"
-                    placeholder="selecione uma opção"
                     control={control}
                     rules={{ required: true }}
-                    optionValues={implementationDegreesData}
-                    optionLabel="label"
-                    optionValue="value"
-                    errors={errors?.implementationDegree}
+                    errors={errors?.evaluationPlan}
+                    reset={reset}
+                    getValues={getValues}
                   />
                 </InputGroup>
               </Collapse>
-            </Collapse>
-            <Collapse title="GPR - 2">
-              <ERTitle>
-                O processo a ser utilizado para a execução do projeto é
-                descrito, mantido atualizado e utilizado.
-              </ERTitle>
-              <Form onSubmit={onSubmit}>
-                <FlexSpace>
-                  <InputGroup>
-                    <Select
-                      name="evaluatorInstitutionId"
-                      label="Grau de implementação"
-                      placeholder="selecione uma opção"
-                      control={control}
-                      rules={{ required: true }}
-                      optionValues={implementationDegreesData}
-                      optionLabel="label"
-                      optionValue="value"
-                      errors={errors?.evaluatorInstitutionId}
-                    />
-                    <Select
-                      name="evaluatorInstitutionId2"
-                      label="Projeto 2"
-                      placeholder="selecione uma opção"
-                      control={control}
-                      rules={{ required: true }}
-                      optionValues={implementationDegreesData}
-                      optionLabel="label"
-                      optionValue="value"
-                      errors={errors?.evaluatorInstitutionId}
-                    />
-                  </InputGroup>
-                  <InputGroup>
-                    <Select
-                      name="evaluatorInstitutionId"
-                      label="Projeto 3"
-                      placeholder="selecione uma opção"
-                      control={control}
-                      rules={{ required: true }}
-                      optionValues={implementationDegreesData}
-                      optionLabel="label"
-                      optionValue="value"
-                      errors={errors?.evaluatorInstitutionId}
-                    />
-                    <Select
-                      name="evaluatorInstitutionId2"
-                      label="Projeto 4"
-                      placeholder="selecione uma opção"
-                      control={control}
-                      rules={{ required: true }}
-                      optionValues={implementationDegreesData}
-                      optionLabel="label"
-                      optionValue="value"
-                      errors={errors?.evaluatorInstitutionId}
-                    />
-                  </InputGroup>
-                </FlexSpace>
-              </Form>
             </Collapse>
           </FlexSpace>
         </STabPanel>
+        {/* Tela avaliacao inicial 2 */}
         <STabPanel>
-          <div>req</div>
-        </STabPanel>
-        <STabPanel>
-          <div>pcp</div>
+          <FlexSpace space="1rem">
+            <Collapse title="GPR - 1">
+              <ERTitle>
+                O escopo do trabalho para o projeto é estabelecido, mantido
+                atualizado e utilizado.
+              </ERTitle>
+              <Collapse title="Documento de requisitos" underline>
+                <InputGroup>
+                  <ReadOnly label="Projeto" value="Projeto 2" />
+                  <File label="Fonte de evidência" path="Outro arquivo" />
+                  <RadioGroup label="Status">
+                    {/* <Radio
+                      name="status"
+                      option="1"
+                      control={control}
+                      color="red"
+                    />
+                    <Radio
+                      name="status"
+                      option="2"
+                      control={control}
+                      color="yellow"
+                    />
+                    <Radio
+                      name="status"
+                      option="3"
+                      control={control}
+                      color="green"
+                    /> */}
+                  </RadioGroup>
+                </InputGroup>
+                <Divider />
+              </Collapse>
+            </Collapse>
+          </FlexSpace>
         </STabPanel>
       </STabs>
       <Button secondary width="6rem" onClick={() => onSubmit()}>

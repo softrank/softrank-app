@@ -13,7 +13,7 @@ export const EvaluationManagment = () => {
         <AddIcon onClick={() => history.push('/avaliacao/nova')} />
       </div>
       <SubTitle>Em andamento</SubTitle>
-      <Divider />
+      <Divider top="-20px" />
     </Wrapper>
   );
 };

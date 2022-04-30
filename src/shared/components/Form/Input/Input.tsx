@@ -1,4 +1,4 @@
-import { InputDiv, StyledInput } from './styled';
+import { InputDiv, ReadOnlyInput, StyledInput } from './styled';
 import {
   Control,
   Controller,
@@ -20,6 +20,8 @@ interface Props {
   rules?: any;
   errors?: DeepMap<FieldValues, FieldError>;
   mask?: string;
+  disabled?: boolean;
+  readonly?: boolean;
 }
 
 export const Input = (props: Props) => {
@@ -33,31 +35,39 @@ export const Input = (props: Props) => {
     rules,
     errors,
     mask,
+    disabled = false,
+    readonly = false,
   } = props;
 
   return (
     <InputDiv>
       <Label>{label}</Label>
-      <Controller
-        name={name}
-        control={control}
-        defaultValue={defaultValue}
-        rules={rules}
-        render={({ field: { onChange, value } }) => (
-          <>
-            <StyledInput
-              placeholder={placeholder}
-              onChange={(e: any) => onChange((value = e.target.value))}
-              type={type}
-              value={value ?? ''}
-              error={errors && true}
-              as={InputMask}
-              mask={mask ?? ''}
-            />
-            {errors && <ErrorsNote error={errors} />}
-          </>
-        )}
-      />
+      {readonly ? (
+        <ReadOnlyInput>testing</ReadOnlyInput>
+      ) : (
+        <Controller
+          name={name}
+          control={control}
+          defaultValue={defaultValue}
+          rules={rules}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder={placeholder}
+                onChange={(e: any) => onChange((value = e.target.value))}
+                type={type}
+                value={value ?? ''}
+                $error={errors && true}
+                as={InputMask}
+                mask={mask ?? ''}
+                disabled={disabled}
+              />
+
+              {errors && <ErrorsNote error={errors} />}
+            </>
+          )}
+        />
+      )}
     </InputDiv>
   );
 };

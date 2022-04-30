@@ -1,10 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './views/App';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 
+import App from './views/App';
 import { store } from './shared/store';
 
 export const history = createBrowserHistory();

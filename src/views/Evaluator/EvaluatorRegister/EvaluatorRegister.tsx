@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Title, Collapse, Button, FlexSpace, Wrapper } from 'shared/components';
+import {
+  Title,
+  Collapse,
+  Button,
+  FlexSpace,
+  Wrapper,
+  AddIcon,
+} from 'shared/components';
 import {
   Form,
   InputGroup,
@@ -9,15 +16,17 @@ import {
   Select,
   DateInput,
 } from 'shared/components/Form';
-import { evaluatorService, modelsService } from 'shared/services';
+import {
+  evaluatorInstitutionService,
+  evaluatorService,
+  modelsService,
+} from 'shared/services';
 import {
   CollapseContent,
   GroupDivider,
 } from 'shared/components/Collapse/styled';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { LoadingScreen } from 'shared/components/Loading';
-import { AddIcon } from 'views/Model/ModelDetails/styled';
-import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
 import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
 import { RemoveIconButton } from './styled';
 import { EvaluatorDto, LicenseDto } from 'shared/dtos/evaluatorDto';

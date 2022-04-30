@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 interface Props {
   width: string;
+  height: string;
 }
 
 export const ModalBackground = styled.div`
@@ -25,7 +26,7 @@ export const ModalBackground = styled.div`
 export const ModalWrapper = styled(motion.div)<Props>`
   position: relative;
   max-width: ${(props) => (props.width ? props.width : '800px')};
-  height: 500px;
+  max-height: ${(props) => (props.height ? props.height : '500px')};
   padding: 1em;
   margin: 1em;
 

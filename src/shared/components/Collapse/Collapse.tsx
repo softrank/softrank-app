@@ -34,7 +34,7 @@ export const Collapse = ({ title, children, options, underline }: Props) => {
           {options}
           <ToggleCollapseIcon
             onClick={() => handleToggleCollapse()}
-            spin={!collapseState}
+            $spin={!collapseState}
           />
         </CollapseOptions>
       </CollapseHead>
