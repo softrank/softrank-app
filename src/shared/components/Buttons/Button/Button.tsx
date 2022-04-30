@@ -17,7 +17,7 @@ export const Button = (props: Props) => {
     loading = false,
     children,
     onClick,
-    type,
+    type = 'button',
     width,
     disabled,
     secondary,
@@ -33,18 +33,16 @@ export const Button = (props: Props) => {
       secondary={secondary}
       neutral={neutral}
     >
-      <>
-        {loading ? (
-          <LoadingHorizontal
-            loading={loading}
-            size={10}
-            color={secondary ? undefined : 'white'}
-            speed={0.9}
-          />
-        ) : (
-          children
-        )}
-      </>
+      {loading ? (
+        <LoadingHorizontal
+          loading={loading}
+          size={10}
+          color={secondary ? undefined : 'white'}
+          speed={0.9}
+        />
+      ) : (
+        children
+      )}
     </StyledButton>
   );
 };
