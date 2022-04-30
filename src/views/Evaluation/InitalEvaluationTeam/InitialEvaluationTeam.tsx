@@ -9,17 +9,21 @@ import {
   Button,
   ReadOnly,
   Divider,
+  Options,
+  STab,
+  STabList,
+  STabPanel,
+  STabs,
 } from 'shared/components';
 import { Form, InputGroup, Radio, RadioGroup } from 'shared/components/Form';
 import { ERTitle } from '../EvaluationDetails/styled';
-import { STabs, STabList, STab, STabPanel } from 'shared/components/Tab/Tab';
 import { modelDummy } from 'shared/data/modelDummy';
 import { Process } from 'shared/models/process';
 import { File } from 'shared/components/File/File';
 
 export const InitialEvaluationTeam = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [processes, setProcesses] = useState<Process[]>();
+  const [processes, setProcesses] = useState<Process[]>([]);
 
   const { control, handleSubmit, register } = useForm<any>();
 
@@ -47,7 +51,6 @@ export const InitialEvaluationTeam = () => {
           return (
             <STabPanel key={index}>
               <Form onSubmit={onSubmit}>
-                <Button type="submit">Salvar</Button>
                 <FlexSpace space="1rem">
                   {process.expectedResults?.map((er, index) => {
                     return (
@@ -104,6 +107,36 @@ export const InitialEvaluationTeam = () => {
             </STabPanel>
           );
         })}
+        {tabIndex === 0 ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              marginTop: '1rem',
+            }}
+          >
+            <Button onClick={() => setTabIndex(tabIndex + 1)}>Próximo</Button>
+          </div>
+        ) : tabIndex === processes.length - 1 ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginTop: '1rem',
+            }}
+          >
+            <Button secondary onClick={() => setTabIndex(tabIndex - 1)}>
+              Anterior
+            </Button>
+          </div>
+        ) : (
+          <Options>
+            <Button secondary onClick={() => setTabIndex(tabIndex - 1)}>
+              Anterior
+            </Button>
+            <Button onClick={() => setTabIndex(tabIndex + 1)}>Próximo</Button>
+          </Options>
+        )}
       </STabs>
     </Wrapper>
   );
