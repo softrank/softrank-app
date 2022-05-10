@@ -47,7 +47,7 @@ export const HomePage = () => {
         <ActionCard path="avaliacoes" title="Avaliações" icon="evaluation" />
         {userRoles.includes('evaluator') && (
           <ActionCard
-            path="avaliacao/nova"
+            path="/avaliacao-nova"
             title="Adicionar avaliação"
             icon="add"
           />

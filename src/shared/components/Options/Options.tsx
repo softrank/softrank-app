@@ -10,7 +10,6 @@ export const Options = ({ children }: Props) => {
 
 const OptionsStyled = styled.div`
   width: 100%;
-  margin-top: 1rem;
 
   display: flex;
   justify-content: space-between;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 
 import {
   FlexSpace,
@@ -25,6 +26,8 @@ export const InitialEvaluationTeam = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<Process[]>([]);
 
+  const { id } = useParams<{ id: string }>();
+
   const { control, handleSubmit, register } = useForm<any>();
 
   const { fields } = useFieldArray({
@@ -35,6 +38,12 @@ export const InitialEvaluationTeam = () => {
   useEffect(() => {
     setProcesses(modelDummy.modelProcesses);
   }, [processes]);
+
+  // useEffect(() => {
+  //   evaluationService.getIndicators(id).then(res => {
+  //     setProcesses
+  //   })
+  // }, [third])
 
   const onSubmit = handleSubmit((data) => console.log(data));
 

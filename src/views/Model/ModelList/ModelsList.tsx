@@ -17,7 +17,7 @@ export const ModelsList = () => {
         setModels(response);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
       });
   }, []);

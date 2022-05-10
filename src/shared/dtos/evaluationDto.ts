@@ -1,12 +1,12 @@
 export interface EvalutationDto {
-  name: string;
-  start: Date;
-  end: Date;
-  evaluatorInstitutionId: string;
   organizationalUnitId: string;
   expectedModelLevelId: string;
-  implementationInstitution?: string;
   auditorId: string;
+  evaluatorInstitutionId: string;
+  start: Date;
+  end: Date;
+  implementationInstitution?: string;
+  name: string;
   evaluatorsIds: string[];
   projects: string[];
 }

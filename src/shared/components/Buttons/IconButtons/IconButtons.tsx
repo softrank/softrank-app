@@ -1,4 +1,4 @@
-import { IoIosAdd, IoIosArrowDown } from 'react-icons/io';
+import { IoIosAdd, IoIosArrowDown, IoMdExit } from 'react-icons/io';
 import { MdEdit } from 'react-icons/md';
 import { HiOutlineTrash } from 'react-icons/hi';
 import styled, { css } from 'styled-components';
@@ -60,6 +60,12 @@ const EditIcon = styled(MdEdit)`
 
 const RemoveIcon = styled(HiOutlineTrash)`
   ${iconCss}
+  padding: ${(props) => (props.$size === 'small' ? '4px' : '6px')};
 `;
 
-export { ToggleIcon, AddIcon, EditIcon, RemoveIcon };
+const ExitIcon = styled(IoMdExit)`
+  ${iconCss}
+  padding: ${(props) => (props.$size === 'small' ? '4px' : '6px')};
+`;
+
+export { ToggleIcon, AddIcon, EditIcon, RemoveIcon, ExitIcon };

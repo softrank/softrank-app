@@ -72,6 +72,7 @@ export const ModalTitle = styled.div`
   font-size: 34px;
   font-family: 'Montserrat', sans-serif;
   padding: 0 1em;
+  margin-bottom: 0.5em;
 
   display: flex;
   flex-direction: column;

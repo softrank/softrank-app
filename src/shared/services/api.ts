@@ -3,20 +3,20 @@ import { store } from 'shared/store';
 
 axios.defaults.baseURL = 'http://localhost:3002/api';
 
-const sleep = (delay: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
+// const sleep = (delay: number) => {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, delay);
+//   });
+// };
 
-axios.interceptors.response.use(async (response) => {
-  try {
-    await sleep(500);
-    return response;
-  } catch (error) {
-    return await Promise.reject(error);
-  }
-});
+// axios.interceptors.response.use(async (response) => {
+//   try {
+//     await sleep(500);
+//     return response;
+//   } catch (error) {
+//     return await Promise.reject(error);
+//   }
+// });
 
 axios.interceptors.request.use((config) => {
   const state = store.getState();

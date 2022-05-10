@@ -31,6 +31,7 @@ import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
 import { RemoveIconButton } from './styled';
 import { EvaluatorDto, LicenseDto } from 'shared/dtos/evaluatorDto';
 import { EvaluatorFormValues } from './evaluatorFormValues';
+import { useHistory } from 'react-router';
 
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
@@ -39,6 +40,8 @@ export const EvaluatorRegister = () => {
     EvaluatorInstitution[]
   >([]);
   const [loading, setLoading] = useState(true);
+
+  const history = useHistory();
 
   const {
     handleSubmit,
@@ -60,8 +63,8 @@ export const EvaluatorRegister = () => {
     { value: 'adjunct', label: 'Adjunto' },
   ];
 
-  const handleCreateEvaluator = (evaluator: EvaluatorFormValues) => {
-    const formatedLicenses = evaluator.licenses.map((license) => {
+  const assembleEvaluator = (evalutorData: EvaluatorFormValues) => {
+    const formatedLicenses = evalutorData.licenses.map((license) => {
       const licenseDto: LicenseDto = {
         expiration: license.expiration,
         modelLevelId: (license.modelLevelId = (
@@ -74,22 +77,29 @@ export const EvaluatorRegister = () => {
     });
 
     const dto: EvaluatorDto = {
-      name: evaluator.name,
-      email: evaluator.email,
-      documentNumber: evaluator.documentNumber,
+      name: evalutorData.name,
+      email: evalutorData.email,
+      documentNumber: evalutorData.documentNumber,
       documentType: 'f',
-      phone: evaluator.phone,
-      password: evaluator.password,
-      evaluatorInstitutionId: (evaluator.evaluatorInstitutionId = (
-        evaluator.evaluatorInstitutionId as any
+      phone: evalutorData.phone,
+      password: evalutorData.password,
+      evaluatorInstitutionId: (evalutorData.evaluatorInstitutionId = (
+        evalutorData.evaluatorInstitutionId as any
       ).value),
       licenses: formatedLicenses,
     };
 
+    return dto;
+  };
+
+  const handleCreateEvaluator = (formData: EvaluatorFormValues) => {
+    const evaluator = assembleEvaluator(formData);
+
     evaluatorService
-      .create(dto)
+      .create(evaluator)
       .then(() => {
         console.log('criado');
+        history.push('avaliacoes');
       })
       .catch((error) => {
         console.log(error);

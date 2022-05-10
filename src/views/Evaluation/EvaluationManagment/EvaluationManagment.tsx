@@ -2,6 +2,7 @@ import { useHistory } from 'react-router';
 
 import { AddIcon, Divider, Title, Wrapper } from 'shared/components';
 import { SubTitle } from 'shared/components/Titles/SubTitle';
+import { EvaluationList } from '../EvaluationList/EvaluationList';
 
 export const EvaluationManagment = () => {
   const history = useHistory();
@@ -10,10 +11,13 @@ export const EvaluationManagment = () => {
     <Wrapper>
       <Title>Avaliações</Title>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <AddIcon onClick={() => history.push('/avaliacao/nova')} />
+        <AddIcon onClick={() => history.push('/avaliacao_nova')} />
       </div>
-      <SubTitle>Em andamento</SubTitle>
-      <Divider top="-20px" />
+      <div>
+        <SubTitle>Minhas avaliações</SubTitle>
+        <Divider />
+        <EvaluationList />
+      </div>
     </Wrapper>
   );
 };

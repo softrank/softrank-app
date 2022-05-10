@@ -21,7 +21,11 @@ import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
 import { File } from 'shared/components/File/File';
 import { InputGroup } from 'shared/components/Form';
 
-export const InitialEvaluationOrg = () => {
+interface Props {
+  evaluationId: string;
+}
+
+export const InitialEvaluationOrg = ({ evaluationId }: Props) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<Process[]>();
   const [showEvidenceDetails, setShowEvidenceDetails] = useState(false);

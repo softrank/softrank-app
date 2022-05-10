@@ -25,9 +25,9 @@ const Radios = styled.div`
   width: 100%;
   height: 3.2rem;
   padding: 0.6em;
+  margin-top: 0.4em;
 
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 12px;
+  gap: 1rem;
 `;
