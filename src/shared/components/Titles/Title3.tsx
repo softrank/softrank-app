@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ERTitle = styled.h3`
+export const Title3 = styled.h3`
   font-size: 18px;
   color: var(--gray-700);
 `;

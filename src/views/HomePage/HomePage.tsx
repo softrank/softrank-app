@@ -9,6 +9,7 @@ import { LoadingSpinner } from 'shared/components/Loading';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
 import { ActionCardContainer } from './styled';
+import success from 'shared/assets/images/success.svg';
 
 export const HomePage = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
@@ -43,19 +44,35 @@ export const HomePage = () => {
   return (
     <Wrapper>
       <Title>Atividades</Title>
+      <div>
+        <span>testing</span>
+        <img src={success} alt="welcome" />
+      </div>
       <ActionCardContainer>
-        <ActionCard path="avaliacoes" title="Avaliações" icon="evaluation" />
+        <ActionCard
+          onClick={() => history.push('avaliacoes')}
+          title="Avaliações"
+          icon="evaluation"
+        />
         {userRoles.includes('evaluator') && (
           <ActionCard
-            path="/avaliacao-nova"
+            onClick={() => history.push('/avaliacao-nova')}
             title="Adicionar avaliação"
             icon="add"
           />
         )}
         {userRoles.includes('modelManager') && (
           <>
-            <ActionCard path="modelos" title="Modelos" icon="doc" />
-            <ActionCard path="modelo" title="Adicionar modelo" icon="add" />
+            <ActionCard
+              onClick={() => history.push('modelos')}
+              title="Modelos"
+              icon="doc"
+            />
+            <ActionCard
+              onClick={() => history.push('modelo')}
+              title="Adicionar modelo"
+              icon="add"
+            />
           </>
         )}
       </ActionCardContainer>

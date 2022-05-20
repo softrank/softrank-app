@@ -19,13 +19,13 @@ import {
   AuditorRegister,
   EvaluatorInstitutionRegister,
   OrganizationRegister,
-  EvaluationDetails,
   EvaluationManagment,
   EvaluationNew,
   EvaluatorInstitutionManagment,
   ImprovementsReport,
   InitialEvaluationTeam,
   EvaluationHome,
+  InitialEvaluationOrg,
 } from './';
 
 export default function App() {
@@ -82,6 +82,11 @@ export default function App() {
               path="/avaliadores"
               component={EvaluatorManagment}
             />
+            <PrivateRoute
+              exact
+              path="/instituicoesAvaliadoras"
+              component={EvaluatorInstitutionManagment}
+            />
             {userRoles.includes('modelManager') && (
               <PrivateRoute exact path="/modelos" component={ModelManagment} />
             )}
@@ -92,11 +97,6 @@ export default function App() {
                   path="/avaliacao/:id"
                   component={EvaluationHome}
                 />
-                {/* <PrivateRoute
-                  exact
-                  path="/avaliacao/planilha-de-requisitos"
-                  component={InitialEvaluationOrg}
-                /> */}
                 <PrivateRoute
                   exact
                   path="/avaliacao/planilha-de-requisitos/:id"
@@ -119,21 +119,14 @@ export default function App() {
                 />
               </>
             )}
-            <PrivateRoute
-              exact
-              path="/avaliacao"
-              component={EvaluationDetails}
-            />
-            <PrivateRoute
-              exact
-              path="/avaliacao/:id"
-              component={EvaluationDetails}
-            />
-            <PrivateRoute
-              exact
-              path="/instituicoesAvaliadoras"
-              component={EvaluatorInstitutionManagment}
-            />
+            {userRoles.includes('organizationalUnit') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/planilha-de-requisitos/:id"
+                component={InitialEvaluationOrg}
+              />
+            )}
+
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}

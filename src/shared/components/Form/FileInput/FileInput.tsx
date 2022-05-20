@@ -60,7 +60,7 @@ export const FileInput = ({
 
   return (
     <div style={{ width: '100%' }}>
-      <Label>{label}</Label>
+      {label ?? <Label>{label}</Label>}
       <Controller
         name={name}
         control={control}

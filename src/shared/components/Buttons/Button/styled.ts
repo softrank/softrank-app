@@ -24,7 +24,6 @@ export const StyledButton = styled.button<Props>`
   transition: all 400ms ease;
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
     border: 2px solid var(--purple-500);
     transform: translateY(-3px);
