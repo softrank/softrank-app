@@ -32,6 +32,6 @@ export const SideBarData: IPath[] = [
   {
     title: 'Minhas avaliações',
     path: '/avaliacoes',
-    roles: ['evaluator'],
+    roles: ['evaluator', 'organizationalUnit'],
   },
 ];

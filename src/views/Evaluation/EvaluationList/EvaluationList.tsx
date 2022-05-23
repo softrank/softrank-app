@@ -22,10 +22,6 @@ export const EvaluationList = () => {
       });
   }, []);
 
-  // const formatDate = (date: any) => {
-  //   return new Date(date.toString()).getFullYear();
-  // };
-
   return (
     <>
       {loading ? (

@@ -22,10 +22,11 @@ import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { Title3 } from 'shared/components/Titles/Title3';
+import { EvaluationTeamForm } from './evaluationTeamForm';
 
 export const InitialEvaluationTeam = () => {
   const { id } = useParams<{ id: string }>();
-  const { handleSubmit, register } = useForm<any>();
+  const { handleSubmit, register } = useForm<EvaluationTeamForm[]>();
 
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<EvaluationProcess[]>([]);
@@ -62,64 +63,73 @@ export const InitialEvaluationTeam = () => {
               })}
             </STabList>
             <Form onSubmit={onSubmit}>
-              {processes?.map((process, index) => {
-                return (
-                  <STabPanel key={index}>
-                    <FlexSpace space="1rem">
-                      {process.expectedResults?.map((er, index) => {
-                        return (
-                          <Collapse title={er.initial} key={index}>
-                            <Title3>{er.description}</Title3>
-                            <Collapse title="Documento de requisitos" underline>
-                              <div>
-                                <InputGroup>
-                                  <ReadOnly label="Projeto" value="Projeto 2" />
-                                  <File
-                                    label="Fonte de evidência"
-                                    path="Outro arquivo"
-                                  />
-                                </InputGroup>
-                                <InputGroup>
-                                  <RadioGroup label="Status">
-                                    <Radio
-                                      name={`acceptanceLevel[${index}]`}
-                                      value="1"
-                                      color="red"
-                                      legend="Inválido"
-                                      register={register}
+              <>
+                <Button type="submit">Salvar</Button>
+                {processes?.map((process, index) => {
+                  return (
+                    <STabPanel key={index}>
+                      <FlexSpace space="1rem">
+                        {process.expectedResults?.map((er, index) => {
+                          return (
+                            <Collapse title={er.initial} key={index}>
+                              <Title3>{er.description}</Title3>
+                              <Collapse
+                                title="Documento de requisitos"
+                                underline
+                              >
+                                <div>
+                                  <InputGroup>
+                                    <ReadOnly
+                                      label="Projeto"
+                                      value="Projeto 2"
                                     />
-                                    <Radio
-                                      name={`acceptanceLevel[${index}]`}
-                                      value="2"
-                                      color="yellow"
-                                      legend="Incompleto"
-                                      register={register}
+                                    <File
+                                      label="Fonte de evidência"
+                                      path="Outro arquivo"
                                     />
-                                    <Radio
-                                      name={`acceptanceLevel[${index}]`}
-                                      value="3"
-                                      color="green"
-                                      legend="Completo"
-                                      register={register}
-                                    />
-                                    <Radio
-                                      name={`acceptanceLevel[${index}]`}
-                                      value="4"
-                                      legend="N/A"
-                                      register={register}
-                                    />
-                                  </RadioGroup>
-                                </InputGroup>
-                              </div>
-                              <Divider />
+                                  </InputGroup>
+                                  <InputGroup>
+                                    <RadioGroup label="Status">
+                                      <Radio
+                                        name={`${process.initial}.indicator[${index}]`}
+                                        value="1"
+                                        color="red"
+                                        legend="Inválido"
+                                        register={register}
+                                      />
+                                      <Radio
+                                        name={`${process.initial}.indicator[${index}]`}
+                                        value="2"
+                                        color="yellow"
+                                        legend="Incompleto"
+                                        register={register}
+                                      />
+                                      <Radio
+                                        name={`${process.initial}.indicator[${index}]`}
+                                        value="3"
+                                        color="green"
+                                        legend="Completo"
+                                        register={register}
+                                      />
+                                      <Radio
+                                        name={`${process.initial}.indicator[${index}]`}
+                                        value="4"
+                                        legend="N/A"
+                                        register={register}
+                                      />
+                                    </RadioGroup>
+                                  </InputGroup>
+                                </div>
+                                <Divider />
+                              </Collapse>
                             </Collapse>
-                          </Collapse>
-                        );
-                      })}
-                    </FlexSpace>
-                  </STabPanel>
-                );
-              })}
+                          );
+                        })}
+                      </FlexSpace>
+                    </STabPanel>
+                  );
+                })}
+              </>
             </Form>
             {tabIndex === 0 ? (
               <div

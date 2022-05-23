@@ -90,13 +90,16 @@ export default function App() {
             {userRoles.includes('modelManager') && (
               <PrivateRoute exact path="/modelos" component={ModelManagment} />
             )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('organizationalUnit')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/:id"
+                component={EvaluationHome}
+              />
+            )}
             {userRoles.includes('evaluator') && (
               <>
-                <PrivateRoute
-                  exact
-                  path="/avaliacao/:id"
-                  component={EvaluationHome}
-                />
                 <PrivateRoute
                   exact
                   path="/avaliacao/planilha-de-requisitos/:id"

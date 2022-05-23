@@ -30,6 +30,7 @@ export const InitialEvaluationOrg = () => {
   const [processes, setProcesses] = useState<EvaluationProcess[]>();
   const [loading, setLoading] = useState(true);
   const [showEvidenceDetails, setShowEvidenceDetails] = useState(false);
+  const [expectedResultId, setExpectedResultId] = useState<string>();
 
   useEffect(() => {
     evaluationService
@@ -44,6 +45,11 @@ export const InitialEvaluationOrg = () => {
         setLoading(false);
       });
   }, [id]);
+
+  const addIndicatorHandler = (expectResultId: string) => {
+    setExpectedResultId(expectedResultId);
+    setShowEvidenceDetails(true);
+  };
 
   return (
     <>
@@ -71,7 +77,7 @@ export const InitialEvaluationOrg = () => {
                         options={
                           <AddIcon
                             $outline={true}
-                            onClick={() => setShowEvidenceDetails(true)}
+                            onClick={() => addIndicatorHandler(er.id)}
                           />
                         }
                         key={index}
@@ -101,7 +107,11 @@ export const InitialEvaluationOrg = () => {
             width="90%"
             height="100%"
           >
-            <EvidenceDetails setShowModal={setShowEvidenceDetails} />
+            <EvidenceDetails
+              evaluationId={id}
+              expectedResultId={expectedResultId}
+              setShowModal={setShowEvidenceDetails}
+            />
           </Modal>
         </Wrapper>
       )}

@@ -7,36 +7,43 @@ const LevelOptions: ModelLevel[] = [
     id: '',
     initial: 'A',
     name: 'Em otimização',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'B',
     name: 'Gerenciado quantativamente',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'C',
     name: 'Totalmente definido',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'D',
     name: 'Definido',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'E',
     name: 'Parcialmente definido',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'F',
     name: 'Gerenciados',
+    predecessor: null,
   },
   {
     id: '',
     initial: 'G',
     name: 'Parcialmente gerenciado',
+    predecessor: null,
   },
 ];
 

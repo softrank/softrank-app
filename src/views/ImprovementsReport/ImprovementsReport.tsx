@@ -82,10 +82,10 @@ export const ImprovementsReport = () => {
             title="Adicionar melhoria"
             showModal={showModal}
             setShowModal={setShowModal}
-            width="90%"
+            width="80%"
             height="100%"
           >
-            <ImprovementDetails setShowModal={setShowModal} />
+            <ImprovementDetails setShowModal={setShowModal} evaluationId={id} />
           </Modal>
         </Wrapper>
       )}

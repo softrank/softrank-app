@@ -11,7 +11,7 @@ export const EvaluationManagment = () => {
     <Wrapper>
       <Title>Avaliações</Title>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <AddIcon onClick={() => history.push('/avaliacao_nova')} />
+        <AddIcon onClick={() => history.push('/avaliacao-nova')} />
       </div>
       <div>
         <SubTitle>Minhas avaliações</SubTitle>

@@ -33,4 +33,5 @@ export const requests = {
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
+  postWithoutBody: <T>(url: string) => axios.post<T>(url).then(responseBody),
 };

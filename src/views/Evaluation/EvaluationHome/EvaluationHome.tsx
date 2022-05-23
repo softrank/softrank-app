@@ -13,9 +13,12 @@ import { FileInput, Form } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { evaluationService } from 'shared/services';
 import { OptionsContainer, TitleContainer } from './styled';
+import checking from 'shared/assets/images/checking.svg';
+import { ActionCardImage } from 'shared/components/ActionCardImage/ActionCardImage';
+import { EvaluationDetails } from 'shared/models/evaluationDetails';
 
 export const EvaluationHome = () => {
-  const [evaluation, setEvaluation] = useState<any>();
+  const [evaluation, setEvaluation] = useState<EvaluationDetails>();
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams<{ id: string }>();
@@ -52,7 +55,7 @@ export const EvaluationHome = () => {
           <TitleContainer>
             <Title>{evaluation?.name}</Title>
             <SubTitle>
-              Organização: {evaluation?.orgranizationalUnit?.name}
+              Organização: {evaluation?.organizationalUnit?.name}
             </SubTitle>
           </TitleContainer>
           <div>
@@ -60,12 +63,13 @@ export const EvaluationHome = () => {
             <Divider />
           </div>
           <OptionsContainer>
-            <ActionCard
+            <ActionCardImage
+              title="Planilha de indicadores"
               onClick={() =>
                 history.push(`/avaliacao/planilha-de-requisitos/${id}`)
               }
-              title="Planilha de indicadores"
-              icon="list"
+              src={checking}
+              alt="Planilha de indicadores"
             />
             <ActionCard
               onClick={() => history.push(`/relatorio-de-melhorias/${id}`)}

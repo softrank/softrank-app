@@ -5,7 +5,7 @@ export interface EvaluationProcess {
   expectedResults: EvaluationExpectedResult[];
 }
 
-interface EvaluationExpectedResult {
+export interface EvaluationExpectedResult {
   id: string;
   expectedResultId: string;
   name: string;

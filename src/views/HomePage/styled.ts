@@ -25,3 +25,31 @@ export const ActionCardContainer = styled.div`
     height: 1px;
   }
 `;
+
+export const Hero = styled.div`
+  width: auto;
+  display: flex;
+  justify-content: right;
+  position: relative;
+`;
+
+export const HeroImage = styled.img`
+  right: 0;
+  width: 600px;
+  margin-left: -10px;
+`;
+
+export const HeroTitle = styled.span`
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  color: var(--gray-700);
+  font-size: 3rem;
+  max-width: 400px;
+  padding: 0.2em;
+  text-align: center;
+  border-radius: var(--radius);
+  background-color: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+`;
