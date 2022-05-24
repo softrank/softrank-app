@@ -17,22 +17,24 @@ import {
 } from './evidenceDetailsForm';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
+import { indicatorsService } from 'shared/services/indicatorsService';
+import { IndicatorDto } from 'shared/dtos/indicatorDto';
 
 interface Props {
   setShowModal: (state: boolean) => void;
   evaluationId: string;
-  expectedResultId: string | undefined;
+  expectedResultId: string;
+  indicatorId: string | undefined;
 }
 
-export const EvidenceDetails = ({
-  setShowModal,
-  evaluationId,
-  expectedResultId,
-}: Props) => {
+export const EvidenceDetails = (props: Props) => {
+  const { setShowModal, evaluationId, expectedResultId } = props;
+
   const [loading, setLoading] = useState(true);
   const [checkedProjects, setCheckedProjects] = useState<
     EvidenceDetailsFormFile[]
   >([]);
+  const [indicatorId, setIndicatorId] = useState<string>('');
 
   const {
     control,
@@ -46,12 +48,6 @@ export const EvidenceDetails = ({
     control,
     name: `files`,
   });
-
-  // useEffect(() => {
-  //   reset({
-  //     id: model.id,
-  //   });
-  // }, [expectedResultId]);
 
   useEffect(() => {
     evaluationService
@@ -79,7 +75,19 @@ export const EvidenceDetails = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluationId]);
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  useEffect(() => {
+    if (props.indicatorId) {
+      setIndicatorId(props.indicatorId);
+    } else {
+      if (expectedResultId) {
+        indicatorsService.create(expectedResultId).then((indicator) => {
+          setIndicatorId(indicator.id);
+          console.log(indicator);
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expectedResultId, props.indicatorId]);
 
   useEffect(() => {
     const subscription = watch((data) => {
@@ -88,6 +96,39 @@ export const EvidenceDetails = ({
 
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  const onSubmit = handleSubmit((data) => saveIndicator(data));
+
+  const saveIndicator = (formData: EvidenceDetailsForm) => {
+    const indicatorInfo: IndicatorDto = {
+      name: formData.name,
+      qualityAssuranceGroup: formData.qualityAssuranceGroup,
+    };
+
+    const files = formData.files.filter((file) => file.checked === true);
+
+    indicatorsService
+      .update(indicatorInfo, indicatorId)
+      .then((res) => {
+        files.forEach((file) => {
+          if (file.content)
+            indicatorsService.createFile(
+              indicatorId,
+              file.projectId,
+              file.content
+            );
+        });
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowModal(false);
+      });
+  };
 
   return (
     <>
@@ -110,7 +151,7 @@ export const EvidenceDetails = ({
                 />
                 <Input
                   label="Grupo de garantia da qualidade"
-                  name="group"
+                  name="qualityAssuranceGroup"
                   placeholder="nome do grupo"
                   control={control}
                   errors={errors?.qualityAssuranceGroup}

@@ -13,6 +13,7 @@ import {
   STabPanel,
   STabs,
   ReadOnly,
+  EditIcon,
 } from 'shared/components';
 import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
 import { File } from 'shared/components/File/File';
@@ -30,7 +31,8 @@ export const InitialEvaluationOrg = () => {
   const [processes, setProcesses] = useState<EvaluationProcess[]>();
   const [loading, setLoading] = useState(true);
   const [showEvidenceDetails, setShowEvidenceDetails] = useState(false);
-  const [expectedResultId, setExpectedResultId] = useState<string>();
+  const [expectedResultId, setExpectedResultId] = useState<string>('');
+  const [indicatorId, setIndicatorId] = useState<string | undefined>();
 
   useEffect(() => {
     evaluationService
@@ -46,8 +48,16 @@ export const InitialEvaluationOrg = () => {
       });
   }, [id]);
 
-  const addIndicatorHandler = (expectResultId: string) => {
-    setExpectedResultId(expectedResultId);
+  const addIndicatorHandler = (
+    expectResultId: string,
+    indicatorId?: string
+  ) => {
+    if (indicatorId) {
+      setIndicatorId(indicatorId);
+    } else {
+      setIndicatorId(undefined);
+    }
+    setExpectedResultId(expectResultId);
     setShowEvidenceDetails(true);
   };
 
@@ -71,7 +81,7 @@ export const InitialEvaluationOrg = () => {
               return (
                 <STabPanel key={index}>
                   <FlexSpace space="1rem">
-                    {process.expectedResults?.map((er, index) => (
+                    {process.expectedResults?.map((er, indexEr) => (
                       <Collapse
                         title={er.initial}
                         options={
@@ -80,16 +90,42 @@ export const InitialEvaluationOrg = () => {
                             onClick={() => addIndicatorHandler(er.id)}
                           />
                         }
-                        key={index}
+                        key={indexEr}
                       >
                         <Title3>{er.description}</Title3>
-                        <InputGroup>
-                          <ReadOnly label="Projeto" value="Projeto 2" />
-                          <File
-                            label="Fonte de evidência"
-                            path="Outro arquivo"
-                          />
-                        </InputGroup>
+                        <FlexSpace space="1rem">
+                          {er.indicators?.map((indicator, indexIndicator) => (
+                            <Collapse
+                              title={indicator.name}
+                              options={
+                                <EditIcon
+                                  $outline={true}
+                                  onClick={() =>
+                                    addIndicatorHandler(er.id, indicator.id)
+                                  }
+                                />
+                              }
+                              key={indexIndicator}
+                              underline
+                            >
+                              {indicator.files?.map(
+                                (file, indexFile: number) => (
+                                  <InputGroup key={indexFile}>
+                                    <ReadOnly
+                                      label="Projeto"
+                                      value={file.project.name}
+                                    />
+                                    <File
+                                      label="Arquivo"
+                                      path={file.name}
+                                      source={file.source}
+                                    />
+                                  </InputGroup>
+                                )
+                              )}
+                            </Collapse>
+                          ))}
+                        </FlexSpace>
                       </Collapse>
                     ))}
                   </FlexSpace>
@@ -110,6 +146,7 @@ export const InitialEvaluationOrg = () => {
             <EvidenceDetails
               evaluationId={id}
               expectedResultId={expectedResultId}
+              indicatorId={indicatorId}
               setShowModal={setShowEvidenceDetails}
             />
           </Modal>

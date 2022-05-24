@@ -1,3 +1,5 @@
+import { Project } from './project';
+
 export interface EvaluationProcess {
   id: string;
   initial: string;
@@ -11,5 +13,20 @@ export interface EvaluationExpectedResult {
   name: string;
   initial: string;
   description: string;
-  indicators: any[];
+  indicators: EvaluationIndicator[];
+}
+
+interface EvaluationIndicator {
+  id: string;
+  name: string;
+  qualityAssuranceGroup: string;
+  files: IndicatorFile[];
+}
+
+interface IndicatorFile {
+  id: string;
+  mymetype: string;
+  name: string;
+  project: Project;
+  source: string;
 }

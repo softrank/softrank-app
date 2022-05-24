@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 
 import {
@@ -16,17 +15,16 @@ import {
   STabPanel,
   STabs,
 } from 'shared/components';
-import { Form, InputGroup, Radio, RadioGroup } from 'shared/components/Form';
+import { InputGroup } from 'shared/components/Form';
 import { File } from 'shared/components/File/File';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { Title3 } from 'shared/components/Titles/Title3';
-import { EvaluationTeamForm } from './evaluationTeamForm';
+import { InitalEvaluationTeamForm } from './InitalEvaluationTeamForm';
 
 export const InitialEvaluationTeam = () => {
   const { id } = useParams<{ id: string }>();
-  const { handleSubmit, register } = useForm<EvaluationTeamForm[]>();
 
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<EvaluationProcess[]>([]);
@@ -44,8 +42,6 @@ export const InitialEvaluationTeam = () => {
       });
   }, [id]);
 
-  const onSubmit = handleSubmit((data) => console.log(data));
-
   return (
     <>
       {loading ? (
@@ -62,75 +58,40 @@ export const InitialEvaluationTeam = () => {
                 return <STab key={index}>{process.initial}</STab>;
               })}
             </STabList>
-            <Form onSubmit={onSubmit}>
-              <>
-                <Button type="submit">Salvar</Button>
-                {processes?.map((process, index) => {
-                  return (
-                    <STabPanel key={index}>
-                      <FlexSpace space="1rem">
-                        {process.expectedResults?.map((er, index) => {
-                          return (
-                            <Collapse title={er.initial} key={index}>
-                              <Title3>{er.description}</Title3>
-                              <Collapse
-                                title="Documento de requisitos"
-                                underline
-                              >
-                                <div>
-                                  <InputGroup>
-                                    <ReadOnly
-                                      label="Projeto"
-                                      value="Projeto 2"
-                                    />
-                                    <File
-                                      label="Fonte de evidência"
-                                      path="Outro arquivo"
-                                    />
-                                  </InputGroup>
-                                  <InputGroup>
-                                    <RadioGroup label="Status">
-                                      <Radio
-                                        name={`${process.initial}.indicator[${index}]`}
-                                        value="1"
-                                        color="red"
-                                        legend="Inválido"
-                                        register={register}
-                                      />
-                                      <Radio
-                                        name={`${process.initial}.indicator[${index}]`}
-                                        value="2"
-                                        color="yellow"
-                                        legend="Incompleto"
-                                        register={register}
-                                      />
-                                      <Radio
-                                        name={`${process.initial}.indicator[${index}]`}
-                                        value="3"
-                                        color="green"
-                                        legend="Completo"
-                                        register={register}
-                                      />
-                                      <Radio
-                                        name={`${process.initial}.indicator[${index}]`}
-                                        value="4"
-                                        legend="N/A"
-                                        register={register}
-                                      />
-                                    </RadioGroup>
-                                  </InputGroup>
-                                </div>
-                                <Divider />
-                              </Collapse>
-                            </Collapse>
-                          );
-                        })}
-                      </FlexSpace>
-                    </STabPanel>
-                  );
-                })}
-              </>
-            </Form>
+            {processes?.map((process, index) => {
+              return (
+                <STabPanel key={index}>
+                  <FlexSpace space="1rem">
+                    {process.expectedResults?.map((er, index) => {
+                      return (
+                        <Collapse title={er.initial} key={index}>
+                          <Title3>{er.description}</Title3>
+                          <Collapse title="Documento de requisitos" underline>
+                            <div>
+                              <InputGroup>
+                                <ReadOnly label="Projeto" value="Projeto 2" />
+                                <File
+                                  label="Fonte de evidência"
+                                  path="Outro arquivo"
+                                  source="some"
+                                />
+                              </InputGroup>
+                              <InputGroup>
+                                <InitalEvaluationTeamForm
+                                  process={process}
+                                  index={index}
+                                />
+                              </InputGroup>
+                            </div>
+                            <Divider />
+                          </Collapse>
+                        </Collapse>
+                      );
+                    })}
+                  </FlexSpace>
+                </STabPanel>
+              );
+            })}
             {tabIndex === 0 ? (
               <div
                 style={{

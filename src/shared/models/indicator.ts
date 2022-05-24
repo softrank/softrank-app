@@ -1,6 +1,6 @@
 export interface Indicator {
   id: string;
-  content: string;
+  name: string;
+  qualityAssuranceGroup?: string;
   files: any[];
-  projects: any[];
 }
