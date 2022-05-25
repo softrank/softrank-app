@@ -6,14 +6,14 @@ import { DownloadIcon } from '../Buttons/IconButtons/IconButtons';
 
 interface Props {
   label: string;
-  path: any;
-  source: string;
+  fileName: any;
+  url: string;
 }
 
 export const File = (props: Props) => {
-  const { label, path, source } = props;
+  const { label, fileName, url } = props;
 
-  const splits = path.split('.');
+  const splits = fileName.split('.');
   const type: undefined = splits.at(-1);
 
   return (
@@ -23,8 +23,8 @@ export const File = (props: Props) => {
         <FileWrapper>
           <FileIcon extension={type} {...defaultStyles[type!]} />
         </FileWrapper>
-        <div>{path}</div>
-        <a href={source} download={path} target="_blank">
+        <div>{fileName}</div>
+        <a href={url} download={fileName} target="_blank" rel="noreferrer">
           <DownloadIcon />
         </a>
       </FileContainer>

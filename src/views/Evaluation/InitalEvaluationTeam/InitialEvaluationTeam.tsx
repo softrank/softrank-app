@@ -72,8 +72,8 @@ export const InitialEvaluationTeam = () => {
                                 <ReadOnly label="Projeto" value="Projeto 2" />
                                 <File
                                   label="Fonte de evidência"
-                                  path="Outro arquivo"
-                                  source="some"
+                                  fileName="Outro arquivo"
+                                  url="some"
                                 />
                               </InputGroup>
                               <InputGroup>

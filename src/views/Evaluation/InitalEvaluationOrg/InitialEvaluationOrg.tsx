@@ -14,6 +14,7 @@ import {
   STabs,
   ReadOnly,
   EditIcon,
+  RemoveIcon,
 } from 'shared/components';
 import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
 import { File } from 'shared/components/File/File';
@@ -23,6 +24,8 @@ import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Title3 } from 'shared/components/Titles/Title3';
+import { DeleteConfirmationModal } from './DeleteConfirmationModal/DeleteConfirmationModal';
+import { indicatorsService } from 'shared/services/indicatorsService';
 
 export const InitialEvaluationOrg = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,20 +36,14 @@ export const InitialEvaluationOrg = () => {
   const [showEvidenceDetails, setShowEvidenceDetails] = useState(false);
   const [expectedResultId, setExpectedResultId] = useState<string>('');
   const [indicatorId, setIndicatorId] = useState<string | undefined>();
+  const [deleteIndicatorModal, setDeleteIndicatorModal] = useState(false);
+  const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
-  useEffect(() => {
-    evaluationService
-      .getProcesses(id)
-      .then((processes) => {
-        setProcesses(processes);
-        console.log(processes);
-
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [id]);
+  useEffect(
+    () => loadProcesses(id),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id]
+  );
 
   const addIndicatorHandler = (
     expectResultId: string,
@@ -59,6 +56,31 @@ export const InitialEvaluationOrg = () => {
     }
     setExpectedResultId(expectResultId);
     setShowEvidenceDetails(true);
+  };
+
+  const handleConfirmationModal = (indicatorId: string) => {
+    setDeleteIndicatorModal(true);
+    setDeleteIndicatorId(indicatorId);
+  };
+
+  const deleteIndicator = () => {
+    if (deleteIndicatorId !== '')
+      indicatorsService.delete(deleteIndicatorId).then(() => loadProcesses(id));
+    setDeleteIndicatorModal(false);
+    setDeleteIndicatorId('');
+  };
+
+  const loadProcesses = (id: string) => {
+    setLoading(true);
+    evaluationService
+      .getProcesses(id)
+      .then((processes) => {
+        setProcesses(processes);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -98,12 +120,20 @@ export const InitialEvaluationOrg = () => {
                             <Collapse
                               title={indicator.name}
                               options={
-                                <EditIcon
-                                  $outline={true}
-                                  onClick={() =>
-                                    addIndicatorHandler(er.id, indicator.id)
-                                  }
-                                />
+                                <>
+                                  <RemoveIcon
+                                    $outline={true}
+                                    onClick={() =>
+                                      handleConfirmationModal(indicator.id)
+                                    }
+                                  />
+                                  <EditIcon
+                                    $outline={true}
+                                    onClick={() =>
+                                      addIndicatorHandler(er.id, indicator.id)
+                                    }
+                                  />
+                                </>
                               }
                               key={indexIndicator}
                               underline
@@ -117,8 +147,8 @@ export const InitialEvaluationOrg = () => {
                                     />
                                     <File
                                       label="Arquivo"
-                                      path={file.name}
-                                      source={file.source}
+                                      fileName={file.name}
+                                      url={file.source}
                                     />
                                   </InputGroup>
                                 )
@@ -148,8 +178,14 @@ export const InitialEvaluationOrg = () => {
               expectedResultId={expectedResultId}
               indicatorId={indicatorId}
               setShowModal={setShowEvidenceDetails}
+              loadProcesses={loadProcesses}
             />
           </Modal>
+          <DeleteConfirmationModal
+            showConfirmation={deleteIndicatorModal}
+            setShowConfirmation={setDeleteIndicatorModal}
+            confirmAction={deleteIndicator}
+          />
         </Wrapper>
       )}
     </>

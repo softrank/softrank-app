@@ -11,17 +11,18 @@ export const indicatorsService = {
     ),
   update: (indicator: IndicatorDto, id: string) =>
     requests.put<Indicator>(`${indicatorsController}/${id}`, indicator),
-  createFile: (indicatorId: string, projectId: string, file: File) =>  {
-    const formData = new FormData()
-    formData.append('file', file)
+  delete: (id: string) => requests.del(`${indicatorsController}/${id}`),
+  createFile: (indicatorId: string, projectId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
     return requests.post(
       `${indicatorsController}/${indicatorId}/file/${projectId}`,
       formData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       }
-    )
-  }
+    );
+  },
 };

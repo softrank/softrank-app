@@ -16,7 +16,6 @@ import {
   EvidenceDetailsFormFile,
 } from './evidenceDetailsForm';
 import { evaluationService } from 'shared/services';
-import { LoadingScreen } from 'shared/components/Loading';
 import { indicatorsService } from 'shared/services/indicatorsService';
 import { IndicatorDto } from 'shared/dtos/indicatorDto';
 
@@ -25,12 +24,12 @@ interface Props {
   evaluationId: string;
   expectedResultId: string;
   indicatorId: string | undefined;
+  loadProcesses: (id: string) => void;
 }
 
 export const EvidenceDetails = (props: Props) => {
-  const { setShowModal, evaluationId, expectedResultId } = props;
+  const { setShowModal, evaluationId, expectedResultId, loadProcesses } = props;
 
-  const [loading, setLoading] = useState(true);
   const [checkedProjects, setCheckedProjects] = useState<
     EvidenceDetailsFormFile[]
   >([]);
@@ -50,28 +49,19 @@ export const EvidenceDetails = (props: Props) => {
   });
 
   useEffect(() => {
-    evaluationService
-      .getById(evaluationId)
-      .then((evaluation) => {
-        evaluation.projects.forEach((pd, index) => {
-          const file: EvidenceDetailsFormFile = {
-            id: undefined,
-            projectId: pd.id,
-            projectName: pd.name,
-            checked: true,
-            content: undefined,
-          };
-          const exinstingFile = files.filter(
-            (file) => file.projectId === pd.id
-          );
-          if (exinstingFile.length <= 0) append(file);
-        });
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
+    evaluationService.getById(evaluationId).then((evaluation) => {
+      evaluation.projects.forEach((pd, index) => {
+        const file: EvidenceDetailsFormFile = {
+          id: undefined,
+          projectId: pd.id,
+          projectName: pd.name,
+          checked: true,
+          content: undefined,
+        };
+        const exinstingFile = files.filter((file) => file.projectId === pd.id);
+        if (exinstingFile.length <= 0) append(file);
       });
-
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluationId]);
 
@@ -119,6 +109,7 @@ export const EvidenceDetails = (props: Props) => {
             );
         });
         setShowModal(false);
+        loadProcesses(evaluationId);
       })
       .catch((error) => {
         console.log(error);
@@ -131,84 +122,74 @@ export const EvidenceDetails = (props: Props) => {
   };
 
   return (
-    <>
-      {loading ? (
-        <LoadingScreen loading={loading} content="Carregando projetos..." />
-      ) : (
-        <Wrapper>
-          <Form onSubmit={onSubmit}>
-            <FlexSpace space="2rem">
-              <InputGroup>
-                <Input
-                  label="Fonte de evidência"
-                  name="name"
-                  placeholder="nome da fonte de evidência"
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  errors={errors?.name}
-                />
-                <Input
-                  label="Grupo de garantia da qualidade"
-                  name="qualityAssuranceGroup"
-                  placeholder="nome do grupo"
-                  control={control}
-                  errors={errors?.qualityAssuranceGroup}
-                />
-              </InputGroup>
-              <InputGroup>
-                <div>
-                  <Label>Selecione o(s) projeto(s):</Label>
-                  <CheckBoxContainer>
-                    {files.map((file, index) => {
-                      return (
-                        <ControlledCheckbox
-                          key={index}
-                          name={`files[${index}].checked`}
-                          label={file.projectName}
-                          control={control}
-                          defaultValue={file.checked}
-                        />
-                      );
-                    })}
-                  </CheckBoxContainer>
-                </div>
-              </InputGroup>
-              <InputGroup>
+    <Wrapper>
+      <Form onSubmit={onSubmit}>
+        <FlexSpace space="2rem">
+          <InputGroup>
+            <Input
+              label="Fonte de evidência"
+              name="name"
+              placeholder="nome da fonte de evidência"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              errors={errors?.name}
+            />
+            <Input
+              label="Grupo de garantia da qualidade"
+              name="qualityAssuranceGroup"
+              placeholder="nome do grupo"
+              control={control}
+              errors={errors?.qualityAssuranceGroup}
+            />
+          </InputGroup>
+          <InputGroup>
+            <div>
+              <Label>Selecione o(s) projeto(s):</Label>
+              <CheckBoxContainer>
                 {files.map((file, index) => {
                   return (
-                    <React.Fragment key={index}>
-                      {checkedProjects[index]?.checked && (
-                        <FileInput
-                          label={file.projectName}
-                          name={`files[${index}].content`}
-                          control={control}
-                          rules={{ required: true }}
-                          reset={reset}
-                          getValues={getValues}
-                          errors={errors?.qualityAssuranceGroup}
-                        />
-                      )}
-                    </React.Fragment>
+                    <ControlledCheckbox
+                      key={index}
+                      name={`files[${index}].checked`}
+                      label={file.projectName}
+                      control={control}
+                      defaultValue={file.checked}
+                    />
                   );
                 })}
-              </InputGroup>
-              <Options>
-                <Button
-                  secondary
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancelar
-                </Button>
-                <Button type="submit">Salvar</Button>
-              </Options>
-            </FlexSpace>
-          </Form>
-        </Wrapper>
-      )}
-    </>
+              </CheckBoxContainer>
+            </div>
+          </InputGroup>
+          <InputGroup>
+            {files.map((file, index) => {
+              return (
+                <React.Fragment key={index}>
+                  {checkedProjects[index]?.checked && (
+                    <FileInput
+                      label={file.projectName}
+                      name={`files[${index}].content`}
+                      control={control}
+                      rules={{ required: true }}
+                      reset={reset}
+                      getValues={getValues}
+                      errors={errors?.qualityAssuranceGroup}
+                    />
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </InputGroup>
+          <Options>
+            <Button secondary type="button" onClick={() => setShowModal(false)}>
+              Cancelar
+            </Button>
+            <Button type="submit">Salvar</Button>
+          </Options>
+        </FlexSpace>
+      </Form>
+    </Wrapper>
   );
 };
 
