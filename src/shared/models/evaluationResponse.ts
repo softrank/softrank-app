@@ -3,7 +3,7 @@ export interface EvalutionResponse {
   modelLevel: ModelLevelResponse;
   name: string;
   organizationalUnit: OrganizationalUnitResponse;
-  status: string;
+  state: string;
 }
 
 interface ModelLevelResponse {

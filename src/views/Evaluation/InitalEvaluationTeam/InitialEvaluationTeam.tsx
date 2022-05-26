@@ -75,36 +75,42 @@ export const InitialEvaluationTeam = () => {
                                   underline
                                   key={indexIn}
                                 >
-                                  {indicator.files.map((file, indexFile) => {
-                                    return (
-                                      <React.Fragment key={indexFile}>
-                                        <div>
-                                          <InputGroup>
-                                            <ReadOnly
-                                              label="Projeto"
-                                              value={file.project.name}
-                                            />
-                                            <File
-                                              label="Fonte de evidência"
-                                              fileName={file.name}
-                                              url={file.source}
-                                            />
-                                          </InputGroup>
-                                          <InputGroup>
-                                            <InitalEvaluationTeamForm
-                                              process={process}
-                                              index={index}
-                                              indicatorId={indicator.id}
-                                            />
-                                          </InputGroup>
-                                        </div>
-                                        {indexFile !==
-                                          indicator.files.length - 1 && (
-                                          <Divider />
-                                        )}
-                                      </React.Fragment>
-                                    );
-                                  })}
+                                  {indicator.evidenceSources.map(
+                                    (evidence, indexFile) => {
+                                      return (
+                                        <React.Fragment key={indexFile}>
+                                          <div>
+                                            <InputGroup>
+                                              <ReadOnly
+                                                label="Projeto"
+                                                value={evidence.project.name}
+                                              />
+                                              <File
+                                                label="Fonte de evidência"
+                                                fileName={
+                                                  evidence.files[0].name
+                                                }
+                                                url={evidence.files[0].source}
+                                              />
+                                            </InputGroup>
+                                            <InputGroup>
+                                              <InitalEvaluationTeamForm
+                                                evidenceId={evidence.id}
+                                                status={
+                                                  evidence.status !== null
+                                                    ? evidence.status
+                                                    : 'n/a'
+                                                }
+                                              />
+                                            </InputGroup>
+                                          </div>
+                                          {indexFile !==
+                                            indicator.evidenceSources.length -
+                                              1 && <Divider />}
+                                        </React.Fragment>
+                                      );
+                                    }
+                                  )}
                                 </Collapse>
                               );
                             })}

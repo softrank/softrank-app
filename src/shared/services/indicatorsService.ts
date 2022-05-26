@@ -25,4 +25,7 @@ export const indicatorsService = {
       }
     );
   },
+  updateStatus: (indicatorId: string, status: string) => {
+    requests.put(`${indicatorsController}/${indicatorId}`, status);
+  },
 };

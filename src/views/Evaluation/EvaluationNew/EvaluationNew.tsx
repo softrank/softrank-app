@@ -20,7 +20,6 @@ import {
   Form,
   Input,
   InputGroup,
-  FileInput,
   Select,
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -269,18 +268,6 @@ export const EvaluationNew = () => {
                 />
               </InputGroup>
               <InputGroup>
-                <FileInput
-                  label="Plano de avaliação"
-                  name="evaluationPlan"
-                  control={control}
-                  rules={{ required: true }}
-                  errors={errors?.evaluationPlan}
-                  reset={reset}
-                  getValues={getValues}
-                  multiple
-                />
-              </InputGroup>
-              <InputGroup>
                 <Select
                   name="model"
                   label="Modelo"
@@ -319,7 +306,7 @@ export const EvaluationNew = () => {
               >
                 {evaluators.map(({ id }, index) => {
                   return (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={id}>
                       <CollapseContent>
                         <InputGroup>
                           <Select

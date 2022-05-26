@@ -39,11 +39,7 @@ export const InitialEvaluationOrg = () => {
   const [deleteIndicatorModal, setDeleteIndicatorModal] = useState(false);
   const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
-  useEffect(
-    () => loadProcesses(id),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [id]
-  );
+  useEffect(() => loadProcesses(id), [id]);
 
   const addIndicatorHandler = (
     expectResultId: string,
@@ -138,17 +134,17 @@ export const InitialEvaluationOrg = () => {
                               key={indexIndicator}
                               underline
                             >
-                              {indicator.files?.map(
-                                (file, indexFile: number) => (
+                              {indicator.evidenceSources?.map(
+                                (evidenceSource, indexFile: number) => (
                                   <InputGroup key={indexFile}>
                                     <ReadOnly
                                       label="Projeto"
-                                      value={file.project.name}
+                                      value={evidenceSource.project.name}
                                     />
                                     <File
                                       label="Arquivo"
-                                      fileName={file.name}
-                                      url={file.source}
+                                      fileName={evidenceSource.files[0].name}
+                                      url={evidenceSource.files[0].source}
                                     />
                                   </InputGroup>
                                 )

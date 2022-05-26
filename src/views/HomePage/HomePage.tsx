@@ -80,7 +80,7 @@ export const HomePage = () => {
       )}
 
       {(userRoles.includes('evaluator') ||
-        userRoles.includes('organizationUnit')) && (
+        userRoles.includes('organizationalUnit')) && (
         <>
           <Title>Minhas avaliações</Title>
           {loading ? (
@@ -93,7 +93,7 @@ export const HomePage = () => {
             <Table
               headers={[
                 'Nome',
-                'Status',
+                'Estado',
                 'Organização',
                 'Modelo',
                 'Nível',
@@ -104,7 +104,7 @@ export const HomePage = () => {
                 return (
                   <tr key={id}>
                     <td>{evaluation.name}</td>
-                    <td>{evaluation.status}</td>
+                    <td>{evaluation.state}</td>
                     <td>{evaluation.organizationalUnit.name}</td>
                     <td>{evaluation.modelLevel.modelName}</td>
                     <td>{evaluation.modelLevel.initial}</td>

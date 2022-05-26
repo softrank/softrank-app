@@ -10,7 +10,6 @@ export interface EvaluationForm {
   evaluatorsIds: evaluator[];
   projects: project[];
   model: string;
-  evaluationPlan?: any;
 }
 
 interface evaluator {

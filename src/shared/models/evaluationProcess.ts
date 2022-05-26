@@ -13,22 +13,7 @@ export interface EvaluationExpectedResult {
   name: string;
   initial: string;
   description: string;
-  indicators: EvaluationIndicator[];
-}
-
-interface EvaluationIndicator {
-  id: string;
-  name: string;
-  qualityAssuranceGroup: string;
-  files: IndicatorFile[];
-}
-
-interface IndicatorFile {
-  id: string;
-  mymetype: string;
-  name: string;
-  project: Project;
-  source: string;
+  indicators: Indicator[];
 }
 
 interface Indicator {
@@ -41,14 +26,15 @@ interface Indicator {
 interface EvidenceSource {
   id: string;
   status: string;
-  project: {
-    id: string;
-    name: string;
-  };
-  file: {
-    id: string;
-    mymetype: string;
-    name: string;
-    source: string;
-  };
+  createdOn: string;
+  files: File[];
+  project: Project;
+}
+
+interface File {
+  id: string;
+  name: string;
+  source: string;
+  mymetype: string;
+  status: string;
 }
