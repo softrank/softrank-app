@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { Button, FlexSpace, Options, Wrapper } from 'shared/components';
@@ -8,28 +9,31 @@ import {
   FileInput,
   Input,
   Label,
+  ControlledCheckbox,
 } from 'shared/components/Form';
-import { ProjectsData } from 'shared/data/projects';
-import { EvidenceDetailsForm } from './EvidenceDatailsForm';
-import { Checkbox } from 'shared/components/Checkbox/Checkbox';
-import React, { useState, useEffect } from 'react';
+import {
+  EvidenceDetailsForm,
+  EvidenceDetailsFormFile,
+} from './evidenceDetailsForm';
+import { evaluationService } from 'shared/services';
+import { indicatorsService } from 'shared/services/indicatorsService';
+import { IndicatorDto } from 'shared/dtos/indicatorDto';
 
 interface Props {
   setShowModal: (state: boolean) => void;
-}
-
-interface ProjectCheck {
-  projectId: number;
-  projectName: string;
-  checked: boolean;
+  evaluationId: string;
+  expectedResultId: string;
+  indicatorId: string | undefined;
+  loadProcesses: (id: string) => void;
 }
 
 export const EvidenceDetails = (props: Props) => {
-  const { setShowModal } = props;
+  const { setShowModal, evaluationId, expectedResultId, loadProcesses } = props;
 
-  const [projectsChecked, setProjectsChecked] = useState<ProjectCheck[]>([]);
-
-  const projectsData = ProjectsData;
+  const [checkedProjects, setCheckedProjects] = useState<
+    EvidenceDetailsFormFile[]
+  >([]);
+  const [indicatorId, setIndicatorId] = useState<string>('');
 
   const {
     control,
@@ -39,37 +43,83 @@ export const EvidenceDetails = (props: Props) => {
     watch,
     formState: { errors },
   } = useForm<EvidenceDetailsForm>();
+  const { fields: files, append } = useFieldArray({
+    control,
+    name: `files`,
+  });
 
   useEffect(() => {
-    const tempArray = projectsData.map((pd, index) => {
-      let projectChecked: ProjectCheck = {
-        projectId: pd.id,
-        projectName: pd.name,
-        checked: true,
-      };
-      return projectChecked;
+    evaluationService.getById(evaluationId).then((evaluation) => {
+      evaluation.projects.forEach((pd, index) => {
+        const file: EvidenceDetailsFormFile = {
+          id: undefined,
+          projectId: pd.id,
+          projectName: pd.name,
+          checked: true,
+          content: undefined,
+        };
+        const exinstingFile = files.filter((file) => file.projectId === pd.id);
+        if (exinstingFile.length <= 0) append(file);
+      });
     });
-    setProjectsChecked(tempArray);
-  }, [projectsData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [evaluationId]);
 
-  const onSubmit = handleSubmit((data) => console.log(data));
-
-  const checkboxHandler = (checked: boolean, project: string) => {
-    const projectsCopy = [...projectsChecked];
-    const projectIndex = projectsCopy.findIndex(
-      (pr) => pr.projectName === project
-    );
-    projectsCopy[projectIndex].checked = checked;
-    setProjectsChecked(projectsCopy);
-  };
+  useEffect(() => {
+    if (props.indicatorId) {
+      setIndicatorId(props.indicatorId);
+    } else {
+      if (expectedResultId) {
+        indicatorsService.create(expectedResultId).then((indicator) => {
+          setIndicatorId(indicator.id);
+          console.log(indicator);
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expectedResultId, props.indicatorId]);
 
   useEffect(() => {
     const subscription = watch((data) => {
-      console.log(data);
+      setCheckedProjects(data.files);
     });
 
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  const onSubmit = handleSubmit((data) => saveIndicator(data));
+
+  const saveIndicator = (formData: EvidenceDetailsForm) => {
+    const indicatorInfo: IndicatorDto = {
+      name: formData.name,
+      qualityAssuranceGroup: formData.qualityAssuranceGroup,
+    };
+
+    const files = formData.files.filter((file) => file.checked === true);
+
+    indicatorsService
+      .update(indicatorInfo, indicatorId)
+      .then((res) => {
+        files.forEach((file) => {
+          if (file.content)
+            indicatorsService.createFile(
+              indicatorId,
+              file.projectId,
+              file.content
+            );
+        });
+        setShowModal(false);
+        loadProcesses(evaluationId);
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowModal(false);
+      });
+  };
 
   return (
     <Wrapper>
@@ -88,28 +138,24 @@ export const EvidenceDetails = (props: Props) => {
             />
             <Input
               label="Grupo de garantia da qualidade"
-              name="group"
+              name="qualityAssuranceGroup"
               placeholder="nome do grupo"
               control={control}
-              rules={{
-                required: true,
-              }}
-              errors={errors?.group}
+              errors={errors?.qualityAssuranceGroup}
             />
           </InputGroup>
           <InputGroup>
             <div>
               <Label>Selecione o(s) projeto(s):</Label>
               <CheckBoxContainer>
-                {projectsChecked.map((pc, index) => {
+                {files.map((file, index) => {
                   return (
-                    <Checkbox
+                    <ControlledCheckbox
                       key={index}
-                      label={pc.projectName}
-                      checked={pc.checked}
-                      onChange={(e) =>
-                        checkboxHandler(e.target.checked, pc.projectName)
-                      }
+                      name={`files[${index}].checked`}
+                      label={file.projectName}
+                      control={control}
+                      defaultValue={file.checked}
                     />
                   );
                 })}
@@ -117,18 +163,18 @@ export const EvidenceDetails = (props: Props) => {
             </div>
           </InputGroup>
           <InputGroup>
-            {projectsChecked.map((pc, index) => {
+            {files.map((file, index) => {
               return (
                 <React.Fragment key={index}>
-                  {pc.checked && (
+                  {checkedProjects[index]?.checked && (
                     <FileInput
-                      label={pc.projectName}
-                      name={`project${pc.projectId}`}
+                      label={file.projectName}
+                      name={`files[${index}].content`}
                       control={control}
-                      // rules={{ required: true }}
+                      rules={{ required: true }}
                       reset={reset}
                       getValues={getValues}
-                      // errors={errors?.projectFile}
+                      errors={errors?.qualityAssuranceGroup}
                     />
                   )}
                 </React.Fragment>

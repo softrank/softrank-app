@@ -19,13 +19,15 @@ import {
   AuditorRegister,
   EvaluatorInstitutionRegister,
   OrganizationRegister,
-  EvaluationDetails,
   EvaluationManagment,
   EvaluationNew,
   EvaluatorInstitutionManagment,
+  ImprovementsReport,
+  InitialEvaluationTeam,
+  EvaluationHome,
+  InitialEvaluationOrg,
+  ModelManagerEvaluationList,
 } from './';
-import { InitialEvaluationOrg } from './Evaluation/InitalEvaluationOrg/InitialEvaluationOrg';
-import { InitialEvaluationTeam } from './Evaluation/InitalEvaluationTeam/InitialEvaluationTeam';
 
 export default function App() {
   const [userRoles, setUserRoles] = useState<any[]>([]);
@@ -62,11 +64,6 @@ export default function App() {
               path="/avaliador/cadastro"
               component={EvaluatorRegister}
             />
-            {/* <Route
-              exact
-              path="/avaliadores/cadastro"
-              component={EvaluatorDetails}
-            /> */}
             <Route exact path="/cadastro" component={Register} />
             <Route exact path="/auditor/cadastro" component={AuditorRegister} />
             <Route
@@ -86,53 +83,65 @@ export default function App() {
               path="/avaliadores"
               component={EvaluatorManagment}
             />
-            {userRoles.includes('modelManager') && (
-              <PrivateRoute exact path="/modelos" component={ModelManagment} />
-            )}
-            {(userRoles.includes('evaluator') ||
-              userRoles.includes('modelManager')) && (
-              <PrivateRoute
-                exact
-                path="/avaliacao/nova"
-                component={EvaluationNew}
-              />
-            )}
-            {(userRoles.includes('evaluator') ||
-              userRoles.includes('modelManager')) && (
-              <PrivateRoute
-                exact
-                path="/avaliacao/nova1"
-                component={InitialEvaluationOrg}
-              />
-            )}
-            {(userRoles.includes('evaluator') ||
-              userRoles.includes('modelManager')) && (
-              <PrivateRoute
-                exact
-                path="/avaliacao/nova2"
-                component={InitialEvaluationTeam}
-              />
-            )}
-            <PrivateRoute
-              exact
-              path="/avaliacoes"
-              component={EvaluationManagment}
-            />
-            <PrivateRoute
-              exact
-              path="/avaliacao"
-              component={EvaluationDetails}
-            />
-            <PrivateRoute
-              exact
-              path="/avaliacao/:id"
-              component={EvaluationDetails}
-            />
             <PrivateRoute
               exact
               path="/instituicoesAvaliadoras"
               component={EvaluatorInstitutionManagment}
             />
+            {userRoles.includes('modelManager') && (
+              <>
+                <PrivateRoute
+                  exact
+                  path="/modelos"
+                  component={ModelManagment}
+                />
+                <PrivateRoute
+                  exact
+                  path="/avaliacoes"
+                  component={ModelManagerEvaluationList}
+                />
+              </>
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('organizationalUnit')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/:id"
+                component={EvaluationHome}
+              />
+            )}
+            {userRoles.includes('evaluator') && (
+              <>
+                <PrivateRoute
+                  exact
+                  path="/avaliacao/planilha-de-requisitos/:id"
+                  component={InitialEvaluationTeam}
+                />
+                <PrivateRoute
+                  exact
+                  path="/relatorio-de-melhorias/:id"
+                  component={ImprovementsReport}
+                />
+                <PrivateRoute
+                  exact
+                  path="/avaliacao-nova"
+                  component={EvaluationNew}
+                />
+                <PrivateRoute
+                  exact
+                  path="/avaliacoes"
+                  component={EvaluationManagment}
+                />
+              </>
+            )}
+            {userRoles.includes('organizationalUnit') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/planilha-de-requisitos/:id"
+                component={InitialEvaluationOrg}
+              />
+            )}
+
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}

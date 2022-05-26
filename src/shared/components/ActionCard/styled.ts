@@ -1,4 +1,8 @@
-import { BsClipboardData } from 'react-icons/bs';
+import {
+  BsCardChecklist,
+  BsClipboardData,
+  BsReverseLayoutTextSidebarReverse,
+} from 'react-icons/bs';
 import { CgLoadbarDoc } from 'react-icons/cg';
 import { IoIosAdd } from 'react-icons/io';
 import styled, { css } from 'styled-components';
@@ -7,7 +11,6 @@ export const ActionCardStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
   min-height: 200px;
   min-width: 300px;
   padding: 1rem;
@@ -17,10 +20,12 @@ export const ActionCardStyle = styled.div`
   color: var(--purple-500);
   border-radius: var(--radius);
 
-  transition: all 400ms ease-in-out;
+  transition: all 300ms ease-in-out;
 
   &:hover {
     cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
   }
 `;
 
@@ -28,6 +33,7 @@ export const ActionCardHeaderContent = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1rem;
 
   width: 100%;
 
@@ -50,7 +56,20 @@ export const EvaluationIcon = styled(BsClipboardData)`
 export const DocIcon = styled(CgLoadbarDoc)`
   ${iconCss}
 `;
+
 export const AddIcon = styled(IoIosAdd)`
+  ${iconCss}
+  height: 60px;
+  width: 70px;
+`;
+
+export const ReportIcon = styled(BsReverseLayoutTextSidebarReverse)`
+  ${iconCss}
+  height: 60px;
+  width: 70px;
+`;
+
+export const ListIcon = styled(BsCardChecklist)`
   ${iconCss}
   height: 60px;
   width: 70px;

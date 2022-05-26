@@ -2,14 +2,13 @@ import styled from 'styled-components';
 
 export const TableContainer = styled.div`
   overflow: auto;
-  /* display: flex;
-  justify-content: center; */
 `;
 
 export const TableStyle = styled.table`
   width: 100%;
   min-width: 400px;
   border-spacing: 0 5px;
+  table-layout: fixed;
 `;
 
 export const TableHead = styled.thead`
@@ -18,7 +17,7 @@ export const TableHead = styled.thead`
   color: var(--gray-700);
 
   > tr > th {
-    padding: 0.6em;
+    padding: 0.4em 0.6em;
     background: var(--gray-50);
 
     &:first-child {
@@ -41,7 +40,8 @@ export const TableBody = styled.tbody`
     border-radius: 8px;
 
     > td {
-      padding: 0.8em;
+      padding: 0.2em 0.8em;
+      width: 100px;
 
       &:first-child {
         border-radius: 8px 0 0 8px;

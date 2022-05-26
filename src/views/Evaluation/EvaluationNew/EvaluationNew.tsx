@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 
 import {
   AddIcon,
@@ -19,7 +20,6 @@ import {
   Form,
   Input,
   InputGroup,
-  FileInput,
   Select,
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -32,6 +32,7 @@ import { ModelLevel } from 'shared/models/modelLevel';
 import { Organization } from 'shared/models/organization';
 import {
   auditorService,
+  evaluationService,
   evaluatorInstitutionService,
   evaluatorService,
   modelsService,
@@ -80,12 +81,13 @@ export const EvaluationNew = () => {
     name: 'projects',
   });
 
+  const history = useHistory();
   const watchModel: any = watch('model');
   const watchInstitution: any = watch('evaluatorInstitutionId');
 
-  const formatEvaluation = (formData: EvaluationForm) => {
+  const assembleEvaluation = (formData: EvaluationForm) => {
     const formatedEvaluators = formData.evaluatorsIds.map((evaluator) => {
-      return evaluator.evaluatorId;
+      return (evaluator.evaluatorId = (evaluator.evaluatorId as any).value);
     });
 
     const formatedProjects = formData.projects.map((project) => {
@@ -115,13 +117,8 @@ export const EvaluationNew = () => {
   };
 
   const handleCreateAuditor = (formData: EvaluationForm) => {
-    const evaluation = formatEvaluation(formData);
-
-    console.log(evaluation);
-
-    // evaluationService
-    //   .create(evaluation)
-    //   .then((response) => console.log('criado'));
+    const evaluation = assembleEvaluation(formData);
+    evaluationService.create(evaluation).then(() => history.push(''));
   };
 
   useEffect(() => {
@@ -205,6 +202,18 @@ export const EvaluationNew = () => {
                   }}
                   errors={errors?.name}
                 />
+              </InputGroup>
+              <InputGroup>
+                <Input
+                  name="implementationInstitution"
+                  label="Instituição implementadora"
+                  placeholder="nome da instituição"
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  errors={errors?.implementationInstitution}
+                />
                 <Select
                   name="auditorId"
                   label="Auditor"
@@ -219,7 +228,7 @@ export const EvaluationNew = () => {
               <InputGroup>
                 <DateInput
                   label="Data de início"
-                  name="startDate"
+                  name="start"
                   placeholder="selecione uma data de início"
                   dateFormat="dd/MM/yyyy"
                   control={control}
@@ -228,7 +237,7 @@ export const EvaluationNew = () => {
                 />
                 <DateInput
                   label="Data de fim"
-                  name="endDate"
+                  name="end"
                   placeholder="selecione uma data de fim"
                   dateFormat="dd/MM/yyyy"
                   control={control}
@@ -259,18 +268,6 @@ export const EvaluationNew = () => {
                 />
               </InputGroup>
               <InputGroup>
-                <FileInput
-                  label="Plano de avaliação"
-                  name="evaluationPlan"
-                  control={control}
-                  rules={{ required: true }}
-                  errors={errors?.evaluationPlan}
-                  reset={reset}
-                  getValues={getValues}
-                  multiple
-                />
-              </InputGroup>
-              <InputGroup>
                 <Select
                   name="model"
                   label="Modelo"
@@ -282,7 +279,7 @@ export const EvaluationNew = () => {
                   errors={errors?.model}
                 />
                 <Select
-                  name="expectedLevel"
+                  name="expectedModelLevelId"
                   label="Nível"
                   placeholder={
                     disableLevels
@@ -309,7 +306,7 @@ export const EvaluationNew = () => {
               >
                 {evaluators.map(({ id }, index) => {
                   return (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={id}>
                       <CollapseContent>
                         <InputGroup>
                           <Select

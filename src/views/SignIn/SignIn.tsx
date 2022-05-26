@@ -50,7 +50,7 @@ export const SignIn = () => {
         setLoading(false);
         history.push('/');
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setError(true);
       });

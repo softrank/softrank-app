@@ -6,11 +6,12 @@ export const Container = styled.div`
 
 interface FlexSpaceProps {
   space?: string;
+  direction?: 'column' | 'row';
 }
 
 export const FlexSpace = styled.div<FlexSpaceProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.direction ?? 'column'};
   gap: ${(props) => props.space ?? '16px'};
 `;
 

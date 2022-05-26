@@ -52,10 +52,11 @@ export const FilesContainer = styled.div`
 export const FileContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   position: relative;
 
   padding: 0.4rem;
+  padding-right: 32px;
   margin-top: 8px;
   border-radius: var(--radius);
   max-width: 260px;

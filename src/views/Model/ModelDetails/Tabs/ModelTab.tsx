@@ -28,14 +28,12 @@ interface Props {
 
 export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
   const history = useHistory();
-
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors },
   } = useForm<ModelDto>();
-
   const {
     fields: levels,
     append: levelsAppend,

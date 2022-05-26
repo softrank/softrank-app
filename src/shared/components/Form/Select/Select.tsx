@@ -49,7 +49,7 @@ export const Select = (props: Props) => {
 
   const options = optionValues.map((element) => {
     const option: OptionValue = {
-      value: element.id ?? element[optionValue],
+      value: optionValue === '' ? element.id : element[optionValue],
       label: element[optionLabel],
     };
     return option;

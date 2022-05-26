@@ -25,7 +25,7 @@ export const ModalBackground = styled.div`
 
 export const ModalWrapper = styled(motion.div)<Props>`
   position: relative;
-  max-width: ${(props) => (props.width ? props.width : '800px')};
+  min-width: ${(props) => (props.width ? props.width : '800px')};
   max-height: ${(props) => (props.height ? props.height : '500px')};
   padding: 1em;
   margin: 1em;
@@ -72,6 +72,7 @@ export const ModalTitle = styled.div`
   font-size: 34px;
   font-family: 'Montserrat', sans-serif;
   padding: 0 1em;
+  margin-bottom: 0.5em;
 
   display: flex;
   flex-direction: column;

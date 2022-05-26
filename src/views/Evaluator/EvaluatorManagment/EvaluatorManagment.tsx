@@ -1,27 +1,51 @@
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import { Wrapper, Title, AddIcon, SearchBox, Table } from 'shared/components';
+import { LoadingScreen } from 'shared/components/Loading';
+import { Evaluator } from 'shared/models/evaluator';
+import { evaluatorService } from 'shared/services';
+import { LongTableLine } from 'views/ImprovementsReport/styled';
 import { TableOptions } from './styled';
 
 export const EvaluatorManagment = () => {
   const history = useHistory();
 
+  const [evaluators, setEvaluators] = useState<Evaluator[]>([]);
+  const [loading, setLoading] = useState(false);
+
   const handleAddEvaluator = () => history.push('/avaliadores/cadastro');
 
+  useEffect(() => {
+    setLoading(true);
+    evaluatorService.listAll().then((evaluators) => setEvaluators(evaluators));
+    setLoading(false);
+  }, []);
+
   return (
-    <Wrapper>
-      <Title>Avaliadores</Title>
-      <TableOptions>
-        <AddIcon onClick={() => handleAddEvaluator()} />
-        <SearchBox />
-      </TableOptions>
-      <Table headers={['Nome', 'Email', 'Celular']}>
-        <tr>
-          <td>Fulano Teste</td>
-          <td>teste@teste.com</td>
-          <td>(41) 99999-9999</td>
-        </tr>
-      </Table>
-    </Wrapper>
+    <>
+      {loading ? (
+        <LoadingScreen loading={loading} content="Carregando avaliadores..." />
+      ) : (
+        <Wrapper>
+          <Title>Avaliadores</Title>
+          <TableOptions>
+            <AddIcon onClick={() => handleAddEvaluator()} />
+            <SearchBox />
+          </TableOptions>
+          <Table headers={['Nome', 'Email', 'Telefone']}>
+            {evaluators.map((evaluator, id) => {
+              return (
+                <tr key={id}>
+                  <LongTableLine>{evaluator.name}</LongTableLine>
+                  <LongTableLine>{evaluator.email}</LongTableLine>
+                  <td>{evaluator.phone}</td>
+                </tr>
+              );
+            })}
+          </Table>
+        </Wrapper>
+      )}
+    </>
   );
 };
