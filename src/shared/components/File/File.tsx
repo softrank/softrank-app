@@ -17,7 +17,7 @@ export const File = (props: Props) => {
   const type: undefined = splits.at(-1);
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       {label && <Label>{label}</Label>}
       <FileContainer>
         <FileWrapper>
@@ -28,6 +28,6 @@ export const File = (props: Props) => {
           <DownloadIcon />
         </a>
       </FileContainer>
-    </>
+    </div>
   );
 };
