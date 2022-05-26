@@ -5,7 +5,7 @@ import { FileContainer, FileWrapper } from '../Form/FileInput/styled';
 import { DownloadIcon } from '../Buttons/IconButtons/IconButtons';
 
 interface Props {
-  label: string;
+  label?: string;
   fileName: any;
   url: string;
 }
@@ -17,8 +17,8 @@ export const File = (props: Props) => {
   const type: undefined = splits.at(-1);
 
   return (
-    <div style={{ width: '100%' }}>
-      <Label>{label}</Label>
+    <>
+      {label && <Label>{label}</Label>}
       <FileContainer>
         <FileWrapper>
           <FileIcon extension={type} {...defaultStyles[type!]} />
@@ -28,6 +28,6 @@ export const File = (props: Props) => {
           <DownloadIcon />
         </a>
       </FileContainer>
-    </div>
+    </>
   );
 };

@@ -6,6 +6,6 @@ const evidenceSourcesController: string = '/evidence-source';
 export const evidenceSourcesService = {
   delete: (id: string) => requests.del(`${evidenceSourcesController}/${id}`),
   updateStatus: (evidenceId: string, status: EvidenceSourceStatusDto) => {
-    requests.put(`${evidenceSourcesController}/file/${evidenceId}`, status);
+    requests.put(`${evidenceSourcesController}/${evidenceId}`, status);
   },
 };

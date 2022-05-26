@@ -23,4 +23,21 @@ export const evaluationService = {
   list: () => requests.get<EvalutionResponse[]>(`${evaluationController}`),
   getImprovements: (id: string) =>
     requests.get<Improvement[]>(`${evaluationController}/${id}/adjustments`),
+  get: () => requests.get<Evalutation[]>(`${evaluationController}`),
+  uploadPlan: (evaluationId: string, plan: File) => {
+    const formData = new FormData();
+    formData.append('file', plan);
+    return requests.postFile(
+      `${evaluationController}/${evaluationId}/plans`,
+      formData
+    );
+  },
+  uploadInterview: (evaluationId: string, interview: File) => {
+    const formData = new FormData();
+    formData.append('file', interview);
+    return requests.postFile(
+      `${evaluationController}/${evaluationId}/interviews`,
+      formData
+    );
+  },
 };

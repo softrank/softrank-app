@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import {
   Wrapper,
@@ -8,43 +8,46 @@ import {
   Divider,
   SubTitle,
   ActionCard,
+  AddIcon,
+  Modal,
+  FlexSpace,
 } from 'shared/components';
-import { FileInput, Form } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { evaluationService } from 'shared/services';
 import { OptionsContainer, TitleContainer } from './styled';
 import checking from 'shared/assets/images/checking.svg';
 import { ActionCardImage } from 'shared/components/ActionCardImage/ActionCardImage';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
+import { RootState } from 'shared/store';
+import { EvaluationPlanUpload } from './FileForms/EvaluationPlanUpload';
+import { File } from 'shared/components/File/File';
+import { InterviewUpload } from './FileForms/InterviewUpload';
 
 export const EvaluationHome = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [userRoles, setUserRoles] = useState<any[]>([]);
+  const [evaluationPlanModal, setEvaluationPlanModal] = useState(false);
+  const [interviewsModal, setInterviewsModal] = useState(false);
 
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
+  const roles = useSelector<RootState>((state) => state.auth.roles);
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm<any>();
-
-  useEffect(() => {
+  const loadEvaluation = (id: string) => {
+    setLoading(true);
     evaluationService
       .getById(id)
-      .then((evaluation) => {
-        setEvaluation(evaluation);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [id]);
+      .then((evaluation) => setEvaluation(evaluation));
+    setLoading(false);
+  };
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
+
+  useEffect(() => loadEvaluation(id), [id]);
 
   return (
     <>
@@ -54,9 +57,12 @@ export const EvaluationHome = () => {
         <Wrapper>
           <TitleContainer>
             <Title>{evaluation?.name}</Title>
+          </TitleContainer>
+          <TitleContainer>
             <SubTitle>
               Organização: {evaluation?.organizationalUnit?.name}
             </SubTitle>
+            <SubTitle>{evaluation?.state}</SubTitle>
           </TitleContainer>
           <div>
             <SubTitle>Ações</SubTitle>
@@ -77,23 +83,71 @@ export const EvaluationHome = () => {
               icon="report"
             />
           </OptionsContainer>
-          <div>
-            <SubTitle>Plano de avaliação</SubTitle>
-            <Divider />
-            <Form onSubmit={onSubmit}>
-              <FileInput
-                label=""
-                name="evaluationPlan"
-                control={control}
-                rules={{ required: true }}
-                errors={errors?.evaluationPlan}
-                reset={reset}
-                getValues={getValues}
-              />
-            </Form>
-          </div>
+          {userRoles.includes('evaluator') && (
+            <FlexSpace>
+              <div>
+                <TitleContainer>
+                  <SubTitle>Plano de avaliação</SubTitle>
+                  <AddIcon onClick={() => setEvaluationPlanModal(true)} />
+                </TitleContainer>
+                <Divider />
+                {!!evaluation?.plan?.name && (
+                  <File
+                    fileName={evaluation?.plan?.name}
+                    url={evaluation?.plan.source ?? ''}
+                  />
+                )}
+              </div>
+              <div>
+                <TitleContainer>
+                  <SubTitle>Entrevistas</SubTitle>
+                  <AddIcon onClick={() => setInterviewsModal(true)} />
+                </TitleContainer>
+                <Divider />
+                {!!evaluation?.interviews[0]?.id && (
+                  <FlexSpace direction="row">
+                    {evaluation.interviews.map((interview, index) => {
+                      return (
+                        <File
+                          key={index}
+                          fileName={interview.name}
+                          url={interview.source}
+                        />
+                      );
+                    })}
+                  </FlexSpace>
+                )}
+              </div>
+            </FlexSpace>
+          )}
         </Wrapper>
       )}
+      <Modal
+        title="Upload do plano"
+        showModal={evaluationPlanModal}
+        setShowModal={setEvaluationPlanModal}
+        width="60%"
+        height="100%"
+      >
+        <EvaluationPlanUpload
+          setShowModal={setEvaluationPlanModal}
+          evaluationId={id}
+          loadEvaluation={loadEvaluation}
+        />
+      </Modal>
+      <Modal
+        title="Upload da(s) entrevista(s)"
+        showModal={interviewsModal}
+        setShowModal={setInterviewsModal}
+        width="60%"
+        height="100%"
+      >
+        <InterviewUpload
+          setShowModal={setInterviewsModal}
+          evaluationId={id}
+          loadEvaluation={loadEvaluation}
+        />
+      </Modal>
     </>
   );
 };

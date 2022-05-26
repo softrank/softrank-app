@@ -13,3 +13,4 @@ export * from './Evaluator';
 export * from './Model';
 export * from './EvalulatorInstitution';
 export * from './ImprovementsReport/ImprovementsReport';
+export * from './ModelManager/ModelManagerEvaluationList/ModelManagerEvaluationList';

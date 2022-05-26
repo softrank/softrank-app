@@ -85,7 +85,7 @@ export const InitialEvaluationOrg = () => {
         <LoadingScreen loading={loading} content="Carregando processos..." />
       ) : (
         <Wrapper>
-          <Title>Avaliação</Title>
+          <Title>Planilha de indicadores</Title>
           <STabs
             selectedIndex={tabIndex}
             onSelect={(index) => setTabIndex(index)}

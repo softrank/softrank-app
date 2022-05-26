@@ -31,17 +31,20 @@ export const InitialEvaluationTeam = () => {
   const [processes, setProcesses] = useState<EvaluationProcess[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const loadProcesses = (id: string) => {
+    setLoading(true);
     evaluationService
       .getProcesses(id)
-      .then((processes) => {
-        setProcesses(processes);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [id]);
+      .then((processes) => setProcesses(processes));
+    setLoading(false);
+  };
+
+  const handleTabChange = (tabIndex: number) => {
+    loadProcesses(id);
+    setTabIndex(tabIndex);
+  };
+
+  useEffect(() => loadProcesses(id), [id]);
 
   return (
     <>
@@ -49,10 +52,10 @@ export const InitialEvaluationTeam = () => {
         <LoadingScreen loading={loading} content="Carregando avaliação..." />
       ) : (
         <Wrapper>
-          <Title>Avaliação</Title>
+          <Title>Planilha de indicadores</Title>
           <STabs
             selectedIndex={tabIndex}
-            onSelect={(index) => setTabIndex(index)}
+            onSelect={(index) => handleTabChange(index)}
           >
             <STabList>
               {processes?.map((process, index) => {

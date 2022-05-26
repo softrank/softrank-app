@@ -22,9 +22,14 @@ import { IImprovementForm } from './IImprovementForm';
 interface Props {
   setShowModal: (state: boolean) => void;
   evaluationId: string;
+  loadImprovements: (id: string) => void;
 }
 
-export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
+export const ImprovementDetails = ({
+  setShowModal,
+  evaluationId,
+  loadImprovements,
+}: Props) => {
   const [processes, setProcesses] = useState<EvaluationProcess[]>([]);
   const [expectedResults, setExpectedResults] = useState<
     EvaluationExpectedResult[]
@@ -55,11 +60,15 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
   };
 
   const saveImprovement = (data: IImprovementForm) =>
-    improvementsService.create(assembleImprovement(data));
+    improvementsService.create(assembleImprovement(data)).then(() => {
+      setShowModal(false);
+      loadImprovements(evaluationId);
+    });
 
   useEffect(() => {
     evaluationService.getProcesses(evaluationId).then((processes) => {
       setProcesses(processes);
+      console.log(processes);
     });
   }, [evaluationId]);
 
@@ -97,11 +106,12 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
               label="Resultado esperado"
               placeholder="selecione"
               optionValues={expectedResults}
-              optionLabel="name"
+              optionLabel="initial"
               disabled={expectedResults.length === 0}
               control={control}
               rules={{ required: true }}
               errors={errors?.expectedResult}
+              optionValue="expectedResultId"
             />
             <RadioGroup label="Categoria">
               <Radio

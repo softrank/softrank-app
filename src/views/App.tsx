@@ -26,6 +26,7 @@ import {
   InitialEvaluationTeam,
   EvaluationHome,
   InitialEvaluationOrg,
+  ModelManagerEvaluationList,
 } from './';
 
 export default function App() {
@@ -88,7 +89,18 @@ export default function App() {
               component={EvaluatorInstitutionManagment}
             />
             {userRoles.includes('modelManager') && (
-              <PrivateRoute exact path="/modelos" component={ModelManagment} />
+              <>
+                <PrivateRoute
+                  exact
+                  path="/modelos"
+                  component={ModelManagment}
+                />
+                <PrivateRoute
+                  exact
+                  path="/avaliacoes"
+                  component={ModelManagerEvaluationList}
+                />
+              </>
             )}
             {(userRoles.includes('evaluator') ||
               userRoles.includes('organizationalUnit')) && (

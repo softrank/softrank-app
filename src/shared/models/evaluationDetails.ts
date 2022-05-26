@@ -14,6 +14,9 @@ export interface EvaluationDetails {
   expectedModelLevel: ModelLevel;
   organizationalUnit: Organization;
   projects: Project[];
+  state: string;
+  plan: File;
+  interviews: File[];
 }
 
 interface Member {
@@ -21,4 +24,10 @@ interface Member {
   memberId: string;
   type: string;
   name: string;
+}
+
+interface File {
+  id: string;
+  name: string;
+  source: string;
 }

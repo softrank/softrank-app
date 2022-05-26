@@ -15,14 +15,9 @@ export const indicatorsService = {
   createFile: (indicatorId: string, projectId: string, file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    return requests.post(
+    return requests.postFile(
       `${indicatorsController}/${indicatorId}/file/${projectId}`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
+      formData
     );
   },
   updateStatus: (indicatorId: string, status: string) => {

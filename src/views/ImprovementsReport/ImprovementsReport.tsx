@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import {
@@ -16,6 +17,7 @@ import { LoadingScreen } from 'shared/components/Loading';
 import { Evalutation } from 'shared/models/evaluation';
 import { Improvement } from 'shared/models/improvement';
 import { evaluationService, evaluatorService } from 'shared/services';
+import { RootState } from 'shared/store';
 import { ImprovementDetails } from './ImprovementDetails';
 import { IconOptions, LongTableLine, TextWrapper } from './styled';
 
@@ -24,18 +26,29 @@ export const ImprovementsReport = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [improvements, setImprovements] = useState<Improvement[]>([]);
+  const [userRoles, setUserRoles] = useState<any[]>([]);
 
   const { id } = useParams<{ id: string }>();
+  const roles = useSelector<RootState>((state) => state.auth.roles);
+
+  useEffect(() => {
+    const rolesArray: any[] = roles as any[];
+    setUserRoles(rolesArray);
+  }, [roles]);
 
   useEffect(() => {
     evaluatorService
       .getEvaluations()
       .then((evaluations) => setEvaluation(evaluations[0]));
+    loadImprovements(id);
+    setLoading(false);
+  }, [id]);
+
+  const loadImprovements = (id: string) => {
     evaluationService
       .getImprovements(id)
       .then((improvements) => setImprovements(improvements));
-    setLoading(false);
-  }, [id]);
+  };
 
   return (
     <>
@@ -50,29 +63,29 @@ export const ImprovementsReport = () => {
                 Unidade Organizacional Avaliada:{' '}
                 {evaluation?.organizationalUnit.name}
               </p>
-              <AddIcon onClick={() => setShowModal(true)} />
+              {userRoles.includes('evaluator') && (
+                <AddIcon onClick={() => setShowModal(true)} />
+              )}
             </TextWrapper>
             <Divider />
             <Table
-              headers={[
-                'Processo',
-                'RE',
-                'Categoria',
-                'Problema',
-                'Sugestão',
-                'Ações',
-              ]}
+              headers={['Processo', 'RE', 'Problema', 'Sugestão', 'Ações']}
             >
               {improvements.map((improvement, index) => {
                 return (
                   <tr key={index}>
+                    <LongTableLine>
+                      {improvement.expectedResult.modelProcess.initial}
+                    </LongTableLine>
+                    <LongTableLine>
+                      {improvement.expectedResult.initial}
+                    </LongTableLine>
                     <LongTableLine>{improvement.problem}</LongTableLine>
                     <LongTableLine>{improvement.suggestion}</LongTableLine>
-                    <td>{improvement.type}</td>
                     <td>
                       <IconOptions>
                         <EditIcon />
-                        <RemoveIcon />
+                        {userRoles.includes('evaluator') && <RemoveIcon />}
                       </IconOptions>
                     </td>
                   </tr>
@@ -87,7 +100,11 @@ export const ImprovementsReport = () => {
             width="80%"
             height="100%"
           >
-            <ImprovementDetails setShowModal={setShowModal} evaluationId={id} />
+            <ImprovementDetails
+              setShowModal={setShowModal}
+              evaluationId={id}
+              loadImprovements={loadImprovements}
+            />
           </Modal>
         </Wrapper>
       )}
