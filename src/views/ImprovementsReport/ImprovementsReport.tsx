@@ -14,7 +14,8 @@ import {
 } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Evalutation } from 'shared/models/evaluation';
-import { evaluatorService } from 'shared/services';
+import { Improvement } from 'shared/models/improvement';
+import { evaluationService, evaluatorService } from 'shared/services';
 import { ImprovementDetails } from './ImprovementDetails';
 import { IconOptions, LongTableLine, TextWrapper } from './styled';
 
@@ -22,20 +23,19 @@ export const ImprovementsReport = () => {
   const [evaluation, setEvaluation] = useState<Evalutation>();
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [improvements, setImprovements] = useState<Improvement[]>([]);
 
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     evaluatorService
       .getEvaluations()
-      .then((evaluations) => {
-        setEvaluation(evaluations[0]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
+      .then((evaluations) => setEvaluation(evaluations[0]));
+    evaluationService
+      .getImprovements(id)
+      .then((improvements) => setImprovements(improvements));
+    setLoading(false);
+  }, [id]);
 
   return (
     <>
@@ -63,19 +63,21 @@ export const ImprovementsReport = () => {
                 'Ações',
               ]}
             >
-              <tr key={id}>
-                <td>GPR</td>
-                <td>GPR-1</td>
-                <td>Requerido</td>
-                <LongTableLine>Um problema descrito</LongTableLine>
-                <LongTableLine>Uma sugestão descrito</LongTableLine>
-                <td>
-                  <IconOptions>
-                    <EditIcon />
-                    <RemoveIcon />
-                  </IconOptions>
-                </td>
-              </tr>
+              {improvements.map((improvement, index) => {
+                return (
+                  <tr key={index}>
+                    <LongTableLine>{improvement.problem}</LongTableLine>
+                    <LongTableLine>{improvement.suggestion}</LongTableLine>
+                    <td>{improvement.type}</td>
+                    <td>
+                      <IconOptions>
+                        <EditIcon />
+                        <RemoveIcon />
+                      </IconOptions>
+                    </td>
+                  </tr>
+                );
+              })}
             </Table>
           </FlexSpace>
           <Modal

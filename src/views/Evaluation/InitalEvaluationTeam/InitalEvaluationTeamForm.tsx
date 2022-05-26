@@ -7,9 +7,8 @@ import { EvaluationProcess } from 'shared/models/evaluationProcess';
 interface Props {
   process: EvaluationProcess;
   index: number;
+  indicatorId: string;
 }
-
-interface FormInterface {}
 
 export const InitalEvaluationTeamForm = (props: Props) => {
   const { process, index } = props;

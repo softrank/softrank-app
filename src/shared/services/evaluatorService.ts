@@ -16,4 +16,5 @@ export const evaluatorService = {
     ),
   getEvaluations: () =>
     requests.get<Evalutation[]>(`${evaluatorController}/evaluations`),
+  listAll: () => requests.get<Evaluator[]>(`${evaluatorController}`),
 };

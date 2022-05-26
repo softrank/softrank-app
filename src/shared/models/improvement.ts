@@ -1,5 +1,5 @@
-export interface ImprovementDto {
-  id?: string;
+export interface Improvement {
+  id: string;
   expectedResultId: string;
   evaluationId: string;
   type: string;

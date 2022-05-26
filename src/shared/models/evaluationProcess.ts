@@ -30,3 +30,25 @@ interface IndicatorFile {
   project: Project;
   source: string;
 }
+
+interface Indicator {
+  id: string;
+  name: string;
+  qualityAssuranceGroup: string;
+  evidenceSources: EvidenceSource[];
+}
+
+interface EvidenceSource {
+  id: string;
+  status: string;
+  project: {
+    id: string;
+    name: string;
+  };
+  file: {
+    id: string;
+    mymetype: string;
+    name: string;
+    source: string;
+  };
+}

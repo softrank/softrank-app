@@ -76,7 +76,7 @@ export const ModelDetails = () => {
         <LoadingScreen loading={loading} content="Carregando modelo..." />
       ) : (
         <Wrapper>
-          <Title>Cadastrar modelo</Title>
+          <Title>Modelo</Title>
           <STabs
             selectedIndex={tabIndex}
             onSelect={(index) => setTabIndex(index)}

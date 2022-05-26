@@ -3,6 +3,7 @@ import { Evalutation } from 'shared/models/evaluation';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { EvalutionResponse } from 'shared/models/evaluationResponse';
+import { Improvement } from 'shared/models/improvement';
 import { Indicators } from 'shared/models/indicators';
 import { requests } from './api';
 
@@ -20,4 +21,6 @@ export const evaluationService = {
       `${evaluationController}/${id}/processes`
     ),
   list: () => requests.get<EvalutionResponse[]>(`${evaluationController}`),
+  getImprovements: (id: string) =>
+    requests.get<Improvement[]>(`${evaluationController}/${id}/adjustments`),
 };

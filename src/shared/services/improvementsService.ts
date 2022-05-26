@@ -3,7 +3,7 @@ import { ImprovementDto } from 'shared/dtos/improvementDto';
 
 const improvementController: string = '/adjustments';
 
-export const evaluatorService = {
+export const improvementsService = {
   create: (improvement: ImprovementDto) =>
     requests.post<void>(improvementController, improvement),
 };

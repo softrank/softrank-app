@@ -22,6 +22,7 @@ import { LoadingScreen } from 'shared/components/Loading';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { Title3 } from 'shared/components/Titles/Title3';
 import { InitalEvaluationTeamForm } from './InitalEvaluationTeamForm';
+import React from 'react';
 
 export const InitialEvaluationTeam = () => {
   const { id } = useParams<{ id: string }>();
@@ -62,29 +63,52 @@ export const InitialEvaluationTeam = () => {
               return (
                 <STabPanel key={index}>
                   <FlexSpace space="1rem">
-                    {process.expectedResults?.map((er, index) => {
+                    {process.expectedResults?.map((er, indexEr) => {
                       return (
-                        <Collapse title={er.initial} key={index}>
+                        <Collapse title={er.initial} key={indexEr}>
                           <Title3>{er.description}</Title3>
-                          <Collapse title="Documento de requisitos" underline>
-                            <div>
-                              <InputGroup>
-                                <ReadOnly label="Projeto" value="Projeto 2" />
-                                <File
-                                  label="Fonte de evidência"
-                                  fileName="Outro arquivo"
-                                  url="some"
-                                />
-                              </InputGroup>
-                              <InputGroup>
-                                <InitalEvaluationTeamForm
-                                  process={process}
-                                  index={index}
-                                />
-                              </InputGroup>
-                            </div>
-                            <Divider />
-                          </Collapse>
+                          <FlexSpace>
+                            {er.indicators.map((indicator, indexIn) => {
+                              return (
+                                <Collapse
+                                  title={indicator.name}
+                                  underline
+                                  key={indexIn}
+                                >
+                                  {indicator.files.map((file, indexFile) => {
+                                    return (
+                                      <React.Fragment key={indexFile}>
+                                        <div>
+                                          <InputGroup>
+                                            <ReadOnly
+                                              label="Projeto"
+                                              value={file.project.name}
+                                            />
+                                            <File
+                                              label="Fonte de evidência"
+                                              fileName={file.name}
+                                              url={file.source}
+                                            />
+                                          </InputGroup>
+                                          <InputGroup>
+                                            <InitalEvaluationTeamForm
+                                              process={process}
+                                              index={index}
+                                              indicatorId={indicator.id}
+                                            />
+                                          </InputGroup>
+                                        </div>
+                                        {indexFile !==
+                                          indicator.files.length - 1 && (
+                                          <Divider />
+                                        )}
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </Collapse>
+                              );
+                            })}
+                          </FlexSpace>
                         </Collapse>
                       );
                     })}
@@ -117,14 +141,16 @@ export const InitialEvaluationTeam = () => {
                 </Button>
               </div>
             ) : (
-              <Options>
-                <Button secondary onClick={() => setTabIndex(tabIndex - 1)}>
-                  Anterior
-                </Button>
-                <Button onClick={() => setTabIndex(tabIndex + 1)}>
-                  Próximo
-                </Button>
-              </Options>
+              <div style={{ marginTop: '1rem' }}>
+                <Options>
+                  <Button secondary onClick={() => setTabIndex(tabIndex - 1)}>
+                    Anterior
+                  </Button>
+                  <Button onClick={() => setTabIndex(tabIndex + 1)}>
+                    Próximo
+                  </Button>
+                </Options>
+              </div>
             )}
           </STabs>
         </Wrapper>

@@ -10,6 +10,7 @@ import { evaluationService } from 'shared/services';
 import { ActionCardContainer, Hero, HeroImage, HeroTitle } from './styled';
 import organization from 'shared/assets/images/organization.svg';
 import { EvalutionResponse } from 'shared/models/evaluationResponse';
+import { ModelsList } from 'views/Model';
 
 export const HomePage = () => {
   const [evaluations, setEvaluations] = useState<EvalutionResponse[]>([]);
@@ -78,41 +79,53 @@ export const HomePage = () => {
         </>
       )}
 
-      <Title>Minhas avaliações</Title>
-      {loading ? (
-        <LoadingSpinner
-          loading={loading}
-          content="Carregando suas avaliações..."
-          size={80}
-        />
-      ) : (
-        <Table
-          headers={[
-            'Nome',
-            'Status',
-            'Organização',
-            'Modelo',
-            'Nível',
-            'Ações',
-          ]}
-        >
-          {evaluations.map((evaluation, id) => {
-            return (
-              <tr key={id}>
-                <td>{evaluation.name}</td>
-                <td>{evaluation.status}</td>
-                <td>{evaluation.organizationalUnit.name}</td>
-                <td>{evaluation.modelLevel.modelName}</td>
-                <td>{evaluation.modelLevel.initial}</td>
-                <td>
-                  <Link to={`/avaliacao/${evaluation.id}`}>
-                    <ExitIcon />
-                  </Link>
-                </td>
-              </tr>
-            );
-          })}
-        </Table>
+      {(userRoles.includes('evaluator') ||
+        userRoles.includes('organizationUnit')) && (
+        <>
+          <Title>Minhas avaliações</Title>
+          {loading ? (
+            <LoadingSpinner
+              loading={loading}
+              content="Carregando suas avaliações..."
+              size={80}
+            />
+          ) : (
+            <Table
+              headers={[
+                'Nome',
+                'Status',
+                'Organização',
+                'Modelo',
+                'Nível',
+                'Ações',
+              ]}
+            >
+              {evaluations.map((evaluation, id) => {
+                return (
+                  <tr key={id}>
+                    <td>{evaluation.name}</td>
+                    <td>{evaluation.status}</td>
+                    <td>{evaluation.organizationalUnit.name}</td>
+                    <td>{evaluation.modelLevel.modelName}</td>
+                    <td>{evaluation.modelLevel.initial}</td>
+                    <td>
+                      <Link to={`/avaliacao/${evaluation.id}`}>
+                        <ExitIcon />
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </Table>
+          )}
+        </>
+      )}
+
+      {userRoles.includes('modelManager') && (
+        <>
+          <Title>Modelos</Title>
+          <ModelsList />
+        </>
       )}
     </Wrapper>
   );

@@ -10,11 +10,14 @@ import {
   TextArea,
   Select,
 } from 'shared/components/Form';
+import { ImprovementDto } from 'shared/dtos/improvementDto';
 import {
   EvaluationExpectedResult,
   EvaluationProcess,
 } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
+import { improvementsService } from 'shared/services/improvementsService';
+import { IImprovementForm } from './IImprovementForm';
 
 interface Props {
   setShowModal: (state: boolean) => void;
@@ -35,9 +38,24 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
     reset,
     getValues,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm<IImprovementForm>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => saveImprovement(data));
+
+  const assembleImprovement = (data: IImprovementForm) => {
+    const improvement: ImprovementDto = {
+      evaluationId: evaluationId,
+      expectedResultId: data.expectedResult.value,
+      type: data.type,
+      problem: data.problem,
+      suggestion: data.suggestion,
+    };
+
+    return improvement;
+  };
+
+  const saveImprovement = (data: IImprovementForm) =>
+    improvementsService.create(assembleImprovement(data));
 
   useEffect(() => {
     evaluationService.getProcesses(evaluationId).then((processes) => {
@@ -49,7 +67,7 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
 
   useEffect(() => {
     if (watchProcesses) {
-      reset({ ...getValues(), expectedResult: [] });
+      reset({ ...getValues(), expectedResult: { label: '', value: '' } });
       const processId = watchProcesses.value;
       const process = processes.filter(
         (process) => process.id === processId
@@ -72,7 +90,7 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
               optionLabel="initial"
               control={control}
               rules={{ required: true }}
-              errors={errors?.level}
+              errors={errors?.process}
             />
             <Select
               name="expectedResult"
@@ -112,12 +130,12 @@ export const ImprovementDetails = ({ setShowModal, evaluationId }: Props) => {
           </InputGroup>
           <InputGroup>
             <TextArea
-              name="sugestion"
+              name="suggestion"
               label="Sugestão para corrigir"
               placeholder="descreva a sugestão"
               control={control}
               rules={{ required: true }}
-              errors={errors?.sugestion}
+              errors={errors?.suggestion}
             />
           </InputGroup>
           <Options>
