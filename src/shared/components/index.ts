@@ -13,3 +13,4 @@ export * from './ReadOnly/ReadOnly';
 export * from './Modal/Modal';
 export * from './Options/Options';
 export * from './Tab/Tab';
+export * from './File/File';

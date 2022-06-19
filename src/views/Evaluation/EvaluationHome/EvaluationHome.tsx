@@ -11,9 +11,10 @@ import {
   AddIcon,
   Modal,
   FlexSpace,
+  Button,
 } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { evaluationService } from 'shared/services';
+import { evaluationService, evaluatorService } from 'shared/services';
 import { OptionsContainer, TitleContainer } from './styled';
 import checking from 'shared/assets/images/checking.svg';
 import { ActionCardImage } from 'shared/components/ActionCardImage/ActionCardImage';
@@ -22,6 +23,7 @@ import { RootState } from 'shared/store';
 import { EvaluationPlanUpload } from './FileForms/EvaluationPlanUpload';
 import { File } from 'shared/components/File/File';
 import { InterviewUpload } from './FileForms/InterviewUpload';
+import { NextStepConfimationModal } from './FileForms/NextStepConfimationModal';
 
 export const EvaluationHome = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();
@@ -29,6 +31,8 @@ export const EvaluationHome = () => {
   const [userRoles, setUserRoles] = useState<any[]>([]);
   const [evaluationPlanModal, setEvaluationPlanModal] = useState(false);
   const [interviewsModal, setInterviewsModal] = useState(false);
+  const [nextStepModal, setNextStepModal] = useState(false);
+  const [isLeader, setIsLeader] = useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
@@ -46,6 +50,17 @@ export const EvaluationHome = () => {
     const rolesArray: any[] = roles as any[];
     setUserRoles(rolesArray);
   }, [roles]);
+
+  useEffect(() => {
+    if (roles && evaluation) {
+      evaluatorService.get().then((me) => {
+        const leader = evaluation.evaluators.filter(
+          (ev) => ev.type === 'evaluator_leader'
+        );
+        if (me.id === leader[0].memberId) setIsLeader(true);
+      });
+    }
+  }, [roles, evaluation]);
 
   useEffect(() => loadEvaluation(id), [id]);
 
@@ -65,7 +80,7 @@ export const EvaluationHome = () => {
             <SubTitle>{evaluation?.state}</SubTitle>
           </TitleContainer>
           <div>
-            <SubTitle>Ações</SubTitle>
+            <SubTitle>Atividades</SubTitle>
             <Divider />
           </div>
           <OptionsContainer>
@@ -88,7 +103,9 @@ export const EvaluationHome = () => {
               <div>
                 <TitleContainer>
                   <SubTitle>Plano de avaliação</SubTitle>
-                  <AddIcon onClick={() => setEvaluationPlanModal(true)} />
+                  {evaluation?.state === 'Avaliação Inicial' && (
+                    <AddIcon onClick={() => setEvaluationPlanModal(true)} />
+                  )}
                 </TitleContainer>
                 <Divider />
                 {!!evaluation?.plan?.name && (
@@ -101,7 +118,9 @@ export const EvaluationHome = () => {
               <div>
                 <TitleContainer>
                   <SubTitle>Entrevistas</SubTitle>
-                  <AddIcon onClick={() => setInterviewsModal(true)} />
+                  {evaluation?.state === 'Avaliação Inicial' && (
+                    <AddIcon onClick={() => setInterviewsModal(true)} />
+                  )}
                 </TitleContainer>
                 <Divider />
                 {!!evaluation?.interviews[0]?.id && (
@@ -118,6 +137,17 @@ export const EvaluationHome = () => {
                   </FlexSpace>
                 )}
               </div>
+              {isLeader && (
+                <div>
+                  <Button
+                    secondary
+                    width="100%"
+                    onClick={() => setNextStepModal(true)}
+                  >
+                    {`Finalizar ${evaluation?.state.toLowerCase()}`}
+                  </Button>
+                </div>
+              )}
             </FlexSpace>
           )}
         </Wrapper>
@@ -146,6 +176,20 @@ export const EvaluationHome = () => {
           setShowModal={setInterviewsModal}
           evaluationId={id}
           loadEvaluation={loadEvaluation}
+        />
+      </Modal>
+      <Modal
+        title="Encerrar etapa"
+        showModal={nextStepModal}
+        setShowModal={setNextStepModal}
+        width="60%"
+        height="100%"
+      >
+        <NextStepConfimationModal
+          nextStepModal={setNextStepModal}
+          evaluationId={id}
+          loadEvaluation={loadEvaluation}
+          setShowModal={setNextStepModal}
         />
       </Modal>
     </>

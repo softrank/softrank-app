@@ -6,5 +6,5 @@ export interface Evalutation {
   name: string;
   modelLevel: ModelLevel;
   organizationalUnit: Organization;
-  status: string;
+  state: 'Aguardando aprovação' | 'Avaliação inicial' | 'Avaliação final';
 }

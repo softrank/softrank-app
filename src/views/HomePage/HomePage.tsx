@@ -109,7 +109,7 @@ export const HomePage = () => {
                     <td>{evaluation.modelLevel.modelName}</td>
                     <td>{evaluation.modelLevel.initial}</td>
                     <td>
-                      <Link to={`/avaliacao/${evaluation.id}`}>
+                      <Link to={`/avaliacao/home/${evaluation.id}`}>
                         <ExitIcon />
                       </Link>
                     </td>

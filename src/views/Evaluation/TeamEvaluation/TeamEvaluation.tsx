@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import {
@@ -14,22 +14,26 @@ import {
   STabList,
   STabPanel,
   STabs,
+  Title3,
+  File,
+  SubTitle,
 } from 'shared/components';
 import { InputGroup } from 'shared/components/Form';
-import { File } from 'shared/components/File/File';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
-import { Title3 } from 'shared/components/Titles/Title3';
-import { InitalEvaluationTeamForm } from './InitalEvaluationTeamForm';
-import React from 'react';
+import { EvaluationDetails } from 'shared/models/evaluationDetails';
+import { EvidenceStatusForm } from './Forms/EvidenceStatusForm';
+import { ExpectedResultClassificationForm } from './Forms/ExpectedResultClassificationForm';
+import { ProjectsClassificationForm } from './Forms/ProjectsClassificationForm';
 
-export const InitialEvaluationTeam = () => {
+export const TeamEvaluation = () => {
   const { id } = useParams<{ id: string }>();
 
   const [tabIndex, setTabIndex] = useState(0);
   const [processes, setProcesses] = useState<EvaluationProcess[]>([]);
   const [loading, setLoading] = useState(true);
+  const [evaluation, setEvaluation] = useState<EvaluationDetails>();
 
   const loadProcesses = (id: string) => {
     setLoading(true);
@@ -45,6 +49,12 @@ export const InitialEvaluationTeam = () => {
   };
 
   useEffect(() => loadProcesses(id), [id]);
+
+  useEffect(() => {
+    evaluationService
+      .getById(id)
+      .then((evaluation) => setEvaluation(evaluation));
+  }, [id]);
 
   return (
     <>
@@ -62,6 +72,7 @@ export const InitialEvaluationTeam = () => {
                 return <STab key={index}>{process.initial}</STab>;
               })}
             </STabList>
+
             {processes?.map((process, index) => {
               return (
                 <STabPanel key={index}>
@@ -70,6 +81,28 @@ export const InitialEvaluationTeam = () => {
                       return (
                         <Collapse title={er.initial} key={indexEr}>
                           <Title3>{er.description}</Title3>
+                          {evaluation?.state === 'Avaliação final' ? (
+                            <FlexSpace>
+                              <SubTitle>Classificação</SubTitle>
+                              <ExpectedResultClassificationForm
+                                expectedResultId={er.id}
+                              />
+                              <Collapse title="Projetos" underline>
+                                {evaluation.projects.map((project, index) => {
+                                  return (
+                                    <ProjectsClassificationForm
+                                      key={index}
+                                      project={project}
+                                      expectedResultId={er.id}
+                                    />
+                                  );
+                                })}
+                              </Collapse>
+                            </FlexSpace>
+                          ) : (
+                            <></>
+                          )}
+                          <SubTitle>Indicadores</SubTitle>
                           <FlexSpace>
                             {er.indicators.map((indicator, indexIn) => {
                               return (
@@ -82,31 +115,31 @@ export const InitialEvaluationTeam = () => {
                                     (evidence, indexFile) => {
                                       return (
                                         <React.Fragment key={indexFile}>
-                                          <div>
-                                            <InputGroup>
-                                              <ReadOnly
-                                                label="Projeto"
-                                                value={evidence.project.name}
-                                              />
-                                              <File
-                                                label="Fonte de evidência"
-                                                fileName={
-                                                  evidence.files[0].name
-                                                }
-                                                url={evidence.files[0].source}
-                                              />
-                                            </InputGroup>
-                                            <InputGroup>
-                                              <InitalEvaluationTeamForm
-                                                evidenceId={evidence.id}
-                                                status={
-                                                  evidence.status !== null
-                                                    ? evidence.status
-                                                    : 'n/a'
-                                                }
-                                              />
-                                            </InputGroup>
-                                          </div>
+                                          <InputGroup>
+                                            <ReadOnly
+                                              label="Projeto"
+                                              value={evidence.project.name}
+                                            />
+                                            <File
+                                              label="Fonte de evidência"
+                                              fileName={evidence.files[0].name}
+                                              url={evidence.files[0].source}
+                                            />
+                                          </InputGroup>
+                                          <InputGroup>
+                                            <EvidenceStatusForm
+                                              evidenceId={evidence.id}
+                                              status={
+                                                evidence.status !== null
+                                                  ? evidence.status
+                                                  : 'n/a'
+                                              }
+                                              disabled={
+                                                evaluation?.state !==
+                                                evidence.createdOn
+                                              }
+                                            />
+                                          </InputGroup>
                                           {indexFile !==
                                             indicator.evidenceSources.length -
                                               1 && <Divider />}

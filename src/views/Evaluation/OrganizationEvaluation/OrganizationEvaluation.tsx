@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 import {
   FlexSpace,
@@ -7,7 +8,6 @@ import {
   Wrapper,
   Button,
   AddIcon,
-  Modal,
   STab,
   STabList,
   STabPanel,
@@ -15,11 +15,10 @@ import {
   ReadOnly,
   EditIcon,
   RemoveIcon,
+  File,
 } from 'shared/components';
-import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
-import { File } from 'shared/components/File/File';
+import { EvidenceDetails } from './EvidenceDetails/EvidenceDetails';
 import { InputGroup } from 'shared/components/Form';
-import { useParams } from 'react-router';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -27,7 +26,7 @@ import { Title3 } from 'shared/components/Titles/Title3';
 import { DeleteConfirmationModal } from './DeleteConfirmationModal/DeleteConfirmationModal';
 import { indicatorsService } from 'shared/services/indicatorsService';
 
-export const InitialEvaluationOrg = () => {
+export const OrganizationEvaluation = () => {
   const { id } = useParams<{ id: string }>();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -162,21 +161,14 @@ export const InitialEvaluationOrg = () => {
           <Button secondary width="6rem" onClick={() => console.log('salvar')}>
             Salvar
           </Button>
-          <Modal
-            title="Fonte de evidência"
+          <EvidenceDetails
+            evaluationId={id}
+            expectedResultId={expectedResultId}
+            indicatorId={indicatorId}
             showModal={showEvidenceDetails}
             setShowModal={setShowEvidenceDetails}
-            width="90%"
-            height="100%"
-          >
-            <EvidenceDetails
-              evaluationId={id}
-              expectedResultId={expectedResultId}
-              indicatorId={indicatorId}
-              setShowModal={setShowEvidenceDetails}
-              loadProcesses={loadProcesses}
-            />
-          </Modal>
+            loadProcesses={loadProcesses}
+          />
           <DeleteConfirmationModal
             showConfirmation={deleteIndicatorModal}
             setShowConfirmation={setDeleteIndicatorModal}

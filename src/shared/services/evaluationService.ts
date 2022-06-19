@@ -40,4 +40,6 @@ export const evaluationService = {
       formData
     );
   },
+  nextStep: (id: string) =>
+    requests.putWithoutBody(`${evaluationController}/${id}/next-step`),
 };

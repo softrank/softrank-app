@@ -8,8 +8,8 @@ export interface EvaluationDetails {
   implementationInstitution: string;
   start: Date;
   auditor: Member;
-  evaluatorInstitution: Member;
-  evaluators: Member[];
+  evaluatorInsitution: Member;
+  evaluators: EvaluationEvaluator[];
   end: Date;
   expectedModelLevel: ModelLevel;
   organizationalUnit: Organization;
@@ -23,6 +23,13 @@ interface Member {
   id: string;
   memberId: string;
   type: string;
+  name: string;
+}
+
+export interface EvaluationEvaluator {
+  id: string;
+  memberId: string;
+  type: 'evaluator_leader' | 'evaluator_adjunct';
   name: string;
 }
 

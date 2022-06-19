@@ -11,25 +11,29 @@ import {
 interface Props {
   name: string;
   value: string;
-  color?: 'red' | 'yellow' | 'green';
+  color?: 'red' | 'yellow' | 'green' | 'blue';
   legend?: string;
   register: any;
+  disabled?: boolean;
 }
 
 export const Radio = (props: Props) => {
-  const { name, value, color, legend, register } = props;
+  const { name, value, color, legend, register, disabled = false } = props;
 
-  const [radioCollor, setRadioCollor] = useState('var(--gray-500)');
+  const [radioColor, setRadioColor] = useState('var(--gray-500)');
 
   useEffect(() => {
     color === 'green'
-      ? setRadioCollor('#52b788')
+      ? setRadioColor('#52b788')
       : color === 'red'
-      ? setRadioCollor('#f7a399')
+      ? setRadioColor('#f7a399')
       : color === 'yellow'
-      ? setRadioCollor('#ffd500')
-      : setRadioCollor('var(--gray-500)');
-  }, [color]);
+      ? setRadioColor('#ffd500')
+      : color === 'blue'
+      ? setRadioColor('#42a5f5')
+      : setRadioColor('var(--gray-500)');
+    if (disabled) setRadioColor('var(--gray-500)');
+  }, [color, disabled]);
 
   return (
     <RadioContainer>
@@ -39,9 +43,10 @@ export const Radio = (props: Props) => {
           name={name}
           value={value}
           {...register(name)}
+          disabled={disabled}
         />
-        <StyledRadio color={color}>
-          <CheckedCircle color={radioCollor} />
+        <StyledRadio color={radioColor}>
+          <CheckedCircle color={radioColor} />
         </StyledRadio>
       </div>
       {legend && <RadioLabel>{legend}</RadioLabel>}

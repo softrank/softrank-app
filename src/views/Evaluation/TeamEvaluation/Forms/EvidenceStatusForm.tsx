@@ -8,13 +8,14 @@ import { evidenceSourcesService } from 'shared/services/evidenceSourceService';
 interface Props {
   evidenceId: string;
   status: string;
+  disabled: boolean;
 }
 
 interface IForm {
   status: string;
 }
 
-export const InitalEvaluationTeamForm = ({ evidenceId, status }: Props) => {
+export const EvidenceStatusForm = ({ evidenceId, status, disabled }: Props) => {
   const [previousStatus, setPreviousStatus] = useState(status);
 
   const { handleSubmit, register, watch, reset } = useForm<IForm>();
@@ -41,13 +42,14 @@ export const InitalEvaluationTeamForm = ({ evidenceId, status }: Props) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <RadioGroup label="Status">
+      <RadioGroup label="Status" disabled={disabled}>
         <Radio
           name="status"
           value="invalid"
           color="red"
           legend="Inválido"
           register={register}
+          disabled={disabled}
         />
         <Radio
           name="status"
@@ -55,6 +57,7 @@ export const InitalEvaluationTeamForm = ({ evidenceId, status }: Props) => {
           color="yellow"
           legend="Incompleto"
           register={register}
+          disabled={disabled}
         />
         <Radio
           name="status"
@@ -62,8 +65,15 @@ export const InitalEvaluationTeamForm = ({ evidenceId, status }: Props) => {
           color="green"
           legend="Completo"
           register={register}
+          disabled={disabled}
         />
-        <Radio name="status" value="n/a" legend="N/A" register={register} />
+        <Radio
+          name="status"
+          value="n/a"
+          legend="N/A"
+          register={register}
+          disabled={disabled}
+        />
       </RadioGroup>
     </Form>
   );

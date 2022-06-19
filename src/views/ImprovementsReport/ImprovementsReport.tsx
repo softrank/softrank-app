@@ -14,15 +14,15 @@ import {
   Wrapper,
 } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { Evalutation } from 'shared/models/evaluation';
+import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { Improvement } from 'shared/models/improvement';
-import { evaluationService, evaluatorService } from 'shared/services';
+import { evaluationService } from 'shared/services';
 import { RootState } from 'shared/store';
 import { ImprovementDetails } from './ImprovementDetails';
 import { IconOptions, LongTableLine, TextWrapper } from './styled';
 
 export const ImprovementsReport = () => {
-  const [evaluation, setEvaluation] = useState<Evalutation>();
+  const [evaluation, setEvaluation] = useState<EvaluationDetails>();
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [improvements, setImprovements] = useState<Improvement[]>([]);
@@ -37,9 +37,9 @@ export const ImprovementsReport = () => {
   }, [roles]);
 
   useEffect(() => {
-    evaluatorService
-      .getEvaluations()
-      .then((evaluations) => setEvaluation(evaluations[0]));
+    evaluationService
+      .getById(id)
+      .then((evaluation) => setEvaluation(evaluation));
     loadImprovements(id);
     setLoading(false);
   }, [id]);
@@ -84,8 +84,13 @@ export const ImprovementsReport = () => {
                     <LongTableLine>{improvement.suggestion}</LongTableLine>
                     <td>
                       <IconOptions>
-                        <EditIcon />
-                        {userRoles.includes('evaluator') && <RemoveIcon />}
+                        {evaluation?.state === 'Avaliação inicial' &&
+                          userRoles.includes('evaluator') && (
+                            <>
+                              <EditIcon />
+                              <RemoveIcon />
+                            </>
+                          )}
                       </IconOptions>
                     </td>
                   </tr>

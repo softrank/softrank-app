@@ -24,6 +24,7 @@ export const requests = {
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
   postWithoutBody: <T>(url: string) => axios.post<T>(url).then(responseBody),
+  putWithoutBody: <T>(url: string) => axios.put<T>(url).then(responseBody),
 };
 
 const fileConfig = {

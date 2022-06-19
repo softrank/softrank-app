@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-import { Button, FlexSpace, Options, Wrapper } from 'shared/components';
+import { Button, FlexSpace, Modal, Options, Wrapper } from 'shared/components';
 import {
   Form,
   InputGroup,
@@ -20,6 +20,7 @@ import { indicatorsService } from 'shared/services/indicatorsService';
 import { IndicatorDto } from 'shared/dtos/indicatorDto';
 
 interface Props {
+  showModal: boolean;
   setShowModal: (state: boolean) => void;
   evaluationId: string;
   expectedResultId: string;
@@ -28,7 +29,13 @@ interface Props {
 }
 
 export const EvidenceDetails = (props: Props) => {
-  const { setShowModal, evaluationId, expectedResultId, loadProcesses } = props;
+  const {
+    showModal,
+    setShowModal,
+    evaluationId,
+    expectedResultId,
+    loadProcesses,
+  } = props;
 
   const [checkedProjects, setCheckedProjects] = useState<
     EvidenceDetailsFormFile[]
@@ -50,15 +57,17 @@ export const EvidenceDetails = (props: Props) => {
 
   useEffect(() => {
     evaluationService.getById(evaluationId).then((evaluation) => {
-      evaluation.projects.forEach((pd, index) => {
+      evaluation.projects.forEach((project) => {
         const file: EvidenceDetailsFormFile = {
           id: undefined,
-          projectId: pd.id,
-          projectName: pd.name,
+          projectId: project.id,
+          projectName: project.name,
           checked: true,
           content: undefined,
         };
-        const exinstingFile = files.filter((file) => file.projectId === pd.id);
+        const exinstingFile = files.filter(
+          (file) => file.projectId === project.id
+        );
         if (exinstingFile.length <= 0) append(file);
       });
     });
@@ -122,74 +131,86 @@ export const EvidenceDetails = (props: Props) => {
   };
 
   return (
-    <Wrapper>
-      <Form onSubmit={onSubmit}>
-        <FlexSpace space="2rem">
-          <InputGroup>
-            <Input
-              label="Fonte de evidência"
-              name="name"
-              placeholder="nome da fonte de evidência"
-              control={control}
-              rules={{
-                required: true,
-              }}
-              errors={errors?.name}
-            />
-            <Input
-              label="Grupo de garantia da qualidade"
-              name="qualityAssuranceGroup"
-              placeholder="nome do grupo"
-              control={control}
-              errors={errors?.qualityAssuranceGroup}
-            />
-          </InputGroup>
-          <InputGroup>
-            <div>
-              <Label>Selecione o(s) projeto(s):</Label>
-              <CheckBoxContainer>
-                {files.map((file, index) => {
-                  return (
-                    <ControlledCheckbox
-                      key={index}
-                      name={`files[${index}].checked`}
-                      label={file.projectName}
-                      control={control}
-                      defaultValue={file.checked}
-                    />
-                  );
-                })}
-              </CheckBoxContainer>
-            </div>
-          </InputGroup>
-          <InputGroup>
-            {files.map((file, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {checkedProjects[index]?.checked && (
-                    <FileInput
-                      label={file.projectName}
-                      name={`files[${index}].content`}
-                      control={control}
-                      rules={{ required: true }}
-                      reset={reset}
-                      getValues={getValues}
-                      errors={errors?.qualityAssuranceGroup}
-                    />
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </InputGroup>
-          <Options>
-            <Button secondary type="button" onClick={() => setShowModal(false)}>
-              Cancelar
-            </Button>
-            <Button type="submit">Salvar</Button>
-          </Options>
-        </FlexSpace>
-      </Form>
-    </Wrapper>
+    <Modal
+      title="Fonte de evidência"
+      showModal={showModal}
+      setShowModal={setShowModal}
+      width="90%"
+      height="100%"
+    >
+      <Wrapper>
+        <Form onSubmit={onSubmit}>
+          <FlexSpace space="2rem">
+            <InputGroup>
+              <Input
+                label="Fonte de evidência"
+                name="name"
+                placeholder="nome da fonte de evidência"
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                errors={errors?.name}
+              />
+              <Input
+                label="Grupo de garantia da qualidade"
+                name="qualityAssuranceGroup"
+                placeholder="nome do grupo"
+                control={control}
+                errors={errors?.qualityAssuranceGroup}
+              />
+            </InputGroup>
+            <InputGroup>
+              <div>
+                <Label>Selecione o(s) projeto(s):</Label>
+                <CheckBoxContainer>
+                  {files.map((file, index) => {
+                    return (
+                      <ControlledCheckbox
+                        key={index}
+                        name={`files[${index}].checked`}
+                        label={file.projectName}
+                        control={control}
+                        defaultValue={file.checked}
+                      />
+                    );
+                  })}
+                </CheckBoxContainer>
+              </div>
+            </InputGroup>
+            <InputGroup>
+              {files.map((file, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {checkedProjects[index]?.checked && (
+                      <FileInput
+                        label={file.projectName}
+                        name={`files[${index}].content`}
+                        control={control}
+                        rules={{ required: true }}
+                        reset={reset}
+                        getValues={getValues}
+                        errors={errors?.qualityAssuranceGroup}
+                      />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </InputGroup>
+            <Options>
+              <Button
+                secondary
+                type="button"
+                onClick={() => setShowModal(false)}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit">Salvar</Button>
+            </Options>
+          </FlexSpace>
+        </Form>
+      </Wrapper>
+    </Modal>
   );
 };
 

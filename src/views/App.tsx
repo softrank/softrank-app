@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+
 import { PrivateRoute } from 'shared/components/PrivateRoute';
 import { userService } from 'shared/services';
-
 import { authActions, RootState } from 'shared/store';
 import {
   NavBar,
@@ -23,10 +23,10 @@ import {
   EvaluationNew,
   EvaluatorInstitutionManagment,
   ImprovementsReport,
-  InitialEvaluationTeam,
   EvaluationHome,
-  InitialEvaluationOrg,
   ModelManagerEvaluationList,
+  OrganizationEvaluation,
+  TeamEvaluation,
 } from './';
 
 export default function App() {
@@ -89,59 +89,67 @@ export default function App() {
               component={EvaluatorInstitutionManagment}
             />
             {userRoles.includes('modelManager') && (
-              <>
-                <PrivateRoute
-                  exact
-                  path="/modelos"
-                  component={ModelManagment}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacoes"
-                  component={ModelManagerEvaluationList}
-                />
-              </>
+              <PrivateRoute exact path="/modelos" component={ModelManagment} />
+            )}
+            {userRoles.includes('modelManager') && (
+              <PrivateRoute
+                exact
+                path="/avaliacoes"
+                component={ModelManagerEvaluationList}
+              />
             )}
             {(userRoles.includes('evaluator') ||
               userRoles.includes('organizationalUnit')) && (
               <PrivateRoute
                 exact
-                path="/avaliacao/:id"
+                path="/relatorio-de-melhorias/:id"
+                component={ImprovementsReport}
+              />
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('organizationalUnit')) && (
+              <PrivateRoute
+                exact
+                path="/relatorio-de-melhorias/:id"
+                component={ImprovementsReport}
+              />
+            )}
+            {(userRoles.includes('evaluator') ||
+              userRoles.includes('organizationalUnit')) && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/home/:id"
                 component={EvaluationHome}
               />
             )}
             {userRoles.includes('evaluator') && (
-              <>
-                <PrivateRoute
-                  exact
-                  path="/avaliacao/planilha-de-requisitos/:id"
-                  component={InitialEvaluationTeam}
-                />
-                <PrivateRoute
-                  exact
-                  path="/relatorio-de-melhorias/:id"
-                  component={ImprovementsReport}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacao-nova"
-                  component={EvaluationNew}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacoes"
-                  component={EvaluationManagment}
-                />
-              </>
+              <PrivateRoute
+                exact
+                path="/avaliacao/planilha-de-requisitos/:id"
+                component={TeamEvaluation}
+              />
             )}
             {userRoles.includes('organizationalUnit') && (
               <PrivateRoute
                 exact
                 path="/avaliacao/planilha-de-requisitos/:id"
-                component={InitialEvaluationOrg}
+                component={OrganizationEvaluation}
               />
             )}
-
+            {userRoles.includes('evaluator') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao-nova"
+                component={EvaluationNew}
+              />
+            )}
+            {userRoles.includes('evaluator') && (
+              <PrivateRoute
+                exact
+                path="/avaliacoes"
+                component={EvaluationManagment}
+              />
+            )}
             <Route path="*" exact={true} component={NotFound} />
           </Switch>
         )}
