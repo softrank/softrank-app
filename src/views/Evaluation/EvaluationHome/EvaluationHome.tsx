@@ -103,7 +103,7 @@ export const EvaluationHome = () => {
               <div>
                 <TitleContainer>
                   <SubTitle>Plano de avaliação</SubTitle>
-                  {evaluation?.state === 'Avaliação Inicial' && (
+                  {evaluation?.state === 'Avaliação inicial' && (
                     <AddIcon onClick={() => setEvaluationPlanModal(true)} />
                   )}
                 </TitleContainer>
@@ -118,7 +118,7 @@ export const EvaluationHome = () => {
               <div>
                 <TitleContainer>
                   <SubTitle>Entrevistas</SubTitle>
-                  {evaluation?.state === 'Avaliação Inicial' && (
+                  {evaluation?.state === 'Avaliação inicial' && (
                     <AddIcon onClick={() => setInterviewsModal(true)} />
                   )}
                 </TitleContainer>

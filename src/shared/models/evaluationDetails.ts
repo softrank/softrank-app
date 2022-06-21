@@ -14,7 +14,7 @@ export interface EvaluationDetails {
   expectedModelLevel: ModelLevel;
   organizationalUnit: Organization;
   projects: Project[];
-  state: string;
+  state: 'Aguardando aprovação' | 'Avaliação inicial' | 'Avaliação final';
   plan: File;
   interviews: File[];
 }

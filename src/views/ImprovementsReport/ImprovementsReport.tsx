@@ -7,10 +7,10 @@ import {
   Divider,
   EditIcon,
   FlexSpace,
-  Modal,
   RemoveIcon,
   Table,
   Title,
+  ViewIcon,
   Wrapper,
 } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -19,14 +19,19 @@ import { Improvement } from 'shared/models/improvement';
 import { evaluationService } from 'shared/services';
 import { RootState } from 'shared/store';
 import { ImprovementDetails } from './ImprovementDetails';
+import { ImprovementView } from './ImprovementView';
 import { IconOptions, LongTableLine, TextWrapper } from './styled';
 
 export const ImprovementsReport = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [improvements, setImprovements] = useState<Improvement[]>([]);
   const [userRoles, setUserRoles] = useState<any[]>([]);
+  const [viewImprovement, setViewImprovement] = useState<Improvement>();
+  const [showView, setShowView] = useState(false);
+  const [canEdit, setCanEdit] = useState(false);
+  const [editImprovement, setEditImprovement] = useState<Improvement>();
 
   const { id } = useParams<{ id: string }>();
   const roles = useSelector<RootState>((state) => state.auth.roles);
@@ -45,9 +50,24 @@ export const ImprovementsReport = () => {
   }, [id]);
 
   const loadImprovements = (id: string) => {
-    evaluationService
-      .getImprovements(id)
-      .then((improvements) => setImprovements(improvements));
+    evaluationService.getImprovements(id).then((improvements) => {
+      setImprovements(improvements);
+      console.log(improvements);
+    });
+  };
+
+  const handleViewImprovement = (
+    improvement: Improvement,
+    editState: boolean
+  ) => {
+    setViewImprovement(improvement);
+    setCanEdit(editState);
+    setShowView(true);
+  };
+
+  const handleEditImprovement = (improvement?: Improvement) => {
+    setEditImprovement(improvement);
+    setShowDetails(true);
   };
 
   return (
@@ -64,7 +84,7 @@ export const ImprovementsReport = () => {
                 {evaluation?.organizationalUnit.name}
               </p>
               {userRoles.includes('evaluator') && (
-                <AddIcon onClick={() => setShowModal(true)} />
+                <AddIcon onClick={() => handleEditImprovement(undefined)} />
               )}
             </TextWrapper>
             <Divider />
@@ -87,10 +107,27 @@ export const ImprovementsReport = () => {
                         {evaluation?.state === 'Avaliação inicial' &&
                           userRoles.includes('evaluator') && (
                             <>
-                              <EditIcon />
+                              <EditIcon
+                                onClick={() =>
+                                  handleEditImprovement(improvement)
+                                }
+                              />
                               <RemoveIcon />
                             </>
                           )}
+                        {evaluation?.state === 'Avaliação final' &&
+                          userRoles.includes('organizationalUnit') && (
+                            <EditIcon
+                              onClick={() =>
+                                handleViewImprovement(improvement, true)
+                              }
+                            />
+                          )}
+                        <ViewIcon
+                          onClick={() =>
+                            handleViewImprovement(improvement, false)
+                          }
+                        />
                       </IconOptions>
                     </td>
                   </tr>
@@ -98,19 +135,20 @@ export const ImprovementsReport = () => {
               })}
             </Table>
           </FlexSpace>
-          <Modal
-            title="Adicionar melhoria"
-            showModal={showModal}
-            setShowModal={setShowModal}
-            width="80%"
-            height="100%"
-          >
-            <ImprovementDetails
-              setShowModal={setShowModal}
-              evaluationId={id}
-              loadImprovements={loadImprovements}
-            />
-          </Modal>
+          <ImprovementDetails
+            showModal={showDetails}
+            setShowModal={setShowDetails}
+            evaluationId={id}
+            loadImprovements={loadImprovements}
+            improvement={editImprovement}
+          />
+          <ImprovementView
+            showModal={showView}
+            setShowModal={setShowView}
+            improvement={viewImprovement}
+            evaluationState={evaluation?.state}
+            canEdit={canEdit}
+          />
         </Wrapper>
       )}
     </>

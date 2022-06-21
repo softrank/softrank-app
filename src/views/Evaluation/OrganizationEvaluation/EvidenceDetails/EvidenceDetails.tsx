@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import styled from 'styled-components';
 
 import { Button, FlexSpace, Modal, Options, Wrapper } from 'shared/components';
 import {
@@ -18,6 +17,8 @@ import {
 import { evaluationService } from 'shared/services';
 import { indicatorsService } from 'shared/services/indicatorsService';
 import { IndicatorDto } from 'shared/dtos/indicatorDto';
+import { CheckboxContainer } from 'shared/components/Checkbox/styled';
+import { Indicator } from 'shared/models/indicator';
 
 interface Props {
   showModal: boolean;
@@ -79,10 +80,9 @@ export const EvidenceDetails = (props: Props) => {
       setIndicatorId(props.indicatorId);
     } else {
       if (expectedResultId) {
-        indicatorsService.create(expectedResultId).then((indicator) => {
-          setIndicatorId(indicator.id);
-          console.log(indicator);
-        });
+        indicatorsService
+          .create(expectedResultId)
+          .then((indicator) => setIndicatorId(indicator.id));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,6 +95,22 @@ export const EvidenceDetails = (props: Props) => {
 
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  useEffect(() => {
+    if (indicatorId) {
+      indicatorsService
+        .getIndicatorById(indicatorId)
+        .then((indicator) => console.log(indicator));
+    }
+  }, [indicatorId]);
+
+  // const setFormValues = (indicator: Indicator) => {
+  //   reset({
+  //     id: indicator.id,
+  //     name: indicator.name,
+  //     qualityAssuranceGroup: indicator.qualityAssuranceGroup,
+  //   });
+  // };
 
   const onSubmit = handleSubmit((data) => saveIndicator(data));
 
@@ -117,17 +133,10 @@ export const EvidenceDetails = (props: Props) => {
               file.content
             );
         });
-        setShowModal(false);
+
         loadProcesses(evaluationId);
       })
-      .catch((error) => {
-        console.log(error);
-        setShowModal(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setShowModal(false);
-      });
+      .finally(() => setShowModal(false));
   };
 
   return (
@@ -135,10 +144,10 @@ export const EvidenceDetails = (props: Props) => {
       title="Fonte de evidência"
       showModal={showModal}
       setShowModal={setShowModal}
-      width="90%"
-      height="100%"
+      width="auto"
+      height="auto"
     >
-      <Wrapper>
+      <Wrapper style={{ padding: '2rem 0 0 0' }}>
         <Form onSubmit={onSubmit}>
           <FlexSpace space="2rem">
             <InputGroup>
@@ -163,7 +172,7 @@ export const EvidenceDetails = (props: Props) => {
             <InputGroup>
               <div>
                 <Label>Selecione o(s) projeto(s):</Label>
-                <CheckBoxContainer>
+                <CheckboxContainer>
                   {files.map((file, index) => {
                     return (
                       <ControlledCheckbox
@@ -175,7 +184,7 @@ export const EvidenceDetails = (props: Props) => {
                       />
                     );
                   })}
-                </CheckBoxContainer>
+                </CheckboxContainer>
               </div>
             </InputGroup>
             <InputGroup>
@@ -213,10 +222,3 @@ export const EvidenceDetails = (props: Props) => {
     </Modal>
   );
 };
-
-const CheckBoxContainer = styled.div`
-  margin-top: 0.4em;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-`;

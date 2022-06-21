@@ -3,6 +3,8 @@ export interface Improvement {
   problem: string;
   suggestion: string;
   expectedResult: ExpectedResult;
+  type: any;
+  implementedImprovement?: string;
 }
 
 interface ExpectedResult {
