@@ -8,7 +8,7 @@ interface Props {
   confirmAction: () => void;
 }
 
-export const DeleteConfirmationModal = ({
+export const DeleteConfirmationMessage = ({
   showConfirmation,
   setShowConfirmation,
   confirmAction,

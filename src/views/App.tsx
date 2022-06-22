@@ -25,8 +25,11 @@ import {
   ImprovementsReport,
   EvaluationHome,
   ModelManagerEvaluationList,
-  OrganizationEvaluation,
-  TeamEvaluation,
+  IndicatorsManagmentOrg,
+  IndicatorsManagmentTeam,
+  ProjectCapacitiesManagementTeam,
+  OrganizationCapacitiesManagementOrg,
+  OrganizationCapacitiesManagementTeam,
 } from './';
 
 export default function App() {
@@ -126,14 +129,14 @@ export default function App() {
               <PrivateRoute
                 exact
                 path="/avaliacao/planilha-de-requisitos/:id"
-                component={TeamEvaluation}
+                component={IndicatorsManagmentTeam}
               />
             )}
             {userRoles.includes('organizationalUnit') && (
               <PrivateRoute
                 exact
                 path="/avaliacao/planilha-de-requisitos/:id"
-                component={OrganizationEvaluation}
+                component={IndicatorsManagmentOrg}
               />
             )}
             {userRoles.includes('evaluator') && (
@@ -148,6 +151,34 @@ export default function App() {
                 exact
                 path="/avaliacoes"
                 component={EvaluationManagment}
+              />
+            )}
+            {userRoles.includes('evaluator') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/capacidades-de-projetos/:id"
+                component={ProjectCapacitiesManagementTeam}
+              />
+            )}
+            {userRoles.includes('organizationalUnit') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/capacidades-de-projetos/:id"
+                component={ProjectCapacitiesManagementTeam}
+              />
+            )}
+            {userRoles.includes('evaluator') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/capacidades-organizacionais/:id"
+                component={OrganizationCapacitiesManagementTeam}
+              />
+            )}
+            {userRoles.includes('organizationalUnit') && (
+              <PrivateRoute
+                exact
+                path="/avaliacao/capacidades-organizacionais/:id"
+                component={OrganizationCapacitiesManagementOrg}
               />
             )}
             <Route path="*" exact={true} component={NotFound} />

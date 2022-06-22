@@ -27,7 +27,7 @@ import { EvidenceStatusForm } from './Forms/EvidenceStatusForm';
 import { ExpectedResultClassificationForm } from './Forms/ExpectedResultClassificationForm';
 import { ProjectsClassificationForm } from './Forms/ProjectsClassificationForm';
 
-export const TeamEvaluation = () => {
+export const IndicatorsManagmentTeam = () => {
   const { id } = useParams<{ id: string }>();
 
   const [tabIndex, setTabIndex] = useState(0);

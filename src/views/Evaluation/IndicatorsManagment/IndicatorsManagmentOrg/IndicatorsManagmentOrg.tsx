@@ -23,10 +23,10 @@ import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Title3 } from 'shared/components/Titles/Title3';
-import { DeleteConfirmationModal } from './DeleteConfirmationModal/DeleteConfirmationModal';
+import { DeleteConfirmationMessage } from '../../../../shared/components/Messages/DeleteConfirmationMessage/DeleteConfirmationMessage';
 import { indicatorsService } from 'shared/services/indicatorsService';
 
-export const OrganizationEvaluation = () => {
+export const IndicatorsManagmentOrg = () => {
   const { id } = useParams<{ id: string }>();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -169,7 +169,7 @@ export const OrganizationEvaluation = () => {
             setShowModal={setShowEvidenceDetails}
             loadProcesses={loadProcesses}
           />
-          <DeleteConfirmationModal
+          <DeleteConfirmationMessage
             showConfirmation={deleteIndicatorModal}
             setShowConfirmation={setDeleteIndicatorModal}
             confirmAction={deleteIndicator}
