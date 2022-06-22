@@ -9,6 +9,7 @@ import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
 import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
+import { CapacitiesTab } from './Tabs/CapacitiesTab';
 
 export const ModelDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -85,6 +86,7 @@ export const ModelDetails = () => {
               <STab>Modelo</STab>
               <STab disabled={levelsTabDisabled}>Hierarquia</STab>
               <STab disabled={processesTabDisabled}>Processos</STab>
+              <STab>Capacidades</STab>
             </STabList>
             <STabPanel>
               <ModelTab
@@ -109,6 +111,13 @@ export const ModelDetails = () => {
                 setModel={setModel}
                 createOrUpdateModel={createOrUpdateModel}
                 loading={loading}
+              />
+            </STabPanel>
+            <STabPanel>
+              <CapacitiesTab
+                levels={model.modelLevels}
+                setTabIndex={setTabIndex}
+                modelId={model.id}
               />
             </STabPanel>
           </STabs>

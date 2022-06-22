@@ -142,7 +142,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
         >
           {levels.map(({ id }, index) => {
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={id}>
                 <CollapseContent>
                   <InputGroup>
                     <Input
