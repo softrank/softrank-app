@@ -10,7 +10,13 @@ import {
   FlexSpace,
   Options,
 } from 'shared/components';
-import { Form, Input, InputGroup, Select } from 'shared/components/Form';
+import {
+  Form,
+  Input,
+  InputGroup,
+  Select,
+  TextArea,
+} from 'shared/components/Form';
 import { CapacityDto } from 'shared/dtos/capacityDto';
 import { ModelLevel } from 'shared/models/modelLevel';
 import { ModelDto } from 'shared/dtos/modelDto';
@@ -158,7 +164,7 @@ export const CapacitiesTab = ({
             return (
               <FlexSpace key={pc.id}>
                 <InputGroup>
-                  <Input
+                  <TextArea
                     name={`projectCapacities[${index}].name`}
                     label="Nome"
                     placeholder="nome da capacidade"

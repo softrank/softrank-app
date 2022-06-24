@@ -4,7 +4,7 @@ export interface Improvement {
   suggestion: string;
   expectedResult: ExpectedResult;
   type: any;
-  implementedImprovement?: string;
+  resolution?: string;
 }
 
 interface ExpectedResult {

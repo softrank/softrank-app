@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FlexSpace, ReadOnly, Options, Button, Modal } from 'shared/components';
 import { Form, InputGroup, TextArea } from 'shared/components/Form';
 import { Improvement } from 'shared/models/improvement';
+import { improvementsService } from 'shared/services/improvementsService';
 
 interface Props {
   showModal: boolean;
@@ -21,7 +22,15 @@ export const ImprovementView = ({
 }: Props) => {
   const { control, handleSubmit } = useForm<any>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => saveImprovement(data));
+
+  const saveImprovement = (data: any) => {
+    if (improvement?.id) {
+      improvementsService.update(improvement?.id, data).then(() => {
+        setShowModal(false);
+      });
+    }
+  };
 
   return (
     <Modal
@@ -50,7 +59,7 @@ export const ImprovementView = ({
                 <InputGroup>
                   <TextArea
                     label="Ajuste realizado"
-                    name="adjustment"
+                    name="resolution"
                     placeholder="Digite o ajuste realizado"
                     control={control}
                   />
@@ -58,7 +67,7 @@ export const ImprovementView = ({
               ) : (
                 <ReadOnly
                   label="Ajuste realizado"
-                  value={improvement.implementedImprovement ?? '-'}
+                  value={improvement.resolution ?? '-'}
                 />
               )}
               {evaluationState === 'Avaliação final' && canEdit && (

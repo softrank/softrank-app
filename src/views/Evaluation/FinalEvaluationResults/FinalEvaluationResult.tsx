@@ -4,14 +4,15 @@ import { useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router';
 
 import {
+  Collapse,
   FlexSpace,
   ReadOnly,
-  SubTitle,
   Title,
   Wrapper,
 } from 'shared/components';
 import { Input, InputGroup, Select } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
+import { finalResultOptions } from 'shared/data/finalResultOptions';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { ModelLevel } from 'shared/models/modelLevel';
@@ -86,29 +87,52 @@ export const FinalEvaluationResult = () => {
         <Wrapper>
           <Title>Resultados da avaliação final</Title>
           <FlexSpace>
-            <SubTitle>Resultados de processos</SubTitle>
-            {processes.map((process, index) => {
-              return (
-                <InputGroup key={index}>
-                  <ReadOnly label="Processo" value={process.name} />
-                  <Select
-                    name={`process[${index}].evaluatedLevel`}
-                    label="Nível Avaliado"
-                    placeholder="selecione um nível"
-                    control={control}
-                    rules={{ required: true }}
-                    optionValues={levels}
-                    optionLabel="initial"
-                  />
-                  <Input
-                    name={`process[${index}].result`}
-                    label="Resultado"
-                    placeholder="resultado do processo"
-                    control={control}
-                  />
-                </InputGroup>
-              );
-            })}
+            <Collapse title="Resultado por processo">
+              {processes.map((process, index) => {
+                return (
+                  <InputGroup key={index}>
+                    <ReadOnly label="Processo" value={process.name} />
+                    <Select
+                      name={`process[${index}].evaluatedLevel`}
+                      label="Nível Avaliado"
+                      placeholder="selecione um nível"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={levels}
+                      optionLabel="initial"
+                    />
+                    <Input
+                      name={`process[${index}].result`}
+                      label="Resultado"
+                      placeholder="resultado do processo"
+                      control={control}
+                    />
+                  </InputGroup>
+                );
+              })}
+            </Collapse>
+            <Collapse title="Resultado por nível">
+              {levels.map((level, index) => {
+                return (
+                  <InputGroup key={index}>
+                    <ReadOnly
+                      label="Nível"
+                      value={`${level.initial} - ${level.name}`}
+                    />
+                    <Select
+                      name={`level[${index}].result`}
+                      label="Resultado"
+                      placeholder="selecione um resultado"
+                      control={control}
+                      rules={{ required: true }}
+                      optionValues={finalResultOptions}
+                      optionLabel="label"
+                      optionValue="value"
+                    />
+                  </InputGroup>
+                );
+              })}
+            </Collapse>
           </FlexSpace>
         </Wrapper>
       )}
