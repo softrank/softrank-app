@@ -30,12 +30,7 @@ export const FinalEvaluationResult = () => {
 
   const { id } = useParams<{ id: string }>();
   const roles = useSelector<RootState>((state) => state.auth.roles);
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<any>();
+  const { control } = useForm<any>();
 
   useEffect(() => {
     if (roles && evaluation) {
@@ -47,6 +42,7 @@ export const FinalEvaluationResult = () => {
           return <Redirect to={`avaliacao/home/${id}`} />;
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roles, evaluation]);
 
   useEffect(() => {
