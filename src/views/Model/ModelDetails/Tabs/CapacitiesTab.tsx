@@ -13,11 +13,18 @@ import {
 import { Form, Input, InputGroup, Select } from 'shared/components/Form';
 import { CapacityDto } from 'shared/dtos/capacityDto';
 import { ModelLevel } from 'shared/models/modelLevel';
+import { ModelDto } from 'shared/dtos/modelDto';
+import { ModelEntity } from 'shared/models/modelEntity';
+import { useEffect } from 'react';
+import { Capacity } from 'shared/models/capacity';
+import { modelsService } from 'shared/services';
+import { useHistory } from 'react-router';
 
 interface Props {
   levels: ModelLevel[];
   setTabIndex: (tabIndex: number) => void;
-  modelId: string;
+  model: ModelEntity;
+  createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
 }
 
 interface IForm {
@@ -25,12 +32,19 @@ interface IForm {
   organizationalCapacities: CapacityDto[];
 }
 
-export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
+export const CapacitiesTab = ({
+  levels,
+  setTabIndex,
+  model,
+  createOrUpdateModel,
+}: Props) => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<IForm>();
+
   const {
     fields: projectCapacities,
     append: appendPC,
@@ -39,6 +53,7 @@ export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
     control,
     name: 'projectCapacities',
   });
+
   const {
     fields: organizationalCapacities,
     append: appendOC,
@@ -48,6 +63,41 @@ export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
     name: 'organizationalCapacities',
   });
 
+  const history = useHistory();
+
+  useEffect(() => {
+    const capacitiesDtos: CapacityDto[] = convertToFormFormat(
+      model.modelCapacities
+    );
+
+    const capacitiesP = capacitiesDtos.filter(
+      (capacity) => capacity.type === 'P'
+    );
+    const capacitiesO = capacitiesDtos.filter(
+      (capacity) => capacity.type === 'O'
+    );
+
+    reset({
+      projectCapacities: capacitiesP,
+      organizationalCapacities: capacitiesO,
+    });
+  }, [model, reset]);
+
+  const convertToFormFormat = (capacities: Capacity[]) => {
+    const dtos = capacities.map((cp) => {
+      const dto: CapacityDto = {
+        id: cp.id,
+        name: cp.name,
+        type: cp.type,
+        maxLevel: cp.maxLevel.initial,
+        minLevel: cp.minLevel.initial,
+      };
+      return dto;
+    });
+
+    return dtos;
+  };
+
   const handleAddCapacity = (type: 'O' | 'P') => {
     const capacity = {
       name: undefined,
@@ -55,8 +105,6 @@ export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
       maxLevel: undefined,
       minLevel: undefined,
     };
-
-    console.log('meu ovo');
 
     if (type === 'P') appendPC(capacity);
     if (type === 'O') appendOC(capacity);
@@ -69,7 +117,6 @@ export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
         name: capacity.name,
         minLevel: (capacity.minLevel = (capacity.minLevel as any).label),
         maxLevel: (capacity.maxLevel = (capacity.maxLevel as any).label),
-        modelId: modelId,
       };
 
       if (capacity.id) formatedCapacity.id = capacity.id;
@@ -83,10 +130,19 @@ export const CapacitiesTab = ({ levels, setTabIndex, modelId }: Props) => {
   const handleSave = (data: IForm) => {
     const formatedOC = formatCapacities(data.organizationalCapacities);
     const formatedPC = formatCapacities(data.projectCapacities);
-
     const capacities = formatedOC.concat(formatedPC);
 
-    console.log(capacities);
+    const modelDto = {
+      id: model.id,
+      name: model.name,
+      year: new Date(model.year),
+      description: model.description,
+      modelCapacities: capacities,
+    };
+
+    modelsService
+      .updateCapacities(model.id, modelDto)
+      .then(() => history.push('/modelos'));
   };
 
   const onSubmit = handleSubmit((data) => handleSave(data));

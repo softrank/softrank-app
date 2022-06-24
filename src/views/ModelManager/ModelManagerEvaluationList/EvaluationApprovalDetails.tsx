@@ -10,7 +10,7 @@ import {
 import { InputGroup } from 'shared/components/Form';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { evaluationService } from 'shared/services';
-import { File } from 'shared/components/File/File';
+import { FileDisplay } from 'shared/components/FileDisplay/FileDisplay';
 
 interface Props {
   evaluationId: string;
@@ -79,7 +79,7 @@ export const EvaluationApprovalDetails = ({
               value={evaluation?.organizationalUnit?.name}
             />
             {evaluation.plan && (
-              <File
+              <FileDisplay
                 label="Plano"
                 fileName={evaluation.plan.name}
                 url={evaluation.plan.source}

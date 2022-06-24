@@ -16,6 +16,7 @@ export const ModelDetails = () => {
   const [model, setModel] = useState(new ModelEntity());
   const [levelsTabDisabled, setLevelsTabDisabled] = useState(true);
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
+  const [capacitiesTabDisabled, setCapacitiesTabDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,6 +41,7 @@ export const ModelDetails = () => {
       setErrorMessage(e.response.data.message);
       setShowError(true);
     }
+
     setLoading(false);
   };
 
@@ -50,6 +52,9 @@ export const ModelDetails = () => {
       setProcessesTabDisabled(false);
     }
     if (tab === 3) {
+      setCapacitiesTabDisabled(false);
+    }
+    if (tab === 4) {
       history.push('/modelos');
     } else {
       setTabIndex(tab);
@@ -64,6 +69,7 @@ export const ModelDetails = () => {
         setModel(res);
         if (model.modelLevels) setLevelsTabDisabled(false);
         if (model.modelProcesses) setProcessesTabDisabled(false);
+        if (model.modelCapacities) setCapacitiesTabDisabled(false);
         setModelLoading(false);
       }
     };
@@ -86,7 +92,7 @@ export const ModelDetails = () => {
               <STab>Modelo</STab>
               <STab disabled={levelsTabDisabled}>Hierarquia</STab>
               <STab disabled={processesTabDisabled}>Processos</STab>
-              <STab>Capacidades</STab>
+              <STab disabled={capacitiesTabDisabled}>Capacidades</STab>
             </STabList>
             <STabPanel>
               <ModelTab
@@ -108,7 +114,6 @@ export const ModelDetails = () => {
               <ProcessesTab
                 setTabIndex={setTabIndex}
                 model={model}
-                setModel={setModel}
                 createOrUpdateModel={createOrUpdateModel}
                 loading={loading}
               />
@@ -117,7 +122,8 @@ export const ModelDetails = () => {
               <CapacitiesTab
                 levels={model.modelLevels}
                 setTabIndex={setTabIndex}
-                modelId={model.id}
+                model={model}
+                createOrUpdateModel={createOrUpdateModel}
               />
             </STabPanel>
           </STabs>

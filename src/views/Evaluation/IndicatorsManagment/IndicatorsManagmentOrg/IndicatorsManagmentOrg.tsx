@@ -15,7 +15,7 @@ import {
   ReadOnly,
   EditIcon,
   RemoveIcon,
-  File,
+  FileDisplay,
 } from 'shared/components';
 import { EvidenceDetails } from './EvidenceDetails/EvidenceDetails';
 import { InputGroup } from 'shared/components/Form';
@@ -138,9 +138,10 @@ export const IndicatorsManagmentOrg = () => {
                                   <InputGroup key={indexFile}>
                                     <ReadOnly
                                       label="Projeto"
-                                      value={evidenceSource.project.name}
+                                      value={evidenceSource.project?.name ?? ''}
                                     />
-                                    <File
+
+                                    <FileDisplay
                                       label="Arquivo"
                                       fileName={evidenceSource.files[0].name}
                                       url={evidenceSource.files[0].source}

@@ -1,46 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 
-import { Button, FlexSpace, Modal, Options, Wrapper } from 'shared/components';
+import { Modal, Wrapper, FlexSpace, Options, Button } from 'shared/components';
+import { CheckboxContainer } from 'shared/components/Checkbox/styled';
 import {
   Form,
   InputGroup,
-  FileInput,
-  Input,
   Label,
   ControlledCheckbox,
+  FileInput,
+  Input,
 } from 'shared/components/Form';
-import {
-  EvidenceDetailsForm,
-  EvidenceDetailsFormFile,
-} from './evidenceDetailsForm';
+import { IndicatorDto } from 'shared/dtos/indicatorDto';
 import { evaluationService } from 'shared/services';
 import { indicatorsService } from 'shared/services/indicatorsService';
-import { IndicatorDto } from 'shared/dtos/indicatorDto';
-import { CheckboxContainer } from 'shared/components/Checkbox/styled';
+import { EvidencePCForm, EvidencePCFormFile } from './evidencePCForm';
 
 interface Props {
   showModal: boolean;
   setShowModal: (state: boolean) => void;
   evaluationId: string;
-  expectedResultId: string;
-  indicatorId: string | undefined;
-  loadProcesses: (id: string) => void;
+  capacityId: string | undefined;
+  loadCapacities: () => void;
 }
 
-export const EvidenceDetails = (props: Props) => {
-  const {
-    showModal,
-    setShowModal,
-    evaluationId,
-    expectedResultId,
-    loadProcesses,
-  } = props;
-
-  const [checkedProjects, setCheckedProjects] = useState<
-    EvidenceDetailsFormFile[]
-  >([]);
+export const EvidencePCDetails = ({
+  showModal,
+  setShowModal,
+  evaluationId,
+  capacityId,
+  loadCapacities,
+}: Props) => {
   const [indicatorId, setIndicatorId] = useState<string>('');
+  const [checkedProjects, setCheckedProjects] = useState<EvidencePCFormFile[]>(
+    []
+  );
 
   const {
     control,
@@ -49,16 +43,29 @@ export const EvidenceDetails = (props: Props) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<EvidenceDetailsForm>();
+  } = useForm<EvidencePCForm>();
   const { fields: files, append } = useFieldArray({
     control,
     name: `files`,
   });
 
   useEffect(() => {
+    if (capacityId) {
+      const type: { type: 'expectedResult' | 'modelCapacity' } = {
+        type: 'modelCapacity',
+      };
+
+      indicatorsService
+        .create(capacityId, type)
+        .then((indicator) => setIndicatorId(indicator.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [capacityId]);
+
+  useEffect(() => {
     evaluationService.getById(evaluationId).then((evaluation) => {
       evaluation.projects.forEach((project) => {
-        const file: EvidenceDetailsFormFile = {
+        const file: EvidencePCFormFile = {
           id: undefined,
           projectId: project.id,
           projectName: project.name,
@@ -75,49 +82,13 @@ export const EvidenceDetails = (props: Props) => {
   }, [evaluationId]);
 
   useEffect(() => {
-    if (props.indicatorId) {
-      setIndicatorId(props.indicatorId);
-    } else {
-      if (expectedResultId) {
-        const type: { type: 'expectedResult' | 'modelCapacity' } = {
-          type: 'expectedResult',
-        };
-
-        indicatorsService
-          .create(expectedResultId, type)
-          .then((indicator) => setIndicatorId(indicator.id));
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [expectedResultId, props.indicatorId]);
-
-  useEffect(() => {
-    const subscription = watch((data) => {
-      setCheckedProjects(data.files);
-    });
-
+    const subscription = watch((data) => setCheckedProjects(data.files));
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  useEffect(() => {
-    if (indicatorId) {
-      indicatorsService
-        .getIndicatorById(indicatorId)
-        .then((indicator) => console.log(indicator));
-    }
-  }, [indicatorId]);
-
-  // const setFormValues = (indicator: Indicator) => {
-  //   reset({
-  //     id: indicator.id,
-  //     name: indicator.name,
-  //     qualityAssuranceGroup: indicator.qualityAssuranceGroup,
-  //   });
-  // };
-
   const onSubmit = handleSubmit((data) => saveIndicator(data));
 
-  const saveIndicator = (formData: EvidenceDetailsForm) => {
+  const saveIndicator = (formData: EvidencePCForm) => {
     const indicatorInfo: IndicatorDto = {
       name: formData.name,
       qualityAssuranceGroup: formData.qualityAssuranceGroup,
@@ -136,10 +107,11 @@ export const EvidenceDetails = (props: Props) => {
               file.content
             );
         });
-
-        loadProcesses(evaluationId);
       })
-      .finally(() => setShowModal(false));
+      .finally(() => {
+        setShowModal(false);
+        loadCapacities();
+      });
   };
 
   return (

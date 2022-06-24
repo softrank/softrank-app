@@ -1,3 +1,4 @@
+import { CapacityResponseDto } from 'shared/dtos/capacitiyResponseDto';
 import { EvalutationDto } from 'shared/dtos/evaluationDto';
 import { Evalutation } from 'shared/models/evaluation';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
@@ -5,6 +6,7 @@ import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { EvalutionResponse } from 'shared/models/evaluationResponse';
 import { Improvement } from 'shared/models/improvement';
 import { Indicators } from 'shared/models/indicators';
+import { Process } from 'shared/models/process';
 import { requests } from './api';
 
 const evaluationController: string = '/evaluation';
@@ -42,4 +44,12 @@ export const evaluationService = {
   },
   nextStep: (id: string) =>
     requests.putWithoutBody(`${evaluationController}/${id}/next-step`),
+  getCapacities: (id: string, type: 'O' | 'P') =>
+    requests.get<CapacityResponseDto[]>(
+      `${evaluationController}/${id}/capacities?type=${type}`
+    ),
+  getOrganizationalProcesses: (id: string) =>
+    requests.get<Process[]>(
+      `${evaluationController}/${id}/organizational-proesses`
+    ),
 };

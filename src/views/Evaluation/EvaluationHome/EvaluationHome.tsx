@@ -21,7 +21,7 @@ import { ActionCardImage } from 'shared/components/ActionCardImage/ActionCardIma
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { RootState } from 'shared/store';
 import { EvaluationPlanUpload } from './FileForms/EvaluationPlanUpload';
-import { File } from 'shared/components/File/File';
+import { FileDisplay } from 'shared/components/FileDisplay/FileDisplay';
 import { InterviewUpload } from './FileForms/InterviewUpload';
 import { NextStepConfimationModal } from './FileForms/NextStepConfimationModal';
 
@@ -98,6 +98,33 @@ export const EvaluationHome = () => {
               icon="report"
             />
           </OptionsContainer>
+          <OptionsContainer>
+            <ActionCard
+              onClick={() =>
+                history.push(`/avaliacao/capacidades-de-projeto/${id}`)
+              }
+              title="Capacidades de projeto"
+              icon="report"
+            />
+            <ActionCard
+              onClick={() =>
+                history.push(`/avaliacao/capacidades-organizacionais/${id}`)
+              }
+              title="Capacidades organizacionais"
+              icon="report"
+            />
+          </OptionsContainer>
+          {isLeader && (
+            <OptionsContainer>
+              <ActionCard
+                onClick={() =>
+                  history.push(`/avaliacao/resultados-final/${id}`)
+                }
+                title="Resultados da avaliação final"
+                icon="report"
+              />
+            </OptionsContainer>
+          )}
           {userRoles.includes('evaluator') && (
             <FlexSpace>
               <div>
@@ -109,7 +136,7 @@ export const EvaluationHome = () => {
                 </TitleContainer>
                 <Divider />
                 {!!evaluation?.plan?.name && (
-                  <File
+                  <FileDisplay
                     fileName={evaluation?.plan?.name}
                     url={evaluation?.plan.source ?? ''}
                   />
@@ -127,7 +154,7 @@ export const EvaluationHome = () => {
                   <FlexSpace direction="row">
                     {evaluation.interviews.map((interview, index) => {
                       return (
-                        <File
+                        <FileDisplay
                           key={index}
                           fileName={interview.name}
                           url={interview.source}

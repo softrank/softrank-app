@@ -12,7 +12,8 @@ interface EvidenceSource {
   status: string;
   createdOn: string;
   files: File[];
-  project: Project;
+  project?: Project;
+  modelProcess?: ModelProcess;
 }
 
 interface File {
@@ -21,4 +22,12 @@ interface File {
   source: string;
   mymetype: string;
   status: string;
+}
+
+interface ModelProcess {
+  id: string;
+  initial: string;
+  name: string;
+  type: string;
+  description: string;
 }

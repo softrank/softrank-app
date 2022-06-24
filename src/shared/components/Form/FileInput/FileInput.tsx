@@ -30,6 +30,7 @@ interface Props {
   multiple?: boolean;
   reset: UseFormReset<any>;
   getValues: UseFormGetValues<any>;
+  width?: string;
 }
 
 export const FileInput = ({
@@ -41,6 +42,7 @@ export const FileInput = ({
   multiple,
   reset,
   getValues,
+  width,
 }: Props) => {
   const [filesList, setFilesList] = useState<any[]>([]);
   const [paths, setPaths] = useState<string[]>([]);
@@ -59,7 +61,7 @@ export const FileInput = ({
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: width ?? '100%' }}>
       {label ?? <Label>{label}</Label>}
       <Controller
         name={name}

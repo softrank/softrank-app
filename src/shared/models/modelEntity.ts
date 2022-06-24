@@ -1,3 +1,4 @@
+import { Capacity } from './capacity';
 import { ModelLevel } from './modelLevel';
 import { Process } from './process';
 
@@ -8,6 +9,7 @@ export class ModelEntity {
     public year: Date | number = Date.now(),
     public description: string = '',
     public modelLevels: ModelLevel[] = [new ModelLevel()],
-    public modelProcesses: Process[] = [new Process()]
+    public modelProcesses: Process[] = [new Process()],
+    public modelCapacities: Capacity[] = [new Capacity()]
   ) {}
 }

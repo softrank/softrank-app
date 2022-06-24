@@ -1,46 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 
-import { Button, FlexSpace, Modal, Options, Wrapper } from 'shared/components';
+import { Modal, Wrapper, FlexSpace, Options, Button } from 'shared/components';
+import { CheckboxContainer } from 'shared/components/Checkbox/styled';
 import {
   Form,
   InputGroup,
-  FileInput,
-  Input,
   Label,
   ControlledCheckbox,
+  FileInput,
+  Input,
 } from 'shared/components/Form';
-import {
-  EvidenceDetailsForm,
-  EvidenceDetailsFormFile,
-} from './evidenceDetailsForm';
+import { IndicatorDto } from 'shared/dtos/indicatorDto';
 import { evaluationService } from 'shared/services';
 import { indicatorsService } from 'shared/services/indicatorsService';
-import { IndicatorDto } from 'shared/dtos/indicatorDto';
-import { CheckboxContainer } from 'shared/components/Checkbox/styled';
+import { EvidenceOCForm, EvidenceOCFormFile } from './evidenceOCForm';
 
 interface Props {
   showModal: boolean;
   setShowModal: (state: boolean) => void;
   evaluationId: string;
-  expectedResultId: string;
-  indicatorId: string | undefined;
-  loadProcesses: (id: string) => void;
+  capacityId: string | undefined;
+  loadCapacities: () => void;
 }
 
-export const EvidenceDetails = (props: Props) => {
-  const {
-    showModal,
-    setShowModal,
-    evaluationId,
-    expectedResultId,
-    loadProcesses,
-  } = props;
-
-  const [checkedProjects, setCheckedProjects] = useState<
-    EvidenceDetailsFormFile[]
-  >([]);
+export const EvidenceOCDetails = ({
+  showModal,
+  setShowModal,
+  evaluationId,
+  capacityId,
+  loadCapacities,
+}: Props) => {
   const [indicatorId, setIndicatorId] = useState<string>('');
+  const [checkedProcesses, setCheckedProcesses] = useState<
+    EvidenceOCFormFile[]
+  >([]);
 
   const {
     control,
@@ -49,75 +43,56 @@ export const EvidenceDetails = (props: Props) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<EvidenceDetailsForm>();
+  } = useForm<EvidenceOCForm>();
   const { fields: files, append } = useFieldArray({
     control,
     name: `files`,
   });
 
   useEffect(() => {
-    evaluationService.getById(evaluationId).then((evaluation) => {
-      evaluation.projects.forEach((project) => {
-        const file: EvidenceDetailsFormFile = {
-          id: undefined,
-          projectId: project.id,
-          projectName: project.name,
-          checked: true,
-          content: undefined,
-        };
-        const exinstingFile = files.filter(
-          (file) => file.projectId === project.id
-        );
-        if (exinstingFile.length <= 0) append(file);
+    if (capacityId) {
+      const type: { type: 'expectedResult' | 'modelCapacity' } = {
+        type: 'modelCapacity',
+      };
+
+      indicatorsService
+        .create(capacityId, type)
+        .then((indicator) => setIndicatorId(indicator.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [capacityId]);
+
+  useEffect(() => {
+    evaluationService
+      .getOrganizationalProcesses(evaluationId)
+      .then((processes) => {
+        processes.forEach((process) => {
+          const file: EvidenceOCFormFile = {
+            id: undefined,
+            processId: process.id,
+            processName: process.name,
+            checked: true,
+            content: undefined,
+          };
+
+          const exinstingFile = files.filter(
+            (file) => file.processId === process.id
+          );
+          if (exinstingFile.length <= 0) append(file);
+        });
       });
-    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluationId]);
 
   useEffect(() => {
-    if (props.indicatorId) {
-      setIndicatorId(props.indicatorId);
-    } else {
-      if (expectedResultId) {
-        const type: { type: 'expectedResult' | 'modelCapacity' } = {
-          type: 'expectedResult',
-        };
-
-        indicatorsService
-          .create(expectedResultId, type)
-          .then((indicator) => setIndicatorId(indicator.id));
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [expectedResultId, props.indicatorId]);
-
-  useEffect(() => {
-    const subscription = watch((data) => {
-      setCheckedProjects(data.files);
-    });
-
+    const subscription = watch((data) => setCheckedProcesses(data.files));
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  useEffect(() => {
-    if (indicatorId) {
-      indicatorsService
-        .getIndicatorById(indicatorId)
-        .then((indicator) => console.log(indicator));
-    }
-  }, [indicatorId]);
-
-  // const setFormValues = (indicator: Indicator) => {
-  //   reset({
-  //     id: indicator.id,
-  //     name: indicator.name,
-  //     qualityAssuranceGroup: indicator.qualityAssuranceGroup,
-  //   });
-  // };
-
   const onSubmit = handleSubmit((data) => saveIndicator(data));
 
-  const saveIndicator = (formData: EvidenceDetailsForm) => {
+  const saveIndicator = (formData: EvidenceOCForm) => {
     const indicatorInfo: IndicatorDto = {
       name: formData.name,
       qualityAssuranceGroup: formData.qualityAssuranceGroup,
@@ -132,14 +107,15 @@ export const EvidenceDetails = (props: Props) => {
           if (file.content)
             indicatorsService.createFile(
               indicatorId,
-              file.projectId,
+              file.processId,
               file.content
             );
         });
-
-        loadProcesses(evaluationId);
       })
-      .finally(() => setShowModal(false));
+      .finally(() => {
+        setShowModal(false);
+        loadCapacities();
+      });
   };
 
   return (
@@ -174,14 +150,14 @@ export const EvidenceDetails = (props: Props) => {
             </InputGroup>
             <InputGroup>
               <div>
-                <Label>Selecione o(s) projeto(s):</Label>
+                <Label>Selecione o(s) processos(s):</Label>
                 <CheckboxContainer>
                   {files.map((file, index) => {
                     return (
                       <ControlledCheckbox
                         key={index}
                         name={`files[${index}].checked`}
-                        label={file.projectName}
+                        label={file.processName}
                         control={control}
                         defaultValue={file.checked}
                       />
@@ -190,13 +166,14 @@ export const EvidenceDetails = (props: Props) => {
                 </CheckboxContainer>
               </div>
             </InputGroup>
-            <InputGroup>
+            <InputGroup style={{ flexWrap: 'wrap' }}>
               {files.map((file, index) => {
                 return (
                   <React.Fragment key={index}>
-                    {checkedProjects[index]?.checked && (
+                    {checkedProcesses[index]?.checked && (
                       <FileInput
-                        label={file.projectName}
+                        width="49%"
+                        label={file.processName}
                         name={`files[${index}].content`}
                         control={control}
                         rules={{ required: true }}

@@ -1,9 +1,11 @@
 import { ModelLevel } from './modelLevel';
 
-export interface Capacity {
-  id: string;
-  name: string;
-  type: 'organizational' | 'project';
-  maxLevel: ModelLevel;
-  minLevel: ModelLevel;
+export class Capacity {
+  constructor(
+    public id: string = '',
+    public name: string = '',
+    public type: 'O' | 'P' = 'P',
+    public maxLevel: ModelLevel = new ModelLevel(),
+    public minLevel: ModelLevel = new ModelLevel()
+  ) {}
 }

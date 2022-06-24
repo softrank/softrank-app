@@ -5,10 +5,8 @@ import { requests } from './api';
 const indicatorsController: string = '/indicator';
 
 export const indicatorsService = {
-  create: (expectedResultId: string) =>
-    requests.postWithoutBody<Indicator>(
-      `${indicatorsController}/${expectedResultId}`
-    ),
+  create: (id: string, type: { type: 'expectedResult' | 'modelCapacity' }) =>
+    requests.post<Indicator>(`${indicatorsController}/${id}`, type),
   update: (indicator: IndicatorDto, id: string) =>
     requests.put<Indicator>(`${indicatorsController}/${id}`, indicator),
   delete: (id: string) => requests.del(`${indicatorsController}/${id}`),

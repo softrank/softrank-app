@@ -15,7 +15,7 @@ import {
   STabPanel,
   STabs,
   Title3,
-  File,
+  FileDisplay,
   SubTitle,
 } from 'shared/components';
 import { InputGroup } from 'shared/components/Form';
@@ -23,7 +23,7 @@ import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { EvaluationDetails } from 'shared/models/evaluationDetails';
-import { EvidenceStatusForm } from './Forms/EvidenceStatusForm';
+import { EvidenceStatusForm } from '../../EvidenceStatus/EvidenceStatusForm';
 import { ExpectedResultClassificationForm } from './Forms/ExpectedResultClassificationForm';
 import { ProjectsClassificationForm } from './Forms/ProjectsClassificationForm';
 
@@ -118,9 +118,11 @@ export const IndicatorsManagmentTeam = () => {
                                           <InputGroup>
                                             <ReadOnly
                                               label="Projeto"
-                                              value={evidence.project.name}
+                                              value={
+                                                evidence.project?.name ?? ''
+                                              }
                                             />
-                                            <File
+                                            <FileDisplay
                                               label="Fonte de evidência"
                                               fileName={evidence.files[0].name}
                                               url={evidence.files[0].source}

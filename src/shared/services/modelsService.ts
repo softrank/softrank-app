@@ -13,4 +13,6 @@ export const modelsService = {
   update: (model: ModelDto) =>
     requests.put<ModelEntity>(`${modelsController}/${model.id}`, model),
   delete: (id: string) => requests.del<void>(`${modelsController}/${id}`),
+  updateCapacities: (id: string, data: any) =>
+    requests.put<ModelEntity>(`${modelsController}/${id}`, data),
 };
