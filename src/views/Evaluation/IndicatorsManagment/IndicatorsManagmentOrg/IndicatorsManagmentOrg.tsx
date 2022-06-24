@@ -12,7 +12,6 @@ import {
   STabPanel,
   STabs,
   ReadOnly,
-  EditIcon,
   RemoveIcon,
   FileDisplay,
 } from 'shared/components';
@@ -114,20 +113,12 @@ export const IndicatorsManagmentOrg = () => {
                             <Collapse
                               title={indicator.name}
                               options={
-                                <>
-                                  <RemoveIcon
-                                    $outline={true}
-                                    onClick={() =>
-                                      handleConfirmationModal(indicator.id)
-                                    }
-                                  />
-                                  <EditIcon
-                                    $outline={true}
-                                    onClick={() =>
-                                      addIndicatorHandler(er.id, indicator.id)
-                                    }
-                                  />
-                                </>
+                                <RemoveIcon
+                                  $outline={true}
+                                  onClick={() =>
+                                    handleConfirmationModal(indicator.id)
+                                  }
+                                />
                               }
                               key={indexIndicator}
                               underline
