@@ -18,8 +18,6 @@ export const AuditorRegister = () => {
   const handleCreateAuditor = (auditor: AuditorDto) => {
     auditor.documentType = 'f';
 
-    console.log(auditor);
-
     auditorService.create(auditor).then((response) => history.push('/'));
   };
 

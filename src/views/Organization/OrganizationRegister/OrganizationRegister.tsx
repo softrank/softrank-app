@@ -35,8 +35,6 @@ export const OrganizationRegister = () => {
 
   const handleCreateOrganization = (organization: OrganizationDto) => {
     organization.documentType = 'j';
-
-    console.log(organization);
   };
 
   useEffect(() => {

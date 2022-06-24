@@ -6,7 +6,6 @@ import {
   Collapse,
   Title,
   Wrapper,
-  Button,
   AddIcon,
   STab,
   STabList,
@@ -159,9 +158,6 @@ export const IndicatorsManagmentOrg = () => {
               );
             })}
           </STabs>
-          <Button secondary width="6rem" onClick={() => console.log('salvar')}>
-            Salvar
-          </Button>
           <EvidenceDetails
             evaluationId={id}
             expectedResultId={expectedResultId}

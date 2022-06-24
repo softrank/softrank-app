@@ -52,7 +52,6 @@ export const ImprovementsReport = () => {
   const loadImprovements = (id: string) => {
     evaluationService.getImprovements(id).then((improvements) => {
       setImprovements(improvements);
-      console.log(improvements);
     });
   };
 

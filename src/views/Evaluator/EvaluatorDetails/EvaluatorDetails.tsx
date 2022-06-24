@@ -20,14 +20,7 @@ export const EvaluatorDetails = () => {
   const handleCreateEvaluator = (evaluator: EvaluatorDto) => {
     evaluator.documentType = 'CPF';
 
-    evaluatorService
-      .create(evaluator)
-      .then(() => {
-        console.log('criado');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    evaluatorService.create(evaluator);
   };
 
   const handleRedirect = () => history.push('/');

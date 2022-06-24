@@ -95,36 +95,20 @@ export const EvaluatorRegister = () => {
   const handleCreateEvaluator = (formData: EvaluatorFormValues) => {
     const evaluator = assembleEvaluator(formData);
 
-    evaluatorService
-      .create(evaluator)
-      .then(() => {
-        console.log('criado');
-        history.push('avaliacoes');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    evaluatorService.create(evaluator).then(() => {
+      history.push('avaliacoes');
+    });
   };
 
   const onSubmit = handleSubmit((data) => handleCreateEvaluator(data));
 
   useEffect(() => {
-    modelsService
-      .list()
-      .then((models) => {
-        setModels(models);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    evaluatorInstitutionService
-      .list()
-      .then((instituitions) => {
-        setEvaluatorInstitutions(instituitions);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    modelsService.list().then((models) => {
+      setModels(models);
+    });
+    evaluatorInstitutionService.list().then((instituitions) => {
+      setEvaluatorInstitutions(instituitions);
+    });
     setLoading(false);
   }, []);
 

@@ -14,4 +14,13 @@ export interface EvaluationExpectedResult {
   initial: string;
   description: string;
   indicators: Indicator[];
+  status?: string;
+  projectsAvaliations: ProjectsAvaliation[];
+}
+
+interface ProjectsAvaliation {
+  id: string;
+  projectId: string;
+  status: string;
+  targeId: string;
 }

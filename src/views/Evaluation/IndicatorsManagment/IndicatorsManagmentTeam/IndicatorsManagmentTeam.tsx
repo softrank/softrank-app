@@ -86,17 +86,26 @@ export const IndicatorsManagmentTeam = () => {
                               <SubTitle>Classificação</SubTitle>
                               <ExpectedResultClassificationForm
                                 expectedResultId={er.id}
+                                status={er.status}
                               />
+
                               <Collapse title="Projetos" underline>
-                                {evaluation.projects.map((project, index) => {
-                                  return (
-                                    <ProjectsClassificationForm
-                                      key={index}
-                                      project={project}
-                                      expectedResultId={er.id}
-                                    />
-                                  );
-                                })}
+                                {evaluation.projects.map(
+                                  (project, projectIndex) => {
+                                    return (
+                                      <ProjectsClassificationForm
+                                        key={projectIndex}
+                                        project={project}
+                                        expectedResultId={er.id}
+                                        status={
+                                          er.projectsAvaliations.find(
+                                            (x) => x.projectId === project.id
+                                          )?.status
+                                        }
+                                      />
+                                    );
+                                  }
+                                )}
                               </Collapse>
                             </FlexSpace>
                           ) : (

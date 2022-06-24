@@ -99,22 +99,6 @@ export const EvidenceDetails = (props: Props) => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  useEffect(() => {
-    if (indicatorId) {
-      indicatorsService
-        .getIndicatorById(indicatorId)
-        .then((indicator) => console.log(indicator));
-    }
-  }, [indicatorId]);
-
-  // const setFormValues = (indicator: Indicator) => {
-  //   reset({
-  //     id: indicator.id,
-  //     name: indicator.name,
-  //     qualityAssuranceGroup: indicator.qualityAssuranceGroup,
-  //   });
-  // };
-
   const onSubmit = handleSubmit((data) => saveIndicator(data));
 
   const saveIndicator = (formData: EvidenceDetailsForm) => {

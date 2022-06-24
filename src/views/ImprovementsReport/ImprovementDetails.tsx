@@ -73,7 +73,6 @@ export const ImprovementDetails = ({
   useEffect(() => {
     evaluationService.getProcesses(evaluationId).then((processes) => {
       setProcesses(processes);
-      console.log(processes);
     });
   }, [evaluationId]);
 
