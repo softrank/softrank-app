@@ -32,7 +32,7 @@ export const ModalWrapper = styled(motion.div)<Props>`
 
   position: relative;
   z-index: 10;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   max-height: 90vh;
 
