@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import {
   Wrapper,
@@ -27,12 +27,12 @@ export const ProjectCapacitiesManagmentTeam = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const loadCapacities = () => {
     setLoading(true);
     evaluationService
-      .getCapacities(id, 'P')
+      .getCapacities(id!, 'P')
       .then((capacities) => setCapacities(capacities))
       .finally(() => setLoading(false));
   };
@@ -44,7 +44,7 @@ export const ProjectCapacitiesManagmentTeam = () => {
 
   useEffect(() => {
     evaluationService
-      .getById(id)
+      .getById(id!)
       .then((evaluation) => setEvaluation(evaluation));
   }, [id]);
 
@@ -143,7 +143,7 @@ export const ProjectCapacitiesManagmentTeam = () => {
           <Button
             secondary
             width="6rem"
-            onClick={() => history.push(`/avaliacao/home/${id}`)}
+            onClick={() => navigate(`/avaliacao/home/${id}`)}
           >
             Voltar
           </Button>

@@ -1,17 +1,15 @@
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Wrapper, Title, AddIcon, SearchBox } from 'shared/components';
 import { EvaluatorInstitutionList } from '../EvaluatorInstitutionList/EvaluatorInstitutionList';
 
 export const EvaluatorInstitutionManagment = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <Wrapper>
       <Title>Instituições avaliadoras</Title>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <AddIcon
-          onClick={() => history.push('/instituicaoAvalidadora/cadastro')}
-        />
+        <AddIcon onClick={() => navigate('/instituicaoAvalidadora/cadastro')} />
         <SearchBox />
       </div>
       <EvaluatorInstitutionList />

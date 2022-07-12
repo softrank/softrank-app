@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import { Title, Wrapper } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -23,7 +23,7 @@ export const ModelDetails = () => {
   const [modelLoading, setModelLoading] = useState(false);
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
     setLoading(true);
@@ -55,7 +55,7 @@ export const ModelDetails = () => {
       setCapacitiesTabDisabled(false);
     }
     if (tab === 4) {
-      history.push('/modelos');
+      navigate('/modelos');
     } else {
       setTabIndex(tab);
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dropdown } from 'shared/components/Dropdown/Dropdown';
@@ -24,7 +24,7 @@ export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
   const [userRoles, setUserRoles] = useState<any[]>([]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
@@ -82,7 +82,7 @@ export const NavBar = () => {
         {auth ? (
           <ButtonLink onClick={() => logoutHandler()}>Sair</ButtonLink>
         ) : (
-          <ButtonLink onClick={() => history.push('/login')}>Login</ButtonLink>
+          <ButtonLink onClick={() => navigate('/login')}>Login</ButtonLink>
         )}
       </HeaderColumn3>
     </Header>

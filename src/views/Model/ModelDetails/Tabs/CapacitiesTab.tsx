@@ -24,7 +24,7 @@ import { ModelEntity } from 'shared/models/modelEntity';
 import { useEffect } from 'react';
 import { Capacity } from 'shared/models/capacity';
 import { modelsService } from 'shared/services';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 interface Props {
   levels: ModelLevel[];
@@ -69,7 +69,7 @@ export const CapacitiesTab = ({
     name: 'organizationalCapacities',
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const capacitiesDtos: CapacityDto[] = convertToFormFormat(
@@ -148,7 +148,7 @@ export const CapacitiesTab = ({
 
     modelsService
       .updateCapacities(model.id, modelDto)
-      .then(() => history.push('/modelos'));
+      .then(() => navigate('/modelos'));
   };
 
   const onSubmit = handleSubmit((data) => handleSave(data));

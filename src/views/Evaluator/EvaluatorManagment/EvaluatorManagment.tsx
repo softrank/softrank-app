@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Wrapper, Title, AddIcon, SearchBox, Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -9,12 +9,12 @@ import { LongTableLine } from 'views/ImprovementsReport/styled';
 import { TableOptions } from './styled';
 
 export const EvaluatorManagment = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [evaluators, setEvaluators] = useState<Evaluator[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleAddEvaluator = () => history.push('/avaliadores/cadastro');
+  const handleAddEvaluator = () => navigate('/avaliadores/cadastro');
 
   useEffect(() => {
     setLoading(true);

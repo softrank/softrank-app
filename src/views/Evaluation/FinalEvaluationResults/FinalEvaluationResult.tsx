@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useParams, Redirect } from 'react-router';
+import { useParams, Route, Navigate } from 'react-router';
 
 import {
   Collapse,
@@ -40,16 +40,21 @@ export const FinalEvaluationResult = () => {
           (ev) => ev.type === 'evaluator_leader'
         );
         if (me.id !== leader[0].memberId)
-          return <Redirect to={`avaliacao/home/${id}`} />;
+          return (
+            <Route
+              path="*"
+              element={<Navigate to={`avaliacao/home/${id}`} replace />}
+            />
+          );
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roles, evaluation]);
 
   useEffect(() => {
-    loadEvaluation(id);
-    loadProcesses(id);
-    loadLevels(id);
+    loadEvaluation(id!);
+    loadProcesses(id!);
+    loadLevels(id!);
   }, [id]);
 
   const loadProcesses = (id: string) => {

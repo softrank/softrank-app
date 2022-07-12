@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import {
   AddIcon,
@@ -81,7 +81,7 @@ export const EvaluationNew = () => {
     name: 'projects',
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const watchModel: any = watch('model');
   const watchInstitution: any = watch('evaluatorInstitutionId');
 
@@ -118,7 +118,7 @@ export const EvaluationNew = () => {
 
   const handleCreateAuditor = (formData: EvaluationForm) => {
     const evaluation = assembleEvaluation(formData);
-    evaluationService.create(evaluation).then(() => history.push(''));
+    evaluationService.create(evaluation).then(() => navigate(''));
   };
 
   useEffect(() => {

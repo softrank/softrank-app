@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import {
   FlexSpace,
@@ -29,12 +29,12 @@ export const ProjectCapacitiesManagmentOrg = () => {
   const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const loadCapacities = () => {
     setLoading(true);
     evaluationService
-      .getCapacities(id, 'P')
+      .getCapacities(id!, 'P')
       .then((capacities) => setCapacities(capacities))
       .finally(() => setLoading(false));
   };
@@ -118,7 +118,7 @@ export const ProjectCapacitiesManagmentOrg = () => {
           <Button
             secondary
             width="6rem"
-            onClick={() => history.push(`/avaliacao/home/${id}`)}
+            onClick={() => navigate(`/avaliacao/home/${id}`)}
           >
             Voltar
           </Button>
@@ -130,7 +130,7 @@ export const ProjectCapacitiesManagmentOrg = () => {
           <EvidencePCDetails
             showModal={addEvidence}
             setShowModal={setAddEvidence}
-            evaluationId={id}
+            evaluationId={id!}
             capacityId={capacityId}
             loadCapacities={loadCapacities}
           />

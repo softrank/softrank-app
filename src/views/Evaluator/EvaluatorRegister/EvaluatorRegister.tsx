@@ -31,7 +31,7 @@ import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
 import { RemoveIconButton } from './styled';
 import { EvaluatorDto, LicenseDto } from 'shared/dtos/evaluatorDto';
 import { EvaluatorFormValues } from './evaluatorFormValues';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export const EvaluatorRegister = () => {
   const [models, setModels] = useState<ModelEntity[]>([]);
@@ -41,7 +41,7 @@ export const EvaluatorRegister = () => {
   >([]);
   const [loading, setLoading] = useState(true);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -96,7 +96,7 @@ export const EvaluatorRegister = () => {
     const evaluator = assembleEvaluator(formData);
 
     evaluatorService.create(evaluator).then(() => {
-      history.push('avaliacoes');
+      navigate('avaliacoes');
     });
   };
 

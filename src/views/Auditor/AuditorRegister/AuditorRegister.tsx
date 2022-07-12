@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Title, Button, Wrapper, FlexSpace } from 'shared/components';
 import { Form, InputGroup, Input } from 'shared/components/Form';
@@ -13,12 +13,12 @@ export const AuditorRegister = () => {
     formState: { errors },
   } = useForm<AuditorDto>();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCreateAuditor = (auditor: AuditorDto) => {
     auditor.documentType = 'f';
 
-    auditorService.create(auditor).then((response) => history.push('/'));
+    auditorService.create(auditor).then((response) => navigate('/'));
   };
 
   const onSubmit = handleSubmit((data) => handleCreateAuditor(data));

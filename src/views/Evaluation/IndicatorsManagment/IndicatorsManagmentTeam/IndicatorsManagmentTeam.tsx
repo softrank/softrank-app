@@ -44,15 +44,15 @@ export const IndicatorsManagmentTeam = () => {
   };
 
   const handleTabChange = (tabIndex: number) => {
-    loadProcesses(id);
+    loadProcesses(id!);
     setTabIndex(tabIndex);
   };
 
-  useEffect(() => loadProcesses(id), [id]);
+  useEffect(() => loadProcesses(id!), [id]);
 
   useEffect(() => {
     evaluationService
-      .getById(id)
+      .getById(id!)
       .then((evaluation) => setEvaluation(evaluation));
   }, [id]);
 

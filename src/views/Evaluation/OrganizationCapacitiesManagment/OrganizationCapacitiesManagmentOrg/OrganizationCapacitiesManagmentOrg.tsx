@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   AddIcon,
   Button,
@@ -29,12 +29,12 @@ export const OrganizationCapacitiesManagmentOrg = () => {
   const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const loadCapacities = () => {
     setLoading(true);
     evaluationService
-      .getCapacities(id, 'O')
+      .getCapacities(id!, 'O')
       .then((capacities) => setCapacities(capacities))
       .finally(() => setLoading(false));
   };
@@ -119,7 +119,7 @@ export const OrganizationCapacitiesManagmentOrg = () => {
           <Button
             secondary
             width="6rem"
-            onClick={() => history.push(`/avaliacao/home/${id}`)}
+            onClick={() => navigate(`/avaliacao/home/${id}`)}
           >
             Voltar
           </Button>
@@ -131,7 +131,7 @@ export const OrganizationCapacitiesManagmentOrg = () => {
           <EvidenceOCDetails
             showModal={addEvidence}
             setShowModal={setAddEvidence}
-            evaluationId={id}
+            evaluationId={id!}
             capacityId={capacityId}
             loadCapacities={loadCapacities}
           />

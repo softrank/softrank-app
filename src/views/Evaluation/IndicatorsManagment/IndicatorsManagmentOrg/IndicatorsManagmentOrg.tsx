@@ -36,7 +36,7 @@ export const IndicatorsManagmentOrg = () => {
   const [deleteIndicatorModal, setDeleteIndicatorModal] = useState(false);
   const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
-  useEffect(() => loadProcesses(id), [id]);
+  useEffect(() => loadProcesses(id!), [id]);
 
   const addIndicatorHandler = (
     expectResultId: string,
@@ -58,7 +58,9 @@ export const IndicatorsManagmentOrg = () => {
 
   const deleteIndicator = () => {
     if (deleteIndicatorId !== '')
-      indicatorsService.delete(deleteIndicatorId).then(() => loadProcesses(id));
+      indicatorsService
+        .delete(deleteIndicatorId)
+        .then(() => loadProcesses(id!));
     setDeleteIndicatorModal(false);
     setDeleteIndicatorId('');
   };
@@ -150,7 +152,7 @@ export const IndicatorsManagmentOrg = () => {
             })}
           </STabs>
           <EvidenceDetails
-            evaluationId={id}
+            evaluationId={id!}
             expectedResultId={expectedResultId}
             indicatorId={indicatorId}
             showModal={showEvidenceDetails}

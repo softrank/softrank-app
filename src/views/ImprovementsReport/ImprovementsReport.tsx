@@ -43,9 +43,9 @@ export const ImprovementsReport = () => {
 
   useEffect(() => {
     evaluationService
-      .getById(id)
+      .getById(id!)
       .then((evaluation) => setEvaluation(evaluation));
-    loadImprovements(id);
+    loadImprovements(id!);
     setLoading(false);
   }, [id]);
 
@@ -137,7 +137,7 @@ export const ImprovementsReport = () => {
           <ImprovementDetails
             showModal={showDetails}
             setShowModal={setShowDetails}
-            evaluationId={id}
+            evaluationId={id!}
             loadImprovements={loadImprovements}
             improvement={editImprovement}
           />

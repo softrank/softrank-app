@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import {
@@ -24,6 +24,7 @@ import { EvaluationPlanUpload } from './FileForms/EvaluationPlanUpload';
 import { FileDisplay } from 'shared/components/FileDisplay/FileDisplay';
 import { InterviewUpload } from './FileForms/InterviewUpload';
 import { NextStepConfimationModal } from './FileForms/NextStepConfimationModal';
+import { Process } from 'shared/models/process';
 
 export const EvaluationHome = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();
@@ -33,9 +34,12 @@ export const EvaluationHome = () => {
   const [interviewsModal, setInterviewsModal] = useState(false);
   const [nextStepModal, setNextStepModal] = useState(false);
   const [isLeader, setIsLeader] = useState<boolean>(false);
+  const [organizationalProcesses, setOrganizationalProcesses] = useState<
+    Process[]
+  >([]);
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const roles = useSelector<RootState>((state) => state.auth.roles);
 
   const loadEvaluation = (id: string) => {
@@ -62,7 +66,14 @@ export const EvaluationHome = () => {
     }
   }, [roles, evaluation]);
 
-  useEffect(() => loadEvaluation(id), [id]);
+  useEffect(() => loadEvaluation(id!), [id]);
+
+  useEffect(() => {
+    if (id)
+      evaluationService
+        .getOrganizationalProcesses(id)
+        .then((processes) => setOrganizationalProcesses(processes));
+  }, [id]);
 
   return (
     <>
@@ -87,39 +98,39 @@ export const EvaluationHome = () => {
             <ActionCardImage
               title="Planilha de indicadores"
               onClick={() =>
-                history.push(`/avaliacao/planilha-de-requisitos/${id}`)
+                navigate(`/avaliacao/planilha-de-requisitos/${id}`)
               }
               src={checking}
               alt="Planilha de indicadores"
             />
             <ActionCard
-              onClick={() => history.push(`/relatorio-de-melhorias/${id}`)}
+              onClick={() => navigate(`/relatorio-de-melhorias/${id}`)}
               title="Relatório de melhorias"
-              icon="report"
+              icon="list"
             />
           </OptionsContainer>
           <OptionsContainer>
             <ActionCard
               onClick={() =>
-                history.push(`/avaliacao/capacidades-de-projeto/${id}`)
+                navigate(`/avaliacao/capacidades-de-projeto/${id}`)
               }
               title="Capacidades de projeto"
-              icon="report"
+              icon="evaluation"
             />
-            <ActionCard
-              onClick={() =>
-                history.push(`/avaliacao/capacidades-organizacionais/${id}`)
-              }
-              title="Capacidades organizacionais"
-              icon="report"
-            />
+            {organizationalProcesses.length > 0 && (
+              <ActionCard
+                onClick={() =>
+                  navigate(`/avaliacao/capacidades-organizacionais/${id}`)
+                }
+                title="Capacidades organizacionais"
+                icon="report"
+              />
+            )}
           </OptionsContainer>
           {isLeader && (
             <OptionsContainer>
               <ActionCard
-                onClick={() =>
-                  history.push(`/avaliacao/resultados-final/${id}`)
-                }
+                onClick={() => navigate(`/avaliacao/resultados-final/${id}`)}
                 title="Resultados da avaliação final"
                 icon="report"
               />
@@ -188,7 +199,7 @@ export const EvaluationHome = () => {
       >
         <EvaluationPlanUpload
           setShowModal={setEvaluationPlanModal}
-          evaluationId={id}
+          evaluationId={id!}
           loadEvaluation={loadEvaluation}
         />
       </Modal>
@@ -201,7 +212,7 @@ export const EvaluationHome = () => {
       >
         <InterviewUpload
           setShowModal={setInterviewsModal}
-          evaluationId={id}
+          evaluationId={id!}
           loadEvaluation={loadEvaluation}
         />
       </Modal>
@@ -214,7 +225,7 @@ export const EvaluationHome = () => {
       >
         <NextStepConfimationModal
           nextStepModal={setNextStepModal}
-          evaluationId={id}
+          evaluationId={id!}
           loadEvaluation={loadEvaluation}
           setShowModal={setNextStepModal}
         />
