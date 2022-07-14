@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { RequireAuth } from 'shared/components';
 
+import { RequireAuth } from 'shared/components';
 import { userService } from 'shared/services';
 import { authActions } from 'shared/store';
 import {
@@ -10,7 +10,6 @@ import {
   HomePage,
   SignIn,
   NotFound,
-  GlobalStyles,
   EvaluatorManagment,
   ModelManagment,
   ModelDetails,
@@ -32,6 +31,7 @@ import {
   OrganizationCapacitiesManagmentOrg,
   FinalEvaluationResult,
   OrganizationCapacitiesManagmentTeam,
+  GlobalStyles,
 } from './';
 
 export default function App() {
