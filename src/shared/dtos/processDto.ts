@@ -6,4 +6,5 @@ export interface ProcessDto {
   initial: string;
   description: string;
   expectedResults: ExpectedResultDto[];
+  type: string;
 }

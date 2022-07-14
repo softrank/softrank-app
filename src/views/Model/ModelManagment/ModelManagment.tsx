@@ -2,11 +2,11 @@ import React from 'react';
 
 import { AddIcon, SearchBox, Title, Wrapper } from 'shared/components';
 import { ModelsList } from 'views';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export const ModelManagment = () => {
-  const history = useHistory();
-  const handleAddModel = () => history.push('/modelo');
+  const navigate = useNavigate();
+  const handleAddModel = () => navigate('/modelo');
 
   return (
     <Wrapper>

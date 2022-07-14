@@ -7,9 +7,12 @@ interface Props {
 }
 
 export const CheckboxContainer = styled.div`
+  padding-top: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<Props>`

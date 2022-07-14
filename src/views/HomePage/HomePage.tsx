@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { RootState } from 'shared/store';
 import { ActionCard, ExitIcon, Table, Title, Wrapper } from 'shared/components';
@@ -19,7 +18,7 @@ export const HomePage = () => {
 
   const roles = useSelector<RootState>((state) => state.auth.roles);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const rolesArray: any[] = roles as any[];
@@ -50,13 +49,13 @@ export const HomePage = () => {
           <Title>Atividades</Title>
           <ActionCardContainer>
             <ActionCard
-              onClick={() => history.push('avaliacoes')}
+              onClick={() => navigate('avaliacoes')}
               title="Avaliações"
               icon="evaluation"
             />
             {userRoles.includes('evaluator') && (
               <ActionCard
-                onClick={() => history.push('/avaliacao-nova')}
+                onClick={() => navigate('/avaliacao-nova')}
                 title="Adicionar avaliação"
                 icon="add"
               />
@@ -64,12 +63,12 @@ export const HomePage = () => {
             {userRoles.includes('modelManager') && (
               <>
                 <ActionCard
-                  onClick={() => history.push('modelos')}
+                  onClick={() => navigate('modelos')}
                   title="Modelos"
                   icon="doc"
                 />
                 <ActionCard
-                  onClick={() => history.push('modelo')}
+                  onClick={() => navigate('modelo')}
                   title="Adicionar modelo"
                   icon="add"
                 />
@@ -109,7 +108,7 @@ export const HomePage = () => {
                     <td>{evaluation.modelLevel.modelName}</td>
                     <td>{evaluation.modelLevel.initial}</td>
                     <td>
-                      <Link to={`/avaliacao/${evaluation.id}`}>
+                      <Link to={`/avaliacao/home/${evaluation.id}`}>
                         <ExitIcon />
                       </Link>
                     </td>

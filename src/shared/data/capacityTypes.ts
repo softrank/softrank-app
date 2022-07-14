@@ -3,7 +3,7 @@ interface Capacity {
   value: string;
 }
 
-export const capacitiesData: Capacity[] = [
+export const capacityTypes: Capacity[] = [
   {
     value: 'O',
     label: 'Organizacional',

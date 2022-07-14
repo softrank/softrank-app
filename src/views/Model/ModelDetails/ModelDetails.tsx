@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import { Title, Wrapper } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
@@ -9,19 +9,21 @@ import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { modelsService } from 'shared/services';
 import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
+import { CapacitiesTab } from './Tabs/CapacitiesTab';
 
 export const ModelDetails = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [model, setModel] = useState(new ModelEntity());
   const [levelsTabDisabled, setLevelsTabDisabled] = useState(true);
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
+  const [capacitiesTabDisabled, setCapacitiesTabDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [modelLoading, setModelLoading] = useState(false);
 
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
     setLoading(true);
@@ -39,6 +41,7 @@ export const ModelDetails = () => {
       setErrorMessage(e.response.data.message);
       setShowError(true);
     }
+
     setLoading(false);
   };
 
@@ -49,7 +52,10 @@ export const ModelDetails = () => {
       setProcessesTabDisabled(false);
     }
     if (tab === 3) {
-      history.push('/modelos');
+      setCapacitiesTabDisabled(false);
+    }
+    if (tab === 4) {
+      navigate('/modelos');
     } else {
       setTabIndex(tab);
     }
@@ -63,6 +69,7 @@ export const ModelDetails = () => {
         setModel(res);
         if (model.modelLevels) setLevelsTabDisabled(false);
         if (model.modelProcesses) setProcessesTabDisabled(false);
+        if (model.modelCapacities) setCapacitiesTabDisabled(false);
         setModelLoading(false);
       }
     };
@@ -85,6 +92,7 @@ export const ModelDetails = () => {
               <STab>Modelo</STab>
               <STab disabled={levelsTabDisabled}>Hierarquia</STab>
               <STab disabled={processesTabDisabled}>Processos</STab>
+              <STab disabled={capacitiesTabDisabled}>Capacidades</STab>
             </STabList>
             <STabPanel>
               <ModelTab
@@ -106,9 +114,16 @@ export const ModelDetails = () => {
               <ProcessesTab
                 setTabIndex={setTabIndex}
                 model={model}
-                setModel={setModel}
                 createOrUpdateModel={createOrUpdateModel}
                 loading={loading}
+              />
+            </STabPanel>
+            <STabPanel>
+              <CapacitiesTab
+                levels={model.modelLevels}
+                setTabIndex={setTabIndex}
+                model={model}
+                createOrUpdateModel={createOrUpdateModel}
               />
             </STabPanel>
           </STabs>

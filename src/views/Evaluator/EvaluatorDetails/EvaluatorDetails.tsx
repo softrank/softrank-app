@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Button, FlexSpace, Title, Wrapper } from 'shared/components';
 import { Form, Input, InputGroup } from 'shared/components/Form';
@@ -15,22 +15,15 @@ export const EvaluatorDetails = () => {
     register,
     formState: { errors },
   } = useForm<EvaluatorDto>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCreateEvaluator = (evaluator: EvaluatorDto) => {
     evaluator.documentType = 'CPF';
 
-    evaluatorService
-      .create(evaluator)
-      .then(() => {
-        console.log('criado');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    evaluatorService.create(evaluator);
   };
 
-  const handleRedirect = () => history.push('/');
+  const handleRedirect = () => navigate('/');
 
   const onSubmit = handleSubmit((data) => handleCreateEvaluator(data));
 

@@ -9,7 +9,7 @@ import {
   Form,
   Select,
 } from 'shared/components/Form';
-import { capacitiesData } from 'shared/data/capacities';
+import { capacityTypes } from 'shared/data/capacityTypes';
 import { ExpectedResultDto } from 'shared/dtos/expectedResultDto';
 import { ModelDto } from 'shared/dtos/modelDto';
 import { ProcessDto } from 'shared/dtos/processDto';
@@ -21,7 +21,6 @@ import { Options, RemoveIcon } from 'views/Model/ModelDetails/styled';
 interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
   model: ModelEntity;
-  setModel: Dispatch<SetStateAction<ModelEntity>>;
   createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
   loading: boolean;
 }
@@ -38,6 +37,7 @@ export const ProcessesTab = ({
     watch,
     formState: { errors },
   } = useForm<{ modelProcesses: Process[] }>();
+
   const {
     fields: modelProcesses,
     append,
@@ -66,6 +66,7 @@ export const ProcessesTab = ({
         initial: process.initial,
         description: process.description,
         expectedResults: formatedExpectedResults,
+        type: (process.type = (process.type as any).value),
       };
       if (process.id !== '' && process.id) processDto.id = process.id;
       return processDto;
@@ -137,14 +138,15 @@ export const ProcessesTab = ({
                   errors={errors?.modelProcesses?.[index]?.initial}
                 />
                 <Select
-                  name={`modelProcesses[${index}].processCapacity`}
+                  name={`modelProcesses[${index}].type`}
                   label="Capacidade"
                   placeholder="selecione uma capacidade"
                   control={control}
                   rules={{ required: true }}
-                  optionValues={capacitiesData}
+                  optionValues={capacityTypes}
                   optionLabel="label"
-                  errors={errors?.modelProcesses?.[index]?.processCapacity}
+                  optionValue="value"
+                  errors={errors?.modelProcesses?.[index]?.type}
                 />
               </InputGroup>
               <InputGroup>

@@ -1,33 +1,30 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 import {
   FlexSpace,
   Collapse,
   Title,
   Wrapper,
-  Button,
   AddIcon,
-  Modal,
   STab,
   STabList,
   STabPanel,
   STabs,
   ReadOnly,
-  EditIcon,
   RemoveIcon,
+  FileDisplay,
 } from 'shared/components';
-import { EvidenceDetails } from '../EvidenceDetails/EvidenceDetails';
-import { File } from 'shared/components/File/File';
+import { EvidenceDetails } from './EvidenceDetails/EvidenceDetails';
 import { InputGroup } from 'shared/components/Form';
-import { useParams } from 'react-router';
 import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Title3 } from 'shared/components/Titles/Title3';
-import { DeleteConfirmationModal } from './DeleteConfirmationModal/DeleteConfirmationModal';
+import { DeleteConfirmationMessage } from '../../../../shared/components/Messages/DeleteConfirmationMessage/DeleteConfirmationMessage';
 import { indicatorsService } from 'shared/services/indicatorsService';
 
-export const InitialEvaluationOrg = () => {
+export const IndicatorsManagmentOrg = () => {
   const { id } = useParams<{ id: string }>();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -39,7 +36,7 @@ export const InitialEvaluationOrg = () => {
   const [deleteIndicatorModal, setDeleteIndicatorModal] = useState(false);
   const [deleteIndicatorId, setDeleteIndicatorId] = useState('');
 
-  useEffect(() => loadProcesses(id), [id]);
+  useEffect(() => loadProcesses(id!), [id]);
 
   const addIndicatorHandler = (
     expectResultId: string,
@@ -61,7 +58,9 @@ export const InitialEvaluationOrg = () => {
 
   const deleteIndicator = () => {
     if (deleteIndicatorId !== '')
-      indicatorsService.delete(deleteIndicatorId).then(() => loadProcesses(id));
+      indicatorsService
+        .delete(deleteIndicatorId)
+        .then(() => loadProcesses(id!));
     setDeleteIndicatorModal(false);
     setDeleteIndicatorId('');
   };
@@ -116,20 +115,12 @@ export const InitialEvaluationOrg = () => {
                             <Collapse
                               title={indicator.name}
                               options={
-                                <>
-                                  <RemoveIcon
-                                    $outline={true}
-                                    onClick={() =>
-                                      handleConfirmationModal(indicator.id)
-                                    }
-                                  />
-                                  <EditIcon
-                                    $outline={true}
-                                    onClick={() =>
-                                      addIndicatorHandler(er.id, indicator.id)
-                                    }
-                                  />
-                                </>
+                                <RemoveIcon
+                                  $outline={true}
+                                  onClick={() =>
+                                    handleConfirmationModal(indicator.id)
+                                  }
+                                />
                               }
                               key={indexIndicator}
                               underline
@@ -139,9 +130,10 @@ export const InitialEvaluationOrg = () => {
                                   <InputGroup key={indexFile}>
                                     <ReadOnly
                                       label="Projeto"
-                                      value={evidenceSource.project.name}
+                                      value={evidenceSource.project?.name ?? ''}
                                     />
-                                    <File
+
+                                    <FileDisplay
                                       label="Arquivo"
                                       fileName={evidenceSource.files[0].name}
                                       url={evidenceSource.files[0].source}
@@ -159,25 +151,15 @@ export const InitialEvaluationOrg = () => {
               );
             })}
           </STabs>
-          <Button secondary width="6rem" onClick={() => console.log('salvar')}>
-            Salvar
-          </Button>
-          <Modal
-            title="Fonte de evidência"
+          <EvidenceDetails
+            evaluationId={id!}
+            expectedResultId={expectedResultId}
+            indicatorId={indicatorId}
             showModal={showEvidenceDetails}
             setShowModal={setShowEvidenceDetails}
-            width="90%"
-            height="100%"
-          >
-            <EvidenceDetails
-              evaluationId={id}
-              expectedResultId={expectedResultId}
-              indicatorId={indicatorId}
-              setShowModal={setShowEvidenceDetails}
-              loadProcesses={loadProcesses}
-            />
-          </Modal>
-          <DeleteConfirmationModal
+            loadProcesses={loadProcesses}
+          />
+          <DeleteConfirmationMessage
             showConfirmation={deleteIndicatorModal}
             setShowConfirmation={setDeleteIndicatorModal}
             confirmAction={deleteIndicator}

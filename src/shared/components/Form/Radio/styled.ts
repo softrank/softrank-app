@@ -2,9 +2,6 @@ import { BsFillCircleFill } from 'react-icons/bs';
 import styled, { css } from 'styled-components';
 
 interface Props {
-  color?: 'red' | 'yellow' | 'green';
-}
-interface IconProps {
   color: string;
 }
 
@@ -34,14 +31,7 @@ export const StyledRadio = styled.div<Props>`
 
   transition: all 150ms;
   border-radius: 100%;
-  border: ${(props) =>
-    props.color === 'green'
-      ? '3px solid #52b788'
-      : props.color === 'red'
-      ? '3px solid #f7a399'
-      : props.color === 'yellow'
-      ? '3px solid #ffd500'
-      : '3px solid var(--gray-500)'};
+  border: ${(props) => `3px solid ${props.color}`};
 
   > svg {
     display: none;
@@ -61,7 +51,7 @@ export const RadioLabel = styled.div`
   color: var(--gray-700);
 `;
 
-const iconCss = css<IconProps>`
+const iconCss = css<Props>`
   width: 12px;
   height: 12px;
 

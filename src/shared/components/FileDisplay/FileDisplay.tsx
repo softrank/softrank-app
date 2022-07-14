@@ -10,7 +10,7 @@ interface Props {
   url: string;
 }
 
-export const File = (props: Props) => {
+export const FileDisplay = (props: Props) => {
   const { label, fileName, url } = props;
 
   const splits = fileName.split('.');

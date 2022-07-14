@@ -17,8 +17,6 @@ export const EvaluatorInstitutionRegister = () => {
     institution.documentType = 'j';
 
     evaluatorInstitutionService.create(institution);
-
-    console.log(institution);
   };
 
   const onSubmit = handleSubmit((data) => handleCreateInstitution(data));

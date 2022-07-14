@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Collapse, AddIcon, Button, FlexSpace } from 'shared/components';
 import {
@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -142,7 +142,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
         >
           {levels.map(({ id }, index) => {
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={id}>
                 <CollapseContent>
                   <InputGroup>
                     <Input
@@ -176,7 +176,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
           })}
         </Collapse>
         <Options>
-          <Button secondary onClick={() => history.push('/modelos')}>
+          <Button secondary onClick={() => navigate('/modelos')}>
             Cancelar
           </Button>
           <Button type="submit" loading={loading}>

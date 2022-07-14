@@ -32,7 +32,7 @@ export const EvaluationList = () => {
             return (
               <tr key={id}>
                 <td>{evaluation.name}</td>
-                <td>{evaluation.status}</td>
+                <td>{evaluation.state}</td>
                 <td>{evaluation.organizationalUnit.name}</td>
                 <td>{evaluation.modelLevel.initial}</td>
                 <td>

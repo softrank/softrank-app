@@ -26,12 +26,15 @@ export const ModalBackground = styled.div`
 export const ModalWrapper = styled(motion.div)<Props>`
   position: relative;
   min-width: ${(props) => (props.width ? props.width : '800px')};
-  max-height: ${(props) => (props.height ? props.height : '500px')};
+  max-height: ${(props) => (props.height ? props.height : '90vh')};
   padding: 1em;
   margin: 1em;
 
   position: relative;
   z-index: 10;
+  overflow-y: auto;
+
+  max-height: 90vh;
 
   background: #fff;
   color: #000;

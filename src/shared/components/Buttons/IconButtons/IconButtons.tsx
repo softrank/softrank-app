@@ -1,6 +1,10 @@
 import { IoIosAdd, IoIosArrowDown, IoMdExit } from 'react-icons/io';
 import { MdEdit } from 'react-icons/md';
-import { HiOutlineDownload, HiOutlineTrash } from 'react-icons/hi';
+import {
+  HiOutlineDownload,
+  HiOutlineEye,
+  HiOutlineTrash,
+} from 'react-icons/hi';
 import styled, { css } from 'styled-components';
 
 interface Props {
@@ -67,6 +71,11 @@ const ExitIcon = styled(IoMdExit)`
   padding: ${(props) => (props.$size === 'small' ? '4px' : '6px')};
 `;
 
+const ViewIcon = styled(HiOutlineEye)`
+  ${iconCss}
+  padding: ${(props) => (props.$size === 'small' ? '4px' : '6px')};
+`;
+
 const DownloadIcon = styled(HiOutlineDownload)`
   ${iconCss}
 
@@ -77,4 +86,12 @@ const DownloadIcon = styled(HiOutlineDownload)`
   }
 `;
 
-export { ToggleIcon, AddIcon, EditIcon, RemoveIcon, ExitIcon, DownloadIcon };
+export {
+  ToggleIcon,
+  AddIcon,
+  EditIcon,
+  RemoveIcon,
+  ExitIcon,
+  DownloadIcon,
+  ViewIcon,
+};

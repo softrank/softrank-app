@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -32,7 +32,7 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSignIn = (data: any) => {
@@ -48,7 +48,7 @@ export const SignIn = () => {
       .then((res) => {
         dispatch(authActions.signin(res));
         setLoading(false);
-        history.push('/');
+        navigate('/');
       })
       .catch(() => {
         setLoading(false);
@@ -103,7 +103,7 @@ export const SignIn = () => {
               </Button>
               <RegisterInfo>
                 Ainda não é cadastrado?
-                <LinkButton onClick={() => history.push('/cadastro')}>
+                <LinkButton onClick={() => navigate('/cadastro')}>
                   Cadastre-se
                 </LinkButton>
               </RegisterInfo>

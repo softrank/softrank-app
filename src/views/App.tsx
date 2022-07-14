@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import { PrivateRoute } from 'shared/components/PrivateRoute';
-import { userService } from 'shared/services';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
-import { authActions, RootState } from 'shared/store';
+import { RequireAuth } from 'shared/components';
+import { userService } from 'shared/services';
+import { authActions } from 'shared/store';
 import {
   NavBar,
   HomePage,
   SignIn,
   NotFound,
-  GlobalStyles,
   EvaluatorManagment,
   ModelManagment,
   ModelDetails,
@@ -23,16 +22,20 @@ import {
   EvaluationNew,
   EvaluatorInstitutionManagment,
   ImprovementsReport,
-  InitialEvaluationTeam,
   EvaluationHome,
-  InitialEvaluationOrg,
   ModelManagerEvaluationList,
+  ProjectCapacitiesManagmentOrg,
+  IndicatorsManagmentTeam,
+  ProjectCapacitiesManagmentTeam,
+  IndicatorsManagmentOrg,
+  OrganizationCapacitiesManagmentOrg,
+  FinalEvaluationResult,
+  OrganizationCapacitiesManagmentTeam,
+  GlobalStyles,
 } from './';
 
 export default function App() {
-  const [userRoles, setUserRoles] = useState<any[]>([]);
   const dispatch = useDispatch();
-  const roles = useSelector<RootState>((state) => state.auth.roles);
 
   useEffect(() => {
     const authToken = window.localStorage.getItem('authToken');
@@ -45,107 +48,100 @@ export default function App() {
     } else dispatch(authActions.signOut());
   }, [dispatch]);
 
-  useEffect(() => {
-    const rolesArray: any[] = roles as any[];
-    setUserRoles(rolesArray);
-  }, [roles]);
-
   return (
     <>
       <NavBar />
-      <PrivateRoute exact path="/" component={HomePage} />
-      <Route
-        path={'/(.+)'}
-        render={() => (
-          <Switch>
-            <Route exact path="/login" component={SignIn} />
-            <Route
-              exact
-              path="/avaliador/cadastro"
-              component={EvaluatorRegister}
-            />
-            <Route exact path="/cadastro" component={Register} />
-            <Route exact path="/auditor/cadastro" component={AuditorRegister} />
-            <Route
-              exact
-              path="/organizacao/cadastro"
-              component={OrganizationRegister}
-            />
-            <Route
-              exact
-              path="/instituicaoAvalidadora/cadastro"
-              component={EvaluatorInstitutionRegister}
-            />
-            <PrivateRoute exact path="/modelo" component={ModelDetails} />
-            <PrivateRoute exact path="/modelo/:id" component={ModelDetails} />
-            <PrivateRoute
-              exact
-              path="/avaliadores"
-              component={EvaluatorManagment}
-            />
-            <PrivateRoute
-              exact
-              path="/instituicoesAvaliadoras"
-              component={EvaluatorInstitutionManagment}
-            />
-            {userRoles.includes('modelManager') && (
-              <>
-                <PrivateRoute
-                  exact
-                  path="/modelos"
-                  component={ModelManagment}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacoes"
-                  component={ModelManagerEvaluationList}
-                />
-              </>
-            )}
-            {(userRoles.includes('evaluator') ||
-              userRoles.includes('organizationalUnit')) && (
-              <PrivateRoute
-                exact
-                path="/avaliacao/:id"
-                component={EvaluationHome}
-              />
-            )}
-            {userRoles.includes('evaluator') && (
-              <>
-                <PrivateRoute
-                  exact
-                  path="/avaliacao/planilha-de-requisitos/:id"
-                  component={InitialEvaluationTeam}
-                />
-                <PrivateRoute
-                  exact
-                  path="/relatorio-de-melhorias/:id"
-                  component={ImprovementsReport}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacao-nova"
-                  component={EvaluationNew}
-                />
-                <PrivateRoute
-                  exact
-                  path="/avaliacoes"
-                  component={EvaluationManagment}
-                />
-              </>
-            )}
-            {userRoles.includes('organizationalUnit') && (
-              <PrivateRoute
-                exact
-                path="/avaliacao/planilha-de-requisitos/:id"
-                component={InitialEvaluationOrg}
-              />
-            )}
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<SignIn />} />
 
-            <Route path="*" exact={true} component={NotFound} />
-          </Switch>
-        )}
-      />
+        <Route path="/avaliador/cadastro" element={<EvaluatorRegister />} />
+        <Route path="/cadastro" element={<Register />} />
+        <Route path="/auditor/cadastro" element={<AuditorRegister />} />
+        <Route
+          path="/organizacao/cadastro"
+          element={<OrganizationRegister />}
+        />
+        <Route
+          path="/instituicaoAvalidadora/cadastro"
+          element={<EvaluatorInstitutionRegister />}
+        />
+
+        {/* Protected routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="/modelo" element={<ModelDetails />} />
+          <Route path="/modelo/:id" element={<ModelDetails />} />
+        </Route>
+
+        {/* Model Manager routes */}
+        <Route element={<RequireAuth allowedRoles={['modelManager']} />}>
+          <Route path="/modelos" element={<ModelManagment />} />
+          <Route path="/avaliacoes" element={<ModelManagerEvaluationList />} />
+          <Route path="/avaliadores" element={<EvaluatorManagment />} />
+          <Route
+            path="/instituicoesAvaliadoras"
+            element={<EvaluatorInstitutionManagment />}
+          />
+        </Route>
+
+        {/* Evaluator and Organizational Unit routes */}
+        <Route
+          element={
+            <RequireAuth allowedRoles={['evaluator', 'organizationalUnit']} />
+          }
+        >
+          <Route
+            path="/relatorio-de-melhorias/:id"
+            element={<ImprovementsReport />}
+          />
+          <Route
+            path="/relatorio-de-melhorias/:id"
+            element={<ImprovementsReport />}
+          />
+          <Route path="/avaliacao/home/:id" element={<EvaluationHome />} />
+        </Route>
+
+        {/* Evaluator routes */}
+        <Route element={<RequireAuth allowedRoles={['evaluator']} />}>
+          <Route
+            path="/avaliacao/planilha-de-requisitos/:id"
+            element={<IndicatorsManagmentTeam />}
+          />
+          <Route path="/avaliacao-nova" element={<EvaluationNew />} />
+          <Route path="/avaliacoes" element={<EvaluationManagment />} />
+          <Route
+            path="/avaliacao/capacidades-de-projeto/:id"
+            element={<ProjectCapacitiesManagmentTeam />}
+          />
+          <Route
+            path="/avaliacao/capacidades-organizacionais/:id"
+            element={<OrganizationCapacitiesManagmentTeam />}
+          />
+          <Route
+            path="/avaliacao/resultados-final/:id"
+            element={<FinalEvaluationResult />}
+          />
+        </Route>
+
+        {/* Organizational Unit routes */}
+        <Route element={<RequireAuth allowedRoles={['organizationalUnit']} />}>
+          <Route
+            path="/avaliacao/planilha-de-requisitos/:id"
+            element={<IndicatorsManagmentOrg />}
+          />
+          <Route
+            path="/avaliacao/capacidades-de-projeto/:id"
+            element={<ProjectCapacitiesManagmentOrg />}
+          />
+          <Route
+            path="/avaliacao/capacidades-organizacionais/:id"
+            element={<OrganizationCapacitiesManagmentOrg />}
+          />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <GlobalStyles />
     </>
   );

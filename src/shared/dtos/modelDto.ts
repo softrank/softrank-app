@@ -1,3 +1,4 @@
+import { CapacityDto } from './capacityDto';
 import { ModelLevelDto } from './modelLevelDto';
 import { ProcessDto } from './processDto';
 
@@ -8,4 +9,5 @@ export interface ModelDto {
   description: string;
   modelLevels: ModelLevelDto[];
   modelProcesses?: ProcessDto[];
+  modelCapacities?: CapacityDto[];
 }

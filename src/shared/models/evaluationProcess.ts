@@ -1,4 +1,4 @@
-import { Project } from './project';
+import { Indicator } from './indicator';
 
 export interface EvaluationProcess {
   id: string;
@@ -14,27 +14,13 @@ export interface EvaluationExpectedResult {
   initial: string;
   description: string;
   indicators: Indicator[];
+  status?: string;
+  projectsAvaliations: ProjectsAvaliation[];
 }
 
-interface Indicator {
+interface ProjectsAvaliation {
   id: string;
-  name: string;
-  qualityAssuranceGroup: string;
-  evidenceSources: EvidenceSource[];
-}
-
-interface EvidenceSource {
-  id: string;
+  projectId: string;
   status: string;
-  createdOn: string;
-  files: File[];
-  project: Project;
-}
-
-interface File {
-  id: string;
-  name: string;
-  source: string;
-  mymetype: string;
-  status: string;
+  targeId: string;
 }
