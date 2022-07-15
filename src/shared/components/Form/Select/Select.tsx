@@ -57,7 +57,7 @@ export const Select = (props: Props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Label>{label}</Label>
+      <Label htmlFor={name}>{label}</Label>
       <Controller
         name={name}
         control={control}
@@ -66,9 +66,8 @@ export const Select = (props: Props) => {
         render={({ field: { onChange, value, ref } }) => (
           <>
             <CustomSelect
-              inputRef={ref}
+              ref={ref}
               classNamePrefix={'select'}
-              label={label}
               placeholder={placeholder}
               onChange={onChange}
               options={options}

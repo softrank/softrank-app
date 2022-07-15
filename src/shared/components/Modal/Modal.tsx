@@ -43,7 +43,7 @@ export const Modal = (props: Props) => {
   };
 
   const keyPress = useCallback(
-    (e) => {
+    (e: any) => {
       if (e.key === 'Escape' && showModal) {
         setShowModal(false);
       }
