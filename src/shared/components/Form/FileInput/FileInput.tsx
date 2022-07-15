@@ -106,7 +106,7 @@ const Dropzone = ({
   setPaths,
 }: DropzoneProps) => {
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles: any) => {
       if (acceptedFiles.length > 0) {
         const copyFiles = [...filesList];
         const copyPaths = [...paths];
@@ -147,7 +147,10 @@ const Dropzone = ({
             return (
               <FileContainer key={fileIndex}>
                 <FileWrapper>
-                  <FileIcon extension={type} {...defaultStyles[type!]} />
+                  <FileIcon
+                    extension={type}
+                    {...(defaultStyles[type!] as any)}
+                  />
                 </FileWrapper>
                 <div>{files[0].path}</div>
                 <RemoveFileButton
