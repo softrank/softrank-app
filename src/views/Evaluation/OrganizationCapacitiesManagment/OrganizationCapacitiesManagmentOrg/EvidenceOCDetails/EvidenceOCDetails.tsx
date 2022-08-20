@@ -78,7 +78,7 @@ export const EvidenceOCDetails = ({
           const exinstingFile = files.filter(
             (file) => file.processId === process.id
           );
-          if (exinstingFile.length <= 0) append(file);
+          if (!exinstingFile.length) append(file);
         });
       });
 

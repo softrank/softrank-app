@@ -18,7 +18,7 @@ export const ModelDetails = () => {
   const [processesTabDisabled, setProcessesTabDisabled] = useState(true);
   const [capacitiesTabDisabled, setCapacitiesTabDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [modelLoading, setModelLoading] = useState(false);
 
@@ -27,14 +27,12 @@ export const ModelDetails = () => {
 
   const createOrUpdateModel = async (data: ModelDto, tabIndex: number) => {
     setLoading(true);
-    let response: ModelEntity;
 
     try {
-      if (data.id) {
-        response = await modelsService.update(data);
-      } else {
-        response = await modelsService.create(data);
-      }
+      const response = data.id
+        ? await modelsService.update(data)
+        : await modelsService.create(data);
+
       setModel(response);
       tabsHandler(tabIndex);
     } catch (e: any) {
@@ -46,34 +44,35 @@ export const ModelDetails = () => {
   };
 
   const tabsHandler = (tab: number) => {
-    if (tab === 1) setLevelsTabDisabled(false);
-    if (tab === 2) {
-      setLevelsTabDisabled(false);
-      setProcessesTabDisabled(false);
-    }
-    if (tab === 3) {
-      setCapacitiesTabDisabled(false);
-    }
-    if (tab === 4) {
-      navigate('/modelos');
-    } else {
-      setTabIndex(tab);
+    switch (tab) {
+      case 1:
+        setLevelsTabDisabled(false);
+        break;
+      case 2:
+      case 3:
+        setLevelsTabDisabled(false);
+        setProcessesTabDisabled(false);
+        break;
+      case 4:
+        navigate('/modelos');
+        break;
+      default:
+        setTabIndex(tab);
     }
   };
 
+  const getModel = async (id: string) => {
+    setModelLoading(true);
+    const model = await modelsService.details(id);
+    setModel(model);
+    if (model.modelLevels) setLevelsTabDisabled(false);
+    if (model.modelProcesses) setProcessesTabDisabled(false);
+    if (model.modelCapacities) setCapacitiesTabDisabled(false);
+    setModelLoading(false);
+  };
+
   useEffect(() => {
-    const getModel = async () => {
-      if (id) {
-        setModelLoading(true);
-        const res = await modelsService.details(id);
-        setModel(res);
-        if (model.modelLevels) setLevelsTabDisabled(false);
-        if (model.modelProcesses) setProcessesTabDisabled(false);
-        if (model.modelCapacities) setCapacitiesTabDisabled(false);
-        setModelLoading(false);
-      }
-    };
-    getModel();
+    if (id) getModel(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -123,7 +122,6 @@ export const ModelDetails = () => {
                 levels={model.modelLevels}
                 setTabIndex={setTabIndex}
                 model={model}
-                createOrUpdateModel={createOrUpdateModel}
               />
             </STabPanel>
           </STabs>

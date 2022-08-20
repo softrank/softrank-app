@@ -74,14 +74,14 @@ export const CustomSelect = styled(Select)<Props>`
 
   .select__option--is-focused,
   .select__option--is-selected {
-    color: var(--white);
+    color: var(--background);
     background-color: var(--purple-500);
   }
 
   .select__menu {
     border-radius: var(--radius);
     padding: 0.2em 0.3em;
-    background-color: var(--white);
+    background-color: var(--background);
     border-radius: var(--radius);
     border: 1px solid var(--gray-100);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

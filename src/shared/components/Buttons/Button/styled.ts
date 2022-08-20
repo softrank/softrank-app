@@ -13,7 +13,7 @@ export const StyledButton = styled.button<Props>`
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: var(--white);
+  color: var(--background);
 
   background: var(--purple-500);
   border: 2px solid var(--purple-500);
@@ -53,7 +53,7 @@ export const StyledButton = styled.button<Props>`
   ${(props) =>
     props.neutral &&
     css`
-      background: var(--white);
+      background: var(--background);
       color: var(--gray-700);
       border: 2px solid var(--gray-100);
 

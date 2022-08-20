@@ -10,11 +10,12 @@ import { ActionCardContainer, Hero, HeroImage, HeroTitle } from './styled';
 import organization from 'shared/assets/images/organization.svg';
 import { EvalutionResponse } from 'shared/models/evaluationResponse';
 import { ModelsList } from 'views/Model';
+import { Toggle } from 'shared/components/Toggle/Toggle';
 
 export const HomePage = () => {
   const [evaluations, setEvaluations] = useState<EvalutionResponse[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [userRoles, setUserRoles] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [userRoles, setUserRoles] = useState<string[]>([]);
 
   const roles = useSelector<RootState>((state) => state.auth.roles);
 
@@ -43,6 +44,8 @@ export const HomePage = () => {
         <HeroTitle>Seja bem vindo à SoftRank!</HeroTitle>
         <HeroImage src={organization} alt="welcome" />
       </Hero>
+      <Toggle />
+      <div>teste</div>
       {(userRoles.includes('evaluator') ||
         userRoles.includes('modelManager')) && (
         <>

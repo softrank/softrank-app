@@ -24,7 +24,7 @@ export const RegisterItem = styled.a`
   border-radius: var(--radius);
   border: 2px solid var(--gray-100);
 
-  background: var(--white);
+  background: var(--background);
   cursor: pointer;
   transition: all 400ms ease;
 

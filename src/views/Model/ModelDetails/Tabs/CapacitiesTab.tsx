@@ -19,7 +19,6 @@ import {
 } from 'shared/components/Form';
 import { CapacityDto } from 'shared/dtos/capacityDto';
 import { ModelLevel } from 'shared/models/modelLevel';
-import { ModelDto } from 'shared/dtos/modelDto';
 import { ModelEntity } from 'shared/models/modelEntity';
 import { useEffect } from 'react';
 import { Capacity } from 'shared/models/capacity';
@@ -30,7 +29,6 @@ interface Props {
   levels: ModelLevel[];
   setTabIndex: (tabIndex: number) => void;
   model: ModelEntity;
-  createOrUpdateModel: (data: ModelDto, tabIndex: number) => Promise<void>;
 }
 
 interface IForm {
@@ -38,12 +36,7 @@ interface IForm {
   organizationalCapacities: CapacityDto[];
 }
 
-export const CapacitiesTab = ({
-  levels,
-  setTabIndex,
-  model,
-  createOrUpdateModel,
-}: Props) => {
+export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
   const {
     handleSubmit,
     control,
@@ -75,7 +68,6 @@ export const CapacitiesTab = ({
     const capacitiesDtos: CapacityDto[] = convertToFormFormat(
       model.modelCapacities
     );
-
     const capacitiesP = capacitiesDtos.filter(
       (capacity) => capacity.type === 'P'
     );
@@ -90,7 +82,7 @@ export const CapacitiesTab = ({
   }, [model, reset]);
 
   const convertToFormFormat = (capacities: Capacity[]) => {
-    const dtos = capacities.map((cp) => {
+    return capacities.map((cp) => {
       const dto: CapacityDto = {
         id: cp.id,
         name: cp.name,
@@ -100,8 +92,6 @@ export const CapacitiesTab = ({
       };
       return dto;
     });
-
-    return dtos;
   };
 
   const handleAddCapacity = (type: 'O' | 'P') => {
@@ -117,7 +107,7 @@ export const CapacitiesTab = ({
   };
 
   const formatCapacities = (capacities: CapacityDto[]) => {
-    const formatedCapacities = capacities.map((capacity) => {
+    return capacities.map((capacity) => {
       const formatedCapacity: CapacityDto = {
         type: capacity.type,
         name: capacity.name,
@@ -129,8 +119,6 @@ export const CapacitiesTab = ({
 
       return formatedCapacity;
     });
-
-    return formatedCapacities;
   };
 
   const handleSave = (data: IForm) => {

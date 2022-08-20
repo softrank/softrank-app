@@ -7,7 +7,9 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     /*#region Colors*/
 
-    --white: #fff;
+    --background: #fff;
+    --background: ${(props) => props.theme.body};
+    --green: #52b788;
     --error: #e57373;
 
     /* Grays */
@@ -36,7 +38,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: var(---white);
+    background: var(---background);
   }
 
   body {
@@ -49,7 +51,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background: var(--white);
+    background: var(--background);
 
     overflow-x: hidden;
 

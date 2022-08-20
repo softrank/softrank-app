@@ -30,12 +30,11 @@ export const ProjectsClassificationForm = ({
   const watchStatus: any = watch('projectStatus');
 
   const saveStatus = (status: string | undefined) => {
-    if (status) {
+    if (status)
       evaluationIndicatorService.postErProject(expectedResultId, {
         evaluationProjectId: project.id,
         status: status,
       });
-    }
   };
 
   useEffect(() => {
@@ -56,9 +55,7 @@ export const ProjectsClassificationForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchStatus]);
 
-  useEffect(() => {
-    reset({ projectStatus: status });
-  }, [status, reset]);
+  useEffect(() => reset({ projectStatus: status }), [status, reset]);
 
   const onSubmit = handleSubmit((data) => saveStatus(data.projectStatus));
 

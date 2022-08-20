@@ -8,14 +8,14 @@ import {
   StyledRadio,
 } from './styled';
 
-interface Props {
+type Props = {
   name: string;
   value: string;
   color?: 'red' | 'yellow' | 'green' | 'blue';
   legend?: string;
   register: any;
   disabled?: boolean;
-}
+};
 
 export const Radio = (props: Props) => {
   const { name, value, color, legend, register, disabled = false } = props;

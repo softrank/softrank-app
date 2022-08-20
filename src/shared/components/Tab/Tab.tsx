@@ -27,7 +27,7 @@ export const STab = styled(Tab)<TabProps>`
   color: var(--gray-700);
 
   &.react-tabs__tab--selected {
-    background-color: var(--white);
+    background-color: var(--background);
     border-bottom: 2px solid var(--purple-500);
   }
 

@@ -53,14 +53,14 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
       return levelDto;
     });
 
-    let modelDto: ModelDto = {
+    const modelDto: ModelDto = {
       name: data.name,
       year: new Date(data.year),
       description: data.description,
       modelLevels: levels,
     };
 
-    if (data.id !== '' && data.id !== undefined) {
+    if (data.id) {
       modelDto.id = data.id;
       if (data.modelProcesses) modelDto.modelProcesses = data.modelProcesses;
     }
@@ -68,9 +68,9 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
     return modelDto;
   };
 
-  const saveModel = (data: ModelDto) => {
+  const saveModel = async (data: ModelDto) => {
     const model = formatModel(data);
-    createOrUpdateModel(model, 1);
+    await createOrUpdateModel(model, 1);
   };
 
   const onSubmit = handleSubmit(async (data) => await saveModel(data));

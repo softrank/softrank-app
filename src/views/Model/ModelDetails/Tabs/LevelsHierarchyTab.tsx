@@ -41,7 +41,7 @@ export const LevelsHierarchyTab = ({
       modelLevels: model.modelLevels,
     };
 
-    if (model.modelProcesses && model.modelProcesses.length > 0)
+    if (model.modelProcesses && model.modelProcesses.length)
       modelDto.modelProcesses = model.modelProcesses;
 
     await createOrUpdateModel(modelDto, 2);

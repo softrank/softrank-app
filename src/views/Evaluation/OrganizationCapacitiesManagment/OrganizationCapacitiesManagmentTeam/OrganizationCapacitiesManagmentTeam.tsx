@@ -20,7 +20,7 @@ import { evaluationService } from 'shared/services';
 import { CapacityClassification } from 'views/Evaluation/Classification/CapacityClassification';
 import { TargetClassification } from 'views/Evaluation/Classification/TargetClassification';
 import { EvidenceStatusForm } from 'views/Evaluation/EvidenceStatus/EvidenceStatusForm';
-import { CapacityResponseDto } from '../../../../shared/dtos/capacitiyResponseDto';
+import { CapacityResponseDto } from 'shared/dtos/capacitiyResponseDto';
 
 export const OrganizationCapacitiesManagmentTeam = () => {
   const [loading, setLoading] = useState(false);

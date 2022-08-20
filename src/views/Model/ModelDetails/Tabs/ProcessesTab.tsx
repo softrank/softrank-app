@@ -68,7 +68,9 @@ export const ProcessesTab = ({
         expectedResults: formatedExpectedResults,
         type: (process.type = (process.type as any).value),
       };
-      if (process.id !== '' && process.id) processDto.id = process.id;
+
+      if (process.id) processDto.id = process.id;
+
       return processDto;
     });
 

@@ -7,7 +7,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: center;
 
-  background: var(--white);
+  background: var(--background);
   border-bottom: 1.4px solid var(--gray-100);
 `;
 

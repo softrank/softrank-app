@@ -80,7 +80,7 @@ export const LevelItem = styled.div`
   border-radius: var(--radius);
   border: 2px solid var(--gray-100);
 
-  background: var(--white);
+  background: var(--background);
 `;
 
 export const Info = styled.div`

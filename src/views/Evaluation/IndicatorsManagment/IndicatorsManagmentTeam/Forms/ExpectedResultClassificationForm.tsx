@@ -26,15 +26,12 @@ export const ExpectedResultClassificationForm = ({
 
   const watchClassification: any = watch('status');
 
-  const saveStatus = (status: string) => {
+  const saveStatus = (status: string) =>
     evaluationIndicatorService.updateEr(expectedResultId, {
       status: status,
     });
-  };
 
-  useEffect(() => {
-    reset({ status: status });
-  }, [status, reset]);
+  useEffect(() => reset({ status: status }), [status, reset]);
 
   useEffect(() => {
     if (

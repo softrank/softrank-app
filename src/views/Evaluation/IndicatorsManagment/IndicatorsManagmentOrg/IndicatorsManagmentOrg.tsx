@@ -21,7 +21,7 @@ import { EvaluationProcess } from 'shared/models/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Title3 } from 'shared/components/Titles/Title3';
-import { DeleteConfirmationMessage } from '../../../../shared/components/Messages/DeleteConfirmationMessage/DeleteConfirmationMessage';
+import { DeleteConfirmationMessage } from 'shared/components/Messages/DeleteConfirmationMessage/DeleteConfirmationMessage';
 import { indicatorsService } from 'shared/services/indicatorsService';
 
 export const IndicatorsManagmentOrg = () => {
@@ -38,15 +38,8 @@ export const IndicatorsManagmentOrg = () => {
 
   useEffect(() => loadProcesses(id!), [id]);
 
-  const addIndicatorHandler = (
-    expectResultId: string,
-    indicatorId?: string
-  ) => {
-    if (indicatorId) {
-      setIndicatorId(indicatorId);
-    } else {
-      setIndicatorId(undefined);
-    }
+  const handleAddIndicator = (expectResultId: string, indicatorId?: string) => {
+    indicatorId ? setIndicatorId(indicatorId) : setIndicatorId(undefined);
     setExpectedResultId(expectResultId);
     setShowEvidenceDetails(true);
   };
@@ -56,8 +49,8 @@ export const IndicatorsManagmentOrg = () => {
     setDeleteIndicatorId(indicatorId);
   };
 
-  const deleteIndicator = () => {
-    if (deleteIndicatorId !== '')
+  const handleDeleteIndicator = () => {
+    if (deleteIndicatorId)
       indicatorsService
         .delete(deleteIndicatorId)
         .then(() => loadProcesses(id!));
@@ -69,13 +62,8 @@ export const IndicatorsManagmentOrg = () => {
     setLoading(true);
     evaluationService
       .getProcesses(id)
-      .then((processes) => {
-        setProcesses(processes);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+      .then((processes) => setProcesses(processes))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -104,7 +92,7 @@ export const IndicatorsManagmentOrg = () => {
                         options={
                           <AddIcon
                             $outline={true}
-                            onClick={() => addIndicatorHandler(er.id)}
+                            onClick={() => handleAddIndicator(er.id)}
                           />
                         }
                         key={indexEr}
@@ -162,7 +150,7 @@ export const IndicatorsManagmentOrg = () => {
           <DeleteConfirmationMessage
             showConfirmation={deleteIndicatorModal}
             setShowConfirmation={setDeleteIndicatorModal}
-            confirmAction={deleteIndicator}
+            confirmAction={handleDeleteIndicator}
           />
         </Wrapper>
       )}

@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { RequireAuth } from 'shared/components';
 import { userService } from 'shared/services';
 import { authActions } from 'shared/store';
+import { darkTheme, lightTheme } from 'shared/styles/Theme';
+import { ThemeProvider } from 'styled-components';
 import {
   NavBar,
   HomePage,
@@ -36,9 +38,14 @@ import {
 
 export default function App() {
   const dispatch = useDispatch();
+  const [theme, setTheme] = useState('ligth');
 
   useEffect(() => {
     const authToken = window.localStorage.getItem('authToken');
+
+    const themeToggler = () => {
+      theme === 'light' ? setTheme('dark') : setTheme('light');
+    };
 
     if (authToken && authToken !== 'undefined') {
       dispatch(authActions.setToken(authToken));
@@ -49,7 +56,7 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <NavBar />
       <Routes>
         {/* Public routes */}
@@ -143,6 +150,6 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <GlobalStyles />
-    </>
+    </ThemeProvider>
   );
 }

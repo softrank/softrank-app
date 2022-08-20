@@ -17,7 +17,7 @@ export const DropdownBody = styled.div<Props>`
 
   text-align: center;
 
-  background-color: var(--white);
+  background-color: var(--background);
   border-radius: var(--radius);
   border: 1px solid var(--gray-100);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

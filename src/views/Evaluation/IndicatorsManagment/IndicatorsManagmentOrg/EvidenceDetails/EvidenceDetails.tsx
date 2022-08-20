@@ -68,34 +68,29 @@ export const EvidenceDetails = (props: Props) => {
         const exinstingFile = files.filter(
           (file) => file.projectId === project.id
         );
-        if (exinstingFile.length <= 0) append(file);
+        if (!exinstingFile.length) append(file);
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluationId]);
 
   useEffect(() => {
-    if (props.indicatorId) {
-      setIndicatorId(props.indicatorId);
-    } else {
-      if (expectedResultId) {
-        const type: { type: 'expectedResult' | 'modelCapacity' } = {
-          type: 'expectedResult',
-        };
+    if (props.indicatorId) return setIndicatorId(props.indicatorId);
 
-        indicatorsService
-          .create(expectedResultId, type)
-          .then((indicator) => setIndicatorId(indicator.id));
-      }
+    if (expectedResultId) {
+      const type: { type: 'expectedResult' | 'modelCapacity' } = {
+        type: 'expectedResult',
+      };
+
+      indicatorsService
+        .create(expectedResultId, type)
+        .then((indicator) => setIndicatorId(indicator.id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expectedResultId, props.indicatorId]);
 
   useEffect(() => {
-    const subscription = watch((data) => {
-      setCheckedProjects(data.files);
-    });
-
+    const subscription = watch((data) => setCheckedProjects(data.files));
     return () => subscription.unsubscribe();
   }, [watch]);
 

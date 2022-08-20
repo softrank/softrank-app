@@ -18,7 +18,7 @@ import { EvaluationDetails } from 'shared/models/evaluationDetails';
 import { evaluationService } from 'shared/services';
 import { TargetClassification } from 'views/Evaluation/Classification/TargetClassification';
 import { EvidenceStatusForm } from 'views/Evaluation/EvidenceStatus/EvidenceStatusForm';
-import { CapacityResponseDto } from '../../../../shared/dtos/capacitiyResponseDto';
+import { CapacityResponseDto } from 'shared/dtos/capacitiyResponseDto';
 import { CapacityClassification } from '../../Classification/CapacityClassification';
 
 export const ProjectCapacitiesManagmentTeam = () => {

@@ -43,18 +43,18 @@ export const ProjectCapacitiesManagmentOrg = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addEvidenceHandler = (capacityId: string) => {
+  const handleAddEvidence = (capacityId: string) => {
     setCapacityId(capacityId);
     setAddEvidence(true);
   };
 
-  const deleteIndicatorHandler = (indicatorId: string) => {
+  const handleDeleteIndicator = (indicatorId: string) => {
     setDeleteIndicatorModal(true);
     setDeleteIndicatorId(indicatorId);
   };
 
   const deleteIndicator = () => {
-    if (deleteIndicatorId !== '')
+    if (deleteIndicatorId)
       indicatorsService.delete(deleteIndicatorId).then(() => loadCapacities());
     setDeleteIndicatorModal(false);
     setDeleteIndicatorId('');
@@ -75,7 +75,7 @@ export const ProjectCapacitiesManagmentOrg = () => {
                   options={
                     <AddIcon
                       $outline={true}
-                      onClick={() => addEvidenceHandler(capacity.id)}
+                      onClick={() => handleAddEvidence(capacity.id)}
                     />
                   }
                   key={index}
@@ -87,7 +87,7 @@ export const ProjectCapacitiesManagmentOrg = () => {
                         options={
                           <RemoveIcon
                             $outline={true}
-                            onClick={() => deleteIndicatorHandler(indicator.id)}
+                            onClick={() => handleDeleteIndicator(indicator.id)}
                           />
                         }
                         key={indexInd}

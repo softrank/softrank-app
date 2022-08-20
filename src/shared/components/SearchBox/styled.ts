@@ -5,7 +5,7 @@ export const SearchContainer = styled.div`
   width: 100%;
   height: 3rem;
   padding: 0.6em;
-  background: var(--white);
+  background: var(--background);
 
   display: flex;
   align-items: center;
