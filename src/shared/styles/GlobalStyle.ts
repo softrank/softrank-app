@@ -4,13 +4,17 @@ export const GlobalStyles = styled.createGlobalStyle`
   :root {
     --radius: 12px;
     --break: 640px;
+    --box-shadow: rgba(10, 10, 11, 0.2) 0px 7px 29px 0px;
 
     /*#region Colors*/
 
-    --background: #fff;
     --background: ${(props) => props.theme.body};
+    --text-color: ${(props) => props.theme.text};
+    --border-color: ${(props) => props.theme.border};
+    --accent: ${(props) => props.theme.accent};
     --green: #52b788;
     --error: #e57373;
+    --white: #faf9f6;
 
     /* Grays */
     --gray-50: #f4f6fa;

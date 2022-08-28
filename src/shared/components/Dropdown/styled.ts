@@ -19,8 +19,8 @@ export const DropdownBody = styled.div<Props>`
 
   background-color: var(--background);
   border-radius: var(--radius);
-  border: 1px solid var(--gray-100);
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow);
 `;
 
 export const DropdownContainer = styled.div`
@@ -37,7 +37,7 @@ export const DropdownItem = styled.li`
   font-weight: bold;
   text-decoration: none;
 
-  color: var(--purple-500);
+  color: var(--accent);
   list-style-type: none;
 
   &:hover {
@@ -53,5 +53,5 @@ export const DropdownDivider = styled.hr`
   margin: auto;
 
   border-style: none;
-  background-color: var(--gray-100);
+  background-color: var(--border-color);
 `;

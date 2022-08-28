@@ -1,16 +1,24 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { Input, Label, Switch } from './styled';
 
-export const Toggle = () => {
-  const [checked, setChecked] = useState(false);
+type Props = {
+  checked: boolean;
+};
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setChecked(e.target.checked);
+export const Toggle = ({ checked }: Props) => {
+  const [inputCheck, setInputCheck] = useState(checked);
+
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  //   setInputCheck(e.target.checked);
+
+  useEffect(() => {
+    setInputCheck(checked);
+  }, [checked]);
 
   return (
     <Label>
       <span>Toggle is off</span>
-      <Input checked={checked} onChange={handleChange} />
+      <Input checked={inputCheck} />
       <Switch />
     </Label>
   );

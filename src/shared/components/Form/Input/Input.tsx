@@ -41,33 +41,35 @@ export const Input = (props: Props) => {
 
   return (
     <InputDiv>
-      <Label>{label}</Label>
-      {readonly ? (
-        <ReadOnlyInput>testing</ReadOnlyInput>
-      ) : (
-        <Controller
-          name={name}
-          control={control}
-          defaultValue={defaultValue}
-          rules={rules}
-          render={({ field: { onChange, value } }) => (
-            <>
-              <StyledInput
-                placeholder={placeholder}
-                onChange={(e: any) => onChange((value = e.target.value))}
-                type={type}
-                value={value ?? ''}
-                $error={errors && true}
-                as={InputMask}
-                mask={mask ?? ''}
-                disabled={disabled}
-              />
+      <Label>
+        {label}
+        {readonly ? (
+          <ReadOnlyInput>testing</ReadOnlyInput>
+        ) : (
+          <Controller
+            name={name}
+            control={control}
+            defaultValue={defaultValue}
+            rules={rules}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <StyledInput
+                  placeholder={placeholder}
+                  onChange={(e: any) => onChange((value = e.target.value))}
+                  type={type}
+                  value={value ?? ''}
+                  $error={errors && true}
+                  as={InputMask}
+                  mask={mask ?? ''}
+                  disabled={disabled}
+                />
 
-              {errors && <ErrorsNote error={errors} />}
-            </>
-          )}
-        />
-      )}
+                {errors && <ErrorsNote error={errors} />}
+              </>
+            )}
+          />
+        )}
+      </Label>
     </InputDiv>
   );
 };

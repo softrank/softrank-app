@@ -43,7 +43,7 @@ export const HeroTitle = styled.span`
   position: absolute;
   top: 10vh;
   left: 0;
-  color: var(--gray-700);
+  color: var(--text-color);
   font-size: 3rem;
   max-width: 400px;
   padding: 0.2em;

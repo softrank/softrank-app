@@ -8,7 +8,7 @@ export const Header = styled.header`
   justify-content: center;
 
   background: var(--background);
-  border-bottom: 1.4px solid var(--gray-100);
+  border-bottom: 1.4px solid var(--border-color);
 `;
 
 export const HeaderColumn1 = styled.div`
@@ -31,7 +31,7 @@ export const HeaderTitle = styled.a`
   font-weight: 700;
   padding: 0.4em;
 
-  color: var(--purple-500);
+  color: var(--accent);
 
   @media (max-width: 640px) {
     font-size: 25px;
@@ -57,7 +57,7 @@ const iconCss = css`
   width: 1.4em;
   height: 1.4em;
 
-  color: var(--purple-500);
+  color: var(--accent);
 
   cursor: pointer;
 `;

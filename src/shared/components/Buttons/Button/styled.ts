@@ -13,7 +13,7 @@ export const StyledButton = styled.button<Props>`
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: var(--background);
+  color: var(--white);
 
   background: var(--purple-500);
   border: 2px solid var(--purple-500);

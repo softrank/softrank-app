@@ -5,8 +5,6 @@ interface Props {
 }
 
 export const StyledInput = styled.input<Props>`
-  --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
   width: 100%;
   height: 3.2rem;
   padding: 0.6em;
@@ -18,20 +16,15 @@ export const StyledInput = styled.input<Props>`
 
   transition: 0.4s;
   outline: none;
-  color: ${(props) => (props.$error ? 'var(--error)' : 'var(--gray-700)')};
+  color: ${(props) => (props.$error ? 'var(--error)' : 'var(--text-color)')};
   border: 2px solid
-    ${(props) => (props.$error ? 'var(--error)' : 'var(--gray-100)')};
+    ${(props) => (props.$error ? 'var(--error)' : 'var(--border-color)')};
 
-  &:hover {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--purple-500);
-    color: black;
-  }
-
+  &:hover,
   &:focus {
     box-shadow: var(--box-shadow);
     border: 2px solid var(--purple-500);
-    color: black;
+    color: var(--text-color);
   }
 
   &::placeholder {

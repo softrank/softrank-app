@@ -39,7 +39,7 @@ export const SignInForm = styled.div`
   flex-direction: column;
   gap: 6rem;
 
-  background-color: white;
+  background-color: var(--background);
 `;
 
 export const SignInImage = styled.img`
@@ -66,7 +66,7 @@ export const SignInTitle = styled.h1`
   font-size: 36px;
   font-family: 'Montserrat', sans-serif;
 
-  color: var(--gray-700);
+  color: var(--text-color);
 
   @media (max-width: 700px) {
     font-size: 30px;
@@ -112,6 +112,6 @@ export const RegisterInfo = styled.span`
   display: flex;
   gap: 4px;
 
-  color: var(--gray-700);
+  color: var(--text-color);
   font-weight: 500;
 `;

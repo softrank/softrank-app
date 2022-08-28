@@ -12,16 +12,13 @@ export const Dropdown = React.forwardRef((props: Props, ref: any) => {
   const { children, positionTop, positionLeft, visible, setVisible } = props;
 
   const handleClickOutside = (event: any) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setVisible(false);
-    }
+    if (ref.current && !ref.current.contains(event.target)) setVisible(false);
   };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
-    return () => {
+    return () =>
       document.removeEventListener('click', handleClickOutside, true);
-    };
   });
 
   return (

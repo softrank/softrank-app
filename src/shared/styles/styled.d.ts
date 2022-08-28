@@ -6,5 +6,8 @@ declare module 'styled-components' {
     text: string;
     toggleBorder: string;
     background: string;
+    border: string;
+    accent: string;
+    secundaryBackground: string;
   }
 }

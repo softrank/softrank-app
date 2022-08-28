@@ -22,7 +22,8 @@ import { authActions, RootState } from 'shared/store';
 
 export const NavBar = () => {
   const [navMenu, setNavMenu] = useState(false);
-  const [userRoles, setUserRoles] = useState<any[]>([]);
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+  const [dropDownData, setDropDownData] = useState(SideBarData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,9 +37,16 @@ export const NavBar = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const rolesArray: any[] = roles as any[];
+    const rolesArray: any[] = roles as string[];
     setUserRoles(rolesArray);
   }, [roles]);
+
+  useEffect(() => {
+    const data = SideBarData.filter(
+      (sbd) => !sbd.roles || sbd.roles.includes(userRoles[0])
+    );
+    setDropDownData(data);
+  }, [userRoles]);
 
   return (
     <Header>
@@ -52,11 +60,7 @@ export const NavBar = () => {
             positionTop="1.1em"
             positionLeft="-1em"
           >
-            {SideBarData.map(({ title, path, roles }, index) => {
-              if (roles)
-                if (!roles?.some((element) => userRoles.includes(element)))
-                  return <React.Fragment key={index}></React.Fragment>;
-
+            {dropDownData.map(({ title, path }, index) => {
               return (
                 <React.Fragment key={index}>
                   <DropdownItem
@@ -66,7 +70,7 @@ export const NavBar = () => {
                   >
                     <span>{title}</span>
                   </DropdownItem>
-                  {index !== SideBarData.length - 1 && <DropdownDivider />}
+                  {dropDownData.length - 1 !== index && <DropdownDivider />}
                 </React.Fragment>
               );
             })}

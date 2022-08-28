@@ -18,11 +18,11 @@ export const RegisterItem = styled.a`
 
   font-size: 24px;
   text-align: center;
-  color: var(--gray-700);
+  color: var(--text-color);
 
   outline: none;
   border-radius: var(--radius);
-  border: 2px solid var(--gray-100);
+  border: 2px solid var(--border-color);
 
   background: var(--background);
   cursor: pointer;

@@ -41,11 +41,15 @@ export default function App() {
   const [theme, setTheme] = useState('ligth');
 
   useEffect(() => {
-    const authToken = window.localStorage.getItem('authToken');
+    const theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+    setTheme(theme);
+    window.localStorage.setItem('theme', theme);
+  }, []);
 
-    const themeToggler = () => {
-      theme === 'light' ? setTheme('dark') : setTheme('light');
-    };
+  useEffect(() => {
+    const authToken = window.localStorage.getItem('authToken');
 
     if (authToken && authToken !== 'undefined') {
       dispatch(authActions.setToken(authToken));
