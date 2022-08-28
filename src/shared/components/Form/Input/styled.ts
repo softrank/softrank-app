@@ -19,6 +19,7 @@ export const StyledInput = styled.input<Props>`
   color: ${(props) => (props.$error ? 'var(--error)' : 'var(--text-color)')};
   border: 2px solid
     ${(props) => (props.$error ? 'var(--error)' : 'var(--border-color)')};
+  background-color: var(--background);
 
   &:hover,
   &:focus {
@@ -36,6 +37,12 @@ export const StyledInput = styled.input<Props>`
     background: var(--gray-50);
     color: var(--gray-500);
     pointer-events: none;
+  }
+
+  &:-webkit-autofill {
+    background-color: ${(props) => props.theme.secundaryBackground};
+    -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
+    -webkit-text-fill-color: var(--text-color);
   }
 `;
 
