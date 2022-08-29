@@ -17,10 +17,10 @@ export const DropdownBody = styled.div<Props>`
 
   text-align: center;
 
-  background-color: var(--background);
+  background-color: ${({ theme }) => theme.body};
   border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--box-shadow);
+  border: 2px solid ${({ theme }) => theme.border};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 export const DropdownContainer = styled.div`
@@ -37,12 +37,12 @@ export const DropdownItem = styled.li`
   font-weight: bold;
   text-decoration: none;
 
-  color: var(--accent);
+  color: ${({ theme }) => theme.accent};
   list-style-type: none;
 
   &:hover {
-    color: var(--purple-500);
-    background-color: var(--purple-300);
+    color: ${({ theme }) => theme.accent};
+    background-color: ${({ theme }) => theme.accentBackground};
     border-radius: var(--radius);
   }
 `;
@@ -53,5 +53,5 @@ export const DropdownDivider = styled.hr`
   margin: auto;
 
   border-style: none;
-  background-color: var(--border-color);
+  background-color: ${({ theme }) => theme.border};
 `;

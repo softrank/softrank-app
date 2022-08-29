@@ -12,6 +12,7 @@ export const RequireAuth = ({ allowedRoles }: Props) => {
 
   const location = useLocation();
   const auth = useSelector<RootState>((state) => state.auth.isAuthenticated);
+  const authToken = useSelector<RootState>((state) => state.auth.authToken);
   const roles = useSelector<RootState>((state) => state.auth.roles);
 
   useEffect(() => {
@@ -19,7 +20,8 @@ export const RequireAuth = ({ allowedRoles }: Props) => {
     setUserRoles(rolesArray);
   }, [roles]);
 
-  if (!auth) return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!auth && !authToken)
+    return <Navigate to="/login" state={{ from: location }} replace />;
 
   return (
     <>

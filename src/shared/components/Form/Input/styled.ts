@@ -16,16 +16,16 @@ export const StyledInput = styled.input<Props>`
 
   transition: 0.4s;
   outline: none;
-  color: ${(props) => (props.$error ? 'var(--error)' : 'var(--text-color)')};
+  color: ${(props) => (props.$error ? 'var(--error)' : props.theme.text)};
   border: 2px solid
-    ${(props) => (props.$error ? 'var(--error)' : 'var(--border-color)')};
-  background-color: var(--background);
+    ${(props) => (props.$error ? 'var(--error)' : props.theme.border)};
+  background-color: ${({ theme }) => theme.body};
 
   &:hover,
   &:focus {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--purple-500);
-    color: var(--text-color);
+    box-shadow: ${({ theme }) => theme.boxShadow};
+    border: 2px solid ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.text};
   }
 
   &::placeholder {
@@ -33,16 +33,20 @@ export const StyledInput = styled.input<Props>`
   }
 
   &:disabled {
-    border: 2px solid var(--gray-50);
-    background: var(--gray-50);
-    color: var(--gray-500);
+    border: 2px solid ${({ theme }) => theme.border};
+    background: ${({ theme }) => theme.disabledBackground};
+    color: ${({ theme }) => theme.disabledText};
     pointer-events: none;
+
+    &::placeholder {
+      color: ${({ theme }) => theme.disabledText};
+    }
   }
 
   &:-webkit-autofill {
-    background-color: ${(props) => props.theme.secundaryBackground};
-    -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
-    -webkit-text-fill-color: var(--text-color);
+    background-color: ${({ theme }) => theme.accentBackground};
+    -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.body} inset;
+    -webkit-text-fill-color: ${({ theme }) => theme.text};
   }
 `;
 

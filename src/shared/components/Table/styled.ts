@@ -14,11 +14,11 @@ export const TableStyle = styled.table`
 export const TableHead = styled.thead`
   text-align: left;
   font-size: 20px;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   > tr > th {
     padding: 0.4em 0.6em;
-    background: var(--gray-50);
+    background: ${({ theme }) => theme.background};
 
     &:first-child {
       border-radius: 8px 0 0 8px;
@@ -33,7 +33,7 @@ export const TableBody = styled.tbody`
   text-align: left;
   font-size: 16px;
   font-weight: 500;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   > tr {
     transition: transform 600ms ease, box-shadow 200ms ease;

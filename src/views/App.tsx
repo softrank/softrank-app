@@ -79,14 +79,10 @@ export default function App() {
           element={<EvaluatorInstitutionRegister />}
         />
 
-        {/* Protected routes */}
-        <Route element={<RequireAuth />}>
-          <Route path="/modelo" element={<ModelDetails />} />
-          <Route path="/modelo/:id" element={<ModelDetails />} />
-        </Route>
-
         {/* Model Manager routes */}
         <Route element={<RequireAuth allowedRoles={['modelManager']} />}>
+          <Route path="/modelo" element={<ModelDetails />} />
+          <Route path="/modelo/:id" element={<ModelDetails />} />
           <Route path="/modelos" element={<ModelManagment />} />
           <Route path="/avaliacoes" element={<ModelManagerEvaluationList />} />
           <Route path="/avaliadores" element={<EvaluatorManagment />} />

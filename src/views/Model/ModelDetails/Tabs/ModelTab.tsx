@@ -113,6 +113,7 @@ export const ModelTab = ({ model, createOrUpdateModel, loading }: Props) => {
             control={control}
             rules={{ required: true }}
             errors={errors.name}
+            disabled
           />
           <DateInput
             label="Ano"

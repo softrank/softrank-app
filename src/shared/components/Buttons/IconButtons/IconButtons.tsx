@@ -33,7 +33,7 @@ const iconCss = css<Props>`
   display: ${(props) => (props.$disable ? 'none' : 'inline')};
 
   color: var(--gray-500);
-  background: ${(props) => (props.$outline ? 'none' : 'var(--gray-50)')};
+  background: ${(props) => (props.$outline ? 'none' : props.theme.background)};
   border-radius: 8px;
   box-sizing: border-box;
 
@@ -42,8 +42,8 @@ const iconCss = css<Props>`
 
   &:active,
   &:hover {
-    color: var(--purple-500);
-    background: #eceeff;
+    color: ${({ theme }) => theme.accent};
+    background: ${({ theme }) => theme.accentBackground};
   }
 `;
 

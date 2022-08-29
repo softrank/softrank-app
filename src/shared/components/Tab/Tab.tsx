@@ -21,20 +21,19 @@ export const STab = styled(Tab)<TabProps>`
   font-size: var(--font-size-title);
   font-size: 20px;
   font-weight: 500;
-  border-bottom: 2px solid var(--gray-50);
+  border-bottom: 2px solid ${({ theme }) => theme.border};
 
   transition: 0.6s;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   &.react-tabs__tab--selected {
-    background-color: var(--background);
-    border-bottom: 2px solid var(--purple-500);
+    border-bottom: 2px solid ${({ theme }) => theme.accent};
   }
 
   ${(props) =>
     props.disabled &&
     css`
-      color: var(--gray-500);
+      color: ${({ theme }) => theme.disabledText};
       pointer-events: none;
     `}
 

@@ -5,13 +5,18 @@ export const SearchContainer = styled.div`
   width: 100%;
   height: 3rem;
   padding: 0.6em;
-  background: var(--background);
+  background: ${({ theme }) => theme.body};
 
   display: flex;
   align-items: center;
 
   border-radius: var(--radius);
-  border: 2px solid var(--gray-100);
+  border: 2px solid ${({ theme }) => theme.border};
+  transition: all 0.4s ease;
+
+  &:hover {
+    border: 2px solid ${({ theme }) => theme.hoverBorder};
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -20,7 +25,7 @@ export const SearchInput = styled.input`
   padding: 0 1em;
 
   font-size: 18px;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   border: none;
   outline: none;

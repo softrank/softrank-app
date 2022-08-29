@@ -20,7 +20,7 @@ export const ActionCardContainer = styled.div`
     border-radius: var(--radius) 50px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: var(--purple-500);
+    background-color: ${({ theme }) => theme.accent};
     border-radius: var(--radius);
     height: 1px;
   }
@@ -43,7 +43,7 @@ export const HeroTitle = styled.span`
   position: absolute;
   top: 10vh;
   left: 0;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.text};
   font-size: 3rem;
   max-width: 400px;
   padding: 0.2em;

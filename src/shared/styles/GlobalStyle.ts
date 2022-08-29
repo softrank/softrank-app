@@ -4,14 +4,9 @@ export const GlobalStyles = styled.createGlobalStyle`
   :root {
     --radius: 12px;
     --break: 640px;
-    --box-shadow: rgba(10, 10, 11, 0.2) 0px 7px 29px 0px;
 
     /*#region Colors*/
 
-    --background: ${(props) => props.theme.body};
-    --text-color: ${(props) => props.theme.text};
-    --border-color: ${(props) => props.theme.border};
-    --accent: ${(props) => props.theme.accent};
     --green: #52b788;
     --error: #e57373;
     --white: #faf9f6;
@@ -23,6 +18,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     --gray-500: #adb5bd;
     --gray-600: #6c757d;
     --gray-700: #4f505c;
+    --gray-800: #323232;
     --gray-900: #1b1a25;
 
     /* Purples */
@@ -42,7 +38,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: var(---background);
+    background: none;
   }
 
   body {
@@ -55,7 +51,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background: var(--background);
+    background: ${({ theme }) => theme.body};
 
     overflow-x: hidden;
 

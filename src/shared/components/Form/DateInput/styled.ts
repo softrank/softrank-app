@@ -25,13 +25,13 @@ export const SDateInput = styled(DatePicker)<Props>`
     ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
 
   &:hover {
-    box-shadow: var(--box-shadow);
+    box-shadow: ${({ theme }) => theme.boxShadow};
     border: 2px solid var(--purple-500);
     color: black;
   }
 
   &:focus {
-    box-shadow: var(--box-shadow);
+    box-shadow: ${({ theme }) => theme.boxShadow};
     border: 2px solid var(--purple-500);
     color: black;
   }

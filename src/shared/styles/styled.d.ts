@@ -8,6 +8,10 @@ declare module 'styled-components' {
     background: string;
     border: string;
     accent: string;
-    secundaryBackground: string;
+    accentBackground: string;
+    hoverBorder: string;
+    disabledText: string;
+    boxShadow: string;
+    disabledBackground: string;
   }
 }

@@ -21,7 +21,7 @@ const SpinnerContainer = styled.div`
 const SpinnerContent = styled.h3`
   margin-top: 20px;
   font-size: 16px;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 `;
 
 interface Props {

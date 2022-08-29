@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { AddIcon, SearchBox, Title, Wrapper } from 'shared/components';
 import { ModelsList } from 'views';
 import { useNavigate } from 'react-router';

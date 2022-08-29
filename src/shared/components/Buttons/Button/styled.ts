@@ -53,7 +53,7 @@ export const StyledButton = styled.button<Props>`
   ${(props) =>
     props.neutral &&
     css`
-      background: var(--background);
+      background: ${({ theme }) => theme.body};
       color: var(--gray-700);
       border: 2px solid var(--gray-100);
 

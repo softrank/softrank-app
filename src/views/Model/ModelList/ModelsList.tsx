@@ -22,9 +22,7 @@ export const ModelsList = () => {
       });
   }, []);
 
-  const formatDate = (date: any) => {
-    return new Date(date.toString()).getFullYear();
-  };
+  const formatDate = (date: any) => new Date(date.toString()).getFullYear();
 
   return (
     <>

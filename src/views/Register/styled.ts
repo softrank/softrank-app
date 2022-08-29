@@ -18,13 +18,13 @@ export const RegisterItem = styled.a`
 
   font-size: 24px;
   text-align: center;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.text};
 
   outline: none;
   border-radius: var(--radius);
-  border: 2px solid var(--border-color);
+  border: 2px solid ${({ theme }) => theme.border};
 
-  background: var(--background);
+  background: ${({ theme }) => theme.body};
   cursor: pointer;
   transition: all 400ms ease;
 

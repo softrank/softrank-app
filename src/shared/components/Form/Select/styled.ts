@@ -29,14 +29,14 @@ export const CustomSelect = styled(Select)<Props>`
     &:hover {
       border-color: none;
       outline: none;
-      box-shadow: var(--box-shadow);
+      box-shadow: ${({ theme }) => theme.boxShadow};
       border: 2px solid var(--purple-500);
       color: black;
     }
   }
 
   .select__control--is-focused {
-    box-shadow: var(--box-shadow);
+    box-shadow: ${({ theme }) => theme.boxShadow};
     border: 2px solid var(--purple-500);
     color: black;
 
@@ -74,14 +74,14 @@ export const CustomSelect = styled(Select)<Props>`
 
   .select__option--is-focused,
   .select__option--is-selected {
-    color: var(--background);
+    color: ${({ theme }) => theme.body};
     background-color: var(--purple-500);
   }
 
   .select__menu {
     border-radius: var(--radius);
     padding: 0.2em 0.3em;
-    background-color: var(--background);
+    background-color: ${({ theme }) => theme.body};
     border-radius: var(--radius);
     border: 1px solid var(--gray-100);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

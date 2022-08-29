@@ -18,22 +18,17 @@ export const StyledTextArea = styled.textarea<Props>`
 
   transition: 0.4s;
 
-  color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
+  color: ${({ error, theme }) => (error ? 'var(--error)' : theme.text)};
   outline: none;
   border-radius: var(--radius);
   border: 2px solid
-    ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
+    ${({ error, theme }) => (error ? 'var(--error)' : theme.border)};
 
-  &:hover {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--purple-500);
-    color: black;
-  }
-
+  &:hover,
   &:focus {
-    box-shadow: var(--box-shadow);
-    border: 2px solid var(--purple-500);
-    color: black;
+    border: 2px solid ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.text};
+    box-shadow: ${({ theme }) => theme.boxShadow};
   }
 
   &::placeholder {
@@ -45,6 +40,12 @@ export const StyledTextArea = styled.textarea<Props>`
     background: var(--gray-50);
     border: 2px solid var(--gray-50);
     pointer-events: none;
+  }
+
+  &:-webkit-autofill {
+    background-color: ${({ theme }) => theme.accentBackground};
+    -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.body} inset;
+    -webkit-text-fill-color: ${({ theme }) => theme.text};
   }
 
   /* #region Scrollbar  */
