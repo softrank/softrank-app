@@ -14,5 +14,5 @@ export const Divider = styled.hr<Props>`
 
   border-style: none;
   border-radius: 20px;
-  background-color: var(--gray-100);
+  background-color: ${({ theme }) => theme.border}; ;
 `;

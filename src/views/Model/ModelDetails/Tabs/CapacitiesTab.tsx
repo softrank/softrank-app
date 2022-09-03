@@ -229,7 +229,7 @@ export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
                   />
                 </InputGroup>
                 <RemoveCapacityIcon onClick={() => removeOC(index)} />
-                {index !== projectCapacities.length - 1 && <Divider />}
+                {index !== organizationalCapacities.length - 1 && <Divider />}
               </FlexSpace>
             );
           })}
@@ -255,11 +255,12 @@ const RemoveCapacityIcon = styled(HiOutlineTrash)`
   padding: 0.2em;
   margin: auto;
 
-  border: 2px solid var(--gray-100);
+  border: 2px solid ${({ theme }) => theme.disabledText};
   border-radius: 10px;
 
-  background: var(--gray-50);
-  color: var(--gray-500);
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.disabledText};
+
   outline: none;
 
   cursor: pointer;
@@ -267,7 +268,9 @@ const RemoveCapacityIcon = styled(HiOutlineTrash)`
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
-    border: 2px solid var(--gray-400);
+    background-color: ${({ theme }) => theme.accentBackground};
+    border: 2px solid ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.accent};
     transform: translateY(-3px);
   }
 `;

@@ -44,8 +44,9 @@ export const RemoveIcon = styled(HiOutlineTrash)`
     width: 100%;
     height: 2.4em;
     padding: 0.2em;
+    margin-bottom: 1rem;
 
-    border: 2px solid ${({ theme }) => theme.border};
+    border: 2px solid ${({ theme }) => theme.disabledText};
     border-radius: 10px;
 
     background: ${({ theme }) => theme.background};
