@@ -13,9 +13,9 @@ import {
 import { Input, InputGroup, Select } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { finalResultOptions } from 'shared/data/finalResultOptions';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
-import { EvaluationProcess } from 'shared/models/evaluationProcess';
-import { ModelLevel } from 'shared/models/modelLevel';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
+import { EvaluationProcess } from 'shared/Types/evaluationProcess';
+import { ModelLevel } from 'shared/Types/modelLevel';
 import {
   evaluationService,
   evaluatorService,

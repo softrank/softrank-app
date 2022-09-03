@@ -18,10 +18,10 @@ import {
   TextArea,
 } from 'shared/components/Form';
 import { CapacityDto } from 'shared/dtos/capacityDto';
-import { ModelLevel } from 'shared/models/modelLevel';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelLevel } from 'shared/Types/modelLevel';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import { useEffect } from 'react';
-import { Capacity } from 'shared/models/capacity';
+import { Capacity } from 'shared/Types/capacity';
 import { modelsService } from 'shared/services';
 import { useNavigate } from 'react-router';
 

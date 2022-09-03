@@ -1,5 +1,5 @@
 import { EvaluatorInstitutionDto } from 'shared/dtos/evaluatorInstitutionDto';
-import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { EvaluatorInstitution } from 'shared/Types/evaluatorInstitution';
 import { requests } from './api';
 
 const evaluatorInstitutionController: string = '/evaluator-institutions';

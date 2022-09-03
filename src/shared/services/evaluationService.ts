@@ -1,12 +1,12 @@
 import { CapacityResponseDto } from 'shared/dtos/capacitiyResponseDto';
 import { EvalutationDto } from 'shared/dtos/evaluationDto';
-import { Evalutation } from 'shared/models/evaluation';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
-import { EvaluationProcess } from 'shared/models/evaluationProcess';
-import { EvalutionResponse } from 'shared/models/evaluationResponse';
-import { Improvement } from 'shared/models/improvement';
-import { Indicators } from 'shared/models/indicators';
-import { Process } from 'shared/models/process';
+import { Evalutation } from 'shared/Types/evaluation';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
+import { EvaluationProcess } from 'shared/Types/evaluationProcess';
+import { EvalutionResponse } from 'shared/Types/evaluationResponse';
+import { Improvement } from 'shared/Types/improvement';
+import { Indicators } from 'shared/Types/indicators';
+import { Process } from 'shared/Types/process';
 import { requests } from './api';
 
 const evaluationController: string = '/evaluation';

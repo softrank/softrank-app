@@ -30,6 +30,6 @@ export const RegisterItem = styled.a`
 
   &:hover {
     transform: translateY(-3px);
-    color: var(--purple-500);
+    color: ${({ theme }) => theme.accent};
   }
 `;

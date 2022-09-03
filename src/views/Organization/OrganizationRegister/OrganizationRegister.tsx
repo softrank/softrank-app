@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import {
   Title,
@@ -14,15 +15,25 @@ import {
   GroupDivider,
 } from 'shared/components/Collapse/styled';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { OrganizationDto } from 'shared/dtos/organizationalUnitDto';
+import { organizationalUnitService } from 'shared/services';
+import { IOrganizationRegister } from 'shared/Types/organizationRegister';
 import { RemoveIcon } from 'views/Model/ModelDetails/styled';
+
+interface IForm {
+  name: string;
+  email: string;
+  documentNumber: string;
+  phone: string;
+  projects: { name: string }[];
+  password: string;
+}
 
 export const OrganizationRegister = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<OrganizationDto>();
+  } = useForm<IForm>();
 
   const {
     fields: projects,
@@ -33,15 +44,33 @@ export const OrganizationRegister = () => {
     name: 'projects',
   });
 
-  const handleCreateOrganization = (organization: OrganizationDto) => {
-    organization.documentType = 'j';
+  const navigate = useNavigate();
+
+  const getProjectNames = (projects: { name: string }[]) =>
+    projects.map((project) => project.name);
+
+  const assembleOrganization = (
+    organizationData: IForm
+  ): IOrganizationRegister => {
+    return {
+      ...organizationData,
+      documentType: 'j',
+      projects: getProjectNames(organizationData.projects),
+    };
   };
 
+  const handleCreateOrganization = (organizationData: IForm) =>
+    organizationalUnitService
+      .create(assembleOrganization(organizationData))
+      .then(() => navigate('/'));
+
   useEffect(() => {
-    append({});
-  }, [append]);
+    !projects.length && append({});
+    //eslint-disable-next-line
+  }, []);
 
   const onSubmit = handleSubmit((data) => handleCreateOrganization(data));
+
   return (
     <Wrapper>
       <Title>Cadastro organização</Title>
@@ -57,7 +86,7 @@ export const OrganizationRegister = () => {
               rules={{
                 required: true,
                 pattern: {
-                  value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+                  value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
                   message: 'Email inválido.',
                 },
               }}
@@ -66,6 +95,7 @@ export const OrganizationRegister = () => {
             <Input
               name="password"
               label="Senha"
+              type="password"
               placeholder="senha da organização"
               control={control}
               rules={{ required: true }}

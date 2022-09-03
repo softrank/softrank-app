@@ -1,8 +1,8 @@
 import { requests } from './api';
-import { User } from 'shared/models/user';
+import { User } from 'shared/Types/user';
 import { EvaluatorDto } from 'shared/dtos/evaluatorDto';
-import { Evaluator } from 'shared/models/evaluator';
-import { Evalutation } from 'shared/models/evaluation';
+import { Evaluator } from 'shared/Types/evaluator';
+import { Evalutation } from 'shared/Types/evaluation';
 
 const evaluatorController: string = '/evaluators';
 

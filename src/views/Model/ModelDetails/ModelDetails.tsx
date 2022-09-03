@@ -6,7 +6,7 @@ import { LoadingScreen } from 'shared/components/Loading';
 import { ErrorMessage } from 'shared/components/Messages';
 import { STab, STabList, STabPanel, STabs } from 'shared/components/Tab/Tab';
 import { ModelDto } from 'shared/dtos/modelDto';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import { modelsService } from 'shared/services';
 import { ModelTab, LevelsHierarchyTab, ProcessesTab } from './Tabs';
 import { CapacitiesTab } from './Tabs/CapacitiesTab';

@@ -3,7 +3,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { Button } from 'shared/components';
 import { ModelDto } from 'shared/dtos/modelDto';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import { Info, LevelItem, Options } from 'views/Model/ModelDetails/styled';
 
 interface Props {

@@ -103,7 +103,7 @@ export const LinkButton = styled.a<LinkProps>`
   font-size: 16px;
   font-weight: 700;
 
-  color: ${(props) => (props.secondary ? '#9794ff' : 'var(--purple-500)')};
+  color: ${({ secondary, theme }) => (secondary ? '#9794ff' : theme.accent)};
 `;
 
 export const RegisterInfo = styled.span`

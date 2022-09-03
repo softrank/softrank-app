@@ -24,12 +24,12 @@ import {
 } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
 import { EvalutationDto } from 'shared/dtos/evaluationDto';
-import { Auditor } from 'shared/models/auditor';
-import { Evaluator } from 'shared/models/evaluator';
-import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
-import { ModelEntity } from 'shared/models/modelEntity';
-import { ModelLevel } from 'shared/models/modelLevel';
-import { Organization } from 'shared/models/organization';
+import { Auditor } from 'shared/Types/auditor';
+import { Evaluator } from 'shared/Types/evaluator';
+import { EvaluatorInstitution } from 'shared/Types/evaluatorInstitution';
+import { ModelEntity } from 'shared/Types/modelEntity';
+import { ModelLevel } from 'shared/Types/modelLevel';
+import { Organization } from 'shared/Types/organization';
 import {
   auditorService,
   evaluationService,

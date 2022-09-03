@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import { ReadOnly } from 'shared/components';
 import { Form, InputGroup, Radio, RadioGroup } from 'shared/components/Form';
-import { Project } from 'shared/models/project';
+import { Project } from 'shared/Types/project';
 import { evaluationIndicatorService } from 'shared/services/evaluationIndicatorService';
 
 interface Props {

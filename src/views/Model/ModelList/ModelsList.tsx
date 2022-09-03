@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { EditIcon, Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import { modelsService } from 'shared/services';
 
 export const ModelsList = () => {

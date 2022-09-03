@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { FlexSpace, ReadOnly, Options, Button, Modal } from 'shared/components';
 import { Form, InputGroup, TextArea } from 'shared/components/Form';
-import { Improvement } from 'shared/models/improvement';
+import { Improvement } from 'shared/Types/improvement';
 import { improvementsService } from 'shared/services/improvementsService';
 
 interface Props {

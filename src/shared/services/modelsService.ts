@@ -1,5 +1,5 @@
 import { ModelDto } from 'shared/dtos/modelDto';
-import { ModelEntity } from '../models/modelEntity';
+import { ModelEntity } from '../Types/modelEntity';
 import { requests } from './api';
 
 const modelsController: string = '/models';

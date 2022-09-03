@@ -13,7 +13,8 @@ const SpinnerContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  background: ${({ theme }) => theme.blurredBackgroung};
+  background: ${({ theme }) => theme.blurBackground};
+
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 `;

@@ -8,7 +8,7 @@ import { LoadingSpinner } from 'shared/components/Loading';
 import { evaluationService } from 'shared/services';
 import { ActionCardContainer, Hero, HeroImage, HeroTitle } from './styled';
 import organization from 'shared/assets/images/organization.svg';
-import { EvalutionResponse } from 'shared/models/evaluationResponse';
+import { EvalutionResponse } from 'shared/Types/evaluationResponse';
 import { ModelsList } from 'views/Model';
 
 export const HomePage = () => {

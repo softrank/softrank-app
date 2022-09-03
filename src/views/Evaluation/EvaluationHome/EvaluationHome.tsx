@@ -18,13 +18,13 @@ import { evaluationService, evaluatorService } from 'shared/services';
 import { OptionsContainer, TitleContainer } from './styled';
 import checking from 'shared/assets/images/checking.svg';
 import { ActionCardImage } from 'shared/components/ActionCardImage/ActionCardImage';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
 import { RootState } from 'shared/store';
 import { EvaluationPlanUpload } from './FileForms/EvaluationPlanUpload';
 import { FileDisplay } from 'shared/components/FileDisplay/FileDisplay';
 import { InterviewUpload } from './FileForms/InterviewUpload';
 import { NextStepConfimationModal } from './FileForms/NextStepConfimationModal';
-import { Process } from 'shared/models/process';
+import { Process } from 'shared/Types/process';
 
 export const EvaluationHome = () => {
   const [evaluation, setEvaluation] = useState<EvaluationDetails>();

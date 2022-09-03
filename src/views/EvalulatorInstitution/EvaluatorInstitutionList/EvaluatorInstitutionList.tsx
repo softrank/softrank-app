@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { EvaluatorInstitution } from 'shared/Types/evaluatorInstitution';
 import { evaluatorInstitutionService } from 'shared/services/evaluatorInstitutionService';
 
 export const EvaluatorInstitutionList = () => {

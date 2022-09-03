@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { Wrapper, Title, AddIcon, SearchBox, Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { Evaluator } from 'shared/models/evaluator';
+import { Evaluator } from 'shared/Types/evaluator';
 import { evaluatorService } from 'shared/services';
 import { LongTableLine } from 'views/ImprovementsReport/styled';
 import { TableOptions } from './styled';

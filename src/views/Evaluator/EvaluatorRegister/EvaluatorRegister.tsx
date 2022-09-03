@@ -25,9 +25,9 @@ import {
   CollapseContent,
   GroupDivider,
 } from 'shared/components/Collapse/styled';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import { LoadingScreen } from 'shared/components/Loading';
-import { EvaluatorInstitution } from 'shared/models/evaluatorInstitution';
+import { EvaluatorInstitution } from 'shared/Types/evaluatorInstitution';
 import { RemoveIconButton } from './styled';
 import { EvaluatorDto, LicenseDto } from 'shared/dtos/evaluatorDto';
 import { EvaluatorFormValues } from './evaluatorFormValues';

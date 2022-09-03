@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from 'shared/models/user';
+import { User } from 'shared/Types/user';
 
 interface AuthState {
   isAuthenticated: boolean;

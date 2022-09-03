@@ -1,7 +1,7 @@
-import { Capacity } from 'shared/models/capacity';
-import { ModelEntity } from 'shared/models/modelEntity';
-import { Process } from 'shared/models/process';
-import { ModelLevel } from '../models/modelLevel';
+import { Capacity } from 'shared/Types/capacity';
+import { ModelEntity } from 'shared/Types/modelEntity';
+import { Process } from 'shared/Types/process';
+import { ModelLevel } from '../Types/modelLevel';
 
 const LevelOptions: ModelLevel[] = [
   {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { ExitIcon, Table } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { Evalutation } from 'shared/models/evaluation';
+import { Evalutation } from 'shared/Types/evaluation';
 import { evaluatorService } from 'shared/services';
 
 export const EvaluationList = () => {

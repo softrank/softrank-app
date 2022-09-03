@@ -14,7 +14,7 @@ import {
 } from 'shared/components';
 import { InputGroup } from 'shared/components/Form';
 import { LoadingScreen } from 'shared/components/Loading';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
 import { evaluationService } from 'shared/services';
 import { TargetClassification } from 'views/Evaluation/Classification/TargetClassification';
 import { EvidenceStatusForm } from 'views/Evaluation/EvidenceStatus/EvidenceStatusForm';

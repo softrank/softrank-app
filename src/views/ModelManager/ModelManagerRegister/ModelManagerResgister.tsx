@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { Title, Button, FlexSpace, Wrapper } from 'shared/components';
 import { Form, InputGroup, Input } from 'shared/components/Form';
-import { ModelManager } from 'shared/models/modelManager';
+import { ModelManager } from 'shared/Types/modelManager';
 
 export const ModelManagerRegister = () => {
   const {

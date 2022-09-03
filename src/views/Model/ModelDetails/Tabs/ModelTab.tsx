@@ -12,13 +12,13 @@ import {
 } from 'shared/components/Form';
 import { RemoveIcon, Options } from 'views/Model/ModelDetails/styled';
 import { ModelDto } from 'shared/dtos/modelDto';
-import { ModelEntity } from 'shared/models/modelEntity';
+import { ModelEntity } from 'shared/Types/modelEntity';
 import {
   CollapseContent,
   GroupDivider,
 } from 'shared/components/Collapse/styled';
 import { ModelLevelDto } from 'shared/dtos/modelLevelDto';
-import { ModelLevel } from 'shared/models/modelLevel';
+import { ModelLevel } from 'shared/Types/modelLevel';
 
 interface Props {
   model: ModelEntity;

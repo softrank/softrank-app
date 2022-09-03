@@ -14,8 +14,8 @@ import { ImprovementDto } from 'shared/dtos/improvementDto';
 import {
   EvaluationExpectedResult,
   EvaluationProcess,
-} from 'shared/models/evaluationProcess';
-import { Improvement } from 'shared/models/improvement';
+} from 'shared/Types/evaluationProcess';
+import { Improvement } from 'shared/Types/improvement';
 import { evaluationService } from 'shared/services';
 import { improvementsService } from 'shared/services/improvementsService';
 import { IImprovementForm } from './IImprovementForm';

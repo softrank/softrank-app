@@ -1,5 +1,5 @@
 import { IndicatorDto } from 'shared/dtos/indicatorDto';
-import { Indicator } from 'shared/models/indicator';
+import { Indicator } from 'shared/Types/indicator';
 import { requests } from './api';
 
 const indicatorsController: string = '/indicator';

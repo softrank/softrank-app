@@ -8,7 +8,7 @@ import {
   ReadOnly,
 } from 'shared/components';
 import { InputGroup } from 'shared/components/Form';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
 import { evaluationService } from 'shared/services';
 import { FileDisplay } from 'shared/components/FileDisplay/FileDisplay';
 

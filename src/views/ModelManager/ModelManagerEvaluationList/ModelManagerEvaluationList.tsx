@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Modal, Table, Title, ViewIcon, Wrapper } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { Evalutation } from 'shared/models/evaluation';
+import { Evalutation } from 'shared/Types/evaluation';
 import { evaluationService } from 'shared/services';
 import { EvaluationApprovalDetails } from './EvaluationApprovalDetails';
 

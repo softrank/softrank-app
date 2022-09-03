@@ -17,7 +17,7 @@ import {
 } from 'shared/components';
 import { EvidenceDetails } from './EvidenceDetails/EvidenceDetails';
 import { InputGroup } from 'shared/components/Form';
-import { EvaluationProcess } from 'shared/models/evaluationProcess';
+import { EvaluationProcess } from 'shared/Types/evaluationProcess';
 import { evaluationService } from 'shared/services';
 import { LoadingScreen } from 'shared/components/Loading';
 import { Title3 } from 'shared/components/Titles/Title3';

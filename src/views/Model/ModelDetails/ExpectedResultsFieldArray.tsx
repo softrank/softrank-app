@@ -2,8 +2,8 @@ import { useFieldArray } from 'react-hook-form';
 
 import { Collapse } from 'shared/components';
 import { Input, InputGroup, Select, TextArea } from 'shared/components/Form';
-import { ExpectedResult } from 'shared/models/expectedResult';
-import { ModelLevel } from 'shared/models/modelLevel';
+import { ExpectedResult } from 'shared/Types/expectedResult';
+import { ModelLevel } from 'shared/Types/modelLevel';
 import { AddIcon, RemoveIcon } from './styled';
 import { IProcessForm } from './Tabs/ProcessTab/IProcessForm';
 

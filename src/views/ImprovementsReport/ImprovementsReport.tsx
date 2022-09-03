@@ -14,8 +14,8 @@ import {
   Wrapper,
 } from 'shared/components';
 import { LoadingScreen } from 'shared/components/Loading';
-import { EvaluationDetails } from 'shared/models/evaluationDetails';
-import { Improvement } from 'shared/models/improvement';
+import { EvaluationDetails } from 'shared/Types/evaluationDetails';
+import { Improvement } from 'shared/Types/improvement';
 import { evaluationService } from 'shared/services';
 import { RootState } from 'shared/store';
 import { ImprovementDetails } from './ImprovementDetails';

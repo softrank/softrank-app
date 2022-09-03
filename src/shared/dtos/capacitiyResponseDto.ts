@@ -1,4 +1,4 @@
-import { Indicator } from 'shared/models/indicator';
+import { Indicator } from 'shared/Types/indicator';
 
 export interface CapacityResponseDto {
   id: string;

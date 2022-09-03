@@ -1,5 +1,5 @@
 import { AuditorDto } from 'shared/dtos/auditorDto';
-import { Auditor } from 'shared/models/auditor';
+import { Auditor } from 'shared/Types/auditor';
 import { requests } from './api';
 
 const auditorsController: string = '/auditors';

@@ -10,7 +10,7 @@ export const lightTheme = {
   accentBackground: 'var(--purple-50)',
   hoverBorder: 'var(--gray-400)',
   boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-  blurredBackgroung: 'rgba(255, 255, 255, 0.25)',
+  blurBackground: 'rgba(255, 255, 255, 0.25)',
 };
 
 export const darkTheme = {
@@ -25,5 +25,5 @@ export const darkTheme = {
   accentBackground: 'rgba(98, 92, 255, 0.1)',
   hoverBorder: 'var(--gray-700)',
   boxShadow: 'rgba(10, 10, 11, 0.2) 0px 7px 29px 0px',
-  blurredBackgroung: 'rgba(10, 10, 10, 0.8)',
+  blurBackground: 'rgba(10, 10, 10, 0.8)',
 };
