@@ -5,13 +5,14 @@ import { Input, InputGroup, Select, TextArea } from 'shared/components/Form';
 import { ExpectedResult } from 'shared/models/expectedResult';
 import { ModelLevel } from 'shared/models/modelLevel';
 import { AddIcon, RemoveIcon } from './styled';
+import { IProcessForm } from './Tabs/ProcessTab/IProcessForm';
 
 interface Props {
   processIndex: number;
   control: any;
   errors: any;
   levels: ModelLevel[];
-  watch: any;
+  watch: IProcessForm[];
 }
 
 export const ExpectedResultsFieldArray = ({

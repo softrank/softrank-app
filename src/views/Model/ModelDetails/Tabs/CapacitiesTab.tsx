@@ -32,9 +32,17 @@ interface Props {
 }
 
 interface IForm {
-  projectCapacities: CapacityDto[];
-  organizationalCapacities: CapacityDto[];
+  projectCapacities: FormCapacity[];
+  organizationalCapacities: FormCapacity[];
 }
+
+type FormCapacity = {
+  id?: string;
+  name: string;
+  type: 'O' | 'P';
+  maxLevel: { label: string; value: string };
+  minLevel: { label: string; value: string };
+};
 
 export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
   const {
@@ -65,7 +73,7 @@ export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const capacitiesDtos: CapacityDto[] = convertToFormFormat(
+    const capacitiesDtos: FormCapacity[] = convertToFormFormat(
       model.modelCapacities
     );
     const capacitiesP = capacitiesDtos.filter(
@@ -83,12 +91,18 @@ export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
 
   const convertToFormFormat = (capacities: Capacity[]) => {
     return capacities.map((cp) => {
-      const dto: CapacityDto = {
+      const dto: FormCapacity = {
         id: cp.id,
         name: cp.name,
         type: cp.type,
-        maxLevel: cp.maxLevel.initial,
-        minLevel: cp.minLevel.initial,
+        maxLevel: {
+          label: cp.maxLevel.toString(),
+          value: cp.maxLevel.toString(),
+        },
+        minLevel: {
+          label: cp.minLevel.toString(),
+          value: cp.minLevel.toString(),
+        },
       };
       return dto;
     });
@@ -106,7 +120,7 @@ export const CapacitiesTab = ({ levels, setTabIndex, model }: Props) => {
     if (type === 'O') appendOC(capacity);
   };
 
-  const formatCapacities = (capacities: CapacityDto[]) => {
+  const formatCapacities = (capacities: FormCapacity[]) => {
     return capacities.map((capacity) => {
       const formatedCapacity: CapacityDto = {
         type: capacity.type,

@@ -13,5 +13,6 @@ declare module 'styled-components' {
     disabledText: string;
     boxShadow: string;
     disabledBackground: string;
+    blurredBackgroung: string;
   }
 }

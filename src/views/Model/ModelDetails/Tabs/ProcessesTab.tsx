@@ -17,6 +17,7 @@ import { ModelEntity } from 'shared/models/modelEntity';
 import { Process } from 'shared/models/process';
 import { ExpectedResultsFieldArray } from 'views/Model/ModelDetails/ExpectedResultsFieldArray';
 import { Options, RemoveIcon } from 'views/Model/ModelDetails/styled';
+import { IProcessForm } from './ProcessTab/IProcessForm';
 
 interface Props {
   setTabIndex: Dispatch<SetStateAction<number>>;
@@ -36,7 +37,7 @@ export const ProcessesTab = ({
     reset,
     watch,
     formState: { errors },
-  } = useForm<{ modelProcesses: Process[] }>();
+  } = useForm<{ modelProcesses: IProcessForm[] }>();
 
   const {
     fields: modelProcesses,
@@ -66,7 +67,7 @@ export const ProcessesTab = ({
         initial: process.initial,
         description: process.description,
         expectedResults: formatedExpectedResults,
-        type: (process.type = (process.type as any).value),
+        type: process.type,
       };
 
       if (process.id) processDto.id = process.id;
@@ -87,15 +88,42 @@ export const ProcessesTab = ({
   };
 
   const onSubmit = handleSubmit(
-    async (data) => await submitProcesses(data.modelProcesses)
+    async (data) =>
+      await submitProcesses(handleFormToProcess(data.modelProcesses))
   );
+
+  const handleProcessToForm = (processes: Process[]): IProcessForm[] => {
+    const convertedProcesses: IProcessForm[] = processes.map((process) => {
+      return {
+        ...process,
+        type: { label: process.type, value: process.type },
+      };
+    });
+
+    return convertedProcesses;
+  };
+
+  const handleFormToProcess = (processes: IProcessForm[]) => {
+    return processes.map((process) => {
+      const processForm: Process = {
+        id: process.id!,
+        name: process.name,
+        initial: process.initial,
+        description: process.description,
+        type: process.type.value,
+        expectedResults: process.expectedResults,
+      };
+
+      return processForm;
+    });
+  };
 
   useEffect(() => {
     reset({
       modelProcesses:
-        model.modelProcesses && model.modelProcesses.length > 0
-          ? model.modelProcesses
-          : [new Process()],
+        model.modelProcesses && model.modelProcesses.length
+          ? handleProcessToForm(model.modelProcesses)
+          : handleProcessToForm([new Process()]),
     });
   }, [model, reset]);
 
@@ -106,7 +134,7 @@ export const ProcessesTab = ({
       <FlexSpace>
         <AddIcon
           onClick={() => {
-            append(new Process());
+            append({});
           }}
         />
         {modelProcesses.map((process, index) => {
