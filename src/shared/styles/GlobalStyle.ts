@@ -62,7 +62,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     .react-datepicker__input-container {
       > input::placeholder {
-        color: var(--gray-500);
+        color: ${({ theme }) => theme.accent};
         font-size: 16px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
       }
@@ -73,33 +73,50 @@ export const GlobalStyles = styled.createGlobalStyle`
       border-radius: var(--radius);
       box-sizing: border-box;
       outline: none;
-      border: 2px solid var(--gray-100);
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border: 2px solid ${({ theme }) => theme.border};
+      box-shadow: ${({ theme }) => theme.boxShadow};
+      background-color: ${({ theme }) => theme.background};
+      color: ${({ theme }) => theme.text};
     }
+
     .react-datepicker__triangle {
       display: none;
     }
+
     .react-datepicker__header {
-      color: black;
+      color: ${({ theme }) => theme.text};
       border-radius: 10px 10px 0 0 !important;
-      background: var(--gray-50);
-      border-bottom: 2px solid var(--gray-100);
+      background: ${({ theme }) => theme.background};
+      border-bottom: 2px solid ${({ theme }) => theme.border};
     }
+
     .react-datepicker__navigation-icon::before {
-      border-color: var(--gray-500) !important;
+      border-color: ${({ theme }) => theme.accent} !important;
     }
+
+    .react-datepicker__year-text,
+    .react-datepicker__year-text--keyboard {
+      &:hover {
+        background: none;
+        color: ${({ theme }) => theme.accent};
+      }
+    }
+
+    react-datepicker__year,
     .react-datepicker__day--selected,
     .react-datepicker__day--keyboard-selected,
     .react-datepicker__month-text--keyboard-selected,
     .react-datepicker__year-text--selected,
     .react-datepicker__year-text--keyboard-selected {
-      background: var(--purple-500);
+      background: ${({ theme }) => theme.accentBackground};
+      color: ${({ theme }) => theme.accent};
+      font-weight: 700;
       &:hover {
-        background: var(--purple-300);
-        color: var(--purple-500);
-        font-weight: 700;
+        background: ${({ theme }) => theme.accentBackground};
+        color: ${({ theme }) => theme.text};
       }
     }
+
     /*#endregion DatePicker*/
   }
 `;

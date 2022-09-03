@@ -20,20 +20,15 @@ export const SDateInput = styled(DatePicker)<Props>`
 
   transition: 0.4s;
   outline: none;
-  color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
+  color: ${({ error, theme: { text } }) => (error ? 'var(--error)' : text)};
   border: 2px solid
-    ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
+    ${({ error, theme }) => (error ? 'var(--error)' : theme.border)};
 
-  &:hover {
-    box-shadow: ${({ theme }) => theme.boxShadow};
-    border: 2px solid var(--purple-500);
-    color: black;
-  }
-
+  &:hover,
   &:focus {
     box-shadow: ${({ theme }) => theme.boxShadow};
-    border: 2px solid var(--purple-500);
-    color: black;
+    border: 2px solid ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.text};
   }
 
   .react-datepicker__input-container {

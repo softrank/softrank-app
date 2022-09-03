@@ -23,23 +23,25 @@ export const TextArea = (props: Props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Label>{label}</Label>
-      <Controller
-        name={name}
-        control={control}
-        rules={rules}
-        render={({ field: { onChange, value } }) => (
-          <>
-            <StyledTextArea
-              value={value}
-              placeholder={placeholder}
-              error={!!errors}
-              onChange={(e) => onChange((value = e.target.value))}
-            />
-            {errors && <ErrorsNote error={errors} />}
-          </>
-        )}
-      />
+      <Label>
+        {label}
+        <Controller
+          name={name}
+          control={control}
+          rules={rules}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledTextArea
+                value={value}
+                placeholder={placeholder}
+                error={!!errors}
+                onChange={(e) => onChange((value = e.target.value))}
+              />
+              {errors && <ErrorsNote error={errors} />}
+            </>
+          )}
+        />
+      </Label>
     </div>
   );
 };

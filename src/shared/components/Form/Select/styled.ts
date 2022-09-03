@@ -8,6 +8,10 @@ interface Props {
 export const CustomSelect = styled(Select)<Props>`
   --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
+  .select__single-value {
+    color: ${({ error, theme }) => (error ? 'var(--error)' : theme.text)};
+  }
+
   .select__control {
     height: 3.2rem;
     margin-top: 0.4em;
@@ -18,38 +22,50 @@ export const CustomSelect = styled(Select)<Props>`
 
     transition: 0.4s;
     outline: none;
-    color: ${(props) => (props.error ? 'var(--error)' : 'var(--gray-700)')};
+    background: ${({ theme }) => theme.body};
     border: 2px solid
-      ${(props) => (props.error ? 'var(--error)' : 'var(--gray-100)')};
+      ${({ error, theme }) => (error ? 'var(--error)' : theme.border)};
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    .select__dropdown-indicator,
+    .select__clear-indicator {
+      color: ${({ theme }) => theme.border};
+    }
+
     &:hover {
       border-color: none;
       outline: none;
       box-shadow: ${({ theme }) => theme.boxShadow};
-      border: 2px solid var(--purple-500);
-      color: black;
+      border: 2px solid ${({ theme }) => theme.accent};
+
+      .select__dropdown-indicator,
+      .select__clear-indicator {
+        color: ${({ theme }) => theme.accent};
+      }
     }
   }
 
   .select__control--is-focused {
     box-shadow: ${({ theme }) => theme.boxShadow};
-    border: 2px solid var(--purple-500);
-    color: black;
+    border: 2px solid ${({ theme }) => theme.accent};
 
     .select__dropdown-indicator {
-      color: var(--purple-500);
+      color: ${({ theme }) => theme.accent};
     }
   }
 
   .select__control--is-disabled {
-    color: var(--gray-500);
-    background: var(--gray-50);
-    border: 2px solid var(--gray-50);
+    border: 2px solid ${({ theme }) => theme.border};
+    background: ${({ theme }) => theme.disabledBackground};
+
     pointer-events: none;
+
+    .select__single-value {
+      color: ${({ theme }) => theme.disabledText};
+    }
   }
 
   .select__indicator-separator {
@@ -62,20 +78,21 @@ export const CustomSelect = styled(Select)<Props>`
     text-decoration: none;
 
     border-radius: var(--radius);
-    color: var(--gray-700);
+    color: ${({ theme }) => theme.text};
     list-style-type: none;
-    transition: 0.2s;
-  }
-
-  .select__option:hover {
-    color: var(--gray-700);
-    background-color: var(--gray-100);
+    transition: all 0.3s ease;
   }
 
   .select__option--is-focused,
+  .select__option:hover {
+    color: ${({ theme }) => theme.accent};
+    background-color: ${({ theme }) => theme.accentBackground};
+  }
+
   .select__option--is-selected {
-    color: ${({ theme }) => theme.body};
-    background-color: var(--purple-500);
+    color: ${({ theme }) => theme.accent};
+    border: 2px solid ${({ theme }) => theme.accent};
+    background-color: ${({ theme }) => theme.body};
   }
 
   .select__menu {
@@ -83,14 +100,21 @@ export const CustomSelect = styled(Select)<Props>`
     padding: 0.2em 0.3em;
     background-color: ${({ theme }) => theme.body};
     border-radius: var(--radius);
-    border: 1px solid var(--gray-100);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 2px solid ${({ theme }) => theme.border};
+    box-shadow: ${({ theme }) => theme.boxShadow};
   }
 
   .select__multi-value {
-    background: var(--purple-300);
+    background: ${({ theme }) => theme.accentBackground};
     border-radius: 2px;
-    color: var(--purple-500);
+  }
+
+  .select__multi-value__label {
+    color: ${({ theme }) => theme.accent};
+  }
+
+  .select__multi-value__remove {
+    color: ${({ theme }) => theme.accent};
   }
 
   .select__placeholder {

@@ -13,14 +13,7 @@ export const CollapseContainer = styled.div<Props>`
 
   outline: none;
   border-radius: var(--radius);
-  border: 2px solid var(--gray-100);
-
-  &:disabled {
-    color: var(--gray-500);
-    background: var(--gray-50);
-    border: 2px solid var(--gray-50);
-    pointer-events: none;
-  }
+  border: 2px solid ${({ theme }) => theme.border};
 
   ${(props) =>
     props.underline &&
@@ -39,14 +32,14 @@ export const CollapseHead = styled.div<Props>`
     props.underline &&
     css`
       padding-bottom: 0.6em;
-      border-bottom: 2px solid var(--gray-100);
+      border-bottom: 2px solid ${({ theme }) => theme.border};
     `}
 `;
 
 export const CollapseTitle = styled.h1`
   font-size: 20px;
   font-weight: 500;
-  color: var(--purple-500);
+  color: ${({ theme }) => theme.accent};
 
   &:hover {
     cursor: pointer;
@@ -76,12 +69,13 @@ const iconCss = css`
   display: block;
 
   cursor: pointer;
-  color: var(--gray-500);
+  color: ${({ theme }) => theme.border};
 
   transition: all 0.5s;
 
-  &:active {
-    color: var(--purple-500);
+  &:active,
+  &:hover {
+    color: ${({ theme }) => theme.accent};
   }
 `;
 
@@ -101,7 +95,7 @@ export const ToggleCollapseIcon = styled(IoIosArrowDown)<IconProps>`
 
 export const NoContent = styled.div`
   text-align: center;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
   padding-bottom: 0.8em;
 `;
 
@@ -113,7 +107,7 @@ export const CollapseDivider = styled.hr`
 
   border-style: none;
   border-radius: 20px;
-  background-color: var(--gray-100);
+  background-color: ${({ theme }) => theme.border};
 `;
 
 export const GroupDivider = styled.hr`
@@ -124,7 +118,7 @@ export const GroupDivider = styled.hr`
 
   border-style: none;
   border-radius: 20px;
-  background-color: var(--gray-100);
+  background-color: ${({ theme }) => theme.border};
 `;
 
 export const CollapseContent = styled.div`

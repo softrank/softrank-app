@@ -19,12 +19,13 @@ const iconCss = css`
   display: block;
 
   cursor: pointer;
-  color: var(--gray-500);
+  color: ${({ theme }) => theme.disabledText};
 
   transition: all 0.5s;
 
-  &:active {
-    color: var(--purple-500);
+  &:active,
+  &:hover {
+    color: ${({ theme }) => theme.accent};
   }
 `;
 
@@ -44,27 +45,21 @@ export const RemoveIcon = styled(HiOutlineTrash)`
     height: 2.4em;
     padding: 0.2em;
 
-    border: 2px solid var(--gray-100);
+    border: 2px solid ${({ theme }) => theme.border};
     border-radius: 10px;
 
-    background: var(--gray-50);
-    color: var(--gray-500);
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.disabledText};
     outline: none;
 
     transition: all 600ms ease;
 
     &:hover {
       box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
-      background-color: white;
-      border: 2px solid var(--purple-500);
-      color: var(--purple-500);
+      background-color: ${({ theme }) => theme.accentBackground};
+      border: 2px solid ${({ theme }) => theme.accent};
+      color: ${({ theme }) => theme.accent};
       transform: translateY(-3px);
-    }
-
-    &:active {
-      background-color: var(--purple-300);
-      border: 2px solid var(--purple-500);
-      color: var(--purple-500);
     }
   }
 `;
@@ -78,9 +73,17 @@ export const LevelItem = styled.div`
 
   outline: none;
   border-radius: var(--radius);
-  border: 2px solid var(--gray-100);
+  border: 2px solid ${({ theme }) => theme.border};
+  color: ${({ theme }) => theme.text};
 
   background: ${({ theme }) => theme.body};
+
+  transition: all 400ms ease;
+
+  &:hover,
+  &:active {
+    border: 2px solid ${({ theme }) => theme.accent};
+  }
 `;
 
 export const Info = styled.div`
@@ -88,4 +91,5 @@ export const Info = styled.div`
   font-weight: 500;
   padding: 0 0.2rem;
   margin-bottom: 1.4rem;
+  color: ${({ theme }) => theme.text};
 `;
