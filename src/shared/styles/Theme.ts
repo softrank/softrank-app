@@ -25,5 +25,5 @@ export const darkTheme = {
   accentBackground: 'rgba(98, 92, 255, 0.1)',
   hoverBorder: 'var(--gray-700)',
   boxShadow: 'rgba(10, 10, 11, 0.2) 0px 7px 29px 0px',
-  blurredBackgroung: 'rgba(10, 10, 10, 0.25)',
+  blurredBackgroung: 'rgba(10, 10, 10, 0.8)',
 };
