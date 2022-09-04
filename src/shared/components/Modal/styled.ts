@@ -25,8 +25,8 @@ export const ModalBackground = styled.div`
 
 export const ModalWrapper = styled(motion.div)<Props>`
   position: relative;
-  min-width: ${(props) => (props.width ? props.width : '800px')};
-  max-height: ${(props) => (props.height ? props.height : '90vh')};
+  min-width: ${({ width }) => (width ? width : '800px')};
+  max-height: ${({ height }) => (height ? height : '90vh')};
   padding: 1em;
   margin: 1em;
 
@@ -36,10 +36,32 @@ export const ModalWrapper = styled(motion.div)<Props>`
 
   max-height: 90vh;
 
-  background: #fff;
-  color: #000;
+  background: ${({ theme }) => theme.body};
+  border: 2px solid ${({ theme }) => theme.border};
+  color: ${({ theme }) => theme.text};
   border-radius: var(--radius);
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  /* 
+  &::-webkit-scrollbar {
+    display: none;
+  } */
+
+  /* #region Scrollbar  */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    margin: 40px;
+    height: 40px;
+
+    background: ${({ theme }) => theme.accentBackground};
+    border-radius: var(--radius);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.accent};
+    border-radius: var(--radius);
+  }
+  /* #endregion Scrollbar  */
 
   @media (max-width: 420px) {
     width: 90%;
@@ -57,7 +79,7 @@ export const CloseModalButton = styled(IoIosClose)`
   z-index: 10;
 
   cursor: pointer;
-  color: var(--purple-500);
+  color: ${({ theme }) => theme.accent}; ;
 `;
 
 export const ModalBody = styled.div`
@@ -81,7 +103,7 @@ export const ModalTitle = styled.div`
   flex-direction: column;
   align-items: center;
 
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   @media (max-width: 460px) {
     font-size: 28px;

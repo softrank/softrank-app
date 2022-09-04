@@ -38,7 +38,7 @@ export const AuditorRegister = () => {
               rules={{
                 required: true,
                 pattern: {
-                  value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+                  value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i,
                   message: 'Email inválido.',
                 },
               }}
@@ -48,6 +48,7 @@ export const AuditorRegister = () => {
               name="password"
               label="Senha"
               placeholder="senha do auditor"
+              type="password"
               control={control}
               rules={{ required: true }}
               errors={errors?.password}

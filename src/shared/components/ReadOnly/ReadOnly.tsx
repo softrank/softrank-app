@@ -12,8 +12,10 @@ export const ReadOnly = (props: Props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Label>{label}</Label>
-      <ReadOnlyContent>{value}</ReadOnlyContent>
+      <Label>
+        {label}
+        <ReadOnlyContent>{value}</ReadOnlyContent>
+      </Label>
     </div>
   );
 };

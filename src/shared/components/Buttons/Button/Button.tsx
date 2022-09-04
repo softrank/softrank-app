@@ -9,7 +9,7 @@ interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined;
   disabled?: boolean;
   secondary?: boolean;
-  neutral?: boolean;
+  outline?: boolean;
 }
 
 export const Button = (props: Props) => {
@@ -21,7 +21,7 @@ export const Button = (props: Props) => {
     width,
     disabled,
     secondary,
-    neutral,
+    outline,
   } = props;
 
   return (
@@ -31,7 +31,7 @@ export const Button = (props: Props) => {
       width={width}
       disabled={disabled}
       secondary={secondary}
-      neutral={neutral}
+      outline={outline}
     >
       {loading ? (
         <LoadingHorizontal

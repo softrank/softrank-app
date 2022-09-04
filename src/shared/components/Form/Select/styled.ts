@@ -118,6 +118,6 @@ export const CustomSelect = styled(Select)<Props>`
   }
 
   .select__placeholder {
-    color: var(--gray-500);
+    color: ${({ error }) => (error ? 'var(--error)' : 'var(--gray-500)')};
   }
 `;

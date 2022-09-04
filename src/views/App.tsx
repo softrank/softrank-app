@@ -84,12 +84,12 @@ export default function App() {
           <Route path="/modelo" element={<ModelDetails />} />
           <Route path="/modelo/:id" element={<ModelDetails />} />
           <Route path="/modelos" element={<ModelManagment />} />
-          <Route path="/avaliacoes" element={<ModelManagerEvaluationList />} />
           <Route path="/avaliadores" element={<EvaluatorManagment />} />
           <Route
             path="/instituicoesAvaliadoras"
             element={<EvaluatorInstitutionManagment />}
           />
+          <Route path="/avaliacoes" element={<ModelManagerEvaluationList />} />
         </Route>
 
         {/* Evaluator and Organizational Unit routes */}

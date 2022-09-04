@@ -7,5 +7,5 @@ export const ReadOnlyContent = styled.div`
   margin-top: 0.4em;
 
   font-size: 20px;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 `;

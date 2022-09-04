@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 interface Props {
   width?: string;
   secondary?: boolean;
-  neutral?: boolean;
+  outline?: boolean;
 }
 
 export const StyledButton = styled.button<Props>`
@@ -15,8 +15,8 @@ export const StyledButton = styled.button<Props>`
   text-decoration: none;
   color: var(--white);
 
-  background: var(--purple-500);
-  border: 2px solid var(--purple-500);
+  background: ${({ theme }) => theme.accent};
+  border: 2px solid ${({ theme }) => theme.accent};
   border-radius: 10px;
   outline: none;
 
@@ -25,7 +25,7 @@ export const StyledButton = styled.button<Props>`
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgb(39 17 45 / 10%);
-    border: 2px solid var(--purple-500);
+    border: 2px solid ${({ theme }) => theme.accent};
     transform: translateY(-3px);
   }
 
@@ -36,38 +36,33 @@ export const StyledButton = styled.button<Props>`
   }
 
   &:disabled {
-    color: var(--gray-500);
-    background: var(--gray-100);
-    border: 2px solid var(--gray-100);
+    color: ${({ theme }) => theme.disabledText};
+    background: ${({ theme }) => theme.body};
+    border: 2px solid ${({ theme }) => theme.border};
+
     pointer-events: none;
   }
 
   ${(props) =>
     props.secondary &&
     css`
-      background: var(--purple-300);
-      color: var(--purple-500);
-      border: 2px solid var(--purple-300);
+      background: ${({ theme }) => theme.accentBackground};
+      color: ${({ theme }) => theme.accent};
+      border: 2px solid ${({ theme }) => theme.accentBackground};
     `}
 
   ${(props) =>
-    props.neutral &&
+    props.outline &&
     css`
-      background: ${({ theme }) => theme.body};
-      color: var(--gray-700);
-      border: 2px solid var(--gray-100);
+      background: ${({ theme }) => theme.accentBackground};
+      color: ${({ theme }) => theme.accent};
+      border: 2px solid ${({ theme }) => theme.accent};
 
       font-weight: 500;
 
       &:hover {
-        border: 2px solid var(--purple-500);
-        color: var(--purple-500);
-      }
-
-      &:active {
-        background-color: var(--purple-500);
-        border: 2px solid var(--purple-500);
-        color: var(--purple-500);
+        border: 2px solid ${({ theme }) => theme.accent};
+        color: ${({ theme }) => theme.accent};
       }
     `}
 `;

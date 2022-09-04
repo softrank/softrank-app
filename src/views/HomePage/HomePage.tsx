@@ -3,7 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { RootState } from 'shared/store';
-import { ActionCard, ExitIcon, Table, Title, Wrapper } from 'shared/components';
+import {
+  ActionCard,
+  Button,
+  ExitIcon,
+  Table,
+  Title,
+  Wrapper,
+} from 'shared/components';
 import { LoadingSpinner } from 'shared/components/Loading';
 import { evaluationService } from 'shared/services';
 import { ActionCardContainer, Hero, HeroImage, HeroTitle } from './styled';

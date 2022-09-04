@@ -116,9 +116,9 @@ export const EvaluationNew = () => {
     return evalutationDto;
   };
 
-  const handleCreateAuditor = (formData: EvaluationForm) => {
+  const saveEvaluation = (formData: EvaluationForm) => {
     const evaluation = assembleEvaluation(formData);
-    evaluationService.create(evaluation).then(() => navigate(''));
+    evaluationService.create(evaluation).finally(() => navigate('/avaliacoes'));
   };
 
   useEffect(() => {
@@ -161,19 +161,15 @@ export const EvaluationNew = () => {
   }, [watchInstitution, reset, getValues, evaluatorsAppend]);
 
   useEffect(() => {
-    if (evaluators.length === 3) {
-      setDisableAddEvaluators(true);
-    } else {
-      setDisableAddEvaluators(false);
-    }
+    evaluators.length === 3
+      ? setDisableAddEvaluators(true)
+      : setDisableAddEvaluators(false);
   }, [evaluators, evaluatorsRemove]);
 
   useEffect(() => {
-    if (projects.length === 4) {
-      setDisableAddProjects(true);
-    } else {
-      setDisableAddProjects(false);
-    }
+    projects.length === 4
+      ? setDisableAddProjects(true)
+      : setDisableAddProjects(false);
   }, [projects, projectsRemove]);
 
   useEffect(() => {
@@ -181,7 +177,7 @@ export const EvaluationNew = () => {
     projectsAppend({});
   }, [evaluatorsAppend, projectsAppend]);
 
-  const onSubmit = handleSubmit((data) => handleCreateAuditor(data));
+  const onSubmit = handleSubmit((data) => saveEvaluation(data));
   return (
     <>
       {loading ? (

@@ -62,7 +62,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
     .react-datepicker__input-container {
       > input::placeholder {
-        color: ${({ theme }) => theme.accent};
+        color: var(--gray-500);
         font-size: 16px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
       }
@@ -94,6 +94,15 @@ export const GlobalStyles = styled.createGlobalStyle`
       border-color: ${({ theme }) => theme.accent} !important;
     }
 
+    .react-datepicker__day-name,
+    .react-datepicker__day,
+    .react-datepicker__time-name,
+    .react-datepicker__current-month,
+    .react-datepicker-time__header,
+    .react-datepicker-year-header {
+      color: ${({ theme }) => theme.text};
+    }
+
     .react-datepicker__year-text,
     .react-datepicker__year-text--keyboard {
       &:hover {
@@ -110,10 +119,21 @@ export const GlobalStyles = styled.createGlobalStyle`
     .react-datepicker__year-text--keyboard-selected {
       background: ${({ theme }) => theme.accentBackground};
       color: ${({ theme }) => theme.accent};
+      border: 1.5px solid ${({ theme }) => theme.accent};
       font-weight: 700;
       &:hover {
         background: ${({ theme }) => theme.accentBackground};
         color: ${({ theme }) => theme.text};
+      }
+    }
+
+    .react-datepicker__day,
+    .react-datepicker__month-text,
+    .react-datepicker__quarter-text,
+    .react-datepicker__year-text {
+      &:hover {
+        background: ${({ theme }) => theme.accentBackground};
+        color: ${({ theme }) => theme.accent};
       }
     }
 
