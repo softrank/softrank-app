@@ -66,7 +66,6 @@ export default function App() {
         {/* Public routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<SignIn />} />
-
         <Route path="/avaliador/cadastro" element={<EvaluatorRegister />} />
         <Route path="/cadastro" element={<Register />} />
         <Route path="/auditor/cadastro" element={<AuditorRegister />} />
@@ -89,7 +88,10 @@ export default function App() {
             path="/instituicoesAvaliadoras"
             element={<EvaluatorInstitutionManagment />}
           />
-          <Route path="/avaliacoes" element={<ModelManagerEvaluationList />} />
+          <Route
+            path="/avaliacoes/gerenciar"
+            element={<ModelManagerEvaluationList />}
+          />
         </Route>
 
         {/* Evaluator and Organizational Unit routes */}
@@ -102,11 +104,8 @@ export default function App() {
             path="/relatorio-de-melhorias/:id"
             element={<ImprovementsReport />}
           />
-          <Route
-            path="/relatorio-de-melhorias/:id"
-            element={<ImprovementsReport />}
-          />
           <Route path="/avaliacao/home/:id" element={<EvaluationHome />} />
+          <Route path="/avaliacoes" element={<EvaluationManagment />} />
         </Route>
 
         {/* Evaluator routes */}
@@ -116,13 +115,12 @@ export default function App() {
             element={<IndicatorsManagmentTeam />}
           />
           <Route path="/avaliacao-nova" element={<EvaluationNew />} />
-          <Route path="/avaliacoes" element={<EvaluationManagment />} />
           <Route
-            path="/avaliacao/capacidades-de-projeto/:id"
+            path="/avaliacao/avaliador/capacidades-de-projeto/:id"
             element={<ProjectCapacitiesManagmentTeam />}
           />
           <Route
-            path="/avaliacao/capacidades-organizacionais/:id"
+            path="/avaliacao/avaliador/capacidades-organizacionais/:id"
             element={<OrganizationCapacitiesManagmentTeam />}
           />
           <Route
@@ -134,19 +132,18 @@ export default function App() {
         {/* Organizational Unit routes */}
         <Route element={<RequireAuth allowedRoles={['organizationalUnit']} />}>
           <Route
-            path="/avaliacao/planilha-de-requisitos/:id"
+            path="/avaliacao/organizacao/planilha-de-requisitos/:id"
             element={<IndicatorsManagmentOrg />}
           />
           <Route
-            path="/avaliacao/capacidades-de-projeto/:id"
+            path="/avaliacao/organizacao/capacidades-de-projeto/:id"
             element={<ProjectCapacitiesManagmentOrg />}
           />
           <Route
-            path="/avaliacao/capacidades-organizacionais/:id"
+            path="/avaliacao/organizacao/capacidades-organizacionais/:id"
             element={<OrganizationCapacitiesManagmentOrg />}
           />
         </Route>
-
         <Route path="*" element={<NotFound />} />
       </Routes>
       <GlobalStyles />

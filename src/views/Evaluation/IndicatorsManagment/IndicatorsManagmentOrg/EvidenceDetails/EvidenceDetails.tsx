@@ -68,7 +68,7 @@ export const EvidenceDetails = (props: Props) => {
         const exinstingFile = files.filter(
           (file) => file.projectId === project.id
         );
-        if (!exinstingFile.length) append(file);
+        !exinstingFile.length && append(file);
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

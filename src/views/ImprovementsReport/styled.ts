@@ -7,7 +7,7 @@ export const TextWrapper = styled.div`
   align-items: flex-end;
 
   > p {
-    color: var(--gray-700);
+    color: ${({ theme }) => theme.text};
     font-size: 1.4rem;
   }
 `;

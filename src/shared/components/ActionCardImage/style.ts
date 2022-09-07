@@ -12,7 +12,8 @@ export const ActionImageContainer = styled.div`
   flex-direction: column;
 
   border-radius: var(--radius);
-  border: 2px solid var(--gray-100);
+  border: 2px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.body};
 
   transition: all 300ms ease-in-out;
 

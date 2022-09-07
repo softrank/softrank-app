@@ -36,7 +36,7 @@ export const EvaluationList = () => {
                 <td>{evaluation.organizationalUnit.name}</td>
                 <td>{evaluation.modelLevel.initial}</td>
                 <td>
-                  <Link to={`/avaliacao/${evaluation.id}`}>
+                  <Link to={`/avaliacao/home/${evaluation.id}`}>
                     <ExitIcon />
                   </Link>
                 </td>

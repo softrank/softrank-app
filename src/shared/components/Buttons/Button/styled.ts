@@ -15,8 +15,8 @@ export const StyledButton = styled.button<Props>`
   text-decoration: none;
   color: var(--white);
 
-  background: ${({ theme }) => theme.accent};
-  border: 2px solid ${({ theme }) => theme.accent};
+  background: var(--purple-500);
+  border: 2px solid var(--purple-500);
   border-radius: 10px;
   outline: none;
 

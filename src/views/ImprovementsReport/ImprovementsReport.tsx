@@ -45,14 +45,14 @@ export const ImprovementsReport = () => {
     evaluationService
       .getById(id!)
       .then((evaluation) => setEvaluation(evaluation));
-    loadImprovements(id!);
+    getImprovements(id!);
     setLoading(false);
   }, [id]);
 
-  const loadImprovements = (id: string) => {
-    evaluationService.getImprovements(id).then((improvements) => {
-      setImprovements(improvements);
-    });
+  const getImprovements = (id: string) => {
+    evaluationService
+      .getImprovements(id)
+      .then((improvements) => setImprovements(improvements));
   };
 
   const handleViewImprovement = (
@@ -79,8 +79,7 @@ export const ImprovementsReport = () => {
           <FlexSpace space="6px">
             <TextWrapper>
               <p>
-                Unidade Organizacional Avaliada:{' '}
-                {evaluation?.organizationalUnit.name}
+                {`Unidade Organizacional Avaliada: ${evaluation?.organizationalUnit.name}`}
               </p>
               {userRoles.includes('evaluator') && (
                 <AddIcon onClick={() => handleEditImprovement(undefined)} />
@@ -138,7 +137,7 @@ export const ImprovementsReport = () => {
             showModal={showDetails}
             setShowModal={setShowDetails}
             evaluationId={id!}
-            loadImprovements={loadImprovements}
+            loadImprovements={getImprovements}
             improvement={editImprovement}
           />
           <ImprovementView

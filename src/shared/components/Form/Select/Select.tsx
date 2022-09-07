@@ -57,31 +57,34 @@ export const Select = (props: Props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Label htmlFor={name}>{label}</Label>
-      <Controller
-        name={name}
-        control={control}
-        defaultValue={defaultValue}
-        rules={rules}
-        render={({ field: { onChange, value, ref } }) => (
-          <>
-            <CustomSelect
-              ref={ref}
-              classNamePrefix={'select'}
-              placeholder={placeholder}
-              onChange={onChange}
-              options={options}
-              value={value ?? null}
-              isDisabled={disabled}
-              isMulti={multi}
-              isSearchable={search}
-              error={!!errors}
-              defaultValue={value}
-            />
-            {errors && <ErrorsNote error={errors} />}
-          </>
-        )}
-      />
+      <Label htmlFor={name}>
+        {label}
+        <Controller
+          name={name}
+          control={control}
+          defaultValue={defaultValue}
+          rules={rules}
+          render={({ field: { onChange, value, ref } }) => (
+            <>
+              <CustomSelect
+                ref={ref}
+                classNamePrefix={'select'}
+                placeholder={placeholder}
+                onChange={onChange}
+                options={options}
+                value={value ?? null}
+                isDisabled={disabled}
+                isMulti={multi}
+                isSearchable={search}
+                error={!!errors}
+                defaultValue={value}
+                noOptionsMessage={() => 'Sem opções'}
+              />
+              {errors && <ErrorsNote error={errors} />}
+            </>
+          )}
+        />
+      </Label>
     </div>
   );
 };

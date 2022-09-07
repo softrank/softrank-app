@@ -12,6 +12,10 @@ export const CustomSelect = styled(Select)<Props>`
     color: ${({ error, theme }) => (error ? 'var(--error)' : theme.text)};
   }
 
+  .select__input-container {
+    color: ${({ theme }) => theme.text};
+  }
+
   .select__control {
     height: 3.2rem;
     margin-top: 0.4em;
@@ -46,6 +50,25 @@ export const CustomSelect = styled(Select)<Props>`
         color: ${({ theme }) => theme.accent};
       }
     }
+  }
+
+  .select__menu-list {
+    /* #region Scrollbar  */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      margin: 10px;
+      height: 40px;
+
+      background: ${({ theme }) => theme.accentBackground};
+      border-radius: var(--radius);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.accent};
+      border-radius: var(--radius);
+    }
+    /* #endregion Scrollbar  */
   }
 
   .select__control--is-focused {

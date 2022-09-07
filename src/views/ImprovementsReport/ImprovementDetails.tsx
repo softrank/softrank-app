@@ -80,20 +80,19 @@ export const ImprovementDetails = ({
 
   useEffect(() => {
     if (watchProcesses) {
-      reset({ ...getValues(), expectedResult: { label: '', value: '' } });
+      reset({
+        ...getValues(),
+        expectedResult: undefined,
+      });
       const processId = watchProcesses.value;
-      const process = processes.filter(
-        (process) => process.id === processId
-      )[0];
-      if (process !== undefined) setExpectedResults(process.expectedResults);
+      const process = processes.find((process) => process.id === processId);
+      process && setExpectedResults(process.expectedResults);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchProcesses]);
 
   useEffect(() => {
-    if (improvement) {
-      reset({ id: improvement.id });
-    }
+    improvement && reset({ id: improvement.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [improvement]);
 

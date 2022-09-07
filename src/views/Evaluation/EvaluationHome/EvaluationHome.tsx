@@ -37,12 +37,15 @@ export const EvaluationHome = () => {
   const [organizationalProcesses, setOrganizationalProcesses] = useState<
     Process[]
   >([]);
+  const [urlRole, setUrlRole] = useState<string>('');
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const roles = useSelector<RootState>((state) => state.auth.roles);
 
-  const loadEvaluation = (id: string) => {
+  useEffect(() => getEvaluation(id!), [id]);
+
+  const getEvaluation = (id: string) => {
     setLoading(true);
     evaluationService
       .getById(id)
@@ -58,15 +61,14 @@ export const EvaluationHome = () => {
   useEffect(() => {
     if (roles && evaluation) {
       evaluatorService.get().then((me) => {
-        const leader = evaluation.evaluators.filter(
-          (ev) => ev.type === 'evaluator_leader'
+        const leader = evaluation.evaluators.find(
+          (evaluator) => evaluator.type === 'evaluator_leader'
         );
-        if (me.id === leader[0].memberId) setIsLeader(true);
+
+        me.id === leader?.memberId && setIsLeader(true);
       });
     }
   }, [roles, evaluation]);
-
-  useEffect(() => loadEvaluation(id!), [id]);
 
   useEffect(() => {
     if (id)
@@ -74,6 +76,11 @@ export const EvaluationHome = () => {
         .getOrganizationalProcesses(id)
         .then((processes) => setOrganizationalProcesses(processes));
   }, [id]);
+
+  useEffect(() => {
+    userRoles.includes('evaluator') && setUrlRole('avaliador');
+    userRoles.includes('organizationalUnit') && setUrlRole('organizacao');
+  }, [userRoles]);
 
   return (
     <>
@@ -98,7 +105,7 @@ export const EvaluationHome = () => {
             <ActionCardImage
               title="Planilha de indicadores"
               onClick={() =>
-                navigate(`/avaliacao/planilha-de-requisitos/${id}`)
+                navigate(`/avaliacao/${urlRole}/planilha-de-requisitos/${id}`)
               }
               src={checking}
               alt="Planilha de indicadores"
@@ -112,7 +119,7 @@ export const EvaluationHome = () => {
           <OptionsContainer>
             <ActionCard
               onClick={() =>
-                navigate(`/avaliacao/capacidades-de-projeto/${id}`)
+                navigate(`/avaliacao/${urlRole}/capacidades-de-projeto/${id}`)
               }
               title="Capacidades de projeto"
               icon="evaluation"
@@ -120,7 +127,9 @@ export const EvaluationHome = () => {
             {organizationalProcesses.length > 0 && (
               <ActionCard
                 onClick={() =>
-                  navigate(`/avaliacao/capacidades-organizacionais/${id}`)
+                  navigate(
+                    `/avaliacao/${urlRole}/capacidades-organizacionais/${id}`
+                  )
                 }
                 title="Capacidades organizacionais"
                 icon="report"
@@ -200,7 +209,7 @@ export const EvaluationHome = () => {
         <EvaluationPlanUpload
           setShowModal={setEvaluationPlanModal}
           evaluationId={id!}
-          loadEvaluation={loadEvaluation}
+          loadEvaluation={getEvaluation}
         />
       </Modal>
       <Modal
@@ -213,7 +222,7 @@ export const EvaluationHome = () => {
         <InterviewUpload
           setShowModal={setInterviewsModal}
           evaluationId={id!}
-          loadEvaluation={loadEvaluation}
+          loadEvaluation={getEvaluation}
         />
       </Modal>
       <Modal
@@ -226,7 +235,7 @@ export const EvaluationHome = () => {
         <NextStepConfimationModal
           nextStepModal={setNextStepModal}
           evaluationId={id!}
-          loadEvaluation={loadEvaluation}
+          loadEvaluation={getEvaluation}
           setShowModal={setNextStepModal}
         />
       </Modal>

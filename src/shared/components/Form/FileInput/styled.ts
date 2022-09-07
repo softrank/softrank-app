@@ -19,13 +19,13 @@ export const StyledDropzone = styled.div<Props>`
   margin-top: 0.4em;
 
   border-radius: var(--radius);
-  border: ${(props) =>
-    props.isActive ? 'dashed 3px #74c69d' : 'dashed 3px var(--purple-500)'};
+  border: ${({ isActive, theme }) =>
+    isActive ? 'dashed 3px #74c69d' : `dashed 3px ${theme.accent}`};
 
   text-align: center;
   font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
-  color: var(--gray-700);
+  color: var(--gray-500);
 
   transition: all 200ms ease;
 
@@ -65,7 +65,7 @@ export const FileContainer = styled.div`
   background-color: rgba(231, 234, 251, 0.46);
 
   div {
-    color: var(--gray-700);
+    color: ${({ theme }) => theme.text};
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -94,7 +94,7 @@ export const RemoveFileButton = styled(IoIosClose)`
   transition: all 400ms ease;
 
   &:hover {
-    color: var(--purple-500);
+    color: ${({ theme }) => theme.hoverBorder};
     cursor: pointer;
     transform: scale(1.1);
   }

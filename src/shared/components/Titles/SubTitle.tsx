@@ -5,7 +5,7 @@ export const SubTitle = styled.h2`
   font-size: 24px;
   font-family: 'Montserrat', sans-serif;
   line-height: 1;
-  color: var(--gray-700);
+  color: ${({ theme }) => theme.text};
 
   @media (max-width: 640px) {
     font-size: 22px;

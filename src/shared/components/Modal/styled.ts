@@ -41,10 +41,6 @@ export const ModalWrapper = styled(motion.div)<Props>`
   color: ${({ theme }) => theme.text};
   border-radius: var(--radius);
   box-shadow: ${({ theme }) => theme.boxShadow};
-  /* 
-  &::-webkit-scrollbar {
-    display: none;
-  } */
 
   /* #region Scrollbar  */
   &::-webkit-scrollbar {
